@@ -1,4 +1,5 @@
 import os
+import time
 
 
 def f1():
@@ -17,6 +18,7 @@ def f1():
     # 使用Application类来启动.exe程序
     app = Application(backend="uia").start(exe_path)
 
+    time.sleep(15)
     # 使用窗口标题来连接到应用程序的主窗口
     main_window = app.window(title="Engineering 1.1.7.2")
 
