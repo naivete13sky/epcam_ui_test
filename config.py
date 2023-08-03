@@ -37,7 +37,7 @@ class RunConfig:
     # driver_type = "chrome"
 
     # EPCAM驱动类型
-    driver_type = "epcam"
+    driver_type = "epcam_kernel"
 
     #悦谱python接口目录
     epcam_python_interface_path = r'config_ep/epcam'

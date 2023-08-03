@@ -137,15 +137,15 @@ def capture_screenshots(case_name):
         # RunConfig.driver.save_screenshot(image_dir)
 
 # 加载epcam
-@pytest.fixture(scope='session', autouse=True)
-def epcam():
+@pytest.fixture(scope='session', autouse=False)
+def epcam_kernel_start():
     """
     全局定义epcam驱动
     :return:
     """
     global driver_epcam
 
-    if RunConfig.driver_type == "epcam":
+    if RunConfig.driver_type == "epcam_kernel":
         from epkernel import Configuration
         Configuration.init(RunConfig.ep_cam_path)
         Configuration.set_sysattr_path(os.path.join(RunConfig.ep_cam_path,r'config\attr_def\sysattr'))
