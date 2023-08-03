@@ -53,7 +53,8 @@ def pytest_sessionstart(session: Session):
 
 
 
-@pytest.mark.hookwrapper
+# @pytest.mark.hookwrapper
+@pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item):
     """
     用于向测试用例中添加用例的开始时间、内部注释，和失败截图等.
