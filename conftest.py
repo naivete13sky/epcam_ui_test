@@ -199,7 +199,7 @@ def prepare_test_job_clean_g():
 
 def pytest_configure(config):
     marker_list = [
-        'input_output','output','test','cc','testcc'
+        'input_output','output','test','cc','testcc','example'
     ]
     for markers in marker_list:
         config.addinivalue_line('markers',markers)
