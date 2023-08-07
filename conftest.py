@@ -1,17 +1,12 @@
 import os,sys
 from pathlib import Path
-
 from _pytest.main import Session
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
 from py.xml import html
 from config import RunConfig
-# sys.path.append(RunConfig.epcam_python_interface_path)
 import pytest
 from os.path import dirname, abspath
-# import epcam_api
-# base_path = dirname(dirname(abspath(__file__)))
-# sys.path.insert(0, base_path)
 from config_g.g_cc_method import G
 from pywinauto.application import Application
 
@@ -206,6 +201,7 @@ def epcam_ui_start():
             # 先看一下是否已存在EP-CAM主窗口，根据窗口名称判断
             app = Application(backend="uia").connect(title='Engineering 1.1.7.2')
             driver_epcam_ui = app
+
         except:
             print('\n未获取到EP-CAM程序，新生成EP-CAM程序')
             # 获取.exe文件所在的目录路径
@@ -215,9 +211,10 @@ def epcam_ui_start():
             # 使用Application类来启动.exe程序
             app = Application(backend="uia").start(RunConfig.driver_epcam_ui_exe_path)
             driver_epcam_ui = app
+
     else:
         raise NameError("driver驱动类型定义错误！")
-    RunConfig.driver_epcam_ui = driver_epcam_ui
+    RunConfig.driver_epcam_ui = app
 
     # 获取主窗口
     main_window = app.window(title="Engineering 1.1.7.2")
@@ -225,6 +222,7 @@ def epcam_ui_start():
     print("\nWindow Title:", main_window.window_text())
 
     return driver_epcam_ui
+
 
 
 
