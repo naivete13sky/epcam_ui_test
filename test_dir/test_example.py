@@ -10,7 +10,7 @@ import pytest, os, time, json, shutil, sys
 
 
 @pytest.mark.example
-def test_example():
+def test_example(epcam_ui_start):
     pass
     assert 1 == 1
 

@@ -37,7 +37,10 @@ class RunConfig:
     # driver_type = "chrome"
 
     # EPCAM驱动类型
-    driver_type = "epcam_kernel"
+    # driver_type = "epcam_kernel"
+    driver_type = "epcam_ui"
+
+
 
     #悦谱python接口目录
     epcam_python_interface_path = r'config_ep/epcam'
@@ -57,6 +60,11 @@ class RunConfig:
 
     # epcam驱动（不需要修改）
     driver_epcam = None
+
+    # epcam UI驱动（不需要修改）
+    driver_epcam_ui = None
+
+    driver_epcam_ui_exe_path = r"C:\cc\ep_local\product\EP-CAM\version\20230717\EPCAM_1.1.7.2_release_r12827_jiami_3\Release\EP-CAM.exe"
 
     # g驱动类型
     driver_type_g = "g"

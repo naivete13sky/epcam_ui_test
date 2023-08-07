@@ -13,7 +13,7 @@ from os.path import dirname, abspath
 # base_path = dirname(dirname(abspath(__file__)))
 # sys.path.insert(0, base_path)
 from config_g.g_cc_method import G
-
+from pywinauto.application import Application
 
 
 # 项目目录配置
@@ -193,14 +193,45 @@ def prepare_test_job_clean_g():
 
 
 
+# 打开epcam UI
+@pytest.fixture(scope='session', autouse=False)
+def epcam_ui_start():
+    """
+    全局定义epcam ui驱动
+    :return:
+    """
+    global driver_epcam_ui
+    if RunConfig.driver_type == "epcam_ui":
+        try:
+            # 先看一下是否已存在EP-CAM主窗口，根据窗口名称判断
+            app = Application(backend="uia").connect(title='Engineering 1.1.7.2')
+            driver_epcam_ui = app
+        except:
+            print('\n未获取到EP-CAM程序，新生成EP-CAM程序')
+            # 获取.exe文件所在的目录路径
+            exe_dir = os.path.dirname(RunConfig.driver_epcam_ui_exe_path)
+            # 切换当前工作目录为.exe所在目录,只有在.exe所在目录下才能正常启动EP-CAM
+            os.chdir(exe_dir)
+            # 使用Application类来启动.exe程序
+            app = Application(backend="uia").start(RunConfig.driver_epcam_ui_exe_path)
+            driver_epcam_ui = app
+    else:
+        raise NameError("driver驱动类型定义错误！")
+    RunConfig.driver_epcam_ui = driver_epcam_ui
 
+    # 获取主窗口
+    main_window = app.window(title="Engineering 1.1.7.2")
+    # 打印窗口的属性
+    print("\nWindow Title:", main_window.window_text())
+
+    return driver_epcam_ui
 
 
 
 
 def pytest_configure(config):
     marker_list = [
-        'input_output','output','test','cc','testcc','example'
+        'input_output','output','test','cc','testcc','example','input'
     ]
     for markers in marker_list:
         config.addinivalue_line('markers',markers)
