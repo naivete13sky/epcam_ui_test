@@ -1,6 +1,6 @@
 import os
 import time
-
+from pathlib import Path
 import numpy as np
 import pytest
 from config import RunConfig
@@ -29,7 +29,8 @@ class TestUI:
         cv2.waitKey(0)
 
         # 比图
-        img_standard = cv2.imread(os.path.join(os.getcwd(), r'data\pic\engineering\engineering_menu.jpg'))
+
+        img_standard = cv2.imread(os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_menu_standard.jpg'))
         img_current = cv2.imread(r'C:\cc\share\temp\engineering_menu.jpg')
 
         if img_standard.shape == img_current.shape:
@@ -40,6 +41,9 @@ class TestUI:
         difference = cv2.subtract(img_standard, img_current)
         print(difference)
         result = not np.any(difference)
+
+        are_close = np.allclose(difference, np.zeros_like(difference))
+        print('are_close:',are_close)
 
         if result is True:
             print("两张图一样")
