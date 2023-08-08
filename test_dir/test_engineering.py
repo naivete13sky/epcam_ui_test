@@ -30,7 +30,7 @@ class TestUI:
 
         # 比图
         img_standard = cv2.imread(os.path.join(os.getcwd(), r'data\pic\engineering\engineering_menu.jpg'))
-        img_current = cv2.imread(os.path.join(os.getcwd(), r'C:\cc\share\temp\engineering_menu.jpg'))
+        img_current = cv2.imread(r'C:\cc\share\temp\engineering_menu.jpg')
 
         if img_standard.shape == img_current.shape:
             print("shape一样")
