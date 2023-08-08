@@ -77,7 +77,7 @@ class TestUI:
         cv2.imwrite(r'C:\cc\share\temp\diff_with_rectangles.jpg', img_current)
 
         # 显示结果图像
-        cv2.imshow('Difference Image with Rectangles', img_current)
+        # cv2.imshow('Difference Image with Rectangles', img_current)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
