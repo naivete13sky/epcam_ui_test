@@ -22,15 +22,15 @@ class TestUI:
 
         # 截图
         engineering_window_jpg = my_epcam.engineering_window.capture_as_image()
-        engineering_window_jpg.save(r'temp\engineering_window_jpg.jpg')
-        img = cv2.imread(r'temp\engineering_window_jpg.jpg')
+        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img_cut = img[30:60, 10:250]#后面的是水平方向
-        cv2.imwrite(r"temp\engineering_menu.jpg", img_cut)
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu.jpg", img_cut)
         cv2.waitKey(0)
 
         # 比图
         img_standard = cv2.imread(os.path.join(os.getcwd(), r'data\pic\engineering\engineering_menu.jpg'))
-        img_current = cv2.imread(os.path.join(os.getcwd(), r'temp\engineering_menu.jpg'))
+        img_current = cv2.imread(os.path.join(os.getcwd(), r'C:\cc\share\temp\engineering_menu.jpg'))
 
         if img_standard.shape == img_current.shape:
             print("shape一样")
