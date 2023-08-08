@@ -70,7 +70,7 @@ class TestUI:
         print(f"矩形框的个数：{rectangle_count}")
 
         # 保存结果图像
-        cv2.imwrite('diff_with_rectangles.jpg', img_current)
+        cv2.imwrite(r'C:\cc\share\temp\diff_with_rectangles.jpg', img_current)
 
         # 显示结果图像
         cv2.imshow('Difference Image with Rectangles', img_current)
@@ -78,4 +78,4 @@ class TestUI:
         cv2.destroyAllWindows()
 
 
-        # assert result == True
+        assert rectangle_count == 0
