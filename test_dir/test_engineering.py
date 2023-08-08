@@ -46,3 +46,5 @@ class TestUI:
         else:
             cv2.imwrite(r"temp\result.jpg", difference)
             print("两张图不一样")
+
+        assert result == True
