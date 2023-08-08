@@ -312,7 +312,7 @@ class EPCAM(object):
     pass
     def getFileCoor(win_text):
         win_text2 = get_print_control_identifiers_text(win_text)
-        coor_ok = get_coor_of_object('File(F) Alt+F',win_text2)
+        coor_ok = get_coor_of_object('关闭',win_text2)
         return coor_ok
 
 
