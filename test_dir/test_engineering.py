@@ -1,5 +1,7 @@
+import os
 import time
 
+import numpy as np
 import pytest
 from config import RunConfig
 from cc.cc_method import GetTestData
@@ -18,12 +20,29 @@ class TestUI:
         #清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
         my_epcam.delete_all_jobs()
 
-        # 截图与比图
+        # 截图
         engineering_window_jpg = my_epcam.engineering_window.capture_as_image()
         engineering_window_jpg.save(r'temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'temp\engineering_window_jpg.jpg')
-        img_cut = img[1:100, 1:300]
-        cv2.imwrite(r"temp\person.jpg", img_cut)
+        img_cut = img[30:60, 10:250]#后面的是水平方向
+        cv2.imwrite(r"temp\engineering_menu.jpg", img_cut)
         cv2.waitKey(0)
 
+        # 比图
+        img_standard = cv2.imread(os.path.join(os.getcwd(), r'data\pic\engineering\engineering_menu.jpg'))
+        img_current = cv2.imread(os.path.join(os.getcwd(), r'temp\engineering_menu.jpg'))
 
+        if img_standard.shape == img_current.shape:
+            print("shape一样")
+        else:
+            print("shape not equal")
+
+        difference = cv2.subtract(img_standard, img_current)
+        print(difference)
+        result = not np.any(difference)
+
+        if result is True:
+            print("两张图一样")
+        else:
+            cv2.imwrite(r"temp\result.jpg", difference)
+            print("两张图不一样")
