@@ -1,6 +1,7 @@
 import pytest
 from config import RunConfig
-from cc.cc_method import GetTestData,EPCAM
+from cc.cc_method import GetTestData
+from config_ep.epcam_ui import EPCAM
 
 
 @pytest.mark.input
@@ -11,10 +12,10 @@ class TestUI:
         print('\njob_id:',job_id)
 
         engineering_window = RunConfig.driver_epcam_ui.window(title="Engineering 1.1.7.2")
-        # 可以通过main_window来执行其他操作，如点击按钮、输入文本等
-        engineering_window.print_control_identifiers()
 
-        cc = EPCAM.getFileCoor(engineering_window)
+        # engineering_window.print_control_identifiers()
+
+        cc = EPCAM.get_engineering_left_top_Coor(engineering_window)
         print("cc:",cc)
 
 
