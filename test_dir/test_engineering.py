@@ -14,24 +14,9 @@ class TestUI:
         pass
         print('\njob_id:',job_id)
 
-        engineering_window = RunConfig.driver_epcam_ui.window(title="Engineering 1.1.7.2")
-
-        # engineering_window.print_control_identifiers()
-
-        # cc = EPCAM.get_engineering_left_top_Coor(engineering_window)
-        # print("cc:",cc)
-
-        #清空料号，ctrl + A 全选料号，然后 ctrl + B删除
-        engineering_window.set_focus()# 激活窗口
-        send_keys("^a")# 发送 Ctrl + A 快捷键，全选
-        send_keys("^b")# 发送 Ctrl + B 快捷键，删除
-        send_keys("{ENTER}")# 发送回车键，删除
-        send_keys("{ENTER}")# 发送回车键，确认删除所有
-        time.sleep(3)
+        my_epcam = EPCAM()
+        #清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
+        my_epcam.delete_all_jobs()
 
 
 
-
-
-
-        assert 1==1
