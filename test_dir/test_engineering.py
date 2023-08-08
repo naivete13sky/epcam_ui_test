@@ -44,7 +44,7 @@ class TestUI:
         if result is True:
             print("两张图一样")
         else:
-            cv2.imwrite(r"temp\result.jpg", difference)
+            cv2.imwrite(r"C:\cc\share\temp\result.jpg", difference)
             print("两张图不一样")
 
         assert result == True
