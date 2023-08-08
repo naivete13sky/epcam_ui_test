@@ -59,11 +59,15 @@ class TestUI:
 
         # 初始化矩形框计数器
         rectangle_count = 0
+        # 自定义矩形框的宽度和高度
+        custom_width = 10
+        custom_height = 10
 
         # 在b图上标记差异点
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            cv2.rectangle(img_current, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            # cv2.rectangle(img_current, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(img_current, (x, y), (x + custom_width, y + custom_height), (0, 0, 255), 2)
             rectangle_count += 1
 
         # 输出矩形框的个数
