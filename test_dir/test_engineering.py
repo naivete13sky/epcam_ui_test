@@ -5,7 +5,7 @@ from config import RunConfig
 from cc.cc_method import GetTestData
 from config_ep.epcam_ui import EPCAM
 
-from pywinauto.keyboard import send_keys
+import cv2
 
 @pytest.mark.input
 class TestUI:
@@ -18,5 +18,12 @@ class TestUI:
         #清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
         my_epcam.delete_all_jobs()
 
+        # 截图与比图
+        engineering_window_jpg = my_epcam.engineering_window.capture_as_image()
+        engineering_window_jpg.save(r'temp\engineering_window_jpg.jpg')
+        img = cv2.imread(r'temp\engineering_window_jpg.jpg')
+        img_cut = img[1:100, 1:300]
+        cv2.imwrite(r"temp\person.jpg", img_cut)
+        cv2.waitKey(0)
 
 
