@@ -38,7 +38,6 @@ class EPCAM(object):
         pass
         self.engineering_window = RunConfig.driver_epcam_ui.window(title="Engineering 1.1.7.2")
 
-
     def delete_all_jobs(self):
         # 清空料号，ctrl + A 全选料号，然后 ctrl + B删除
         self.engineering_window.set_focus()  # 激活窗口
@@ -60,30 +59,25 @@ class EPCAM(object):
 
         # 切换到import job窗口
         engineering_import_window = self.engineering_window.child_window(title="Import Job", control_type="Window")
-        # engineering_import_window.print_control_identifiers()
         engineering_import_window_coor = self.getCoor(engineering_import_window,'Import Job')
         engineering_import_input_path_coor = (engineering_import_window_coor[0] + 30, engineering_import_window_coor[1] + 100)
         # 点击菜单input path
         mouse.click(coords=engineering_import_input_path_coor)  # 使用鼠标单击按钮
 
-
+        # self.engineering_window.print_control_identifiers()
+        # 选择文件类型
+        engineering_import_input_path_window=self.engineering_window.child_window(title="文件类型(T):", auto_id="1136", control_type="ComboBox")
+        # 使用鼠标单击按钮
+        mouse.click(coords=engineering_import_input_path_window.rectangle().mid_point())
 
     def open_job_by_double_click(self):
         pass
         self.engineering_window.set_focus()  # 激活窗口
 
 
-
-
-
     def go_up(self):
         pass
         self.engineering_window.set_focus()  # 激活窗口
-
-
-
-
-
 
 
     def get_engineering_left_top_Coor(self):
@@ -92,13 +86,10 @@ class EPCAM(object):
         return coor_ok
 
 
-
-
     def getCoor(self,window,wanted_title):
         win_text = get_print_control_identifiers_text(window)
         coor_ok = get_coor_of_object(wanted_title, win_text)
         return coor_ok
-
 
     def get_engineering_file_Coor(self):
         engineering_left_top_Coor = self.get_engineering_left_top_Coor()
