@@ -11,3 +11,8 @@
 # engineering_import_input_path_file_type_window.select(1)#根据index选择下拉列表项
 
 
+# 切换到import job窗口
+# engineering_import_window = self.engineering_window.child_window(title="Import Job", control_type="Window")
+
+
+
