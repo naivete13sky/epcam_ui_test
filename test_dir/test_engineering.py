@@ -92,7 +92,7 @@ class TestUI:
         pass
         my_epcam = EPCAM()
         #先导入一个料号
-        cc = my_epcam.import_ipc2581('abc')
+        cc = my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")
 
 
 

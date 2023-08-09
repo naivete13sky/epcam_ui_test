@@ -1,0 +1,13 @@
+#点击菜单File(F)--import
+# self.engineering_window.set_focus()  # 激活窗口
+# mouse.click(coords=self.get_engineering_file_Coor())# 使用鼠标单击按钮,需要先激活窗口
+
+# self.engineering_window.print_control_identifiers()
+
+
+
+# mouse.click(coords=engineering_import_input_path_file_type_window.rectangle().mid_point())# 使用鼠标单击按钮
+
+# engineering_import_input_path_file_type_window.select(1)#根据index选择下拉列表项
+
+
