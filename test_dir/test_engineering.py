@@ -1,14 +1,12 @@
 import os
 import time
 from pathlib import Path
-import numpy as np
 import pytest
 from config import RunConfig
 from cc.cc_method import GetTestData
 from config_ep.epcam_ui import EPCAM
-
 import cv2
-from skimage.metrics import structural_similarity as ssim
+
 
 @pytest.mark.input
 class TestUI:
@@ -91,10 +89,17 @@ class TestUI:
     def test_go_up(self,job_id,epcam_ui_start):
         pass
         my_epcam = EPCAM()
-        #先导入一个料号
-        cc = my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")
+
+        my_epcam.entity_filter('testcase3')#筛选料号，在界面上显示指定某一个料号
+
+        my_epcam.delete_all_jobs()#删除筛选出的料号
+
+        my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
+
+        # my_epcam.engineering_window.print_control_identifiers()
 
 
 
-        print('cc:',cc)
+
+
 

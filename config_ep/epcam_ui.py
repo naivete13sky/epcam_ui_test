@@ -35,8 +35,9 @@ def get_coor_of_object(text_wanted,text_from):
 
 class EPCAM(object):
     def __init__(self):
-        pass
-        self.engineering_window = RunConfig.driver_epcam_ui.window(title="Engineering 1.1.7.2")
+        self.engineering_window = RunConfig.driver_epcam_ui.window(**EPCAMPageInfo.engineering_window_para)
+
+    # Engineering的方法
 
     def delete_all_jobs(self):
         # 清空料号，ctrl + A 全选料号，然后 ctrl + B删除
@@ -46,7 +47,6 @@ class EPCAM(object):
         send_keys("{ENTER}")  # 发送回车键，删除
         send_keys("{ENTER}")  # 发送回车键，确认删除所有
         time.sleep(3)
-
 
     def import_ipc2581(self,file_path):
         #点击菜单File(F)--import
@@ -76,17 +76,27 @@ class EPCAM(object):
         engineering_import_window.click_input(coords=self.get_engineering_import_ok_Coor())
         send_keys("{ENTER}")
 
+    def entity_filter(self,job_name):
+        pass
+        self.engineering_window.click_input(
+            coords=self.get_engineering_entity_filter_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        send_keys('^a')
+        send_keys('*' + job_name)
+        send_keys("{ENTER}")
+
+
+
 
     def open_job_by_double_click(self):
         pass
         self.engineering_window.set_focus()  # 激活窗口
-
 
     def go_up(self):
         pass
         self.engineering_window.set_focus()  # 激活窗口
 
 
+    # 获得坐标
 
     def getCoor(self,window,wanted_title):
         win_text = get_print_control_identifiers_text(window)
@@ -128,8 +138,22 @@ class EPCAM(object):
         if coor_type == 'relative':
             return (x, y)
 
+    def get_engineering_entity_filter_Coor(self,coor_type = 'absolute'):
+        x = 120
+        y = 120
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
 
 class EPCAMPageInfo(object):
+
+    # engineering_window
+    engineering_window_para = {'title':"Engineering 1.1.7.2"}
+
+
     # import job窗口
     engineering_import_window_child_window_para = {'title':"Import Job", 'control_type':"Window"}
 
