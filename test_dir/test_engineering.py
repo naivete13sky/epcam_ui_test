@@ -83,3 +83,18 @@ class TestUI:
 
 
         assert rectangle_count == 0
+
+        print("分割线")
+
+    @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
+    def test_go_up(self,job_id,epcam_ui_start):
+        pass
+        my_epcam = EPCAM()
+        #先导入一个料号
+        cc = my_epcam.import_ipc2581('abc')
+
+
+
+        print('cc:',cc)
+

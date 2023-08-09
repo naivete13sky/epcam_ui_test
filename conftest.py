@@ -229,7 +229,7 @@ def epcam_ui_start():
 
 def pytest_configure(config):
     marker_list = [
-        'input_output','output','test','cc','testcc','example','input'
+        'input_output','output','test','cc','testcc','example','input','coding'
     ]
     for markers in marker_list:
         config.addinivalue_line('markers',markers)
