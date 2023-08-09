@@ -81,10 +81,16 @@ class EPCAM(object):
         send_keys(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")  # 输入文本
 
         # 确认选择中的文件
-        # self.engineering_window.print_control_identifiers()
-
         engineering_import_input_path_confirm_window=self.engineering_window.child_window(title="打开(O)", auto_id="1", control_type="Button")
         engineering_import_input_path_confirm_window.click_input()
+
+        # self.engineering_window.print_control_identifiers()
+
+        # 切换到import job窗口
+        engineering_import_window = self.engineering_window.child_window(title="Import Job", control_type="Window")
+        engineering_import_window.click_input(coords=(30,200))
+        send_keys("{ENTER}")
+
 
     def open_job_by_double_click(self):
         pass
