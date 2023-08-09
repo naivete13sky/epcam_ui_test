@@ -1,9 +1,10 @@
 import os
+import shutil
 import time
 from pathlib import Path
 import pytest
 from config import RunConfig
-from cc.cc_method import GetTestData
+from cc.cc_method import GetTestData,DMS
 from config_ep.epcam_ui import EPCAM
 import cv2
 
@@ -87,22 +88,30 @@ class TestUI:
     @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
     def test_go_up(self,job_id,epcam_ui_start):
-        pass
+
+        # 下载料号
+        temp_path = os.path.join(r'C:\cc\share\temp',str(job_id))
+        if os.path.exists(temp_path):
+            # 删除目录及其内容
+            # os.remove(temp_path)
+            shutil.rmtree(temp_path)
+        os.mkdir(temp_path)
+        temp_compressed_path = os.path.join(temp_path, 'compressed')
+        job_current_all_fields = DMS().get_job_fields_from_dms_db_pandas(job_id)
+        file_compressed_name = job_current_all_fields['file'].split("/")[1]
+        DMS().file_downloand(os.path.join(temp_compressed_path, file_compressed_name), temp_compressed_path)
+
+        file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))  # 替换为你的文件路径
+        job_name = file_compressed_path.stem
+
         my_epcam = EPCAM()
-
-        my_epcam.entity_filter('testcase3')#筛选料号，在界面上显示指定某一个料号
-
-        job_first_is_opened = my_epcam.job_first_is_opened()
-        print('job_first_is_opened:',job_first_is_opened)
-        if job_first_is_opened:
-            pass
+        my_epcam.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
+        if my_epcam.job_first_is_opened():
             my_epcam.close_job_first()
-
-        # my_epcam.engineering_window.print_control_identifiers()
-
         my_epcam.delete_all_jobs()#删除筛选出的料号
+        my_epcam.import_ipc2581(str(file_compressed_path))#导入一个料号
 
-        my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
+
 
         # my_epcam.engineering_window.print_control_identifiers()
 
