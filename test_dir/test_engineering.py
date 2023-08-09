@@ -92,11 +92,22 @@ class TestUI:
 
         my_epcam.entity_filter('testcase3')#筛选料号，在界面上显示指定某一个料号
 
-        my_epcam.delete_all_jobs()#删除筛选出的料号
+        job_first_is_opened = my_epcam.job_first_is_opened()
+        print('job_first_is_opened:',job_first_is_opened)
+        if job_first_is_opened:
+            pass
+            my_epcam.close_job_first()
 
-        my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
+        my_epcam.engineering_window.print_control_identifiers()
+
+        # my_epcam.delete_all_jobs()#删除筛选出的料号
+
+        # my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
 
         # my_epcam.engineering_window.print_control_identifiers()
+
+
+
 
 
 

@@ -1,7 +1,10 @@
+import os
 import sys
 import re
 import time
+from pathlib import Path
 
+import cv2
 from pywinauto import mouse
 from pywinauto.keyboard import send_keys
 from config import RunConfig
@@ -38,6 +41,72 @@ class EPCAM(object):
         self.engineering_window = RunConfig.driver_epcam_ui.window(**EPCAMPageInfo.engineering_window_para)
 
     # Engineering的方法
+    def job_first_is_opened(self):
+        pass
+
+        # 截图
+        engineering_window_jpg = self.engineering_window.capture_as_image()
+        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
+        img_cut = img[249:331, 46:137]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_job_first.jpg", img_cut)
+        cv2.waitKey(0)
+
+        # 加载两张图片
+        img_standard = cv2.imread(
+            os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_job_first_opened_standard.jpg'))
+        img_current = cv2.imread(r'C:\cc\share\temp\engineering_job_first.jpg')
+
+        # 转换为灰度图像
+        gray_a = cv2.cvtColor(img_standard, cv2.COLOR_BGR2GRAY)
+        gray_b = cv2.cvtColor(img_current, cv2.COLOR_BGR2GRAY)
+
+        # 计算两张灰度图像的差异
+        diff = cv2.absdiff(gray_a, gray_b)
+
+        # 设定差异的阈值，这里使用了一个简单的固定阈值，你可以根据需要进行调整
+        threshold = 30
+        _, thresholded = cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)
+
+        # 找到差异点的轮廓
+        contours, _ = cv2.findContours(thresholded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # 初始化矩形框计数器
+        rectangle_count = 0
+        # 自定义矩形框的宽度和高度
+        custom_width = 10
+        custom_height = 10
+
+        # 在b图上标记差异点
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            # cv2.rectangle(img_current, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(img_current, (x, y), (x + custom_width, y + custom_height), (0, 0, 255), 2)
+            rectangle_count += 1
+
+        # 输出矩形框的个数
+        print(f"矩形框的个数：{rectangle_count}")
+
+        # 保存结果图像
+        cv2.imwrite(r'C:\cc\share\temp\diff_with_rectangles.jpg', img_current)
+
+        # 显示结果图像
+        # cv2.imshow('Difference Image with Rectangles', img_current)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+        return rectangle_count == 0
+
+    def close_job_first(self):
+        pass
+        self.engineering_window.click_input(
+            coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        # send_keys('^a')
+        # send_keys('*' + job_name)
+        # send_keys("{ENTER}")
+
+
+
 
     def delete_all_jobs(self):
         # 清空料号，ctrl + A 全选料号，然后 ctrl + B删除
@@ -141,6 +210,15 @@ class EPCAM(object):
     def get_engineering_entity_filter_Coor(self,coor_type = 'absolute'):
         x = 120
         y = 120
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+    def get_engineering_job_first_Coor(self,coor_type = 'absolute'):
+        x = 80
+        y = 180
         if coor_type == 'absolute':
             engineering_left_top_Coor = self.get_engineering_left_top_Coor()
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
