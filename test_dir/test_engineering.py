@@ -28,14 +28,6 @@ class TestUI:
         cv2.imwrite(r"C:\cc\share\temp\engineering_menu.jpg", img_cut)
         cv2.waitKey(0)
 
-        # 比图
-
-        img_standard = cv2.imread(os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_menu_standard.jpg'))
-        img_current = cv2.imread(r'C:\cc\share\temp\engineering_menu.jpg')
-
-
-
-
         print("分割线")
 
         # 加载两张图片
@@ -110,6 +102,11 @@ class TestUI:
             my_epcam.close_job_first()
         my_epcam.delete_all_jobs()#删除筛选出的料号
         my_epcam.import_ipc2581(str(file_compressed_path))#导入一个料号
+        my_epcam.open_job_first_by_double_click()# 双击打开料号
+        my_epcam.go_up()
+
+
+        assert my_epcam.job_first_is_opened() == True
 
 
 
