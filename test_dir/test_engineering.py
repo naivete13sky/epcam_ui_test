@@ -98,11 +98,11 @@ class TestUI:
             pass
             my_epcam.close_job_first()
 
-        my_epcam.engineering_window.print_control_identifiers()
+        # my_epcam.engineering_window.print_control_identifiers()
 
-        # my_epcam.delete_all_jobs()#删除筛选出的料号
+        my_epcam.delete_all_jobs()#删除筛选出的料号
 
-        # my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
+        my_epcam.import_ipc2581(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")#导入一个料号
 
         # my_epcam.engineering_window.print_control_identifiers()
 

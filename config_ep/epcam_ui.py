@@ -98,12 +98,11 @@ class EPCAM(object):
         return rectangle_count == 0
 
     def close_job_first(self):
-        pass
         self.engineering_window.click_input(
             coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
-        # send_keys('^a')
-        # send_keys('*' + job_name)
-        # send_keys("{ENTER}")
+        self.engineering_window.click_input(button="right", coords=(80,280))
+        self.engineering_window.click_input(coords=(80 + 20,280 + 50))
+        send_keys("{ENTER}")
 
 
 
