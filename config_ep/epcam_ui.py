@@ -72,13 +72,19 @@ class EPCAM(object):
         # engineering_import_input_path_file_type_window.select(1)#根据index选择下拉列表项
         engineering_import_input_path_file_type_window.select("ipc2581(*.xml *.cvg)")#根据文本选择下拉列表项
 
-        # self.engineering_window.print_control_identifiers()
+
         # 选择文件对象
         engineering_import_input_path_file_path_window=self.engineering_window.child_window(title="文件名(N):", auto_id="1148", control_type="ComboBox")
         # 绘制边框以突出显示控件（可以自行指定颜色和宽度）
         engineering_import_input_path_file_path_window.draw_outline(colour = 'red')
+        engineering_import_input_path_file_path_window.click_input()  # 将焦点设置到控件上
+        send_keys(r"C:\Users\cheng.chen\Desktop\testcase3.cvg")  # 输入文本
 
+        # 确认选择中的文件
+        # self.engineering_window.print_control_identifiers()
 
+        engineering_import_input_path_confirm_window=self.engineering_window.child_window(title="打开(O)", auto_id="1", control_type="Button")
+        engineering_import_input_path_confirm_window.click_input()
 
     def open_job_by_double_click(self):
         pass
