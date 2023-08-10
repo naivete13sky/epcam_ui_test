@@ -3,6 +3,8 @@ import shutil
 import time
 from pathlib import Path
 import pytest
+from pywinauto.keyboard import send_keys
+
 from config import RunConfig
 from cc.cc_method import GetTestData, DMS, opencv_compare
 from config_ep.epcam_ui import Engineering
@@ -15,6 +17,7 @@ class TestUI:
     def test_ui_all(self,epcam_ui_start):
         my_engineering = Engineering()
         my_engineering.engineering_window.set_focus()  # 激活窗口
+        send_keys("{ESC}")#先按一下ESC键，防止有时因为按过Alt键导致菜单栏有下划线，这个会影响比对结果
         engineering_window_jpg = my_engineering.engineering_window.capture_as_image()# 截图
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
@@ -69,7 +72,6 @@ class TestUI:
 
         # my_engineering.engineering_window.print_control_identifiers()
 
-    @pytest.mark.coding
     def test_option_language(self,epcam_ui_start):
         pass
         my_engineering = Engineering()
@@ -79,6 +81,12 @@ class TestUI:
         assert my_engineering.language_is_Simplified_Chinese() == True
 
         my_engineering.language_switch(language='EP Default')
+
+    @pytest.mark.coding
+    def test_file_save(self,epcam_ui_start):
+        my_engineering = Engineering()
+        my_engineering.file_save()
+        # my_engineering.engineering_window.print_control_identifiers()
 
 
 

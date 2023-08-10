@@ -82,11 +82,11 @@ class Engineering(object):
     def import_ipc2581(self,file_path):
         #点击菜单File(F)--import
         self.engineering_window.click_input(coords=self.get_engineering_file_Coor(coor_type='relative'))# 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=self.get_engineering_import_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=self.get_engineering_file_import_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
         # 切换到import job窗口，并点击菜单input path
         engineering_import_window = self.engineering_window.child_window(**self.engineering_import_window_child_window_para)
-        engineering_import_window.click_input(coords=self.get_engineering_import_input_path_Coor())# 点击菜单input path
+        engineering_import_window.click_input(coords=self.get_engineering_file_import_input_path_Coor())# 点击菜单input path
 
 
 
@@ -108,7 +108,7 @@ class Engineering(object):
 
         # 切换到import job窗口
         engineering_import_window = self.engineering_window.child_window(**self.engineering_import_window_child_window_para)
-        engineering_import_window.click_input(coords=self.get_engineering_import_ok_Coor())
+        engineering_import_window.click_input(coords=self.get_engineering_file_import_ok_Coor())
         send_keys("{ENTER}")
 
     def entity_filter(self,job_name):
@@ -161,6 +161,7 @@ class Engineering(object):
                 coords=self.get_engineering_option_language_Simplified_Chinese_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
     def language_is_Simplified_Chinese(self):
+        send_keys("{ESC}")  # 先按一下ESC键，防止有时因为按过Alt键导致菜单栏有下划线，这个会影响比对结果
         engineering_window_jpg = self.engineering_window.capture_as_image()# 截图
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
@@ -175,8 +176,13 @@ class Engineering(object):
 
         return rectangle_count == 0
 
+    def file_save(self):
+        self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
-
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
 
 
@@ -201,7 +207,7 @@ class Engineering(object):
         if coor_type == 'relative':
             return (x, y)
 
-    def get_engineering_import_Coor(self,coor_type = 'absolute'):
+    def get_engineering_file_import_Coor(self, coor_type ='absolute'):
         x = 20
         y = 210
         if coor_type == 'absolute':
@@ -210,14 +216,14 @@ class Engineering(object):
         if coor_type == 'relative':
             return (x, y)
 
-    def get_engineering_import_input_path_Coor(self, coor_type='relative'):
+    def get_engineering_file_import_input_path_Coor(self, coor_type='relative'):
         x = 30
         y = 100  # 变形时，字体太大，异常情况
         y = 80
         if coor_type == 'relative':
             return (x, y)
 
-    def get_engineering_import_ok_Coor(self, coor_type='relative'):
+    def get_engineering_file_import_ok_Coor(self, coor_type='relative'):
         x = 30
         y = 200#变形时，字体太大，异常情况
         y = 180
