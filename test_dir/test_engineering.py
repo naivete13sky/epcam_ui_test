@@ -78,8 +78,13 @@ class TestUI:
 
     @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
-    def test_go_up_by_click(self,job_id,epcam_ui_start):
-
+    def test_go_up(self,job_id,epcam_ui_start):
+        '''
+        禅道用例ID：1505
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        '''
         # 下载料号
         temp_path = os.path.join(r'C:\cc\share\temp',str(job_id))
         if os.path.exists(temp_path):
