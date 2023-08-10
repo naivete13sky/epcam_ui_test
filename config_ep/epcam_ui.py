@@ -7,34 +7,12 @@ from pathlib import Path
 import cv2
 from pywinauto import mouse
 from pywinauto.keyboard import send_keys
+
+from cc.cc_method import get_print_control_identifiers_text, get_coor_of_object
 from config import RunConfig
 
 
-class TextArea(object):
-    def __init__(self):
-        self.buffer = []
-    def write(self,*args,**kwargs):
-        self.buffer.append(args)
 
-def get_print_control_identifiers_text(object_print_control_identifiers):
-    stdout = sys.stdout
-    sys.stdout = TextArea()
-    object_print_control_identifiers.print_control_identifiers()
-    text_area, sys.stdout = sys.stdout, stdout
-    # print('text_area.buffer:',text_area.buffer)
-    return text_area.buffer
-
-def get_coor_of_object(text_wanted,text_from):
-    pass
-    for tup in text_from:
-        i = tup[0].find(text_wanted)
-        if i > 0:
-            pattern = re.compile(r"(\(L\d+, T\d+, R\d+, B\d+\))")
-            result = pattern.findall(tup[0])
-            tup_coor = result[0]
-    coor_file_w = int(tup_coor.split(",")[0][2:]) + 1
-    coor_file_h = int(tup_coor.split(",")[1][2:]) + 1
-    return (coor_file_w, coor_file_h)
 
 class Engineering(object):
     def __init__(self):
@@ -140,7 +118,7 @@ class Engineering(object):
         send_keys("^b")  # 发送 Ctrl + B 快捷键，删除
         send_keys("{ENTER}")  # 发送回车键，删除
         send_keys("{ENTER}")  # 发送回车键，确认删除所有
-        time.sleep(3)
+        time.sleep(1)
 
     def import_ipc2581(self,file_path):
         #点击菜单File(F)--import
