@@ -15,8 +15,9 @@ class TestUI:
     def test_ui_all(self,epcam_ui_start):
 
         my_epcam = EPCAM()
+        my_epcam.engineering_window.set_focus()  # 激活窗口
 
-        my_epcam.delete_all_jobs()#清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
+        # my_epcam.delete_all_jobs()#清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
 
         # 截图
         engineering_window_jpg = my_epcam.engineering_window.capture_as_image()
