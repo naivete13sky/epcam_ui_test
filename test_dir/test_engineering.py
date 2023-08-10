@@ -78,7 +78,7 @@ class TestUI:
 
     @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
-    def test_go_up(self,job_id,epcam_ui_start):
+    def test_go_up_by_click(self,job_id,epcam_ui_start):
 
         # 下载料号
         temp_path = os.path.join(r'C:\cc\share\temp',str(job_id))
@@ -101,13 +101,14 @@ class TestUI:
             my_engineering.close_job_first()
         my_engineering.delete_all_jobs()#删除筛选出的料号
         my_engineering.import_ipc2581(str(file_compressed_path))#导入一个料号
+
         my_engineering.open_job_first_by_double_click()# 双击打开料号
-        my_engineering.go_up()
-
-
+        my_engineering.go_up()#鼠标点击
         assert my_engineering.job_first_is_opened() == True
 
-
+        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        my_engineering.go_up(method='menu')  # 通过菜单action-open
+        assert my_engineering.job_first_is_opened() == True
 
         # my_engineering.engineering_window.print_control_identifiers()
 

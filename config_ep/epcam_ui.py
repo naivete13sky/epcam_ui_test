@@ -167,12 +167,23 @@ class Engineering(object):
             coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.double_click_input(coords=(80, 280))
 
-    def go_up(self):
-        pass
-        # self.engineering_window.set_focus()  # 激活窗口
+    def go_up(self,method='click'):
+        '''
+        有2种操作方式：
+        1、鼠标：
+        2、菜单：
+        '''
         self.engineering_window.click_input(
-            coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.double_click_input(coords=(80, 280))
+            coords=self.get_engineering_go_up_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        if method == 'click':
+            self.engineering_window.double_click_input(coords=(80, 280))
+        if method == 'menu':
+            pass
+            # 点击菜单Action--Open
+            self.engineering_window.click_input(
+                coords=self.get_engineering_action_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+            self.engineering_window.click_input(
+                coords=self.get_engineering_action_open_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
         mouse.move(coords=(600,600))
 
 
@@ -242,7 +253,29 @@ class Engineering(object):
         if coor_type == 'relative':
             return (x, y)
 
+    def get_engineering_go_up_Coor(self,coor_type = 'absolute'):
+        x = 80
+        y = 250
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
 
+    def get_engineering_action_Coor(self,coor_type = 'absolute'):
+        x = 80
+        y = 40
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
 
-
-
+    def get_engineering_action_open_Coor(self,coor_type = 'absolute'):
+        x = 80
+        y = 90
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
