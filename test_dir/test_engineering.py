@@ -106,5 +106,7 @@ class TestUI:
 
         assert text == 'No elements were selected!\n'
 
+        send_keys("{ENTER}")#确认关闭弹窗
+
 
 
