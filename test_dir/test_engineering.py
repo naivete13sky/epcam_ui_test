@@ -13,12 +13,9 @@ import cv2
 class TestUI:
 
     def test_ui_all(self,epcam_ui_start):
-
         my_engineering = Engineering()
         my_engineering.engineering_window.set_focus()  # 激活窗口
-
-        # 截图
-        engineering_window_jpg = my_engineering.engineering_window.capture_as_image()
+        engineering_window_jpg = my_engineering.engineering_window.capture_as_image()# 截图
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img_cut = img[30:60, 10:250]#后面的是水平方向
