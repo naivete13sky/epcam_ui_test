@@ -48,7 +48,8 @@ class EPCAM(object):
         engineering_window_jpg = self.engineering_window.capture_as_image()
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img_cut = img[249:331, 46:137]  # 后面的是水平方向
+        img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
+        img_cut = img[225:307, 46:137]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\engineering_job_first.jpg", img_cut)
         cv2.waitKey(0)
 
@@ -124,6 +125,10 @@ class EPCAM(object):
         # 切换到import job窗口，并点击菜单input path
         engineering_import_window = self.engineering_window.child_window(**EPCAMPageInfo.engineering_import_window_child_window_para)
         engineering_import_window.click_input(coords=self.get_engineering_import_input_path_Coor())# 点击菜单input path
+
+
+
+
 
         # 获得选择文件类型控件，并选择ipc2581类型
         engineering_import_input_path_file_type_window=self.engineering_window.child_window(**EPCAMPageInfo.engineering_import_input_path_file_type_window_para)
@@ -204,13 +209,15 @@ class EPCAM(object):
 
     def get_engineering_import_input_path_Coor(self, coor_type='relative'):
         x = 30
-        y = 100
+        y = 100  # 变形时，字体太大，异常情况
+        y = 80
         if coor_type == 'relative':
             return (x, y)
 
     def get_engineering_import_ok_Coor(self, coor_type='relative'):
         x = 30
-        y = 200
+        y = 200#变形时，字体太大，异常情况
+        y = 180
         if coor_type == 'relative':
             return (x, y)
 
