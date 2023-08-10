@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from config import RunConfig
 from cc.cc_method import GetTestData,DMS
-from config_ep.epcam_ui import EPCAM
+from config_ep.epcam_ui import Engineering
 import cv2
 
 
@@ -14,13 +14,13 @@ class TestUI:
 
     def test_ui_all(self,epcam_ui_start):
 
-        my_epcam = EPCAM()
-        my_epcam.engineering_window.set_focus()  # 激活窗口
+        my_engineering = Engineering()
+        my_engineering.engineering_window.set_focus()  # 激活窗口
 
-        # my_epcam.delete_all_jobs()#清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
+        # my_engineering.delete_all_jobs()#清空所有料号，ctrl + A 全选料号，然后 ctrl + B删除
 
         # 截图
-        engineering_window_jpg = my_epcam.engineering_window.capture_as_image()
+        engineering_window_jpg = my_engineering.engineering_window.capture_as_image()
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img_cut = img[30:60, 10:250]#后面的是水平方向
@@ -95,21 +95,21 @@ class TestUI:
         file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))  # 替换为你的文件路径
         job_name = file_compressed_path.stem
 
-        my_epcam = EPCAM()
-        my_epcam.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
-        if my_epcam.job_first_is_opened():
-            my_epcam.close_job_first()
-        my_epcam.delete_all_jobs()#删除筛选出的料号
-        my_epcam.import_ipc2581(str(file_compressed_path))#导入一个料号
-        my_epcam.open_job_first_by_double_click()# 双击打开料号
-        my_epcam.go_up()
+        my_engineering = Engineering()
+        my_engineering.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
+        if my_engineering.job_first_is_opened():
+            my_engineering.close_job_first()
+        my_engineering.delete_all_jobs()#删除筛选出的料号
+        my_engineering.import_ipc2581(str(file_compressed_path))#导入一个料号
+        my_engineering.open_job_first_by_double_click()# 双击打开料号
+        my_engineering.go_up()
 
 
-        assert my_epcam.job_first_is_opened() == True
+        assert my_engineering.job_first_is_opened() == True
 
 
 
-        # my_epcam.engineering_window.print_control_identifiers()
+        # my_engineering.engineering_window.print_control_identifiers()
 
 
 

@@ -36,7 +36,7 @@ def get_coor_of_object(text_wanted,text_from):
     coor_file_h = int(tup_coor.split(",")[1][2:]) + 1
     return (coor_file_w, coor_file_h)
 
-class EPCAM(object):
+class Engineering(object):
     def __init__(self):
         self.engineering_window = RunConfig.driver_epcam_ui.window(**EPCAMPageInfo.engineering_window_para)
 
