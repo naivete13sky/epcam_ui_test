@@ -3,6 +3,7 @@ import shutil
 import time
 from pathlib import Path
 import pytest
+import pytesseract
 from pywinauto.keyboard import send_keys
 
 from config import RunConfig
@@ -93,15 +94,17 @@ class TestUI:
         engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(**{'title': "Save", 'control_type': "Window"})
         # dialog.print_control_identifiers()
         engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()# 截图
-        engineering_file_save_job_no_select_jpg.save(r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg')
-        # img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg')
+        engineering_file_save_job_no_select_jpg.save(r'C:\cc\share\temp\engineering_file_save_job_no_select.png')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_select.png')
+        img_cut = img[35:60, 35:205]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_save_job_no_select_text.png", img_cut)
+        cv2.waitKey(0)
+        # 使用Tesseract进行文字识别
+        text = pytesseract.image_to_string(img_cut)
+        # 打印识别出的文本
+        # print('text:',text)
 
-        # 加载两张图片
-        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent,
-                                         r'data\pic\engineering\engineering_file_save_job_no_select_jpg_standard.jpg')
-        img_current_path = r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg'
-        rectangle_count = opencv_compare(img_standard_path, img_current_path)
-        assert rectangle_count == 0
+        assert text == 'No elements were selected!\n'
 
 
 
