@@ -182,7 +182,7 @@ class Engineering(object):
             coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
         self.engineering_window.click_input(
-            coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+            coords=self.get_engineering_file_save_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
 
 
@@ -201,6 +201,15 @@ class Engineering(object):
     def get_engineering_file_Coor(self,coor_type = 'absolute'):
         x = 20
         y = 40
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+    def get_engineering_file_save_Coor(self,coor_type = 'absolute'):
+        x = 20
+        y = 250
         if coor_type == 'absolute':
             engineering_left_top_Coor = self.get_engineering_left_top_Coor()
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)

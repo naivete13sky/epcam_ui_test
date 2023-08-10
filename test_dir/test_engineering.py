@@ -85,10 +85,23 @@ class TestUI:
     @pytest.mark.coding
     def test_file_save(self,epcam_ui_start):
         my_engineering = Engineering()
+        my_engineering.engineering_window.click_input(coords=(800,800))#鼠标点击空白处，不选择料号
         my_engineering.file_save()
         # my_engineering.engineering_window.print_control_identifiers()
 
 
+        engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(**{'title': "Save", 'control_type': "Window"})
+        # dialog.print_control_identifiers()
+        engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()# 截图
+        engineering_file_save_job_no_select_jpg.save(r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg')
+        # img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg')
+
+        # 加载两张图片
+        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent,
+                                         r'data\pic\engineering\engineering_file_save_job_no_select_jpg_standard.jpg')
+        img_current_path = r'C:\cc\share\temp\engineering_file_save_job_no_select_jpg.jpg'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
 
 
 
