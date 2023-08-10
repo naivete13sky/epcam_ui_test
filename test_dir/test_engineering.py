@@ -76,7 +76,7 @@ class TestUI:
 
         print("分割线")
 
-    @pytest.mark.coding
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
     def test_go_up(self,job_id,epcam_ui_start):
         '''
@@ -117,9 +117,16 @@ class TestUI:
 
         # my_engineering.engineering_window.print_control_identifiers()
 
+    @pytest.mark.coding
+    def test_option_language(self,epcam_ui_start):
+        pass
+        my_engineering = Engineering()
 
+        my_engineering.language_switch(language='Simplified Chinese')
+        # my_engineering.engineering_window.print_control_identifiers()
+        assert my_engineering.language_is_Simplified_Chinese() == True
 
-
+        my_engineering.language_switch(language='EP Default')
 
 
 
