@@ -1,6 +1,8 @@
 import os
 import time
 
+from PIL import Image
+
 
 def f1():
     pass
@@ -43,8 +45,19 @@ def f2():
     # 使用os.system启动应用程序
     os.system(exe_path)
 
+def f3():
+    pass
+    import pytesseract
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
+    tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
+    # im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png")
+    im = Image.open(r"C:\cc\share\temp\file.png")
+    # text = pytesseract.image_to_string(im, config=tessdata_dir_config, lang='chi_sim')  # 使用Tesseract进行文字识别,使用简体中文语言包
+    text = pytesseract.image_to_string(im, config=tessdata_dir_config, lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+    print('textcc:', text)
+
 
 if __name__ == '__main__':
     pass
-    f1()
+    f3()
 

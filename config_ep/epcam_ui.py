@@ -5,14 +5,17 @@ import time
 from pathlib import Path
 
 import cv2
+from PIL import Image
+
 from pywinauto import mouse
 from pywinauto.keyboard import send_keys
 
 from cc.cc_method import get_print_control_identifiers_text, get_coor_of_object, opencv_compare
 from config import RunConfig
 
-
-
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
+tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
 
 class Engineering(object):
     def __init__(self):
@@ -163,18 +166,19 @@ class Engineering(object):
     def language_is_Simplified_Chinese(self):
         send_keys("{ESC}")  # 先按一下ESC键，防止有时因为按过Alt键导致菜单栏有下划线，这个会影响比对结果
         engineering_window_jpg = self.engineering_window.capture_as_image()# 截图
-        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img_cut = img[30:60, 10:250]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu.jpg", img_cut)
-        cv2.waitKey(0)
+        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window.png')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
+        img_cut = img[30:60, 10:30]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png", img_cut)
 
-        # 加载两张图片
-        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_menu_language_Simplified_Chinese_standard.jpg')
-        img_current_path = r'C:\cc\share\temp\engineering_menu.jpg'
-        rectangle_count = opencv_compare(img_standard_path,img_current_path)
 
-        return rectangle_count == 0
+        # text = pytesseract.image_to_string(img_cut)
+        im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png")
+        text = pytesseract.image_to_string(im,config=tessdata_dir_config, lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+        print('textcc:',text)
+        assert text == '文件\n'
+
+
 
     def file_save(self):
         self.engineering_window.set_focus()  # 激活窗口

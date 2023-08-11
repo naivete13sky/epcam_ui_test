@@ -22,3 +22,10 @@ cv2.waitKey(0)
 如果你在图像显示之前使用cv2.waitKey(delay)，它会在显示图像后等待一段时间（以毫秒为单位），然后继续程序的执行。这在你想要让图像显示窗口自动关闭或在一段时间后继续执行程序时很有用。如果你将delay设置为0，它会立即继续执行程序。
 
 
+# 加载两张图片
+img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_menu_language_Simplified_Chinese_standard.jpg')
+img_current_path = r'C:\cc\share\temp\engineering_menu.jpg'
+rectangle_count = opencv_compare(img_standard_path,img_current_path)
+return rectangle_count == 0
+
+
