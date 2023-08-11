@@ -18,20 +18,26 @@ class TestUI:
     def test_ui_all(self,epcam_ui_start):
         my_engineering = Engineering()
         my_engineering.engineering_window.set_focus()  # 激活窗口
-        send_keys("{ESC}")#先按一下ESC键，防止有时因为按过Alt键导致菜单栏有下划线，这个会影响比对结果
-        engineering_window_jpg = my_engineering.engineering_window.capture_as_image()# 截图
-        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img_cut = img[30:60, 10:250]#后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu.jpg", img_cut)
-        cv2.waitKey(0)
+        engineering_window_pic = my_engineering.engineering_window.capture_as_image()# 截图
+        engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
 
-        # 加载两张图片
-        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_menu_standard.jpg')
-        img_current_path = r'C:\cc\share\temp\engineering_menu.jpg'
-        rectangle_count = opencv_compare(img_standard_path,img_current_path)
+        img_cut = img[30:60, 10:40]#后面的是水平方向,file
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file.png", img_cut)
+        text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
+        assert text == 'File\n'
 
-        assert rectangle_count == 0
+        img_cut = img[30:60, 70:120]  # 后面的是水平方向,action
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_action.png", img_cut)
+        text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
+        assert text == 'Action\n'
+
+        img_cut = img[30:60, 155:205]  # 后面的是水平方向,option
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_option.png", img_cut)
+        text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
+        assert text == 'Option\n'
+
+
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
     def test_go_up(self,job_id,epcam_ui_start):
@@ -94,7 +100,8 @@ class TestUI:
         :return:
         '''
         my_engineering = Engineering()
-        my_engineering.engineering_window.click_input(coords=(800,800))#鼠标点击空白处，不选择料号
+        my_engineering.engineering_window.click_input(coords=(800,600))#鼠标点击空白处，不选择料号
+        # time.sleep(10)
         my_engineering.file_save()
         # my_engineering.engineering_window.print_control_identifiers()
 
