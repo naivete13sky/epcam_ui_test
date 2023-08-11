@@ -168,15 +168,31 @@ class Engineering(object):
         engineering_window_jpg = self.engineering_window.capture_as_image()# 截图
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window.png')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
-        img_cut = img[30:60, 10:30]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png", img_cut)
 
 
+        img_cut = img[30:55, 10:46]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file.png", img_cut)
         # text = pytesseract.image_to_string(img_cut)
-        im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png")
-        text = pytesseract.image_to_string(im,config=tessdata_dir_config, lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
-        print('textcc:',text)
-        assert text == '文件\n'
+        im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file.png")
+        text_file = pytesseract.image_to_string(im,config=tessdata_dir_config, lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+        print('text_file:',text_file)
+
+        img_cut = img[30:55, 80:105]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file_action.png", img_cut)
+        # text = pytesseract.image_to_string(img_cut)
+        im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file_action.png")
+        text_action = pytesseract.image_to_string(im, config=tessdata_dir_config,lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+        print('text_action:', text_action)
+
+        img_cut = img[30:55, 140:200]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file_option.png", img_cut)
+        # text = pytesseract.image_to_string(img_cut)
+        im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file_option.png")
+        text_option = pytesseract.image_to_string(im, config=tessdata_dir_config,lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+        print('text_option:', text_option)
+
+
+        return ('文件' in text_file) & ('全局' in text_action) & ('全局设置' in text_option)
 
 
 

@@ -51,7 +51,7 @@ def f3():
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
     tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
     # im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese.png")
-    im = Image.open(r"C:\cc\share\temp\file.png")
+    im = Image.open(r"C:\cc\share\temp\8.png")
     # text = pytesseract.image_to_string(im, config=tessdata_dir_config, lang='chi_sim')  # 使用Tesseract进行文字识别,使用简体中文语言包
     text = pytesseract.image_to_string(im, config=tessdata_dir_config, lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
     print('textcc:', text)
@@ -60,4 +60,5 @@ def f3():
 if __name__ == '__main__':
     pass
     f3()
+
 
