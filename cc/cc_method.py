@@ -378,19 +378,33 @@ class PictureMethod(object):
         for root, dirs, files in os.walk(input_folder):
             for file in files:
                 input_path = os.path.join(root, file)
-                print("文件:", input_path)
-                output_path = os.path.join(out_folder,file)
-                PictureMethod.png_to_tiff_one_file(input_path,out_folder)
+                print("文件名1:", input_path)
+                print("文件名2",os.path.splitext(file)[0])
+                output_path = os.path.join(out_folder,os.path.splitext(file)[0]) + '.tif'
+                PictureMethod.png_to_tiff_one_file(input_path,output_path)
             for dir in dirs:
                 dir_path = os.path.join(root, dir)
                 # print("文件夹:", dir_path)
 
-if __name__ == '__main__':    # 输入和输出文件路径
+def f_png_to_tiff_one_file():
+    pass
     input_png_path = r"C:\cc\software\ocr\train5\png\1.png"  # 替换为您的PNG文件路径
     output_tiff_path = r"C:\cc\software\ocr\train5\tif\1.tif"  # 替换为您想要保存的TIFF文件路径
-
     # 调用函数进行转换
     PictureMethod.png_to_tiff_one_file(input_png_path, output_tiff_path)
+
+def f_png_to_tiff_batch():
+
+    pass
+    input_folder = r'C:\cc\software\ocr\train5\png'
+    out_folder = r'C:\cc\software\ocr\train5\tif'
+    PictureMethod.png_to_tiff_batch(input_folder,out_folder)
+
+if __name__ == '__main__':    # 输入和输出文件路径
+    print("我是main()")
+    f_png_to_tiff_batch()
+
+
 
 
 
