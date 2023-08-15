@@ -1,4 +1,5 @@
 import json
+import os.path
 
 
 class RunConfig:
@@ -7,7 +8,10 @@ class RunConfig:
     """
 
     #配置EPCAM路径，只要换了版本就要更改
-    with open(r'my_config.json', encoding='utf-8') as f:
+    print("dir_path",os.path.dirname(__file__))
+    my_config_json_path = os.path.join(os.path.dirname(__file__),r'my_config.json')
+    # my_config_json_path = r'C:\cc\python\epwork\epcam_ui_test\my_config.json'
+    with open(my_config_json_path, encoding='utf-8') as f:
         cfg = json.load(f)
 
     ep_cam_path = cfg['epcam']['path']

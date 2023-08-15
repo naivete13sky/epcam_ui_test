@@ -357,14 +357,40 @@ def opencv_compare(img_standard_path,img_current_path,custom_width = 10, custom_
     return rectangle_count
 
 
+class PictureMethod(object):
+    @staticmethod
+    def png_to_tiff_one_file(input_path, output_path):
+        try:
+            # 打开PNG图像
+            from PIL import Image
+            image = Image.open(input_path)
+
+            # 将PNG图像转换为TIFF图像
+            image.save(output_path, format='TIFF')
+
+            print("转换成功！")
+        except Exception as e:
+            print("转换出错:", str(e))
+
+    @staticmethod
+    def png_to_tiff_batch(input_folder,out_folder):
+        pass
+        for root, dirs, files in os.walk(input_folder):
+            for file in files:
+                input_path = os.path.join(root, file)
+                print("文件:", input_path)
+                output_path = os.path.join(out_folder,file)
+                PictureMethod.png_to_tiff_one_file(input_path,out_folder)
+            for dir in dirs:
+                dir_path = os.path.join(root, dir)
+                # print("文件夹:", dir_path)
+
+if __name__ == '__main__':    # 输入和输出文件路径
+    input_png_path = r"C:\cc\software\ocr\train5\png\1.png"  # 替换为您的PNG文件路径
+    output_tiff_path = r"C:\cc\software\ocr\train5\tif\1.tif"  # 替换为您想要保存的TIFF文件路径
+
+    # 调用函数进行转换
+    PictureMethod.png_to_tiff_one_file(input_png_path, output_tiff_path)
 
 
-
-
-if __name__ == "__main__":
-    print("我是main()")
-    Print.print_with_delimiter("你好啊！")
-    Print.print_with_delimiter("abc！")
-    Print.print_with_delimiter("a b c ！")
-    Print.print_with_delimiter("你好123，发生了什么事啊！")
 
