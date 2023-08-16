@@ -475,7 +475,9 @@ def f_get_word_pos_of_picture():
     target_word = 'steps'
     PictureMethod.get_word_pos_of_picture(image_path,target_word)
 
-
+    image_path = r"C:\cc\share\temp\cc3.png"
+    target_word = 'testcase3'
+    PictureMethod.get_word_pos_of_picture(image_path, target_word)
 
 
 if __name__ == '__main__':    # 输入和输出文件路径

@@ -8,7 +8,7 @@ from pywinauto.keyboard import send_keys
 
 from config import RunConfig
 from cc.cc_method import GetTestData, DMS, opencv_compare
-from config_ep.epcam_ui import Engineering
+from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 
 
@@ -154,12 +154,18 @@ class TestFile:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        if my_engineering.job_first_is_opened():
-            my_engineering.close_job_first()
-        my_engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        # if my_engineering.job_first_is_opened():
+        #     my_engineering.close_job_first()
+        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
 
         my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_coor(coor_type = 'relative'))# 双击打开steps
+        my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type = 'relative'))# 打开第1个step
+        time.sleep(0.5)#打开graphic要等一会儿
+
+        my_graphic = Graphic()
+        my_graphic.graphic_window().print_control_identifiers()
         # my_engineering.go_up()  # 鼠标点击
 
 

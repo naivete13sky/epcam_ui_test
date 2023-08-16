@@ -340,3 +340,35 @@ class Engineering(object):
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
         if coor_type == 'relative':
             return (x, y)
+
+    def get_engineering_job_steps_coor(self,coor_type = 'absolute'):
+        x = 80 + 260
+        y = 250
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x, engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+    def get_engineering_job_steps_step_first_coor(self,coor_type = 'absolute'):
+        x = 80 + 130
+        y = 250
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x, engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+
+
+class Graphic(object):
+    pass
+    def __init__(self):
+        self.set_default_ui_para()
+        self.graphic_window = RunConfig.driver_epcam_ui.window(**self.graphic_window_para)
+
+    def set_default_ui_para(self):
+        pass
+        # engineering_window
+        self.graphic_window_para = {'title': "Graphic 1.1.7.2"}
+
