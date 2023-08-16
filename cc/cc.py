@@ -116,8 +116,390 @@ def f5():
     # 调用函数进行转换
     PictureMethod.png_to_tiff_one_file(input_png_path, output_tiff_path)
 
+
+def f6():
+    pass
+    import cv2
+    import pytesseract
+
+    # 设置Tesseract的路径（如果不在系统路径中）
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+    def locate_text(image_path, target_text):
+        # 读取图像
+        image = cv2.imread(image_path)
+
+        # 将图像转换为灰度
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+        # 使用Tesseract进行OCR
+        ocr_result = pytesseract.image_to_string(gray_image)
+        print('ocr_result:',ocr_result)
+
+        # 查找目标文本的位置
+        target_coordinates = []
+        lines = ocr_result.split('\n')
+        for i, line in enumerate(lines):
+            if target_text in line:
+                y = i * 20  # 假设每行的高度是20像素
+                target_coordinates.append((0, y))
+
+        return target_coordinates
+
+    # 图像路径和目标文本
+    image_path = r"C:\cc\share\temp\cc2.png"
+    target_text = 'steps'
+
+    # 定位并打印文本位置
+    text_coordinates = locate_text(image_path, target_text)
+    if text_coordinates:
+        for coord in text_coordinates:
+            print(f"找到目标文本 '{target_text}' 在图像中的位置：(x={coord[0]}, y={coord[1]})")
+    else:
+        print(f"未找到目标文本 '{target_text}'")
+
+def f7():
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+    text = pytesseract.image_to_string(image)
+
+    # 要识别的指定文本
+    target_text = 'steps'
+
+    # 在提取的文本中查找指定文本
+    text_position = text.find(target_text)
+
+    if text_position != -1:
+        # 获取文本的边界框信息
+        boxes = pytesseract.image_to_boxes(image)
+
+        # 解析边界框信息
+        for box in boxes.splitlines():
+            box_data = box.split()
+            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+            # 检查文本的位置是否在边界框范围内
+            if x <= text_position <= x + w:
+                relative_x = (text_position - x) / w
+                relative_y = 1.0 - (y / image.height)
+                print(f"Relative X: {relative_x}, Relative Y: {relative_y}")
+                break
+    else:
+        print("Target text not found in the image.")
+
+def f8():
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+    text = pytesseract.image_to_string(image)
+
+    # 要识别的指定文本
+    target_text = 'steps'
+
+    # 在提取的文本中查找指定文本
+    text_position = text.find(target_text)
+
+    if text_position != -1:
+        # 计算指定文本的相对位置
+        image_width, image_height = image.size
+        relative_x = text_position / image_width
+        relative_y = image.getbbox()[1] / image_height
+
+        print(f"Relative X: {relative_x}, Relative Y: {relative_y}")
+    else:
+        print("Target text not found in the image.")
+
+def f9():
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+
+    # 使用 Tesseract 进行文本块检测和识别
+    text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+    image_width, image_height = image.size
+    for box in text_boxes.splitlines():
+        box_data = box.split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        # 获取字符的文本内容
+        character_text = character
+
+        # 计算相对于图像左上角的坐标
+        relative_x = x / image_width
+        relative_y = 1.0 - (y / image_height)
+
+        print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+def f10():
+
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+
+    # 使用 Tesseract 进行文本块检测和识别
+    text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+    image_width, image_height = image.size
+
+    # 目标单词
+    target_word = 'steps'
+
+    # 将文本块存储为列表
+    text_boxes_list = text_boxes.splitlines()
+
+    # 遍历文本块，找到目标单词的位置
+    for i in range(len(text_boxes_list)):
+        box_data = text_boxes_list[i].split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        if character == target_word[0]:
+            potential_word = character
+            for j in range(1, len(target_word)):
+                next_box_data = text_boxes_list[i + j].split()
+                next_character = next_box_data[0]
+                potential_word += next_character
+
+            if potential_word == target_word:
+                # 计算左上角和右下角的相对坐标
+                left_top_relative_x = x / image_width
+                left_top_relative_y = 1.0 - (y / image_height)
+                right_bottom_relative_x = (x + w) / image_width
+                right_bottom_relative_y = 1.0 - ((y + h) / image_height)
+
+                print(f"Target Word: {target_word}")
+                print(f"Left Top Relative Coordinates: ({left_top_relative_x}, {left_top_relative_y})")
+                print(f"Right Bottom Relative Coordinates: ({right_bottom_relative_x}, {right_bottom_relative_y})")
+
+def f11():
+
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+
+    # 使用 Tesseract 进行文本块检测和识别
+    text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+    image_width, image_height = image.size
+
+    for box in text_boxes.splitlines():
+        box_data = box.split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        # 获取字符的文本内容
+        character_text = character
+
+        # 计算相对于图像左上角的坐标
+        relative_x = x / image_width
+        relative_y = 1.0 - (y / image_height)
+
+        print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+    # 目标单词
+    target_word = 'steps'
+
+    # 将文本块存储为列表
+    text_boxes_list = text_boxes.splitlines()
+    # print('text_boxes_list:',text_boxes_list)
+
+    # 遍历文本块，找到目标单词的位置
+    for i in range(len(text_boxes_list)):
+        box_data = text_boxes_list[i].split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        if character == target_word[0]:
+            potential_word = character
+            for j in range(1, len(target_word)):
+                next_box_data = text_boxes_list[i + j].split()
+                next_character = next_box_data[0]
+                potential_word += next_character
+
+            if potential_word == target_word:
+                # 计算左上角和右下角的相对坐标
+                left_top_relative_x = x / image_width
+                left_top_relative_y = 1.0 - (y / image_height)
+
+                right_bottom_relative_x = (x + w) / image_width
+                right_bottom_relative_y = 1.0 - ((y + h) / image_height)
+
+                print(f"Target Word: {target_word}")
+                print(f"Left Top Relative Coordinates: ({left_top_relative_x}, {left_top_relative_y})")
+                print(f"Right Bottom Relative Coordinates: ({right_bottom_relative_x}, {right_bottom_relative_y})")
+
+def f12():
+
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+
+    # 使用 Tesseract 进行文本块检测和识别
+    text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+    image_width, image_height = image.size
+
+    for box in text_boxes.splitlines():
+        box_data = box.split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        # 获取字符的文本内容
+        character_text = character
+
+        # 计算相对于图像左上角的坐标
+        relative_x = x / image_width
+        relative_y = 1.0 - (y / image_height)
+
+        # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+    # 目标单词
+    target_word = 'steps'
+
+    # 将文本块存储为列表
+    text_boxes_list = text_boxes.splitlines()
+    # print('text_boxes_list:',text_boxes_list)
+
+    # 遍历文本块，找到目标单词的位置
+    target_word_start = -1
+    target_word_end = -1
+    for i in range(len(text_boxes_list)):
+        box_data = text_boxes_list[i].split()
+        # print('box_data:',box_data)
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        if character == target_word[0]:
+            print("i:",i)
+            potential_word = character
+            for j in range(1, len(target_word)):
+                next_box_data = text_boxes_list[i + j].split()
+                next_character = next_box_data[0]
+                potential_word += next_character
+
+            if potential_word == target_word:
+                target_word_start = i
+                target_word_end = i + j
+                print('target_word_start,target_word_end:',target_word_start,target_word_end)
+                print('target_word_start_pos:',text_boxes_list[target_word_start],'target_word_end_pos:',text_boxes_list[target_word_end])
+                # 计算左上角和右下角的相对坐标
+                left_top_relative_x = x / image_width
+                left_top_relative_y = 1.0 - (y / image_height)
+
+                right_bottom_relative_x = (x + w) / image_width
+                right_bottom_relative_y = 1.0 - ((y + h) / image_height)
+
+                print(f"Target Word: {target_word}")
+                print(f"Left Top Relative Coordinates: ({left_top_relative_x}, {left_top_relative_y})")
+                print(f"Right Bottom Relative Coordinates: ({right_bottom_relative_x}, {right_bottom_relative_y})")
+                break#只找到第一个符合的就行
+
+    print('target_word_start,target_word_end:', target_word_start, target_word_end)
+    print('target_word_start_pos:', text_boxes_list[target_word_start], 'target_word_end_pos:', text_boxes_list[target_word_end])
+
+    # 计算左上角的相对坐标
+    box_data_start = text_boxes_list[target_word_start].split()
+    character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
+    left_top_relative_x_start = x_start / image_width
+    left_top_relative_y_start = 1.0 - (y_start / image_height)
+    print('left_top_relative_x_start,left_top_relative_y_start:',left_top_relative_x_start,left_top_relative_y_start)
+
+    # 计算右下角的相对坐标
+    box_data_end = text_boxes_list[target_word_end].split()
+    character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(box_data_end[2]), int(box_data_end[3]), int(box_data_end[4])
+    left_top_relative_x_end = x_end / image_width
+    left_top_relative_y_end = 1.0 - (y_end / image_height)
+    print('left_top_relative_x_end,left_top_relative_y_end:', left_top_relative_x_end, left_top_relative_y_end)
+
+def f13():
+
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\cc2.png"
+    image = Image.open(image_path)  # 打开图像
+
+    # 使用 Tesseract 进行文本块检测和识别
+    text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+    image_width, image_height = image.size
+
+    for box in text_boxes.splitlines():
+        box_data = box.split()
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        # 获取字符的文本内容
+        character_text = character
+
+        # 计算相对于图像左上角的坐标
+        relative_x = x / image_width
+        relative_y = 1.0 - (y / image_height)
+
+        # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+    # 目标单词
+    target_word = 'steps'
+
+    # 将文本块存储为列表
+    text_boxes_list = text_boxes.splitlines()
+    # print('text_boxes_list:',text_boxes_list)
+
+    # 遍历文本块，找到目标单词的位置
+    target_word_start = -1
+    target_word_end = -1
+    for i in range(len(text_boxes_list)):
+        box_data = text_boxes_list[i].split()
+        # print('box_data:',box_data)
+        character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+        if character == target_word[0]:
+            # print("i:",i)
+            potential_word = character
+            for j in range(1, len(target_word)):
+                next_box_data = text_boxes_list[i + j].split()
+                next_character = next_box_data[0]
+                potential_word += next_character
+            if potential_word == target_word:
+                target_word_start = i
+                target_word_end = i + j
+                break#只找到第一个符合的就行
+
+    print(f"Target Word: {target_word}")
+    print('target_word_start,target_word_end:', target_word_start, target_word_end)
+
+    # 计算左上角的相对坐标
+    box_data_start = text_boxes_list[target_word_start].split()
+    character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
+    left_top_relative_x_start = x_start / image_width
+    left_top_relative_y_start = 1.0 - (y_start / image_height)
+    print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
+    # 计算右下角的相对坐标
+    box_data_end = text_boxes_list[target_word_end].split()
+    character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(box_data_end[2]), int(box_data_end[3]), int(box_data_end[4])
+    left_top_relative_x_end = x_end / image_width
+    left_top_relative_y_end = 1.0 - (y_end / image_height)
+    print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
+
 if __name__ == '__main__':
     pass
-    f3()
+    f13()
+
+
 
 

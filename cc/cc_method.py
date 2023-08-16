@@ -386,6 +386,75 @@ class PictureMethod(object):
                 dir_path = os.path.join(root, dir)
                 # print("文件夹:", dir_path)
 
+    @staticmethod
+    def get_word_pos_of_picture(image_path,target_word):
+        import pytesseract
+        from PIL import Image
+        # 读取图片并进行 OCR
+        image = Image.open(image_path)  # 打开图像
+
+        # 使用 Tesseract 进行文本块检测和识别
+        text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+        image_width, image_height = image.size
+
+        for box in text_boxes.splitlines():
+            box_data = box.split()
+            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+            # 获取字符的文本内容
+            character_text = character
+
+            # 计算相对于图像左上角的坐标
+            relative_x = x / image_width
+            relative_y = 1.0 - (y / image_height)
+
+            # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+
+        # 将文本块存储为列表
+        text_boxes_list = text_boxes.splitlines()
+        # print('text_boxes_list:',text_boxes_list)
+
+        # 遍历文本块，找到目标单词的位置
+        target_word_start = -1
+        target_word_end = -1
+        for i in range(len(text_boxes_list)):
+            box_data = text_boxes_list[i].split()
+            # print('box_data:',box_data)
+            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+            if character == target_word[0]:
+                # print("i:",i)
+                potential_word = character
+                for j in range(1, len(target_word)):
+                    next_box_data = text_boxes_list[i + j].split()
+                    next_character = next_box_data[0]
+                    potential_word += next_character
+                if potential_word == target_word:
+                    target_word_start = i
+                    target_word_end = i + j
+                    break  # 只找到第一个符合的就行
+
+        print(f"Target Word: {target_word}")
+        print('target_word_start,target_word_end:', target_word_start, target_word_end)
+
+        # 计算左上角的相对坐标
+        box_data_start = text_boxes_list[target_word_start].split()
+        character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(
+            box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
+        left_top_relative_x_start = x_start / image_width
+        left_top_relative_y_start = 1.0 - (y_start / image_height)
+        print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
+        # 计算右下角的相对坐标
+        box_data_end = text_boxes_list[target_word_end].split()
+        character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(box_data_end[2]), int(
+            box_data_end[3]), int(box_data_end[4])
+        left_top_relative_x_end = x_end / image_width
+        left_top_relative_y_end = 1.0 - (y_end / image_height)
+        print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
+
+
 def f_png_to_tiff_one_file():
     pass
     input_png_path = r"C:\cc\software\ocr\train5\png\1.png"  # 替换为您的PNG文件路径
@@ -400,9 +469,18 @@ def f_png_to_tiff_batch():
     out_folder = r'C:\cc\software\ocr\train5\tif'
     PictureMethod.png_to_tiff_batch(input_folder,out_folder)
 
+def f_get_word_pos_of_picture():
+    pass
+    image_path = r"C:\cc\share\temp\cc2.png"
+    target_word = 'steps'
+    PictureMethod.get_word_pos_of_picture(image_path,target_word)
+
+
+
+
 if __name__ == '__main__':    # 输入和输出文件路径
     print("我是main()")
-    f_png_to_tiff_batch()
+    f_get_word_pos_of_picture()
 
 
 

@@ -82,7 +82,8 @@ class Engineering(object):
         send_keys("{ENTER}")  # 发送回车键，确认删除所有
         time.sleep(1)
 
-    def import_ipc2581(self,file_path):
+
+    def import_job(self,file_path,job_org_type = 'odb_tgz'):
         #点击菜单File(F)--import
         self.engineering_window.click_input(coords=self.get_engineering_file_Coor(coor_type='relative'))# 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=self.get_engineering_file_import_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
@@ -92,12 +93,12 @@ class Engineering(object):
         engineering_import_window.click_input(coords=self.get_engineering_file_import_input_path_Coor())# 点击菜单input path
 
 
-
-
-
-        # 获得选择文件类型控件，并选择ipc2581类型
-        engineering_import_input_path_file_type_window=self.engineering_window.child_window(**self.engineering_import_input_path_file_type_window_para)
-        engineering_import_input_path_file_type_window.select("ipc2581(*.xml *.cvg)")#根据文本选择下拉列表项
+        if job_org_type == 'ipc2581':
+            # 获得选择文件类型控件，并选择ipc2581类型
+            engineering_import_input_path_file_type_window=self.engineering_window.child_window(**self.engineering_import_input_path_file_type_window_para)
+            engineering_import_input_path_file_type_window.select("ipc2581(*.xml *.cvg)")#根据文本选择下拉列表项
+        else:
+            pass
 
         # 选择文件对象
         engineering_import_input_path_file_path_window=self.engineering_window.child_window(**self.engineering_import_input_path_file_path_window_para)
