@@ -165,7 +165,7 @@ class TestFile:
         time.sleep(0.5)#打开graphic要等一会儿
 
         my_graphic = Graphic()
-        my_graphic.graphic_window().print_control_identifiers()
+        my_graphic.graphic_window.print_control_identifiers()
         # my_engineering.go_up()  # 鼠标点击
 
 

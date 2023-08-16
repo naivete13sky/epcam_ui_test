@@ -366,9 +366,12 @@ class Graphic(object):
     def __init__(self):
         self.set_default_ui_para()
         self.graphic_window = RunConfig.driver_epcam_ui.window(**self.graphic_window_para)
+        # self.graphic_window = RunConfig.driver_epcam_ui.top_window()
+        # self.graphic_window.print_control_identifiers()
 
     def set_default_ui_para(self):
         pass
         # engineering_window
-        self.graphic_window_para = {'title': "Graphic 1.1.7.2"}
+        self.graphic_window_para = {'title': "Graphic 1.1.7.2",'control_type':"Window"}
+
 
