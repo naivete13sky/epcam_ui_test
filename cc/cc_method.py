@@ -7,6 +7,7 @@ import time
 from pathlib import Path
 
 import cv2
+import numpy as np
 import psycopg2
 import rarfile
 from sqlalchemy import create_engine
@@ -392,6 +393,7 @@ class PictureMethod(object):
     def get_word_pos_of_picture(image_path,target_word):
         import pytesseract
         from PIL import Image
+        flag_find = False
         # 读取图片并进行 OCR
         image = Image.open(image_path)  # 打开图像
 
@@ -411,7 +413,7 @@ class PictureMethod(object):
             relative_x = x / image_width
             relative_y = 1.0 - (y / image_height)
 
-            # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+            print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
 
 
         # 将文本块存储为列表
@@ -434,11 +436,14 @@ class PictureMethod(object):
                     next_character = next_box_data[0]
                     potential_word += next_character
                 if potential_word == target_word:
+                    flag_find = True
                     target_word_start = i
                     target_word_end = i + j
                     break  # 只找到第一个符合的就行
 
+
         print(f"Target Word: {target_word}")
+        print('find result:',flag_find)
         print('target_word_start,target_word_end:', target_word_start, target_word_end)
 
         # 计算左上角的相对坐标
@@ -456,6 +461,78 @@ class PictureMethod(object):
         left_top_relative_y_end = 1.0 - (y_end / image_height)
         print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
+    @staticmethod
+    def get_word_pos_of_picture2(image_path, target_word):
+        import pytesseract
+        from PIL import Image
+        flag_find = False
+        # 读取图片并进行 OCR
+        image = Image.open(image_path)  # 打开图像
+
+        image = Image.eval(image, lambda px: 255 - px)#inverted_image = Image.eval(image, lambda px: 255 - px)
+
+
+        # 使用 Tesseract 进行文本块检测和识别
+        text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+
+        image_width, image_height = image.size
+
+        for box in text_boxes.splitlines():
+            box_data = box.split()
+            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+            # 获取字符的文本内容
+            character_text = character
+
+            # 计算相对于图像左上角的坐标
+            relative_x = x / image_width
+            relative_y = 1.0 - (y / image_height)
+
+            print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+
+        # 将文本块存储为列表
+        text_boxes_list = text_boxes.splitlines()
+        # print('text_boxes_list:',text_boxes_list)
+
+        # 遍历文本块，找到目标单词的位置
+        target_word_start = -1
+        target_word_end = -1
+        for i in range(len(text_boxes_list)):
+            box_data = text_boxes_list[i].split()
+            # print('box_data:',box_data)
+            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
+
+            if character == target_word[0]:
+                # print("i:",i)
+                potential_word = character
+                for j in range(1, len(target_word)):
+                    next_box_data = text_boxes_list[i + j].split()
+                    next_character = next_box_data[0]
+                    potential_word += next_character
+                if potential_word == target_word:
+                    flag_find = True
+                    target_word_start = i
+                    target_word_end = i + j
+                    break  # 只找到第一个符合的就行
+
+        print(f"Target Word: {target_word}")
+        print('find result:', flag_find)
+        print('target_word_start,target_word_end:', target_word_start, target_word_end)
+
+        # 计算左上角的相对坐标
+        box_data_start = text_boxes_list[target_word_start].split()
+        character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(
+            box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
+        left_top_relative_x_start = x_start / image_width
+        left_top_relative_y_start = 1.0 - (y_start / image_height)
+        print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
+        # 计算右下角的相对坐标
+        box_data_end = text_boxes_list[target_word_end].split()
+        character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(box_data_end[2]), int(
+            box_data_end[3]), int(box_data_end[4])
+        left_top_relative_x_end = x_end / image_width
+        left_top_relative_y_end = 1.0 - (y_end / image_height)
+        print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
 def f_png_to_tiff_one_file():
     pass
@@ -481,10 +558,83 @@ def f_get_word_pos_of_picture():
     target_word = 'testcase3'
     PictureMethod.get_word_pos_of_picture(image_path, target_word)
 
+def f_get_word_pos_of_picture2():
+    pass
+    image_path = r"C:\cc\share\temp\graphic_window_layers_pic4.png"
+    target_word = 'smt'
+    # target_word = 'testcase3'
+    PictureMethod.get_word_pos_of_picture2(image_path,target_word)
+
+
+
+def ff():
+    pass
+    import cv2
+    import numpy as np
+
+    image_path = r"C:\cc\share\temp\graphic_window_layers_pic.png"
+    output_image_path = r'C:\cc\share\temp\graphic_window_layers_pic2.png'
+    # 读取图片
+    image = cv2.imread(image_path)
+
+    # 定义深绿色的颜色范围（在HSV颜色空间中）
+    lower_green = np.array([35, 50, 50])
+    upper_green = np.array([85, 255, 255])
+
+    # 将图像转换为HSV颜色空间
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+    # 创建一个掩码，将深绿色部分设为白色，其他部分设为黑色
+    mask = cv2.inRange(hsv, lower_green, upper_green)
+
+    # 将掩码应用到原图像，将深绿色部分变为白色
+    image[mask > 0] = [255, 255, 255]
+
+    # 保存处理后的图像
+    cv2.imwrite(output_image_path, image)
+
+
+def ff2():
+    import cv2
+    import pytesseract
+    from PIL import Image
+
+    # 读取图片并进行 OCR
+    image_path = r"C:\cc\share\temp\graphic_window_layers_pic.png"
+    output_image_path = r'C:\cc\share\temp\graphic_window_layers_pic4.png'
+    image = Image.open(image_path)  # 打开图像
+
+    # 图像灰度化： 将彩色图像转换为灰度图像可以减少颜色干扰。
+    image = image.convert('L')  # Convert image to grayscale
+
+    # 二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
+    # threshold_value = 120  # Adjust this value based on your image
+    # image = image.point(lambda p: p > threshold_value and 255)  # Convert to binary
+
+    # 去除噪声： 使用图像处理技术（如中值滤波）来消除小的噪声。
+    # from PIL import ImageFilter
+    # image = image.filter(ImageFilter.MedianFilter)
+
+    # 增强对比度： 通过调整图像的对比度来增强文字与背景的区别。
+    # from PIL import ImageEnhance
+    # enhancer = ImageEnhance.Contrast(image)
+    # image = enhancer.enhance(2.0)  # Adjust enhancement factor as needed
+
+    # 调整图像大小： 尝试将图像调整到合适的尺寸，以使文字更加清晰。
+    desired_size = (344, 1180)  # Adjust as needed
+    image = image.resize(desired_size)
+
+    # 保存
+    image.save(output_image_path)
+
 
 if __name__ == '__main__':    # 输入和输出文件路径
     print("我是main()")
-    f_get_word_pos_of_picture()
+    ff2()
+    # f_get_word_pos_of_picture2()
+
+
+
 
 
 

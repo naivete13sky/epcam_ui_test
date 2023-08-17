@@ -103,7 +103,6 @@ class TestUI:
 
 class TestFile:
 
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_no_changed(self, job_id, epcam_ui_start):
         '''
@@ -149,3 +148,62 @@ class TestFile:
         print('text:',text)
         assert text in 'Job does not changed !\n'
         send_keys("{ENTER}")  # 确认关闭弹窗
+
+    @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
+    def test_file_save_job_changed(self, job_id, epcam_ui_start):
+        '''
+        禅道用例ID：3594。
+        :param epcam_ui_start:
+        :return:
+        '''
+        # 下载料号
+        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,field='file_compressed')  # 从DMS下载附件，并返回文件名称
+        temp_compressed_path = os.path.join(temp_path, 'compressed')
+        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
+        job_name = file_compressed_path.stem
+
+        my_engineering = Engineering()
+        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+
+        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+
+        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        my_engineering.engineering_window.double_click_input(
+            coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
+        my_engineering.engineering_window.double_click_input(
+            coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type='relative'))  # 打开第1个step
+        time.sleep(0.5)  # 打开graphic要等一会儿
+
+        my_graphic = Graphic()
+
+        # my_graphic.graphic_window.print_control_identifiers()
+
+        graphic_window_pic = my_graphic.graphic_window.capture_as_image()  # 截图
+        # graphic_window_pic.save(r'C:\cc\share\temp\graphic_window.png')
+        img = np.array(graphic_window_pic)
+        img_cut = img[160:750, 58:230]  # 后面的是水平方向,file
+        cv2.imwrite(r"C:\cc\share\temp\graphic_window_layers_pic.png", img_cut)
+
+        # my_graphic.close()  # 关闭Graphic窗口
+        #
+        # my_engineering.go_up()  # 鼠标点击
+        # my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        # my_engineering.selct_first_job()  # 选中第一个料号
+        # my_engineering.file_save()  # 保存
+        #
+        # engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(
+        #     title="Information", control_type="Window")
+        # engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
+        # img = np.array(engineering_file_save_job_no_changed_dialog)
+        # img_cut = img[35:60, 55:210]  # 后面的是水平方向
+        # # 使用Tesseract进行文字识别
+        # text = pytesseract.image_to_string(img_cut)
+        # # 打印识别出的文本
+        # print('text:', text)
+        # assert text in 'Job does not changed !\n'
+        # send_keys("{ENTER}")  # 确认关闭弹窗
