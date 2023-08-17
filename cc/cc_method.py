@@ -618,11 +618,8 @@ def ff2():
     # from PIL import ImageOps
     # image = ImageOps.equalize(image)  # Apply histogram equalization
 
-    # 二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
-    # threshold_value = 120  # Adjust this value based on your image
-    # image = image.point(lambda p: p > threshold_value and 255)  # Convert to binary
 
-    # 阈值化会将图像的像素值映射到两个值之间（例如，黑色和白色）
+    # 阈值化会将图像的像素值映射到两个值之间（例如，黑色和白色）.二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
     threshold_value = 130  # Adjust this threshold value as needed
     # Apply thresholding to convert gray areas to white
     image = image.point(lambda p: 255 if p > threshold_value else p)
