@@ -469,11 +469,13 @@ class PictureMethod(object):
         # 读取图片并进行 OCR
         image = Image.open(image_path)  # 打开图像
 
-        image = Image.eval(image, lambda px: 255 - px)#inverted_image = Image.eval(image, lambda px: 255 - px)
+        # image = Image.eval(image, lambda px: 255 - px)#inverted_image = Image.eval(image, lambda px: 255 - px)
 
 
         # 使用 Tesseract 进行文本块检测和识别
-        text_boxes = pytesseract.image_to_boxes(image, config='--psm 6')
+        custom_config = '--psm 6'
+        # custom_config = r'--oem 3 --psm 6'  # 设置 --oem 和 --psm 参数
+        text_boxes = pytesseract.image_to_boxes(image, config=custom_config)
 
         image_width, image_height = image.size
 
@@ -562,7 +564,7 @@ def f_get_word_pos_of_picture2():
     pass
     image_path = r"C:\cc\share\temp\graphic_window_layers_pic4.png"
     target_word = 'smt'
-    # target_word = 'testcase3'
+    # target_word = 'top'
     PictureMethod.get_word_pos_of_picture2(image_path,target_word)
 
 
@@ -607,9 +609,23 @@ def ff2():
     # 图像灰度化： 将彩色图像转换为灰度图像可以减少颜色干扰。
     image = image.convert('L')  # Convert image to grayscale
 
+    # 将背景变得更浅，以使黑色文字更容易与背景分离，您可以通过降低背景亮度来实现
+    # from PIL import ImageEnhance
+    # enhancer = ImageEnhance.Brightness(image)
+    # image = enhancer.enhance(0.7)  # Adjust enhancement factor as needed
+
+    # 进一步增强图像的灰度效果，可以尝试应用图像增强技术，例如直方图均衡化
+    # from PIL import ImageOps
+    # image = ImageOps.equalize(image)  # Apply histogram equalization
+
     # 二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
     # threshold_value = 120  # Adjust this value based on your image
     # image = image.point(lambda p: p > threshold_value and 255)  # Convert to binary
+
+    # 阈值化会将图像的像素值映射到两个值之间（例如，黑色和白色）
+    threshold_value = 130  # Adjust this threshold value as needed
+    # Apply thresholding to convert gray areas to white
+    image = image.point(lambda p: 255 if p > threshold_value else p)
 
     # 去除噪声： 使用图像处理技术（如中值滤波）来消除小的噪声。
     # from PIL import ImageFilter
@@ -621,8 +637,8 @@ def ff2():
     # image = enhancer.enhance(2.0)  # Adjust enhancement factor as needed
 
     # 调整图像大小： 尝试将图像调整到合适的尺寸，以使文字更加清晰。
-    desired_size = (344, 1180)  # Adjust as needed
-    image = image.resize(desired_size)
+    # desired_size = (344, 1180)  # Adjust as needed
+    # image = image.resize(desired_size)
 
     # 保存
     image.save(output_image_path)
@@ -631,7 +647,7 @@ def ff2():
 if __name__ == '__main__':    # 输入和输出文件路径
     print("我是main()")
     ff2()
-    # f_get_word_pos_of_picture2()
+    f_get_word_pos_of_picture2()
 
 
 
