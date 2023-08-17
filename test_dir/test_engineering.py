@@ -9,7 +9,7 @@ import pytesseract
 from pywinauto.keyboard import send_keys
 
 from config import RunConfig
-from cc.cc_method import GetTestData, DMS, opencv_compare
+from cc.cc_method import GetTestData, DMS, opencv_compare, PictureMethod
 from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 
@@ -181,13 +181,46 @@ class TestFile:
 
         my_graphic = Graphic()
 
-        # my_graphic.graphic_window.print_control_identifiers()
+        my_graphic.graphic_window.print_control_identifiers()
 
         graphic_window_pic = my_graphic.graphic_window.capture_as_image()  # 截图
         # graphic_window_pic.save(r'C:\cc\share\temp\graphic_window.png')
         img = np.array(graphic_window_pic)
         img_cut = img[160:750, 58:230]  # 后面的是水平方向,file
         cv2.imwrite(r"C:\cc\share\temp\graphic_window_layers_pic.png", img_cut)
+        # 读取图片并进行 OCR
+        image_path = r"C:\cc\share\temp\graphic_window_layers_pic.png"
+        output_image_path = r'C:\cc\share\temp\graphic_window_layers_pic4.png'
+        from PIL import Image
+        image = Image.open(image_path)  # 打开图像
+
+        # 图像灰度化： 将彩色图像转换为灰度图像可以减少颜色干扰。
+        image = image.convert('L')  # Convert image to grayscale
+        # 阈值化会将图像的像素值映射到两个值之间（例如，黑色和白色）.二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
+        threshold_value = 130  # Adjust this threshold value as needed
+        image = image.point(lambda p: 255 if p > threshold_value else p)# Apply thresholding to convert gray areas to white
+        image.save(output_image_path)# 保存
+        image_path = r"C:\cc\share\temp\graphic_window_layers_pic4.png"
+        target_word = 'smt'
+        # target_word = 'top'
+        target_word_coord_percentage =PictureMethod.get_word_pos_of_picture2(image_path, target_word)
+        print('target_word_coord_percentage:',target_word_coord_percentage)
+        assert target_word_coord_percentage[0] > -1
+
+        graphic_size=(0,0,1382,807)#(L0, T0, R1382, B807)
+
+        graphic_layer_size = (172,590)#x,y
+
+        my_coor = (int(graphic_layer_size[0] * target_word_coord_percentage[0]) + 58 + 10,int(graphic_layer_size[1] * target_word_coord_percentage[1]) + 160)
+        print('my_coor:',my_coor)
+
+        my_graphic.graphic_window.click_input(coords=my_coor)#点击 smt层
+
+
+
+
+
+
 
         # my_graphic.close()  # 关闭Graphic窗口
         #

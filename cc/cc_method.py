@@ -490,7 +490,7 @@ class PictureMethod(object):
             relative_x = x / image_width
             relative_y = 1.0 - (y / image_height)
 
-            print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
+            # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
 
         # 将文本块存储为列表
         text_boxes_list = text_boxes.splitlines()
@@ -517,24 +517,31 @@ class PictureMethod(object):
                     target_word_end = i + j
                     break  # 只找到第一个符合的就行
 
-        print(f"Target Word: {target_word}")
-        print('find result:', flag_find)
-        print('target_word_start,target_word_end:', target_word_start, target_word_end)
+        # print(f"Target Word: {target_word}")
+        # print('find result:', flag_find)
+        # print('target_word_start,target_word_end:', target_word_start, target_word_end)
+        if flag_find:
+            # 计算左上角的相对坐标
+            box_data_start = text_boxes_list[target_word_start].split()
+            character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(
+                box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
+            left_top_relative_x_start = x_start / image_width
+            left_top_relative_y_start = 1.0 - (y_start / image_height)
+            # print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
+            # 计算右下角的相对坐标
+            box_data_end = text_boxes_list[target_word_end].split()
+            character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(
+                box_data_end[2]), int(
+                box_data_end[3]), int(box_data_end[4])
+            left_top_relative_x_end = x_end / image_width
+            left_top_relative_y_end = 1.0 - (y_end / image_height)
+            # print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
-        # 计算左上角的相对坐标
-        box_data_start = text_boxes_list[target_word_start].split()
-        character_start, x_start, y_start, w_start, h_start = box_data_start[0], int(box_data_start[1]), int(
-            box_data_start[2]), int(box_data_start[3]), int(box_data_start[4])
-        left_top_relative_x_start = x_start / image_width
-        left_top_relative_y_start = 1.0 - (y_start / image_height)
-        print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
-        # 计算右下角的相对坐标
-        box_data_end = text_boxes_list[target_word_end].split()
-        character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(box_data_end[2]), int(
-            box_data_end[3]), int(box_data_end[4])
-        left_top_relative_x_end = x_end / image_width
-        left_top_relative_y_end = 1.0 - (y_end / image_height)
-        print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
+            return (left_top_relative_x_start,left_top_relative_y_start)
+        else:
+            return (-1,-1)
+
+
 
 def f_png_to_tiff_one_file():
     pass
