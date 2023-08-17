@@ -169,8 +169,8 @@ class TestFile:
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
-        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
-        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
 
         my_engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(
@@ -217,26 +217,27 @@ class TestFile:
         my_graphic.graphic_window.click_input(coords=my_coor)#点击 smt层
 
 
+        send_keys('^b')#删除层别物件
+        send_keys("{ENTER}")
 
 
 
+        my_graphic.close()  # 关闭Graphic窗口
 
+        my_engineering.go_up()  # 鼠标点击
+        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        my_engineering.selct_first_job()  # 选中第一个料号
+        my_engineering.file_save()  # 保存
 
-        # my_graphic.close()  # 关闭Graphic窗口
-        #
-        # my_engineering.go_up()  # 鼠标点击
-        # my_engineering.go_up()  # 鼠标点击，返回到了job list界面
-        # my_engineering.selct_first_job()  # 选中第一个料号
-        # my_engineering.file_save()  # 保存
-        #
-        # engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(
-        #     title="Information", control_type="Window")
-        # engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
-        # img = np.array(engineering_file_save_job_no_changed_dialog)
-        # img_cut = img[35:60, 55:210]  # 后面的是水平方向
-        # # 使用Tesseract进行文字识别
-        # text = pytesseract.image_to_string(img_cut)
-        # # 打印识别出的文本
-        # print('text:', text)
-        # assert text in 'Job does not changed !\n'
-        # send_keys("{ENTER}")  # 确认关闭弹窗
+        engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(
+            title="Information", control_type="Window")
+        engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
+        img = np.array(engineering_file_save_job_no_changed_dialog)
+        img_cut = img[35:60, 55:360]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\cc.png", img_cut)
+        # 使用Tesseract进行文字识别
+        text = pytesseract.image_to_string(img_cut)
+        # 打印识别出的文本
+        print('text:', text)
+        assert 'will be saved, continue?' in text
+        send_keys("{ENTER}")  # 确认关闭弹窗
