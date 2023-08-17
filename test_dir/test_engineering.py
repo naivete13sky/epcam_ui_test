@@ -47,17 +47,10 @@ class TestUI:
         '''
         # 下载料号
         temp_path = os.path.join(RunConfig.temp_path_base,str(job_id))
-        if os.path.exists(temp_path):
-            # 删除目录及其内容
-            # os.remove(temp_path)
-            shutil.rmtree(temp_path)
-        os.mkdir(temp_path)
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None # 如果已存在旧目录，则删除目录及其内容
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path,job_id,field='file_compressed')#从DMS下载附件
         temp_compressed_path = os.path.join(temp_path, 'compressed')
-        job_current_all_fields = DMS().get_job_fields_from_dms_db_pandas(job_id)
-        file_compressed_name = job_current_all_fields['file'].split("/")[1]
-        DMS().file_downloand(os.path.join(temp_compressed_path, file_compressed_name), temp_compressed_path)
-
-        file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))  # 替换为你的文件路径
+        file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
@@ -75,7 +68,6 @@ class TestUI:
         my_engineering.go_up(method='menu')  # 通过菜单action-open
         assert my_engineering.job_first_is_opened() == True
 
-        # my_engineering.engineering_window.print_control_identifiers()
 
     def test_option_language(self,epcam_ui_start):
         '''

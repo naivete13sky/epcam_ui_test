@@ -185,7 +185,9 @@ class DMS():
                         if os.path.exists(os.path.join(temp_compressed_path, file_compressed_file_path)):
                             os.remove(os.path.join(temp_compressed_path, file_compressed_file_path))
                         return os.listdir(temp_compressed_path)[0].lower()
-
+                else:
+                    pass
+                    return (os.listdir(temp_compressed_path)[0])
 
 
 

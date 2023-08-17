@@ -1,18 +1,18 @@
 #点击菜单File(F)--import
-# self.engineering_window.set_focus()  # 激活窗口
-# mouse.click(coords=self.get_engineering_file_Coor())# 使用鼠标单击按钮,需要先激活窗口
+self.engineering_window.set_focus()  # 激活窗口
+mouse.click(coords=self.get_engineering_file_Coor())# 使用鼠标单击按钮,需要先激活窗口
 
-# self.engineering_window.print_control_identifiers()
+self.engineering_window.print_control_identifiers()
 
 
 
-# mouse.click(coords=engineering_import_input_path_file_type_window.rectangle().mid_point())# 使用鼠标单击按钮
+mouse.click(coords=engineering_import_input_path_file_type_window.rectangle().mid_point())# 使用鼠标单击按钮
 
-# engineering_import_input_path_file_type_window.select(1)#根据index选择下拉列表项
+engineering_import_input_path_file_type_window.select(1)#根据index选择下拉列表项
 
 
 # 切换到import job窗口
-# engineering_import_window = self.engineering_window.child_window(title="Import Job", control_type="Window")
+engineering_import_window = self.engineering_window.child_window(title="Import Job", control_type="Window")
 
 
 
@@ -36,4 +36,10 @@ img_cut = img[30:60, 10:40]#后面的是水平方向,file
 # cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file.png", img_cut)
 text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
 assert text == 'File\n'
+
+if os.path.exists(temp_path):
+    # 删除目录及其内容
+    # os.remove(temp_path)
+    shutil.rmtree(temp_path)
+os.mkdir(temp_path)
 
