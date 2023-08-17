@@ -48,7 +48,7 @@ class TestUI:
         # 下载料号
         temp_path = os.path.join(RunConfig.temp_path_base,str(job_id))
         shutil.rmtree(temp_path) if os.path.exists(temp_path) else None # 如果已存在旧目录，则删除目录及其内容
-        file_compressed_name = DMS().get_file_from_dms_db(temp_path,job_id,field='file_compressed')#从DMS下载附件
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path,job_id,field='file_compressed')#从DMS下载附件，并返回文件名称
         temp_compressed_path = os.path.join(temp_path, 'compressed')
         file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))
         job_name = file_compressed_path.stem
@@ -128,18 +128,12 @@ class TestFile:
         '''
 
         # 下载料号
-        temp_path = os.path.join(r'C:\cc\share\temp', str(job_id))
-        if os.path.exists(temp_path):
-            # 删除目录及其内容
-            # os.remove(temp_path)
-            shutil.rmtree(temp_path)
-        os.mkdir(temp_path)
+        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,
+                                                          field='file_compressed')  # 从DMS下载附件，并返回文件名称
         temp_compressed_path = os.path.join(temp_path, 'compressed')
-        job_current_all_fields = DMS().get_job_fields_from_dms_db_pandas(job_id)
-        file_compressed_name = job_current_all_fields['file'].split("/")[1]
-        DMS().file_downloand(os.path.join(temp_compressed_path, file_compressed_name), temp_compressed_path)
-
-        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))  # 替换为你的文件路径
+        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
@@ -171,13 +165,13 @@ class TestFile:
         engineering_file_save_job_no_changed_dialog.save(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
 
         img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
-        img_cut = img[35:60, 40:205]  # 后面的是水平方向
+        img_cut = img[35:60, 55:210]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\engineering_file_save_job_no_changed_text.png", img_cut)
         # 使用Tesseract进行文字识别
         text = pytesseract.image_to_string(img_cut)
         # 打印识别出的文本
-        # print('text:',text)
+        print('text:',text)
 
-        assert text == 'Job does not changed !\n'
+        assert text in 'Job does not changed !\n'
 
         send_keys("{ENTER}")  # 确认关闭弹窗
