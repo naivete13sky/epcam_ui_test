@@ -2,6 +2,8 @@ import os
 import shutil
 import time
 from pathlib import Path
+
+import numpy as np
 import pytest
 import pytesseract
 from pywinauto.keyboard import send_keys
@@ -19,21 +21,17 @@ class TestUI:
         my_engineering = Engineering()
         my_engineering.engineering_window.set_focus()  # 激活窗口
         engineering_window_pic = my_engineering.engineering_window.capture_as_image()# 截图
-        engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')
-        img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
+        img = np.array(engineering_window_pic)  # Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
 
         img_cut = img[30:60, 10:40]#后面的是水平方向,file
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file.png", img_cut)
         text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
         assert text == 'File\n'
 
         img_cut = img[30:60, 70:120]  # 后面的是水平方向,action
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_action.png", img_cut)
         text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
         assert text == 'Action\n'
 
         img_cut = img[30:60, 155:205]  # 后面的是水平方向,option
-        cv2.imwrite(r"C:\cc\share\temp\engineering_menu_option.png", img_cut)
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
         assert text == 'Option\n'
 
@@ -48,7 +46,7 @@ class TestUI:
         :return:
         '''
         # 下载料号
-        temp_path = os.path.join(r'C:\cc\share\temp',str(job_id))
+        temp_path = os.path.join(RunConfig.temp_path_base,str(job_id))
         if os.path.exists(temp_path):
             # 删除目录及其内容
             # os.remove(temp_path)
@@ -154,10 +152,10 @@ class TestFile:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        # if my_engineering.job_first_is_opened():
-        #     my_engineering.close_job_first()
-        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
-        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        if my_engineering.job_first_is_opened():
+            my_engineering.close_job_first()
+        my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
 
         my_engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_coor(coor_type = 'relative'))# 双击打开steps

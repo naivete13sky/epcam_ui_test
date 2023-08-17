@@ -29,3 +29,11 @@ rectangle_count = opencv_compare(img_standard_path,img_current_path)
 return rectangle_count == 0
 
 
+# engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')
+# img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
+img = np.array(engineering_window_pic)  # Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
+img_cut = img[30:60, 10:40]#后面的是水平方向,file
+# cv2.imwrite(r"C:\cc\share\temp\engineering_menu_file.png", img_cut)
+text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
+assert text == 'File\n'
+
