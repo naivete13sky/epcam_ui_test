@@ -35,8 +35,6 @@ class TestUI:
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
         assert text == 'Option\n'
 
-
-
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
     def test_go_up(self,job_id,epcam_ui_start):
         '''
@@ -68,7 +66,6 @@ class TestUI:
         my_engineering.go_up(method='menu')  # 通过菜单action-open
         assert my_engineering.job_first_is_opened() == True
 
-
     def test_option_language(self,epcam_ui_start):
         '''
         禅道用例ID：1506
@@ -76,11 +73,9 @@ class TestUI:
         :return:
         '''
         my_engineering = Engineering()
-
         my_engineering.language_switch(language='Simplified Chinese')
         # my_engineering.engineering_window.print_control_identifiers()
         assert my_engineering.language_is_Simplified_Chinese() == True
-
         my_engineering.language_switch(language='EP Default')
 
     def test_file_save_no_job_select(self,epcam_ui_start):
@@ -91,26 +86,16 @@ class TestUI:
         '''
         my_engineering = Engineering()
         my_engineering.engineering_window.click_input(coords=(800,600))#鼠标点击空白处，不选择料号
-        # time.sleep(10)
         my_engineering.file_save()
-        # my_engineering.engineering_window.print_control_identifiers()
-
-
         engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(**{'title': "Save", 'control_type': "Window"})
-        # dialog.print_control_identifiers()
         engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()# 截图
-        engineering_file_save_job_no_select_jpg.save(r'C:\cc\share\temp\engineering_file_save_no_job_select.png')
-        img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_no_job_select.png')
+        img = np.array(engineering_file_save_job_no_select_jpg)# Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
         img_cut = img[35:60, 35:205]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_file_save_job_no_select_text.png", img_cut)
-        cv2.waitKey(0)
         # 使用Tesseract进行文字识别
         text = pytesseract.image_to_string(img_cut)
         # 打印识别出的文本
-        # print('text:',text)
-
+        print('text:',text)
         assert text == 'No elements were selected!\n'
-
         send_keys("{ENTER}")#确认关闭弹窗
 
 
@@ -126,20 +111,18 @@ class TestFile:
         :param epcam_ui_start:
         :return:
         '''
-
         # 下载料号
         temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
         shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
-        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,
-                                                          field='file_compressed')  # 从DMS下载附件，并返回文件名称
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,field='file_compressed')  # 从DMS下载附件，并返回文件名称
         temp_compressed_path = os.path.join(temp_path, 'compressed')
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        if my_engineering.job_first_is_opened():
-            my_engineering.close_job_first()
+        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None#如果料号是打开状态，要先关闭料号
+
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
 
@@ -154,24 +137,15 @@ class TestFile:
         my_engineering.go_up()  # 鼠标点击
         my_engineering.go_up()  # 鼠标点击，返回到了job list界面
         my_engineering.selct_first_job()#选中第一个料号
-
-        my_engineering.file_save()
-
-        # my_engineering.engineering_window.print_control_identifiers()
-
+        my_engineering.file_save()#保存
 
         engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
-        engineering_file_save_job_no_changed_dialog.save(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
-
-        img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
+        img = np.array(engineering_file_save_job_no_changed_dialog)
         img_cut = img[35:60, 55:210]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_file_save_job_no_changed_text.png", img_cut)
         # 使用Tesseract进行文字识别
         text = pytesseract.image_to_string(img_cut)
         # 打印识别出的文本
         print('text:',text)
-
         assert text in 'Job does not changed !\n'
-
         send_keys("{ENTER}")  # 确认关闭弹窗
