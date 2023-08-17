@@ -165,7 +165,29 @@ class TestFile:
         time.sleep(0.5)#打开graphic要等一会儿
 
         my_graphic = Graphic()
-        my_graphic.graphic_window.print_control_identifiers()
-        # my_engineering.go_up()  # 鼠标点击
+        my_graphic.close()#关闭Graphic窗口
+
+        my_engineering.go_up()  # 鼠标点击
+        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        my_engineering.selct_first_job()#选中第一个料号
+
+        my_engineering.file_save()
+
+        # my_engineering.engineering_window.print_control_identifiers()
 
 
+        engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(title="Information", control_type="Window")
+        engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
+        engineering_file_save_job_no_changed_dialog.save(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
+
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_save_job_no_changed.png')
+        img_cut = img[35:60, 40:205]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_save_job_no_changed_text.png", img_cut)
+        # 使用Tesseract进行文字识别
+        text = pytesseract.image_to_string(img_cut)
+        # 打印识别出的文本
+        # print('text:',text)
+
+        assert text == 'Job does not changed !\n'
+
+        send_keys("{ENTER}")  # 确认关闭弹窗

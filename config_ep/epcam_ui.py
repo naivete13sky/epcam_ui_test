@@ -195,6 +195,9 @@ class Engineering(object):
 
         return ('文件' in text_file) & ('全局' in text_action) & ('全局设置' in text_option)
 
+    def selct_first_job(self):
+        pass
+        self.engineering_window.click_input(coords=self.get_engineering_job_first_Coor(coor_type='relative'))
 
 
     def file_save(self):
@@ -271,7 +274,8 @@ class Engineering(object):
 
     def get_engineering_job_first_Coor(self,coor_type = 'absolute'):
         x = 80
-        y = 180
+        # y = 180
+        y = 280
         if coor_type == 'absolute':
             engineering_left_top_Coor = self.get_engineering_left_top_Coor()
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
@@ -375,3 +379,5 @@ class Graphic(object):
         self.graphic_window_para = {'title': "Graphic 1.1.7.2",'control_type':"Window"}
 
 
+    def close(self):
+        self.graphic_window.child_window(title="关闭", control_type="Button").click_input()
