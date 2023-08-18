@@ -153,7 +153,7 @@ class TestFile:
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_job_changed(self, job_id, epcam_ui_start):
         '''
-        禅道用例ID：3594。
+        禅道用例ID：3594、3557。
         :param epcam_ui_start:
         :return:
         '''
@@ -223,3 +223,38 @@ class TestFile:
         print('text:', text)
         assert 'will be saved, continue?' in text
         send_keys("{ENTER}")  # 确认关闭弹窗
+
+        #验证用例3557
+        send_keys('^y')  # 不选中任何料号
+        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        my_engineering.engineering_window.double_click_input(
+            coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
+        my_engineering.engineering_window.double_click_input(
+            coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type='relative'))  # 打开第1个step
+        time.sleep(0.5)  # 打开graphic要等一会儿
+
+        my_graphic = Graphic()
+        my_graphic.graphic_window.click_input(coords=my_coor)  # 点击 smt层
+        graphic_window_dialog = my_graphic.graphic_window.capture_as_image()#截个图
+        img = np.array(graphic_window_dialog)
+        pil_image = Image.fromarray(img)  # 将图像转换为PIL图像对象
+        width, height = pil_image.size  # 获取图像尺寸
+        img_cut = img[height-35:height-15, 20:235]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\cc.png", img_cut)
+        # 使用Tesseract进行文字识别
+        text = pytesseract.image_to_string(img_cut)
+        # 打印识别出的文本
+        print('text:', text)
+        assert 'Selected: 0' in text
+
+        # time.sleep(5)
+        my_graphic.close()  # 关闭Graphic窗口
+        my_engineering.go_up()  # 鼠标点击
+        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+
+
+    def test_cc(self,epcam_ui_start):
+        pass
+        my_engineering = Engineering()
+        # print('cc:', my_engineering.job_first_is_opened())

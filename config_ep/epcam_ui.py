@@ -49,12 +49,12 @@ class Engineering(object):
     # Engineering的方法
     def job_first_is_opened(self):
         pass
-
+        self.engineering_window.set_focus()  # 激活窗口
         # 截图
         engineering_window_jpg = self.engineering_window.capture_as_image()
         engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
         img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
+        # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
         img_cut = img[225:307, 46:137]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\engineering_job_first.jpg", img_cut)
         cv2.waitKey(0)
@@ -208,7 +208,15 @@ class Engineering(object):
         self.engineering_window.click_input(
             coords=self.get_engineering_file_save_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
-
+    def action_select_unselect_all(self):
+        pass
+        # self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_action_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_action_select_coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_action_select_unselect_all_coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
     # 获得坐标
 
@@ -303,6 +311,24 @@ class Engineering(object):
     def get_engineering_action_open_Coor(self,coor_type = 'absolute'):
         x = 80
         y = 90
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+    def get_engineering_action_select_coor(self,coor_type = 'absolute'):
+        x = 80
+        y = 70
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+    def get_engineering_action_select_unselect_all_coor(self,coor_type = 'absolute'):
+        x = 280
+        y = 95
         if coor_type == 'absolute':
             engineering_left_top_Coor = self.get_engineering_left_top_Coor()
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
