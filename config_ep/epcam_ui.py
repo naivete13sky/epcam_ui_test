@@ -82,7 +82,6 @@ class Engineering(object):
         send_keys("{ENTER}")  # 发送回车键，确认删除所有
         time.sleep(1)
 
-
     def import_job(self,file_path,job_org_type = 'odb_tgz'):
         #点击菜单File(F)--import
         self.engineering_window.click_input(coords=self.get_engineering_file_Coor(coor_type='relative'))# 使用鼠标单击按钮，无需主动激活窗口
@@ -129,6 +128,14 @@ class Engineering(object):
         self.engineering_window.click_input(
             coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.double_click_input(coords=(80, 280))
+
+    def open_job_first_by_context_menu(self):
+        pass
+        self.engineering_window.right_click_input(
+            coords=self.get_engineering_job_first_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        my_engineering_context_menu = RunConfig.driver_epcam_ui.window(class_name="Qt5QWindowPopupDropShadowSaveBits")
+        my_engineering_context_menu.click_input(coords=(20, 10))  # 点击Open
+
 
     def go_up(self,method='click'):
         '''
@@ -199,7 +206,6 @@ class Engineering(object):
         pass
         self.engineering_window.click_input(coords=self.get_engineering_job_first_Coor(coor_type='relative'))
 
-
     def file_save(self):
         self.engineering_window.set_focus()  # 激活窗口
         self.engineering_window.click_input(
@@ -218,8 +224,17 @@ class Engineering(object):
         self.engineering_window.click_input(
             coords=self.get_engineering_action_select_unselect_all_coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
-    # 获得坐标
 
+
+
+
+
+
+
+
+
+
+    # 获得坐标
     def getCoor(self,window,wanted_title):
         win_text = get_print_control_identifiers_text(window)
         coor_ok = get_coor_of_object(wanted_title, win_text)

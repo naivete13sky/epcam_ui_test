@@ -98,6 +98,51 @@ class TestUI:
         assert text == 'No elements were selected!\n'
         send_keys("{ENTER}")#确认关闭弹窗
 
+    @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
+    def test_open_job(self,job_id,epcam_ui_start):
+        '''
+        禅道ID：2479
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        '''
+        # 下载料号
+        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,
+                                                          field='file_compressed')  # 从DMS下载附件，并返回文件名称
+        temp_compressed_path = os.path.join(temp_path, 'compressed')
+        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
+        job_name = file_compressed_path.stem
+
+        my_engineering = Engineering()
+        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+
+        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+
+        #右击打开料号
+        my_engineering.open_job_first_by_context_menu()
+        my_engineering.engineering_window.click_input(coords=(950,210))#鼠标指示放到空白处
+        engineering_window_job_info=my_engineering.engineering_window.capture_as_image()#截图
+        img = np.array(engineering_window_job_info)
+        x_s, x_e = 30, 830  # x_s,x_e分别是层别列表的x方向开始与结束像素。
+        y_s, y_e = 210, 350  # y_s,y_e分别是层别列表的y方向开始与结束像素
+        img_cut = img[y_s:y_e, x_s:x_e]  # 后面的是水平方向,file
+        # cv2.imshow("Cropped Image", img_cut)
+        # cv2.waitKey(0)  # 等待按键按下后关闭图像窗口
+        cv2.imwrite(r"C:\cc\share\temp\engineering_window_job_info.png", img_cut)
+        # 关闭所有窗口
+        # cv2.destroyAllWindows()
+
+        # 使用Tesseract进行文字识别
+        text = pytesseract.image_to_string(img_cut)
+        # 打印识别出的文本
+        print('text:', text)
+        assert '(GO Up) matrix steps symbols input' in text
+        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
 
@@ -149,7 +194,7 @@ class TestFile:
         assert text in 'Job does not changed !\n'
         send_keys("{ENTER}")  # 确认关闭弹窗
 
-    @pytest.mark.coding
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_job_changed(self, job_id, epcam_ui_start):
         '''
@@ -254,7 +299,3 @@ class TestFile:
         my_engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
-    def test_cc(self,epcam_ui_start):
-        pass
-        my_engineering = Engineering()
-        # print('cc:', my_engineering.job_first_is_opened())

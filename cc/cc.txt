@@ -47,3 +47,15 @@ from PIL import Image
 image = Image.open(image_path)  # 打开图像
 
 graphic_size=(0,0,1382,807)#(L0, T0, R1382, B807)
+
+
+
+# 使用OpenCV显示图像
+cv2.imshow("Cropped Image", img_cut)
+cv2.waitKey(0)  # 等待按键按下后关闭图像窗口
+# 保存图像
+cv2.imwrite(r"C:\cc\share\temp\engineering_window_job_info.png", img_cut)
+# 关闭所有窗口
+cv2.destroyAllWindows()
+
+
