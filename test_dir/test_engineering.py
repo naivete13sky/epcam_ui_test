@@ -120,8 +120,8 @@ class TestUI:
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
-        # my_engineering.delete_all_jobs()  # 删除筛选出的料号
-        # my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
 
         #右击打开料号
         my_engineering.open_job_first_by_context_menu()
