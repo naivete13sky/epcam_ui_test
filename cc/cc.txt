@@ -43,3 +43,7 @@ if os.path.exists(temp_path):
     shutil.rmtree(temp_path)
 os.mkdir(temp_path)
 
+from PIL import Image
+image = Image.open(image_path)  # 打开图像
+
+graphic_size=(0,0,1382,807)#(L0, T0, R1382, B807)
