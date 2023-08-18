@@ -48,7 +48,9 @@ class RunConfig:
     # epcam UI驱动（不需要修改）
     driver_epcam_ui = None
 
-    driver_epcam_ui_exe_path = r"C:\cc\ep_local\product\EP-CAM\version\20230717\EPCAM_1.1.7.2_release_r12827_jiami_3\Release\EP-CAM.exe"
+    driver_epcam_ui_exe_path = os.path.join(ep_cam_path,r'EP-CAM.exe')
+    driver_epcam_ui_engineering_title = cfg['epcam']['engineering_title']
+    driver_epcam_ui_graphic_title = cfg['epcam']['graphic_title']
 
     # g驱动类型
     driver_type_g = "g"

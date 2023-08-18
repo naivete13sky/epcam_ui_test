@@ -26,7 +26,7 @@ class Engineering(object):
     def set_default_ui_para(self):
         pass
         # engineering_window
-        self.engineering_window_para = {'title': "Engineering 1.1.7.2"}
+        self.engineering_window_para = {'title': RunConfig.driver_epcam_ui_engineering_title}
 
         # import job窗口
         self.engineering_import_window_child_window_para = {'title': "Import Job", 'control_type': "Window"}
@@ -219,7 +219,7 @@ class Engineering(object):
 
     def get_engineering_left_top_Coor(self):
         win_text2 = get_print_control_identifiers_text(self.engineering_window)
-        coor_ok = get_coor_of_object('Engineering 1.1.7.2',win_text2)
+        coor_ok = get_coor_of_object(RunConfig.driver_epcam_ui_title,win_text2)
         return coor_ok
 
     def get_engineering_file_Coor(self,coor_type = 'absolute'):
@@ -376,7 +376,8 @@ class Graphic(object):
     def set_default_ui_para(self):
         pass
         # engineering_window
-        self.graphic_window_para = {'title': "Graphic 1.1.7.2",'control_type':"Window"}
+        self.graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title,'control_type':"Window"}
+        # print('self.graphic_window_para:',self.graphic_window_para)
 
 
     def close(self):

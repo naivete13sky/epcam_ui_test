@@ -199,7 +199,7 @@ def epcam_ui_start():
     if RunConfig.driver_type == "epcam_ui":
         try:
             # 先看一下是否已存在EP-CAM主窗口，根据窗口名称判断
-            app = Application(backend="uia").connect(title='Engineering 1.1.7.2')
+            app = Application(backend="uia").connect(title=RunConfig.driver_epcam_ui_engineering_title)
             driver_epcam_ui = app
 
         except:
@@ -217,7 +217,7 @@ def epcam_ui_start():
     RunConfig.driver_epcam_ui = app
 
     # 获取主窗口
-    main_window = app.window(title="Engineering 1.1.7.2")
+    main_window = app.window(title=RunConfig.driver_epcam_ui_engineering_title)
     # 打印窗口的属性
     print("\nWindow Title:", main_window.window_text())
 

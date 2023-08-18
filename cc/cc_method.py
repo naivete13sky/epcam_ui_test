@@ -579,8 +579,8 @@ def ff2():
 
 if __name__ == '__main__':    # 输入和输出文件路径
     print("我是main()")
-    ff2()
-    f_get_word_pos_of_picture()
+    print('cc'.center(100,'*'))
+
 
 
 
