@@ -6,6 +6,11 @@ from PIL import Image
 from cc_method import PictureMethod
 
 
+
+
+
+
+
 def f1():
     pass
     from pywinauto.application import Application
@@ -496,9 +501,55 @@ def f13():
     left_top_relative_y_end = 1.0 - (y_end / image_height)
     print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
+
+def f14():
+    pass
+    from appium import webdriver
+    # os.system(r'start "" /d "C:\Program Files (x86)\Windows Application Driver\"  "WinAppDriver.exe"')
+
+
+    des_cap = {}
+    des_cap['app'] = r'C:\Windows\System32\notepad.exe'
+    driver = webdriver.Remote(command_executor='http://127.0.0.1:4723/wd/hub',
+                              desired_capabilities=des_cap)
+    driver.implicitly_wait(5)
+    driver.find_element_by_name('文件(F)').click()
+    from time import sleep
+    sleep(2)
+    driver.find_element_by_name('保存(S)	Ctrl+S').click()
+    # driver.find_element_by_name('退出(X)').click()
+    sleep(1)
+    import pyautogui
+    pyautogui.PAUSE = 0.5
+    pyautogui.typewrite(r'D:\hello.txt')
+    pyautogui.press('enter')
+
+def f15():
+    pass
+    from appium import webdriver
+
+    desired_caps = {
+        "platformName": "Windows",
+        "deviceName": "WindowsPC",
+        "app": "C:\\Windows\\System32\\notepad.exe"
+    }
+
+    driver = webdriver.Remote(
+        command_executor='http://127.0.0.1:4723',
+        desired_capabilities=desired_caps
+    )
+
+    # 执行一些测试操作，比如点击、输入文本等
+    # 例如：element = driver.find_element_by_name("Untitled - Notepad")
+    #       element.send_keys("Hello, World!")
+
+    # 关闭应用程序和驱动
+    driver.quit()
+
+
 if __name__ == '__main__':
     pass
-    f13()
+    f15()
 
 
 
