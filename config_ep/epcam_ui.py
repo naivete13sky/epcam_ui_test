@@ -199,8 +199,8 @@ class Engineering(object):
         text_option = pytesseract.image_to_string(im, config=tessdata_dir_config,lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
         print('text_option:', text_option)
 
-
-        return ('文件' in text_file) & ('全局' in text_action) & ('全局设置' in text_option)
+        return ('文件' in text_file) & ('全局' in text_action)
+        # return ('文件' in text_file) & ('全局' in text_action) & ('全局设置' in text_option)
 
     def selct_first_job(self):
         pass

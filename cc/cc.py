@@ -3,6 +3,7 @@ import time
 
 from PIL import Image
 
+
 from cc_method import PictureMethod
 
 
@@ -501,7 +502,6 @@ def f13():
     left_top_relative_y_end = 1.0 - (y_end / image_height)
     print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
-
 def f14():
     pass
     from appium import webdriver
@@ -588,10 +588,20 @@ def f17():
     img_cut = img.crop((10, 30, 40, 60))#坐标是左上右下
     img_cut.show()
 
+def f18():
+    pass
+    import pytesseract
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
+    tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
+    im = Image.open(r"C:\cc\share\temp\engineering_menu_file_Simplified_Chinese_file_option.png")
+    im.show()
+    text_option = pytesseract.image_to_string(im, config=tessdata_dir_config,
+                                              lang='chi_sim_cc')  # 使用Tesseract进行文字识别,使用简体中文语言包
+    print('text_option:', text_option)
 
 if __name__ == '__main__':
     pass
-    f17()
+    f18()
 
 
 
