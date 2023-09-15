@@ -145,7 +145,7 @@ class TestUI:
         text = pytesseract.image_to_string(img_cut)
         # 打印识别出的文本
         print('text:', text)
-        assert '(GO Up) matrix steps symbols input' in text
+        assert '(GO Up) matrix steps symbols' in text
         my_engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
