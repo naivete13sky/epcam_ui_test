@@ -21,17 +21,21 @@ class TestUI:
         my_engineering = Engineering()
         my_engineering.engineering_window.set_focus()  # 激活窗口
         engineering_window_pic = my_engineering.engineering_window.capture_as_image()# 截图
-        img = np.array(engineering_window_pic)  # Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
+        # engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')#保存到硬盘
+        # engineering_window_pic.show()# 显示图像
 
-        img_cut = img[30:60, 10:40]#后面的是水平方向,file
+
+
+        img_cut = engineering_window_pic.crop((10, 30, 42, 60))  # 截取图像# PIL裁剪坐标是左上右下
+        # img_cut.show()# 显示图像
         text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
         assert text == 'File\n'
 
-        img_cut = img[30:60, 70:120]  # 后面的是水平方向,action
+        img_cut = engineering_window_pic.crop((70, 30, 120, 60))  # 截取图像# PIL裁剪坐标是左上右下。img_cut = img[30:60, 70:120]这种方式颜色有时会有问题。
         text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
         assert text == 'Action\n'
 
-        img_cut = img[30:60, 155:205]  # 后面的是水平方向,option
+        img_cut = engineering_window_pic.crop((155, 30,205, 60))
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
         assert text == 'Option\n'
 

@@ -546,10 +546,52 @@ def f15():
     # 关闭应用程序和驱动
     driver.quit()
 
+def f16():
+    pass
+    import cv2
+
+    # 保存图像到硬盘
+    # engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')
+
+    # 读取图像
+    img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
+
+    # 重排通道顺序为 RGB
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    # 显示图像
+    cv2.imshow("Original Image", img_rgb)
+    cv2.waitKey(0)
+
+    # 截取图像并显示
+    img_cut = img_rgb[30:60, 10:40]
+    cv2.imshow("Cropped Image", img_cut)
+    cv2.waitKey(0)
+
+    # 关闭窗口
+    cv2.destroyAllWindows()
+
+def f17():
+    pass
+    from PIL import Image
+
+    # 保存图像到硬盘
+    # engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')
+
+    # 读取图像
+    img = Image.open(r'C:\cc\share\temp\engineering_window.png')
+
+    # 显示图像
+    img.show()
+
+    # 截取图像并显示
+    img_cut = img.crop((10, 30, 40, 60))#坐标是左上右下
+    img_cut.show()
+
 
 if __name__ == '__main__':
     pass
-    f15()
+    f17()
 
 
 
