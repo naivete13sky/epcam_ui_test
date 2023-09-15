@@ -52,16 +52,16 @@ class Engineering(object):
         self.engineering_window.set_focus()  # 激活窗口
         # 截图
         engineering_window_jpg = self.engineering_window.capture_as_image()
-        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_jpg.jpg')
-        img = cv2.imread(r'C:\cc\share\temp\engineering_window_jpg.jpg')
+        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window.png')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window.png')
         # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
         img_cut = img[225:307, 46:137]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_job_first.jpg", img_cut)
+        cv2.imwrite(r"C:\cc\share\temp\engineering_job_first.png", img_cut)
         cv2.waitKey(0)
 
         # 加载两张图片
         img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_job_first_opened_standard.jpg')
-        img_current_path = r'C:\cc\share\temp\engineering_job_first.jpg'
+        img_current_path = r'C:\cc\share\temp\engineering_job_first.png'
         rectangle_count = opencv_compare(img_standard_path,img_current_path)
 
         return rectangle_count == 0
