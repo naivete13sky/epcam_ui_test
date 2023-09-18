@@ -224,7 +224,14 @@ class Engineering(object):
         self.engineering_window.click_input(
             coords=self.get_engineering_action_select_unselect_all_coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
+    def file_close(self):
+        pass
+        self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_close_Coor(coor_type = 'relative')) # 使用鼠标单击按钮，无需主动激活窗口
 
 
 
@@ -242,7 +249,7 @@ class Engineering(object):
 
     def get_engineering_left_top_Coor(self):
         win_text2 = get_print_control_identifiers_text(self.engineering_window)
-        coor_ok = get_coor_of_object(RunConfig.driver_epcam_ui_title,win_text2)
+        coor_ok = get_coor_of_object(RunConfig.driver_epcam_ui_engineering_title,win_text2)
         return coor_ok
 
     def get_engineering_file_Coor(self,coor_type = 'absolute'):
@@ -403,6 +410,19 @@ class Engineering(object):
             return (engineering_left_top_Coor[0] + x, engineering_left_top_Coor[1] + y)
         if coor_type == 'relative':
             return (x, y)
+
+
+    def get_engineering_file_close_Coor(self,coor_type = 'absolute'):
+        x = 20
+        y = 270
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
+
+
+
 
 
 
