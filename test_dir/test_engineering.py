@@ -303,12 +303,12 @@ class TestFile:
         my_engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_close(self,job_id,epcam_ui_start):
         pass
         '''
-                禅道用例ID：4076。not ok。
+                禅道用例ID：4076。
                 :param epcam_ui_start:
                 :return:
                 '''
@@ -332,4 +332,8 @@ class TestFile:
 
         #File-close关闭料号
         my_engineering.file_close()
+        time.sleep(1)
+        send_keys("{ENTER}")  # 确认关闭弹窗
 
+        result = my_engineering.job_first_is_closed()
+        print(result)

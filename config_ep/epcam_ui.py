@@ -234,7 +234,23 @@ class Engineering(object):
             coords=self.get_engineering_file_close_Coor(coor_type = 'relative')) # 使用鼠标单击按钮，无需主动激活窗口
 
 
+    def job_first_is_closed(self):
+        self.engineering_window.set_focus()  # 激活窗口
+        # 截图
+        engineering_window_jpg = self.engineering_window.capture_as_image()
+        engineering_window_jpg.save(r'C:\cc\share\temp\engineering_window_job_closed.png')
+        img = cv2.imread(r'C:\cc\share\temp\engineering_window_job_closed.png')
+        # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
+        img_cut = img[225:307, 46:140]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_window_job_closed_first.png", img_cut)
+        cv2.waitKey(0)
 
+        # 加载两张图片
+        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent, r'data\pic\engineering\engineering_window_job_closed_first_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_window_job_closed_first.png'
+        rectangle_count = opencv_compare(img_standard_path,img_current_path)
+
+        return rectangle_count == 0
 
 
 
@@ -414,7 +430,7 @@ class Engineering(object):
 
     def get_engineering_file_close_Coor(self,coor_type = 'absolute'):
         x = 20
-        y = 270
+        y = 275
         if coor_type == 'absolute':
             engineering_left_top_Coor = self.get_engineering_left_top_Coor()
             return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
