@@ -336,4 +336,5 @@ class TestFile:
         send_keys("{ENTER}")  # 确认关闭弹窗
 
         result = my_engineering.job_first_is_closed()
-        print(result)
+        # print(result)
+        assert result == True
