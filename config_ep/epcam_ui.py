@@ -45,7 +45,8 @@ class Engineering(object):
         # input job窗口
         self.engineering_input_window_child_window_para = {'title': "Input", 'control_type': "Window"}
 
-
+        # input 选择文件窗口中的文件路径对象
+        self.engineering_input_path_file_path_window_para = {'title': "Open", 'control_type': "Window"}
 
 
     # Engineering的方法
@@ -262,15 +263,21 @@ class Engineering(object):
         self.engineering_window.click_input(
             coords=self.get_engineering_file_input_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
-        self.top_window = RunConfig.driver_epcam_ui.top_window()
+        # 切换到input job窗口
+        engineering_input_window = RunConfig.driver_epcam_ui.window(**self.engineering_input_window_child_window_para)
+        # engineering_input_window.print_control_identifiers()
+        engineering_input_window.click_input(
+            coords=self.get_engineering_file_input_path_Coor())  # 点击菜单input path
+
+        self.top_window = RunConfig.driver_epcam_ui.window(**self.engineering_input_path_file_path_window_para)
         self.top_window.print_control_identifiers()
 
-        # 切换到input job窗口
-        engineering_input_window = self.engineering_window.child_window(
-            **self.engineering_input_window_child_window_para)
-        engineering_input_window.print_control_identifiers()
-        # engineering_input_window.click_input(
-        #     coords=self.get_engineering_file_input_path_Coor())  # 点击菜单input path
+        # # 选择文件对象
+        # engineering_import_input_path_file_path_window = self.engineering_window.child_window(
+        #     **self.engineering_import_input_path_file_path_window_para)
+        # engineering_import_input_path_file_path_window.draw_outline(colour='red')  # 绘制边框以突出显示控件（可以自行指定颜色和宽度）
+        # engineering_import_input_path_file_path_window.click_input()  # 将焦点设置到控件上
+        # send_keys(file_path)  # 输入文本
 
 
 
@@ -466,8 +473,7 @@ class Engineering(object):
 
     def get_engineering_file_input_path_Coor(self, coor_type='relative'):
         x = 30
-        y = 100  # 变形时，字体太大，异常情况
-        y = 80
+        y = 55
         if coor_type == 'relative':
             return (x, y)
 
