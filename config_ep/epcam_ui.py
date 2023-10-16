@@ -22,7 +22,6 @@ class Engineering(object):
         self.set_default_ui_para()
         self.engineering_window = RunConfig.driver_epcam_ui.window(**self.engineering_window_para)
 
-
     def set_default_ui_para(self):
         pass
         # engineering_window
@@ -42,6 +41,9 @@ class Engineering(object):
         # 确认选择中的文件
         self.engineering_import_input_path_confirm_window_para = {'title': "打开(O)", 'auto_id': "1",
                                                              'control_type': "Button"}
+
+        # input job窗口
+        self.engineering_input_window_child_window_para = {'title': "Input", 'control_type': "Window"}
 
 
 
@@ -253,7 +255,22 @@ class Engineering(object):
         return rectangle_count == 0
 
 
+    def file_input(self,file_path):
+        # 点击菜单File(F)--input
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(
+            coords=self.get_engineering_file_input_Coor(coor_type='relative'))  # 使用鼠标单击按钮，无需主动激活窗口
 
+        self.top_window = RunConfig.driver_epcam_ui.top_window()
+        self.top_window.print_control_identifiers()
+
+        # 切换到input job窗口
+        engineering_input_window = self.engineering_window.child_window(
+            **self.engineering_input_window_child_window_para)
+        engineering_input_window.print_control_identifiers()
+        # engineering_input_window.click_input(
+        #     coords=self.get_engineering_file_input_path_Coor())  # 点击菜单input path
 
 
 
@@ -438,8 +455,21 @@ class Engineering(object):
             return (x, y)
 
 
+    def get_engineering_file_input_Coor(self, coor_type ='absolute'):
+        x = 20
+        y = 160
+        if coor_type == 'absolute':
+            engineering_left_top_Coor = self.get_engineering_left_top_Coor()
+            return (engineering_left_top_Coor[0] + x,engineering_left_top_Coor[1] + y)
+        if coor_type == 'relative':
+            return (x, y)
 
-
+    def get_engineering_file_input_path_Coor(self, coor_type='relative'):
+        x = 30
+        y = 100  # 变形时，字体太大，异常情况
+        y = 80
+        if coor_type == 'relative':
+            return (x, y)
 
 
 class Graphic(object):

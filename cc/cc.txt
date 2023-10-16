@@ -5,6 +5,9 @@ mouse.click(coords=self.get_engineering_file_Coor())# 使用鼠标单击按钮,�
 self.engineering_window.print_control_identifiers()
 
 
+self.top_window = RunConfig.driver_epcam_ui.top_window()
+self.top_window.print_control_identifiers()
+
 
 mouse.click(coords=engineering_import_input_path_file_type_window.rectangle().mid_point())# 使用鼠标单击按钮
 

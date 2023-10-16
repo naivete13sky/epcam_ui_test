@@ -102,7 +102,7 @@ class TestUI:
         assert text == 'No elements were selected!\n'
         send_keys("{ENTER}")#确认关闭弹窗
 
-    @pytest.mark.coding
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_open_job(self,job_id,epcam_ui_start):
         '''
@@ -338,3 +338,31 @@ class TestFile:
         result = my_engineering.job_first_is_closed()
         # print(result)
         assert result == True
+
+
+    @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_clear(self,job_id,epcam_ui_start):
+        pass
+        '''
+                禅道用例ID：4054
+                :param job_id:
+                :param epcam_ui_start:
+                :return:
+                '''
+        # 下载料号
+        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id,
+                                                          field='file_compressed')  # 从DMS下载附件，并返回文件名称
+        temp_compressed_path = os.path.join(temp_path, 'compressed')
+        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
+        job_name = file_compressed_path.stem
+
+        my_engineering = Engineering()
+        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        if my_engineering.job_first_is_opened():
+            my_engineering.close_job_first()
+        my_engineering.delete_all_jobs()  # 删除筛选出的料号
+        my_engineering.file_input(str(file_compressed_path))  # 导入一个料号
+
