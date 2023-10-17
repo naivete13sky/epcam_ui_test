@@ -10,11 +10,11 @@ from PIL import Image
 from config import RunConfig
 from cc.cc_method import GetTestData, DMS, PictureMethod
 from config_ep import page
-from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_import import PageImport
 from config_ep.page.page_input import PageInput
+from config_ep.page.page_graphic import PageGraphic
 
 
 @pytest.mark.input
@@ -185,8 +185,8 @@ class TestFile:
         self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)# 打开第1个step
         time.sleep(0.5)#打开graphic要等一会儿
 
-        my_graphic = Graphic()
-        my_graphic.close()#关闭Graphic窗口
+        self.graphic = PageGraphic()
+        self.graphic.close()#关闭Graphic窗口
 
         self.engineering.go_up()  # 鼠标点击
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
@@ -233,9 +233,9 @@ class TestFile:
         self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
-        my_graphic = Graphic()
+        self.graphic = PageGraphic()
         # my_graphic.graphic_window.print_control_identifiers()
-        graphic_window_pic = my_graphic.graphic_window.capture_as_image()  # 截图
+        graphic_window_pic = self.graphic.graphic_window.capture_as_image()  # 截图
         # graphic_window_pic.save(r'C:\cc\share\temp\graphic_window.png')
         img = np.array(graphic_window_pic)
         x_s,x_e = 58,230#x_s,x_e分别是层别列表的x方向开始与结束像素。
@@ -255,10 +255,10 @@ class TestFile:
         assert target_word_coord_percentage[0] > -1
         graphic_layer_size = (x_e - x_s, y_e - y_s)#x,y
         my_coor = (int(graphic_layer_size[0] * target_word_coord_percentage[0]) + x_s + 10,int(graphic_layer_size[1] * target_word_coord_percentage[1]) + y_s)
-        my_graphic.graphic_window.click_input(coords=my_coor)#点击 smt层
+        self.graphic.graphic_window.click_input(coords=my_coor)#点击 smt层
         send_keys('^b')#删除层别物件
         send_keys("{ENTER}")
-        my_graphic.close()  # 关闭Graphic窗口
+        self.graphic.close()  # 关闭Graphic窗口
 
         self.engineering.go_up()  # 鼠标点击
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
@@ -286,9 +286,9 @@ class TestFile:
         self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
-        my_graphic = Graphic()
-        my_graphic.graphic_window.click_input(coords=my_coor)  # 点击 smt层
-        graphic_window_dialog = my_graphic.graphic_window.capture_as_image()#截个图
+        self.graphic = PageGraphic()
+        self.graphic.graphic_window.click_input(coords=my_coor)  # 点击 smt层
+        graphic_window_dialog = self.graphic.graphic_window.capture_as_image()#截个图
         img = np.array(graphic_window_dialog)
         pil_image = Image.fromarray(img)  # 将图像转换为PIL图像对象
         width, height = pil_image.size  # 获取图像尺寸
@@ -301,7 +301,7 @@ class TestFile:
         assert 'Selected: 0' in text
 
         # time.sleep(5)
-        my_graphic.close()  # 关闭Graphic窗口
+        self.graphic.close()  # 关闭Graphic窗口
         self.engineering.go_up()  # 鼠标点击
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
 
@@ -311,10 +311,10 @@ class TestFile:
     def test_file_close(self,job_id,epcam_ui_start):
         pass
         '''
-                禅道用例ID：4076。
-                :param epcam_ui_start:
-                :return:
-                '''
+        禅道用例ID：4076。
+        :param epcam_ui_start:
+        :return:
+        '''
         # 下载料号
         temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
         shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
@@ -324,7 +324,6 @@ class TestFile:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
@@ -363,7 +362,6 @@ class TestFile:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()

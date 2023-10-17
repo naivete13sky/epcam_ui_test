@@ -48,6 +48,12 @@ engineering_nJob_steps_step_first_coor = (80 + 130, 250)
 
 
 
+""" 以下为graphic模块信息"""
+graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title,'control_type':"Window"}
+
+
+
+
 
 
 
