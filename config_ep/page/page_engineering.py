@@ -69,5 +69,5 @@ class PageEngineering(object):
     def close_job_first(self):
         self.engineering_window.click_input(coords=page.engineering_jobList_first)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(button="right", coords=page.engineering_jobList_first)
-        self.engineering_window.click_input(coords=(80 + 20,280 + 50))
+        self.engineering_window.click_input(coords=(page.engineering_jobList_first[0] + 20,page.engineering_jobList_first[1] + 50))
         send_keys("{ENTER}")

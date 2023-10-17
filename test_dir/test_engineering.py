@@ -16,6 +16,11 @@ import cv2
 
 @pytest.mark.input
 class TestUI:
+    @pytest.fixture(autouse=True)
+    def setup_method(self):
+        # 在每个测试方法执行前进行初始化
+        from config_ep.page.page_engineering import PageEngineering
+        self.engineering = PageEngineering()
 
     def test_ui_all(self,epcam_ui_start):
         my_engineering = Engineering()
@@ -58,7 +63,7 @@ class TestUI:
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
         if my_engineering.job_first_is_opened():
-            my_engineering.close_job_first()
+            self.engineering.close_job_first()
         my_engineering.delete_all_jobs()#删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path),job_org_type = 'ipc2581')#导入一个料号
 
@@ -122,7 +127,7 @@ class TestUI:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+        self.engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
@@ -151,6 +156,11 @@ class TestUI:
 
 
 class TestFile:
+    @pytest.fixture(autouse=True)
+    def setup_method(self):
+        # 在每个测试方法执行前进行初始化
+        from config_ep.page.page_engineering import PageEngineering
+        self.engineering = PageEngineering()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_no_changed(self, job_id, epcam_ui_start):
@@ -169,7 +179,7 @@ class TestFile:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None#如果料号是打开状态，要先关闭料号
+        self.engineering.close_job_first() if my_engineering.job_first_is_opened() else None#如果料号是打开状态，要先关闭料号
 
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
@@ -216,7 +226,7 @@ class TestFile:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+        self.engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
@@ -275,7 +285,7 @@ class TestFile:
 
         #验证用例3557
         send_keys('^y')  # 不选中任何料号
-        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+        self.engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
         my_engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(
             coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
@@ -323,7 +333,7 @@ class TestFile:
 
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        my_engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
+        self.engineering.close_job_first() if my_engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
@@ -362,7 +372,7 @@ class TestFile:
         my_engineering = Engineering()
         my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if my_engineering.job_first_is_opened():
-            my_engineering.close_job_first()
+            self.engineering.close_job_first()
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.file_input(str(file_compressed_path))  # 导入一个料号
 
@@ -371,6 +381,4 @@ class TestFile:
 
     def test_cc(self,epcam_ui_start):
         pass
-        from config_ep.page.page_engineering import PageEngineering
-        self.engineering = PageEngineering()
         self.engineering.close_job_first()
