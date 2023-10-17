@@ -13,6 +13,7 @@ from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_import import PageImport
+from config_ep.page.page_input import PageInput
 
 
 @pytest.mark.input
@@ -84,10 +85,10 @@ class TestUI:
         :return:
         '''
         my_engineering = Engineering()
-        my_engineering.language_switch(language='Simplified Chinese')
+        self.engineering.language_switch(language='Simplified Chinese')
         # my_engineering.engineering_window.print_control_identifiers()
-        assert my_engineering.language_is_Simplified_Chinese() == True
-        my_engineering.language_switch(language='EP Default')
+        assert self.engineering.language_is_Simplified_Chinese() == True
+        self.engineering.language_switch(language='EP Default')
 
     def test_file_save_no_job_select(self,epcam_ui_start):
         '''
@@ -97,7 +98,7 @@ class TestUI:
         '''
         my_engineering = Engineering()
         my_engineering.engineering_window.click_input(coords=(800,600))#鼠标点击空白处，不选择料号
-        my_engineering.file_save()
+        self.engineering.file_save()
         engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(**{'title': "Save", 'control_type': "Window"})
         engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()# 截图
         img = np.array(engineering_file_save_job_no_select_jpg)# Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
@@ -198,8 +199,8 @@ class TestFile:
 
         self.engineering.go_up()  # 鼠标点击
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
-        my_engineering.selct_first_job()#选中第一个料号
-        my_engineering.file_save()#保存
+        self.engineering.select_first_job()#选中第一个料号
+        self.engineering.file_save()#保存
 
         engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
@@ -272,8 +273,8 @@ class TestFile:
 
         self.engineering.go_up()  # 鼠标点击
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
-        my_engineering.selct_first_job()  # 选中第一个料号
-        my_engineering.file_save()  # 保存
+        self.engineering.select_first_job()  # 选中第一个料号
+        self.engineering.file_save()  # 保存
 
         engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(
             title="Information", control_type="Window")
@@ -347,11 +348,11 @@ class TestFile:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
 
         #File-close关闭料号
-        my_engineering.file_close()
+        self.engineering.file_close()
         time.sleep(1)
         send_keys("{ENTER}")  # 确认关闭弹窗
 
-        result = my_engineering.job_first_is_closed()
+        result = self.engineering.job_first_is_closed()
         # print(result)
         assert result == True
 
@@ -380,11 +381,10 @@ class TestFile:
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.file_input(str(file_compressed_path))  # 导入一个料号
+        self.input_job = PageInput()
+        self.input_job.input_job(str(file_compressed_path))  # 导入一个料号
 
 
 
 
-    def test_cc(self,epcam_ui_start):
-        pass
-        self.engineering.close_job_first()
+

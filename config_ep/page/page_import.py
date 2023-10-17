@@ -6,13 +6,12 @@ from config_ep import page
 
 class PageImport(object):
     def __init__(self):
-        pass
         self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
         # 点击菜单File(F)--import
         self.engineering_window.click_input(coords=page.engineering_file_coor)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=page.engineering_file_import_coor)  # 使用鼠标单击按钮，无需主动激活窗口
 
-        # 切换到import job窗口，并点击菜单input path
+        # 切换到import job窗口
         self.engineering_import_window = self.engineering_window.child_window(**page.engineering_import_window_child_window_para)
 
 
