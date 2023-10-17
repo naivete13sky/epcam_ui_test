@@ -366,3 +366,11 @@ class TestFile:
         my_engineering.delete_all_jobs()  # 删除筛选出的料号
         my_engineering.file_input(str(file_compressed_path))  # 导入一个料号
 
+
+
+
+    def test_cc(self,epcam_ui_start):
+        pass
+        from config_ep.page.page_engineering import PageEngineering
+        self.engineering = PageEngineering()
+        self.engineering.close_job_first()
