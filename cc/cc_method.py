@@ -1,6 +1,7 @@
 import json
 import os,sys
 import re
+import shutil
 import urllib  # 导入urllib库
 import urllib.request
 import time
@@ -575,6 +576,10 @@ def ff2():
 
     # 保存
     image.save(output_image_path)
+
+
+
+
 
 
 if __name__ == '__main__':    # 输入和输出文件路径
