@@ -1,9 +1,6 @@
 from cc.cc_method import get_print_control_identifiers_text, get_coor_of_object
 from config import RunConfig
 
-import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
-tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
 
 class Engineering(object):
     # 获得坐标

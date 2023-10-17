@@ -182,7 +182,7 @@ class TestFile:
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)# 双击打开steps
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)# 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coor)# 打开第1个step
         time.sleep(0.5)#打开graphic要等一会儿
 
         self.graphic = PageGraphic()
@@ -230,7 +230,7 @@ class TestFile:
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         self.graphic = PageGraphic()
@@ -283,7 +283,7 @@ class TestFile:
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         self.graphic = PageGraphic()
