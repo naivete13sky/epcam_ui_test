@@ -41,8 +41,6 @@ class PageEngineering(object):
         # input 选择文件窗口中的文件路径对象
         self.engineering_input_path_file_path_window_para = {'title': "Open", 'control_type': "Window"}
 
-
-
     def job_first_is_opened(self):
         self.engineering_window.set_focus()  # 激活窗口
         # 截图
@@ -76,3 +74,36 @@ class PageEngineering(object):
         send_keys("{ENTER}")  # 发送回车键，删除
         send_keys("{ENTER}")  # 发送回车键，确认删除所有
         time.sleep(1)
+
+    def entity_filter(self,job_name):
+        self.engineering_window.click_input(coords=page.engineering_entity_filter_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        send_keys('^a')
+        send_keys('*' + job_name)
+        send_keys("{ENTER}")
+
+    def open_job_first_by_double_click(self):
+        # self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coor)
+
+    def open_job_first_by_context_menu(self):
+        pass
+        self.engineering_window.right_click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        my_engineering_context_menu = RunConfig.driver_epcam_ui.window(class_name="Qt5QWindowPopupDropShadowSaveBits")
+        my_engineering_context_menu.click_input(coords=page.engineering_job_right_click_open_coor)  # 点击Open
+
+    def go_up(self,method='click'):
+        '''
+        有2种操作方式：
+        1、鼠标：
+        2、菜单：
+        '''
+        self.engineering_window.click_input(coords=page.engineering_inJob_go_up_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        if method == 'click':
+            self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coor)
+        if method == 'menu':
+            pass
+            # 点击菜单Action--Open
+            self.engineering_window.click_input(coords=page.engineering_action_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+            self.engineering_window.click_input(coords=page.engineering_action_open_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        mouse.move(coords=page.engineering_jobList_onlyOneJob_empty_coor)

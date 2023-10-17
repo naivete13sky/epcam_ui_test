@@ -2,14 +2,13 @@ import os
 import shutil
 import time
 from pathlib import Path
-
 import numpy as np
 import pytest
 import pytesseract
 from pywinauto.keyboard import send_keys
 from PIL import Image
 from config import RunConfig
-from cc.cc_method import GetTestData, DMS, opencv_compare, PictureMethod
+from cc.cc_method import GetTestData, DMS, PictureMethod
 from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 from config_ep.page.page_engineering import PageEngineering
@@ -63,19 +62,19 @@ class TestUI:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()#删除筛选出的料号
         self.import_job = PageImport()
         self.import_job.import_job(str(file_compressed_path),job_org_type = 'ipc2581')#导入一个料号
 
-        my_engineering.open_job_first_by_double_click()# 双击打开料号
-        my_engineering.go_up()#鼠标点击
+        self.engineering.open_job_first_by_double_click()# 双击打开料号
+        self.engineering.go_up()#鼠标点击
         assert self.engineering.job_first_is_opened() == True
 
-        my_engineering.open_job_first_by_double_click()  # 双击打开料号
-        my_engineering.go_up(method='menu')  # 通过菜单action-open
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.go_up(method='menu')  # 通过菜单action-open
         assert self.engineering.job_first_is_opened() == True
 
     def test_option_language(self,epcam_ui_start):
@@ -129,14 +128,15 @@ class TestUI:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        self.import_job = PageImport()
+        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
         #右击打开料号
-        my_engineering.open_job_first_by_context_menu()
+        self.engineering.open_job_first_by_context_menu()
         my_engineering.engineering_window.click_input(coords=(950,210))#鼠标指示放到空白处
         engineering_window_job_info=my_engineering.engineering_window.capture_as_image()#截图
         img = np.array(engineering_window_job_info)
@@ -154,7 +154,7 @@ class TestUI:
         # 打印识别出的文本
         print('text:', text)
         assert '(GO Up) matrix steps symbols' in text
-        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
 
@@ -181,13 +181,14 @@ class TestFile:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None#如果料号是打开状态，要先关闭料号
 
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        self.import_job = PageImport()
+        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
-        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_coor(coor_type = 'relative'))# 双击打开steps
         my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type = 'relative'))# 打开第1个step
         time.sleep(0.5)#打开graphic要等一会儿
@@ -195,8 +196,8 @@ class TestFile:
         my_graphic = Graphic()
         my_graphic.close()#关闭Graphic窗口
 
-        my_engineering.go_up()  # 鼠标点击
-        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        self.engineering.go_up()  # 鼠标点击
+        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
         my_engineering.selct_first_job()#选中第一个料号
         my_engineering.file_save()#保存
 
@@ -228,13 +229,14 @@ class TestFile:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        self.import_job = PageImport()
+        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
-        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(
             coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
         my_engineering.engineering_window.double_click_input(
@@ -268,8 +270,8 @@ class TestFile:
         send_keys("{ENTER}")
         my_graphic.close()  # 关闭Graphic窗口
 
-        my_engineering.go_up()  # 鼠标点击
-        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        self.engineering.go_up()  # 鼠标点击
+        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
         my_engineering.selct_first_job()  # 选中第一个料号
         my_engineering.file_save()  # 保存
 
@@ -289,7 +291,7 @@ class TestFile:
         #验证用例3557
         send_keys('^y')  # 不选中任何料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
         my_engineering.engineering_window.double_click_input(
             coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
         my_engineering.engineering_window.double_click_input(
@@ -312,8 +314,8 @@ class TestFile:
 
         # time.sleep(5)
         my_graphic.close()  # 关闭Graphic窗口
-        my_engineering.go_up()  # 鼠标点击
-        my_engineering.go_up()  # 鼠标点击，返回到了job list界面
+        self.engineering.go_up()  # 鼠标点击
+        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
 
 
     # @pytest.mark.skip
@@ -335,13 +337,14 @@ class TestFile:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        my_engineering.import_job(str(file_compressed_path))  # 导入一个料号
+        self.import_job = PageImport()
+        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
-        my_engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
 
         #File-close关闭料号
         my_engineering.file_close()
@@ -373,7 +376,7 @@ class TestFile:
         job_name = file_compressed_path.stem
 
         my_engineering = Engineering()
-        my_engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()  # 删除筛选出的料号

@@ -24,4 +24,17 @@ engineering_file_coor = (20, 40)
 engineering_file_import_coor = (20, 210)
 engineering_file_import_input_path_coor = (30, 80) # 变形时，字体太大，异常情况,y = 100
 engineering_file_import_ok_coor = (30, 180) # 变形时，字体太大，异常情况,y = 200
+engineering_entity_filter_coor = (120, 120)
+engineering_job_right_click_open_coor = (20, 10)
+engineering_inJob_go_up_coor = (80, 250)
+engineering_action_coor = (80, 40)
+engineering_action_open_coor = (80, 90)
+engineering_jobList_onlyOneJob_empty_coor = (600, 600)
+
+
+
+
+
+
+
 

@@ -16,8 +16,6 @@ class PageImport(object):
         self.engineering_import_window = self.engineering_window.child_window(**page.engineering_import_window_child_window_para)
 
 
-
-
     def import_job(self, file_path, job_org_type='odb_tgz'):
         # 点击菜单input path
         self.engineering_import_window.click_input(coords=page.engineering_file_import_input_path_coor)  # 点击菜单input path
