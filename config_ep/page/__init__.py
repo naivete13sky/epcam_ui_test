@@ -42,6 +42,8 @@ engineering_file_save_coor = (20, 250)
 
 engineering_file_input_path_coor = (30, 55)
 
+engineering_inJob_steps_coor = (80 + 260, 250)
+engineering_nJob_steps_step_first_coor = (80 + 130, 250)
 
 
 

@@ -9,6 +9,7 @@ from pywinauto.keyboard import send_keys
 from PIL import Image
 from config import RunConfig
 from cc.cc_method import GetTestData, DMS, PictureMethod
+from config_ep import page
 from config_ep.epcam_ui import Engineering,Graphic
 import cv2
 from config_ep.page.page_engineering import PageEngineering
@@ -25,14 +26,8 @@ class TestUI:
 
 
     def test_ui_all(self,epcam_ui_start):
-        my_engineering = Engineering()
-        my_engineering.engineering_window.set_focus()  # 激活窗口
-        engineering_window_pic = my_engineering.engineering_window.capture_as_image()# 截图
-        # engineering_window_pic.save(r'C:\cc\share\temp\engineering_window.png')#保存到硬盘
-        # engineering_window_pic.show()# 显示图像
-
-
-
+        self.engineering.engineering_window.set_focus()  # 激活窗口
+        engineering_window_pic = self.engineering.engineering_window.capture_as_image()# 截图
         img_cut = engineering_window_pic.crop((10, 30, 42, 60))  # 截取图像# PIL裁剪坐标是左上右下
         # img_cut.show()# 显示图像
         text = pytesseract.image_to_string(img_cut)# 使用Tesseract进行文字识别
@@ -62,7 +57,6 @@ class TestUI:
         file_compressed_path = Path(os.path.join(temp_compressed_path,file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
         self.engineering.entity_filter(job_name)#筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
@@ -84,7 +78,6 @@ class TestUI:
         :param epcam_ui_start:
         :return:
         '''
-        my_engineering = Engineering()
         self.engineering.language_switch(language='Simplified Chinese')
         # my_engineering.engineering_window.print_control_identifiers()
         assert self.engineering.language_is_Simplified_Chinese() == True
@@ -96,8 +89,7 @@ class TestUI:
         :param epcam_ui_start:
         :return:
         '''
-        my_engineering = Engineering()
-        my_engineering.engineering_window.click_input(coords=(800,600))#鼠标点击空白处，不选择料号
+        self.engineering.engineering_window.click_input(coords=(800,600))#鼠标点击空白处，不选择料号
         self.engineering.file_save()
         engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(**{'title': "Save", 'control_type': "Window"})
         engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()# 截图
@@ -128,7 +120,6 @@ class TestUI:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
@@ -138,8 +129,8 @@ class TestUI:
 
         #右击打开料号
         self.engineering.open_job_first_by_context_menu()
-        my_engineering.engineering_window.click_input(coords=(950,210))#鼠标指示放到空白处
-        engineering_window_job_info=my_engineering.engineering_window.capture_as_image()#截图
+        self.engineering.engineering_window.click_input(coords=(950,210))#鼠标指示放到空白处
+        engineering_window_job_info=self.engineering.engineering_window.capture_as_image()#截图
         img = np.array(engineering_window_job_info)
         x_s, x_e = 30, 830  # x_s,x_e分别是层别列表的x方向开始与结束像素。
         y_s, y_e = 210, 350  # y_s,y_e分别是层别列表的y方向开始与结束像素
@@ -181,7 +172,7 @@ class TestFile:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
+
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None#如果料号是打开状态，要先关闭料号
 
@@ -190,8 +181,8 @@ class TestFile:
         self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_coor(coor_type = 'relative'))# 双击打开steps
-        my_engineering.engineering_window.double_click_input(coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type = 'relative'))# 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)# 双击打开steps
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)# 打开第1个step
         time.sleep(0.5)#打开graphic要等一会儿
 
         my_graphic = Graphic()
@@ -202,7 +193,7 @@ class TestFile:
         self.engineering.select_first_job()#选中第一个料号
         self.engineering.file_save()#保存
 
-        engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(title="Information", control_type="Window")
+        engineering_file_save_job_no_changed_dialog = self.engineering.engineering_window.child_window(title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
         img = np.array(engineering_file_save_job_no_changed_dialog)
         img_cut = img[35:60, 55:210]  # 后面的是水平方向
@@ -229,7 +220,7 @@ class TestFile:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
 
-        my_engineering = Engineering()
+
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
 
@@ -238,10 +229,8 @@ class TestFile:
         self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        my_engineering.engineering_window.double_click_input(
-            coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
-        my_engineering.engineering_window.double_click_input(
-            coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type='relative'))  # 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         my_graphic = Graphic()
@@ -276,7 +265,7 @@ class TestFile:
         self.engineering.select_first_job()  # 选中第一个料号
         self.engineering.file_save()  # 保存
 
-        engineering_file_save_job_no_changed_dialog = my_engineering.engineering_window.child_window(
+        engineering_file_save_job_no_changed_dialog = self.engineering.engineering_window.child_window(
             title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()  # 截图
         img = np.array(engineering_file_save_job_no_changed_dialog)
@@ -293,10 +282,8 @@ class TestFile:
         send_keys('^y')  # 不选中任何料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        my_engineering.engineering_window.double_click_input(
-            coords=my_engineering.get_engineering_job_steps_coor(coor_type='relative'))  # 双击打开steps
-        my_engineering.engineering_window.double_click_input(
-            coords=my_engineering.get_engineering_job_steps_step_first_coor(coor_type='relative'))  # 打开第1个step
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_nJob_steps_step_first_coor)  # 打开第1个step
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         my_graphic = Graphic()
