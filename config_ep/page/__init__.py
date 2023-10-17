@@ -19,4 +19,9 @@ engineering_input_window_child_window_para = {'title': "Input", 'control_type': 
 # input 选择文件窗口中的文件路径对象
 engineering_input_path_file_path_window_para = {'title': "Open", 'control_type': "Window"}
 
-engineering_jobList_first = (80, 280)
+engineering_jobList_first_coor = (80, 280)
+engineering_file_coor = (20, 40)
+engineering_file_import_coor = (20, 210)
+engineering_file_import_input_path_coor = (30, 80) # 变形时，字体太大，异常情况,y = 100
+engineering_file_import_ok_coor = (30, 180) # 变形时，字体太大，异常情况,y = 200
+

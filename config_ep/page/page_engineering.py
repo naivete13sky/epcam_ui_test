@@ -17,13 +17,9 @@ tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"
 class PageEngineering(object):
     def __init__(self):
         self.set_default_ui_para()
-        self.engineering_window = RunConfig.driver_epcam_ui.window(**self.engineering_window_para)
+        self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
 
     def set_default_ui_para(self):
-        pass
-        # engineering_window
-        self.engineering_window_para = {'title': RunConfig.driver_epcam_ui_engineering_title}
-
         # import job窗口
         self.engineering_import_window_child_window_para = {'title': "Import Job", 'control_type': "Window"}
 
@@ -59,7 +55,7 @@ class PageEngineering(object):
         cv2.waitKey(0)
 
         # 加载两张图片
-        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent,
+        img_standard_path = os.path.join(Path(os.path.dirname(__file__)).parent.parent,
                                          r'data\pic\engineering\engineering_job_first_opened_standard.jpg')
         img_current_path = r'C:\cc\share\temp\engineering_job_first.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
@@ -67,7 +63,16 @@ class PageEngineering(object):
         return rectangle_count == 0
 
     def close_job_first(self):
-        self.engineering_window.click_input(coords=page.engineering_jobList_first)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(button="right", coords=page.engineering_jobList_first)
-        self.engineering_window.click_input(coords=(page.engineering_jobList_first[0] + 20,page.engineering_jobList_first[1] + 50))
+        self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(button="right", coords=page.engineering_jobList_first_coor)
+        self.engineering_window.click_input(coords=(page.engineering_jobList_first_coor[0] + 20,page.engineering_jobList_first_coor[1] + 50))
         send_keys("{ENTER}")
+
+    def delete_all_jobs(self):
+        # 清空料号，ctrl + A 全选料号，然后 ctrl + B删除
+        self.engineering_window.set_focus()  # 激活窗口
+        send_keys("^a")  # 发送 Ctrl + A 快捷键，全选
+        send_keys("^b")  # 发送 Ctrl + B 快捷键，删除
+        send_keys("{ENTER}")  # 发送回车键，删除
+        send_keys("{ENTER}")  # 发送回车键，确认删除所有
+        time.sleep(1)
