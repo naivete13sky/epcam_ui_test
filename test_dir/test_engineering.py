@@ -25,8 +25,7 @@ def get_file_compressed_job_name_by_job_id_from_dms(job_id):
     temp_compressed_path = os.path.join(temp_path, 'compressed')
     file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
     job_name = file_compressed_path.stem
-    return (job_name, file_compressed_path)
-
+    return job_name, file_compressed_path
 
 
 @pytest.mark.input
@@ -119,10 +118,8 @@ class TestUI:
         """
         # 下载料号
         job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
-
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
         self.import_job = PageImport()
         self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
