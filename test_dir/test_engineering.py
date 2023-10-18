@@ -17,17 +17,6 @@ from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
 
 
-def get_file_compressed_job_name_by_job_id_from_dms(job_id):
-    temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
-    shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
-    # 从DMS下载附件，并返回文件名称
-    file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id, field='file_compressed')
-    temp_compressed_path = os.path.join(temp_path, 'compressed')
-    file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
-    job_name = file_compressed_path.stem
-    return job_name, file_compressed_path
-
-
 @pytest.mark.input
 class TestUI:
     @pytest.fixture(autouse=True)
@@ -39,7 +28,6 @@ class TestUI:
         self.engineering.engineering_window.set_focus()  # 激活窗口
         engineering_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         img_cut = engineering_window_pic.crop((10, 30, 42, 60))  # 截取图像# PIL裁剪坐标是左上右下
-        # img_cut.show()# 显示图像
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
         assert text == 'File\n'
         # 截取图像# PIL裁剪坐标是左上右下。img_cut = img[30:60, 70:120]这种方式颜色有时会有问题。
@@ -51,7 +39,7 @@ class TestUI:
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
         assert text == 'Option\n'
 
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Engineering'))
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Engineering'))
     def test_go_up(self, job_id, epcam_ui_start):
         """
         禅道用例ID：1505
@@ -60,7 +48,7 @@ class TestUI:
         :return:
         """
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
@@ -117,7 +105,7 @@ class TestUI:
         :return:
         """
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
@@ -161,7 +149,7 @@ class TestFile:
         :return:
         """
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         # 如果料号是打开状态，要先关闭料号
@@ -205,7 +193,7 @@ class TestFile:
         :return:
         """
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
@@ -305,7 +293,7 @@ class TestFile:
         :return:
         '''
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
@@ -336,7 +324,7 @@ class TestFile:
                 :return:
                 '''
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():

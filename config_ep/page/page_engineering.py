@@ -10,11 +10,12 @@ from pywinauto.keyboard import send_keys
 from cc.cc_method import get_print_control_identifiers_text, get_coor_of_object, opencv_compare
 from config_ep import page
 from config import RunConfig
+from config_ep.base.base import Base
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # 根据你的Tesseract安装路径设置
 tessdata_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata"'
 
-class PageEngineering(object):
+class PageEngineering(Base):
     def __init__(self):
         self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
 
