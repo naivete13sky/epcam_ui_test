@@ -1,29 +1,28 @@
 import json
-import os,sys
+import os
+import sys
 import re
 import shutil
 import urllib  # 导入urllib库
 import urllib.request
 import time
 from pathlib import Path
-
 import cv2
-import numpy as np
 import psycopg2
 import rarfile
 from sqlalchemy import create_engine
 import pandas as pd
 from config import RunConfig
+import tarfile as tf
 print(os.path.dirname("__file__"))
 sys.path.append(RunConfig.epcam_python_interface_path)
 base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, base_path)
-sys.path.insert(0, os.path.join(base_path,r'config_ep/epcam'))
+sys.path.insert(0, os.path.join(base_path, r'config_ep/epcam'))
 
-import tarfile as tf
 
-class GetTestData():
-    pass
+class GetTestData:
+
     @staticmethod
     def get_job_id(fun):
         pd_1=pd.read_excel(io=os.path.join(os.path.abspath('.'),r"config.xlsx"), sheet_name="test_data")
@@ -66,9 +65,9 @@ class CompressTool():
                         os.rmdir(os.path.join(root, name))
             tar.extract(tarinfo.name, ofn)
         print('uncompress success!')
-        return os.path.dirname(tarinfo.name)
-        # os.system('pause')
-        return
+        # return os.path.dirname(tarinfo.name)
+
+
 
 class DMS():
 
@@ -114,10 +113,10 @@ class DMS():
         return ans
 
     def get_job_fields_from_dms_db_pandas(self, job_id,*args, **kwargs):
+        engine = create_engine('postgresql+psycopg2://readonly:123456@10.97.80.119/epdms')
         sql = '''SELECT a.* from eptest_job_for_test a
                 where a.id = {}
                 '''.format(job_id)
-        engine = create_engine('postgresql+psycopg2://readonly:123456@10.97.80.119/epdms')
         pd_job_current = pd.read_sql(sql=sql, con=engine).loc[0]
         if 'field' in kwargs:
             return pd_job_current[kwargs['field']]
@@ -270,6 +269,7 @@ def get_data(file_path):
 
 
 def getFlist(path):
+    files = []  # 为 'files' 变量分配一个初始值
     for root, dirs, files in os.walk(path):
         print('root_dir:', root)  #当前路径
         print('sub_dirs:', dirs)   #子文件夹
@@ -317,16 +317,20 @@ def get_print_control_identifiers_text(object_print_control_identifiers):
     return text_area.buffer
 
 def get_coor_of_object(text_wanted,text_from):
-    pass
+    tup_coor = None  # 为 'tup_coor' 变量分配一个初始值
     for tup in text_from:
         i = tup[0].find(text_wanted)
         if i > 0:
             pattern = re.compile(r"(\(L\d+, T\d+, R\d+, B\d+\))")
             result = pattern.findall(tup[0])
             tup_coor = result[0]
-    coor_file_w = int(tup_coor.split(",")[0][2:]) + 1
-    coor_file_h = int(tup_coor.split(",")[1][2:]) + 1
-    return (coor_file_w, coor_file_h)
+    if tup_coor is not None:
+        coor_file_w = int(tup_coor.split(",")[0][2:]) + 1
+        coor_file_h = int(tup_coor.split(",")[1][2:]) + 1
+        return (coor_file_w, coor_file_h)
+    else:
+        # 处理未找到匹配的情况，可以返回 None 或者适当的默认值
+        return None
 
 def opencv_compare(img_standard_path,img_current_path,custom_width = 10, custom_height = 10):
 
@@ -450,6 +454,7 @@ class PictureMethod(object):
             if character == target_word[0]:
                 # print("i:",i)
                 potential_word = character
+                j = 1  # 为 'j' 变量分配一个初始值
                 for j in range(1, len(target_word)):
                     next_box_data = text_boxes_list[i + j].split()
                     next_character = next_box_data[0]
@@ -510,12 +515,7 @@ def f_get_word_pos_of_picture():
     target_word = 'testcase3'
     PictureMethod.get_word_pos_of_picture(image_path, target_word)
 
-def f_get_word_pos_of_picture2():
-    pass
-    image_path = r"C:\cc\share\temp\graphic_window_layers_pic4.png"
-    target_word = 'smt'
-    # target_word = 'top'
-    PictureMethod.get_word_pos_of_picture2(image_path,target_word)
+
 
 
 
@@ -547,8 +547,6 @@ def ff():
 
 
 def ff2():
-    import cv2
-    import pytesseract
     from PIL import Image
 
     # 读取图片并进行 OCR
