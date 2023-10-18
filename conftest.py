@@ -204,8 +204,8 @@ def epcam_ui_start():
 
 
 @pytest.fixture
-def get_file_compressed_job_name_by_job_id_from_dms_entity_filter_delete_all_jobs_import_tgz(request):
-    def _epcam_ui_import(job_id,job_org_type):
+def download_file_compressed_entity_filter_delete_all_jobs_import(request):
+    def _epcam_ui_import(job_id,job_org_type='odb_tgz'):
         # 在这里可以使用参数 parameter_name
         print(f"job_id: {job_id},job_org_type: {job_org_type}")
         # 其它 fixture 操作

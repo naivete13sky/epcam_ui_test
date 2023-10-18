@@ -38,7 +38,7 @@ class TestUI:
 
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Engineering'))
     def test_go_up(self, job_id, epcam_ui_start,
-                   get_file_compressed_job_name_by_job_id_from_dms_entity_filter_delete_all_jobs_import_tgz):
+                   download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道用例ID：1505
         :param job_id:
@@ -47,16 +47,9 @@ class TestUI:
         """
         job_org_type = 'ipc2581'
         # 下载料号
-        job_name, file_compressed_path = get_file_compressed_job_name_by_job_id_from_dms_entity_filter_delete_all_jobs_import_tgz(job_id,job_org_type)  # 调用 fixture 并传递参数值
-
-        # self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        # if self.engineering.job_first_is_opened():
-        #     self.engineering.close_job_first()
-        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        # self.import_job = PageImport()
-        # self.import_job.import_job(str(file_compressed_path), job_org_type='ipc2581')  # 导入一个料号
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id, job_org_type)  # 调用 fixture 并传递参数值
         print(job_name, file_compressed_path)
-
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.go_up()  # 鼠标点击
         assert self.engineering.job_first_is_opened()
@@ -97,21 +90,17 @@ class TestUI:
         assert text == 'No elements were selected!\n'
         send_keys("{ENTER}")  # 确认关闭弹窗
 
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
-    def test_open_job(self, job_id, epcam_ui_start):
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Save'))
+    def test_open_job(self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道ID：2479
         :param job_id:
         :param epcam_ui_start:
         :return:
         """
-        # 下载料号
-        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-        self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        self.import_job = PageImport()
-        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
+        # 调用 fixture 并传递参数值,下载料号#
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        print(job_name, file_compressed_path)
 
         # 右击打开料号
         self.engineering.open_job_first_by_context_menu()
@@ -143,22 +132,16 @@ class TestFile:
         self.engineering = PageEngineering()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
-    def test_file_save_no_changed(self, job_id, epcam_ui_start):
+    def test_file_save_no_changed(self, job_id, epcam_ui_start,
+                                  download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道用例ID：3553。
         :param epcam_ui_start:
         :return:
         """
-        # 下载料号
-        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-
-        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        # 如果料号是打开状态，要先关闭料号
-        self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None
-
-        self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        self.import_job = PageImport()
-        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
+        # 调用 fixture 并传递参数值,下载料号#
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        print(job_name, file_compressed_path)
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
@@ -187,19 +170,16 @@ class TestFile:
         send_keys("{ENTER}")  # 确认关闭弹窗
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
-    def test_file_save_job_changed(self, job_id, epcam_ui_start):
+    def test_file_save_job_changed(self, job_id, epcam_ui_start,
+                                   download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道用例ID：3594、3557。
         :param epcam_ui_start:
         :return:
         """
-        # 下载料号
-        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-        self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        self.import_job = PageImport()
-        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
+        # 调用 fixture 并传递参数值,下载料号#
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        print(job_name, file_compressed_path)
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
