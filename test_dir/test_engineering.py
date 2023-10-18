@@ -133,16 +133,15 @@ class TestFile:
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_no_changed(self, job_id, epcam_ui_start,
-                                  download_file_compressed_entity_filter_delete_all_jobs_import):
+                                  download_file_compressed_entity_filter_delete_all_jobs_import,
+                                  graphic_close_engineering_save_first_job):
         """
         禅道用例ID：3553。
         :param epcam_ui_start:
         :return:
         """
         # 调用 fixture 并传递参数值,下载料号#
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        print(job_name, file_compressed_path)
-
+        download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
         # 打开第1个step
@@ -150,13 +149,7 @@ class TestFile:
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         self.graphic = PageGraphic()
-        self.graphic.close()  # 关闭Graphic窗口
-
-        self.engineering.go_up()  # 鼠标点击
-        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
-        self.engineering.select_first_job()  # 选中第一个料号
-        self.engineering.file_save()  # 保存
-
+        graphic_close_engineering_save_first_job(job_id)
         engineering_file_save_job_no_changed_dialog = self.engineering.engineering_window.child_window(
             title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()
@@ -171,7 +164,8 @@ class TestFile:
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_job_changed(self, job_id, epcam_ui_start,
-                                   download_file_compressed_entity_filter_delete_all_jobs_import):
+                                   download_file_compressed_entity_filter_delete_all_jobs_import,
+                                   graphic_close_engineering_save_first_job):
         """
         禅道用例ID：3594、3557。
         :param epcam_ui_start:
@@ -212,13 +206,7 @@ class TestFile:
         self.graphic.graphic_window.click_input(coords=my_coord)  # 点击 smt层
         send_keys('^b')  # 删除层别物件
         send_keys("{ENTER}")
-        self.graphic.close()  # 关闭Graphic窗口
-
-        self.engineering.go_up()  # 鼠标点击
-        self.engineering.go_up()  # 鼠标点击，返回到了job list界面
-        self.engineering.select_first_job()  # 选中第一个料号
-        self.engineering.file_save()  # 保存
-
+        graphic_close_engineering_save_first_job(job_id)
         engineering_file_save_job_no_changed_dialog = self.engineering.engineering_window.child_window(
             title="Information", control_type="Window")
         engineering_file_save_job_no_changed_dialog = engineering_file_save_job_no_changed_dialog.capture_as_image()

@@ -10,6 +10,7 @@ from config import RunConfig
 import pytest
 
 from config_ep.page.page_engineering import PageEngineering
+from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_import import PageImport
 from config_g.g_cc_method import G
 from pywinauto.application import Application
@@ -224,6 +225,23 @@ def download_file_compressed_entity_filter_delete_all_jobs_import(request):
         import_job = PageImport()
         import_job.import_job(str(file_compressed_path), job_org_type=job_org_type)  # 导入一个料号
         return job_name, file_compressed_path
+
+    return _epcam_ui_import
+
+
+@pytest.fixture
+def graphic_close_engineering_save_first_job(request):
+    def _epcam_ui_import(job_id):
+        # 在这里可以使用参数 parameter_name
+        print(f"job_id: {job_id}")
+        # 其它 fixture 操作
+        engineering = PageEngineering()
+        graphic = PageGraphic()
+        graphic.close()  # 关闭Graphic窗口
+        engineering.go_up()  # 鼠标点击
+        engineering.go_up()  # 鼠标点击，返回到了job list界面
+        engineering.select_first_job()  # 选中第一个料号
+        engineering.file_save()  # 保存
 
     return _epcam_ui_import
 
