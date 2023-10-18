@@ -1,10 +1,16 @@
 import os
+import shutil
 from pathlib import Path
 
 import pywinauto
 from py.xml import html
+
+from cc.cc_method import DMS
 from config import RunConfig
 import pytest
+
+from config_ep.page.page_engineering import PageEngineering
+from config_ep.page.page_import import PageImport
 from config_g.g_cc_method import G
 from pywinauto.application import Application
 
@@ -197,9 +203,29 @@ def epcam_ui_start():
 
 
 
-@pytest.fixture(scope='session', autouse=False)
-def epcam_ui_import():
-    pass
+@pytest.fixture
+def get_file_compressed_job_name_by_job_id_from_dms_entity_filter_delete_all_jobs_import_tgz(request):
+    def _epcam_ui_import(job_id,job_org_type):
+        # 在这里可以使用参数 parameter_name
+        print(f"job_id: {job_id},job_org_type: {job_org_type}")
+        # 其它 fixture 操作
+        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
+        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
+        # 从DMS下载附件，并返回文件名称
+        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id, field='file_compressed')
+        temp_compressed_path = os.path.join(temp_path, 'compressed')
+        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
+        job_name = file_compressed_path.stem
+        engineering = PageEngineering()
+        engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
+        if engineering.job_first_is_opened():
+            engineering.close_job_first()
+        engineering.delete_all_jobs()  # 删除筛选出的料号
+        import_job = PageImport()
+        import_job.import_job(str(file_compressed_path), job_org_type=job_org_type)  # 导入一个料号
+        return job_name, file_compressed_path
+
+    return _epcam_ui_import
 
 
 def pytest_configure(config):
