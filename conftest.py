@@ -1,15 +1,12 @@
-import os,sys
+import os
 from pathlib import Path
-from _pytest.main import Session
-from _pytest.nodes import Item
-from _pytest.runner import CallInfo
+
+import pywinauto
 from py.xml import html
 from config import RunConfig
 import pytest
-from os.path import dirname, abspath
 from config_g.g_cc_method import G
 from pywinauto.application import Application
-
 
 # 项目目录配置
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -21,10 +18,12 @@ REPORT_DIR = BASE_DIR + "/test_report/"
 def base_url():
     return RunConfig.url
 
+
 # 设置用例描述表头
 def pytest_html_results_table_header(cells):
     cells.insert(2, html.th('Description'))
     cells.pop()
+
 
 # 设置用例描述表格
 def pytest_html_results_table_row(report, cells):
@@ -33,19 +32,16 @@ def pytest_html_results_table_row(report, cells):
     cells.pop()
 
 
-
-
 # FAILURES_FILE = Path() / "failures.txt"
-FAILURES_FILE = Path(os.path.join(BASE_DIR,'test_report',"failures.txt"))
+FAILURES_FILE = Path(os.path.join(BASE_DIR, 'test_report', "failures.txt"))
+
 
 @pytest.hookimpl()
-def pytest_sessionstart(session: Session):
+def pytest_sessionstart():
     print("自定义单独的报告存放位置")
     if FAILURES_FILE.exists():
         FAILURES_FILE.unlink()
     FAILURES_FILE.touch()
-
-
 
 
 # @pytest.mark.hookwrapper
@@ -61,19 +57,16 @@ def pytest_runtest_makereport(item):
     report.description = description_html(item.function.__doc__)
     extra = getattr(report, 'extra', [])
 
-
     # <editor-fold desc="自定义结果存储">
     # if report.when == "call" and report.failed:
     if report.when == "call":
         try:
             with open(str(FAILURES_FILE), "a") as f:
-                f.write(str(report.nodeid)+ ':' + str(report.outcome)+"\n")
+                f.write(str(report.nodeid) + ':' + str(report.outcome) + "\n")
         except Exception as e:
             print("ERROR", e)
             pass
     # </editor-fold>
-
-
 
     if report.when == 'call' or report.when == "setup":
         xfail = hasattr(report, 'wasxfail')
@@ -86,10 +79,11 @@ def pytest_runtest_makereport(item):
             capture_screenshots(case_name)
             img_path = "image/" + case_name.split("/")[-1]
             if img_path:
-                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % img_path
-                extra.append(pytest_html.extras.html(html))
+                html_local = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
+                             'onclick="window.open(this.src)" align="right"/></div>' % img_path
+                extra.append(pytest_html.extras.html(html_local))
         report.extra = extra
+
 
 def description_html(desc):
     """
@@ -116,44 +110,23 @@ def description_html(desc):
             [html.p(line) for line in desc_lines]))
     return desc_html
 
+
 def capture_screenshots(case_name):
     """
     配置用例失败截图路径
     :param case_name: 用例名
     :return:
     """
-    global driver
+
     file_name = case_name.split("/")[-1]
     if RunConfig.NEW_REPORT is None:
         pass
         # raise NameError('没有初始化测试报告目录')
     else:
         image_dir = os.path.join(RunConfig.NEW_REPORT, "image", file_name)
+        print(image_dir)
         # RunConfig.driver.save_screenshot(image_dir)
 
-# 加载epcam
-@pytest.fixture(scope='session', autouse=False)
-def epcam_kernel_start():
-    """
-    全局定义epcam驱动
-    :return:
-    """
-    global driver_epcam
-
-    if RunConfig.driver_type == "epcam_kernel":
-        from epkernel import Configuration
-        Configuration.init(RunConfig.ep_cam_path)
-        Configuration.set_sysattr_path(os.path.join(RunConfig.ep_cam_path,r'config\attr_def\sysattr'))
-        Configuration.set_userattr_path(os.path.join(RunConfig.ep_cam_path,r'config\attr_def\userattr'))
-
-        driver_epcam = None
-
-    else:
-        raise NameError("driver驱动类型定义错误！")
-
-    RunConfig.driver_epcam = driver_epcam
-
-    return driver_epcam
 
 # 加载g
 @pytest.fixture(scope='session', autouse=False)
@@ -162,17 +135,16 @@ def g():
     全局定义epcam驱动
     :return:
     """
-    global driver_g
 
     if RunConfig.driver_type_g == "g":
-        driver_g = G(RunConfig.gateway_path)  # 拿到G软件
+        driver_g_local = G(RunConfig.gateway_path)  # 拿到G软件
 
     else:
         raise NameError("driver_g驱动类型定义错误！")
 
-    RunConfig.driver_g = driver_g
+    RunConfig.driver_g = driver_g_local
 
-    return driver_g
+    return driver_g_local
 
 
 @pytest.fixture(scope='function', autouse=False)
@@ -183,9 +155,8 @@ def prepare_test_job_clean_g():
     g.clean_g_all_pre_get_job_list(r'//vmware-host/Shared Folders/share/job_list.txt')
     g.clean_g_all_do_clean(r'C:\cc\share\job_list.txt')
 
-    #yield前是前置操作
+    # yield前是前置操作
     yield
-
 
 
 # 打开epcam UI
@@ -195,14 +166,15 @@ def epcam_ui_start():
     全局定义epcam ui驱动
     :return:
     """
-    global driver_epcam_ui
+
     if RunConfig.driver_type == "epcam_ui":
         try:
             # 先看一下是否已存在EP-CAM主窗口，根据窗口名称判断
             app = Application(backend="uia").connect(title=RunConfig.driver_epcam_ui_engineering_title)
             driver_epcam_ui = app
 
-        except:
+        except pywinauto.application.AppStartError as e:
+            print(e)
             print('\n未获取到EP-CAM程序，新生成EP-CAM程序')
             # 获取.exe文件所在的目录路径
             exe_dir = os.path.dirname(RunConfig.driver_epcam_ui_exe_path)
@@ -225,14 +197,18 @@ def epcam_ui_start():
 
 
 
+@pytest.fixture(scope='session', autouse=False)
+def epcam_ui_import():
+    pass
 
 
 def pytest_configure(config):
     marker_list = [
-        'input_output','output','test','cc','testcc','example','input','coding'
+        'input_output', 'output', 'test', 'cc', 'testcc', 'example', 'input', 'coding'
     ]
     for markers in marker_list:
-        config.addinivalue_line('markers',markers)
+        config.addinivalue_line('markers', markers)
+
 
 if __name__ == "__main__":
     capture_screenshots("test_dir/test_baidu_search.test_search_python.png")

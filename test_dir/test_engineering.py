@@ -1,14 +1,11 @@
-import os
-import shutil
 import time
-from pathlib import Path
 import numpy as np
 import pytest
 import pytesseract
 from pywinauto.keyboard import send_keys
 from PIL import Image
 from config import RunConfig
-from cc.cc_method import GetTestData, DMS, PictureMethod
+from cc.cc_method import GetTestData, PictureMethod
 from config_ep import page
 import cv2
 from config_ep.page.page_engineering import PageEngineering
@@ -194,10 +191,8 @@ class TestFile:
         """
         # 下载料号
         job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-
         self.engineering.delete_all_jobs()  # 删除筛选出的料号
         self.import_job = PageImport()
         self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
@@ -209,9 +204,7 @@ class TestFile:
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         self.graphic = PageGraphic()
-        # my_graphic.graphic_window.print_control_identifiers()
         graphic_window_pic = self.graphic.graphic_window.capture_as_image()  # 截图
-        # graphic_window_pic.save(r'C:\cc\share\temp\graphic_window.png')
         img = np.array(graphic_window_pic)
         x_s, x_e = 58, 230  # x_s,x_e分别是层别列表的x方向开始与结束像素。
         y_s, y_e = 160, 750  # y_s,y_e分别是层别列表的y方向开始与结束像素
@@ -230,9 +223,9 @@ class TestFile:
         print('target_word_coord_percentage:', target_word_coord_percentage)
         assert target_word_coord_percentage[0] > -1
         graphic_layer_size = (x_e - x_s, y_e - y_s)  # x,y
-        my_coor = (int(graphic_layer_size[0] * target_word_coord_percentage[0]) + x_s + 10,
-                   int(graphic_layer_size[1] * target_word_coord_percentage[1]) + y_s)
-        self.graphic.graphic_window.click_input(coords=my_coor)  # 点击 smt层
+        my_coord = (int(graphic_layer_size[0] * target_word_coord_percentage[0]) + x_s + 10,
+                    int(graphic_layer_size[1] * target_word_coord_percentage[1]) + y_s)
+        self.graphic.graphic_window.click_input(coords=my_coord)  # 点击 smt层
         send_keys('^b')  # 删除层别物件
         send_keys("{ENTER}")
         self.graphic.close()  # 关闭Graphic窗口
@@ -265,7 +258,7 @@ class TestFile:
         time.sleep(0.5)  # 打开graphic要等一会儿
 
         self.graphic = PageGraphic()
-        self.graphic.graphic_window.click_input(coords=my_coor)  # 点击 smt层
+        self.graphic.graphic_window.click_input(coords=my_coord)  # 点击 smt层
         graphic_window_dialog = self.graphic.graphic_window.capture_as_image()  # 截个图
         img = np.array(graphic_window_dialog)
         pil_image = Image.fromarray(img)  # 将图像转换为PIL图像对象
