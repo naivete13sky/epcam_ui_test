@@ -7,7 +7,7 @@ import cv2
 from PIL import Image
 from pywinauto import mouse
 from pywinauto.keyboard import send_keys
-from cc.cc_method import get_print_control_identifiers_text, get_coor_of_object, opencv_compare
+from cc.cc_method import get_print_control_identifiers_text, get_coord_of_object, opencv_compare
 from config_ep import page
 from config import RunConfig
 from config_ep.base.base import Base

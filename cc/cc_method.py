@@ -2,11 +2,9 @@ import json
 import os
 import sys
 import re
-import shutil
 import urllib  # 导入urllib库
 import urllib.request
 import time
-from pathlib import Path
 import cv2
 import psycopg2
 import rarfile
@@ -25,34 +23,25 @@ class GetTestData:
 
     @staticmethod
     def get_job_id(fun):
-        pd_1=pd.read_excel(io=os.path.join(os.path.abspath('.'),r"config.xlsx"), sheet_name="test_data")
-        return [ each2 for each1 in pd_1[(pd_1["测试功能"]==fun) & (pd_1["是否执行"] == 1)][['测试料号']].values.tolist() for each2 in each1]
-
-    @staticmethod
-    def get_file_compressed_job_name_by_job_id_from_dms(job_id):
-        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
-        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
-        # 从DMS下载附件，并返回文件名称
-        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id, field='file_compressed')
-        temp_compressed_path = os.path.join(temp_path, 'compressed')
-        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
-        job_name = file_compressed_path.stem
-        return job_name, file_compressed_path
+        pd_1 = pd.read_excel(io=os.path.join(os.path.abspath('.'), r"config.xlsx"), sheet_name="test_data")
+        return [each2 for each1 in
+                pd_1[(pd_1["测试功能"] == fun) & (pd_1["是否执行"] == 1)][['测试料号']].values.tolist() for each2 in
+                each1]
 
 
-class CompressTool():
+class CompressTool:
     @staticmethod
     def untgz(ifn, untgz_path):
         """解压tgz文件到指定目录
-        :param     ifn(str):解压导入路径
-        :param     untgz_path(str):解压后存放路径
+        :param ifn(str)：解压导入路径
+        :param     untgz_path(str)：解压后存放路径
         :returns   :None
         :raises    error:
         """
         try:
             ifn = ifn.split(sep='"')[1]
-        except:
-            pass
+        except Exception as e:
+            print(e)
         ofn = untgz_path
         # with tf.open(ifn, 'r:gz') as tar:
         tar = tf.open(ifn)
@@ -68,12 +57,12 @@ class CompressTool():
         # return os.path.dirname(tarinfo.name)
 
 
-
-class DMS():
+class DMS:
 
     # 下载文件
-    def file_downloand(self,need_file_path, save_path):  #######文件下载
-        if os.path.exists(need_file_path) == False:  # 判断是否存在文件
+    @staticmethod
+    def file_download(need_file_path, save_path):  # 文件下载
+        if not os.path.exists(need_file_path):  # 判断是否存在文件
 
             # 文件url
             file_url = 'http://10.97.80.119/media/files/{}'.format(os.path.basename(need_file_path))
@@ -100,7 +89,8 @@ class DMS():
         else:
             print("文件已经存在！")
 
-    def get_job_fields_from_dms_db_sql(self,sql):
+    @staticmethod
+    def get_job_fields_from_dms_db_sql(sql):
         pass
         conn = psycopg2.connect(database="epdms", user="readonly", password="123456", host="10.97.80.119", port="5432")
         cursor = conn.cursor()
@@ -112,7 +102,8 @@ class DMS():
         conn.close()
         return ans
 
-    def get_job_fields_from_dms_db_pandas(self, job_id,*args, **kwargs):
+    @staticmethod
+    def get_job_fields_from_dms_db_pandas(job_id, **kwargs):
         engine = create_engine('postgresql+psycopg2://readonly:123456@10.97.80.119/epdms')
         sql = '''SELECT a.* from eptest_job_for_test a
                 where a.id = {}
@@ -123,7 +114,8 @@ class DMS():
         else:
             return pd_job_current
 
-    def get_job_layer_fields_from_dms_db_pandas(self, job_id,*args, **kwargs):
+    @staticmethod
+    def get_job_layer_fields_from_dms_db_pandas(job_id, **kwargs):
         sql = '''SELECT a.* from eptest_layer a
             where a.job_id = {}
                 '''.format(job_id)
@@ -134,17 +126,19 @@ class DMS():
         else:
             return pd_job_current_layers
 
-    def get_job_layer_fields_from_dms_db_pandas_one_layer(self, job_id,*args, **kwargs):
-        layer=kwargs['filter']
+    @staticmethod
+    def get_job_layer_fields_from_dms_db_pandas_one_layer(job_id, **kwargs):
+        layer = kwargs['filter']
         sql = '''SELECT a.* from eptest_layer a
             where a.job_id = {} and lower(a.layer)='{}'
-                '''.format(job_id,layer)
+                '''.format(job_id, layer)
         # print("sql:",sql)
         engine = create_engine('postgresql+psycopg2://readonly:123456@10.97.80.119/epdms')
         pd_job_current_layer = pd.read_sql(sql=sql, con=engine)
         return pd_job_current_layer
 
-    def get_job_layer_drill_from_dms_db_pandas_one_job(self, job_id,*args, **kwargs):
+    @staticmethod
+    def get_job_layer_drill_from_dms_db_pandas_one_job(job_id):
 
         sql = '''SELECT a.* from eptest_layer a
             where a.job_id = {} and a.status = 'published' and a.layer_file_type = 'excellon2'
@@ -154,15 +148,15 @@ class DMS():
         pd_job_current_layer_drill = pd.read_sql(sql=sql, con=engine)
         return pd_job_current_layer_drill
 
-    def get_file_from_dms_db(self,temp_path,job_id,*args, **kwargs):
+    def get_file_from_dms_db(self, temp_path, job_id, **kwargs):
         job_current_all_fields = self.get_job_fields_from_dms_db_pandas(job_id)
         if not os.path.exists(temp_path):
             os.mkdir(temp_path)
 
-        #判断是要下载哪个类型的文件
+        # 判断是要下载哪个类型的文件
         if 'field' in kwargs:
-            print('field:',kwargs['field'])
-            #如果下载的是整理过的gerber压缩包
+            print('field:', kwargs['field'])
+            # 如果下载的是整理过的gerber压缩包
             if kwargs['field'] == 'file_compressed':
                 temp_compressed_path = os.path.join(temp_path, 'compressed')
                 if not os.path.exists(temp_compressed_path):
@@ -175,7 +169,7 @@ class DMS():
                 # 下载并解压原始gerber文件
                 if not os.path.exists(os.path.join(temp_compressed_path, file_compressed_name)):
                     print("not have")
-                    self.file_downloand(os.path.join(temp_compressed_path, file_compressed_name), temp_compressed_path)
+                    self.file_download(os.path.join(temp_compressed_path, file_compressed_name), temp_compressed_path)
 
                 if 'decompress' in kwargs:
                     print('decompress', kwargs['decompress'])
@@ -195,15 +189,14 @@ class DMS():
 
                     if kwargs['decompress'] == 'tgz':
                         pass
-                        CompressTool.untgz(os.path.join(temp_compressed_path, os.listdir(temp_compressed_path)[0]), temp_compressed_path)
+                        CompressTool.untgz(os.path.join(temp_compressed_path, os.listdir(temp_compressed_path)[0]),
+                                           temp_compressed_path)
                         if os.path.exists(os.path.join(temp_compressed_path, file_compressed_file_path)):
                             os.remove(os.path.join(temp_compressed_path, file_compressed_file_path))
                         return os.listdir(temp_compressed_path)[0].lower()
                 else:
                     pass
-                    return (os.listdir(temp_compressed_path)[0])
-
-
+                    return os.listdir(temp_compressed_path)[0]
 
             # 如果下载的是G转图的tgz
             if kwargs['field'] == 'file_odb_g':
@@ -215,7 +208,7 @@ class DMS():
                 # 下载并解压原始gerber文件
                 if not os.path.exists(os.path.join(temp_g_path, file_odb_g_name)):
                     print("not have")
-                    self.file_downloand(os.path.join(temp_g_path, file_odb_g_name), temp_g_path)
+                    self.file_download(os.path.join(temp_g_path, file_odb_g_name), temp_g_path)
 
                 if 'decompress' in kwargs:
                     print('decompress', kwargs['decompress'])
@@ -227,7 +220,8 @@ class DMS():
                         os.remove(os.path.join(temp_g_path, g_tgz_file))
                 return os.listdir(temp_g_path)[0].lower()
 
-    def get_job_layer_rout_from_dms_db_pandas_one_job(self, job_id,*args, **kwargs):
+    @staticmethod
+    def get_job_layer_rout_from_dms_db_pandas_one_job(job_id):
 
         sql = '''SELECT a.* from eptest_layer a
             where a.job_id = {} and a.status = 'published' and a.layer_file_type = 'excellon2' and a.layer_type = 'rout'
@@ -238,20 +232,17 @@ class DMS():
         return pd_job_current_layer_rout
 
 
-
-class Print():
+class Print:
     @staticmethod
     def print_with_delimiter(text, sign='*', numbers=198):
-        pass
-        print(str(sign) * int((numbers - len(text.encode('utf-8'))) / 2), text, str(sign) * int((numbers - len(text.encode('utf-8'))) / 2))
+        print(str(sign) * int((numbers - len(text.encode('utf-8'))) / 2), text,
+              str(sign) * int((numbers - len(text.encode('utf-8'))) / 2))
 
     @staticmethod
-    def print_with_delimiter1(text,sign='*',numbers=200):
+    def print_with_delimiter1(text, numbers=200):
         pass
         # print(text.center( int(numbers) - len(text.encode('utf-8')), '*'))
         print(text.center(int(numbers) - len(text), '*'))
-
-
 
 
 def get_data(file_path):
@@ -268,19 +259,20 @@ def get_data(file_path):
     return data
 
 
-def getFlist(path):
+def get_flist(path):
     files = []  # 为 'files' 变量分配一个初始值
     for root, dirs, files in os.walk(path):
-        print('root_dir:', root)  #当前路径
-        print('sub_dirs:', dirs)   #子文件夹
-        print('files:', files)     #文件名称，返回list类型
+        print('root_dir:', root)  # 当前路径
+        print('sub_dirs:', dirs)  # 子文件夹
+        print('files:', files)  # 文件名称，返回list类型
     return files
 
-class StringMehtod(object):
+
+class StringMethod(object):
     @staticmethod
     def is_chinese(string):
         """判断是否有中文
-        :param     string(str):所有字符串
+        :param     string(str)：所有字符串
         :returns   :False
         :raises    error:
         """
@@ -289,24 +281,25 @@ class StringMehtod(object):
                 return True
         return False
 
-#存储为json文件的方法
+
+# 存储为json文件的方法
 def else1():
     pass
-    all_result_g = {"layer1":"正常","layer2":"错误"}
-    #结果存入josn文件，如果有需要的话
+    all_result_g = {"layer1": "正常", "layer2": "错误"}
+    # 结果存入json文件，如果有需要的话
     if os.path.exists(r'result.json'):
         os.remove(r'result.json')
     with open(r'result.json', 'w') as f:
         json.dump(all_result_g, f, indent=4, ensure_ascii=False)
 
 
-
-
 class TextArea(object):
     def __init__(self):
         self.buffer = []
-    def write(self,*args,**kwargs):
+
+    def write(self, *args):
         self.buffer.append(args)
+
 
 def get_print_control_identifiers_text(object_print_control_identifiers):
     stdout = sys.stdout
@@ -316,23 +309,25 @@ def get_print_control_identifiers_text(object_print_control_identifiers):
     # print('text_area.buffer:',text_area.buffer)
     return text_area.buffer
 
-def get_coor_of_object(text_wanted,text_from):
-    tup_coor = None  # 为 'tup_coor' 变量分配一个初始值
+
+def get_coord_of_object(text_wanted, text_from):
+    tup_coord = None  # 为 'tup_coord' 变量分配一个初始值
     for tup in text_from:
         i = tup[0].find(text_wanted)
         if i > 0:
             pattern = re.compile(r"(\(L\d+, T\d+, R\d+, B\d+\))")
             result = pattern.findall(tup[0])
-            tup_coor = result[0]
-    if tup_coor is not None:
-        coor_file_w = int(tup_coor.split(",")[0][2:]) + 1
-        coor_file_h = int(tup_coor.split(",")[1][2:]) + 1
-        return (coor_file_w, coor_file_h)
+            tup_coord = result[0]
+    if tup_coord is not None:
+        coord_file_w = int(tup_coord.split(",")[0][2:]) + 1
+        coord_file_h = int(tup_coord.split(",")[1][2:]) + 1
+        return coord_file_w, coord_file_h
     else:
-        # 处理未找到匹配的情况，可以返回 None 或者适当的默认值
+        # 处理未找到匹配的情况，可以返回 None 或者适当默认值
         return None
 
-def opencv_compare(img_standard_path,img_current_path,custom_width = 10, custom_height = 10):
+
+def opencv_compare(img_standard_path, img_current_path, custom_width=10, custom_height=10):
 
     # 加载两张图片
     img_standard = cv2.imread(img_standard_path)
@@ -394,19 +389,18 @@ class PictureMethod(object):
             print("转换出错:", str(e))
 
     @staticmethod
-    def png_to_tiff_batch(input_folder,out_folder):
+    def png_to_tiff_batch(input_folder, out_folder):
         pass
         for root, dirs, files in os.walk(input_folder):
             for file in files:
                 input_path = os.path.join(root, file)
                 print("文件名1:", input_path)
-                print("文件名2",os.path.splitext(file)[0])
-                output_path = os.path.join(out_folder,os.path.splitext(file)[0]) + '.tif'
-                PictureMethod.png_to_tiff_one_file(input_path,output_path)
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                # print("文件夹:", dir_path)
-
+                print("文件名2", os.path.splitext(file)[0])
+                output_path = os.path.join(out_folder, os.path.splitext(file)[0]) + '.tif'
+                PictureMethod.png_to_tiff_one_file(input_path, output_path)
+            for folder in dirs:
+                dir_path = os.path.join(root, folder)
+                print("文件夹:", dir_path)
 
     @staticmethod
     def get_word_pos_of_picture(image_path, target_word):
@@ -418,7 +412,6 @@ class PictureMethod(object):
 
         # image = Image.eval(image, lambda px: 255 - px)#inverted_image = Image.eval(image, lambda px: 255 - px)
 
-
         # 使用 Tesseract 进行文本块检测和识别
         custom_config = '--psm 6'
         # custom_config = r'--oem 3 --psm 6'  # 设置 --oem 和 --psm 参数
@@ -426,26 +419,12 @@ class PictureMethod(object):
 
         image_width, image_height = image.size
 
-        for box in text_boxes.splitlines():
-            box_data = box.split()
-            character, x, y, w, h = box_data[0], int(box_data[1]), int(box_data[2]), int(box_data[3]), int(box_data[4])
-
-            # 获取字符的文本内容
-            character_text = character
-
-            # 计算相对于图像左上角的坐标
-            relative_x = x / image_width
-            relative_y = 1.0 - (y / image_height)
-
-            # print(f"Text: {character_text}, Relative X: {relative_x}, Relative Y: {relative_y}")
-
         # 将文本块存储为列表
         text_boxes_list = text_boxes.splitlines()
         # print('text_boxes_list:',text_boxes_list)
 
         # 遍历文本块，找到目标单词的位置
         target_word_start = -1
-        target_word_end = -1
         for i in range(len(text_boxes_list)):
             box_data = text_boxes_list[i].split()
             # print('box_data:',box_data)
@@ -454,7 +433,6 @@ class PictureMethod(object):
             if character == target_word[0]:
                 # print("i:",i)
                 potential_word = character
-                j = 1  # 为 'j' 变量分配一个初始值
                 for j in range(1, len(target_word)):
                     next_box_data = text_boxes_list[i + j].split()
                     next_character = next_box_data[0]
@@ -462,12 +440,10 @@ class PictureMethod(object):
                 if potential_word == target_word:
                     flag_find = True
                     target_word_start = i
-                    target_word_end = i + j
                     break  # 只找到第一个符合的就行
 
         # print(f"Target Word: {target_word}")
-        # print('find result:', flag_find)
-        # print('target_word_start,target_word_end:', target_word_start, target_word_end)
+
         if flag_find:
             # 计算左上角的相对坐标
             box_data_start = text_boxes_list[target_word_start].split()
@@ -477,18 +453,10 @@ class PictureMethod(object):
             left_top_relative_y_start = 1.0 - (y_start / image_height)
             # print(f"Left Top Relative Coordinates: ({left_top_relative_x_start}, {left_top_relative_y_start})")
             # 计算右下角的相对坐标
-            box_data_end = text_boxes_list[target_word_end].split()
-            character_end, x_end, y_end, w_end, h_end = box_data_end[0], int(box_data_end[1]), int(
-                box_data_end[2]), int(
-                box_data_end[3]), int(box_data_end[4])
-            left_top_relative_x_end = x_end / image_width
-            left_top_relative_y_end = 1.0 - (y_end / image_height)
-            # print(f"Right Bottom Relative Coordinates: ({left_top_relative_x_end}, {left_top_relative_y_end})")
 
-            return (left_top_relative_x_start,left_top_relative_y_start)
+            return left_top_relative_x_start, left_top_relative_y_start
         else:
-            return (-1,-1)
-
+            return -1, -1
 
 
 def f_png_to_tiff_one_file():
@@ -498,25 +466,24 @@ def f_png_to_tiff_one_file():
     # 调用函数进行转换
     PictureMethod.png_to_tiff_one_file(input_png_path, output_tiff_path)
 
+
 def f_png_to_tiff_batch():
 
     pass
     input_folder = r'C:\cc\software\ocr\train5\png'
     out_folder = r'C:\cc\software\ocr\train5\tif'
-    PictureMethod.png_to_tiff_batch(input_folder,out_folder)
+    PictureMethod.png_to_tiff_batch(input_folder, out_folder)
+
 
 def f_get_word_pos_of_picture():
     pass
     image_path = r"C:\cc\share\temp\cc2.png"
     target_word = 'steps'
-    PictureMethod.get_word_pos_of_picture(image_path,target_word)
+    PictureMethod.get_word_pos_of_picture(image_path, target_word)
 
     image_path = r"C:\cc\share\temp\cc3.png"
     target_word = 'testcase3'
     PictureMethod.get_word_pos_of_picture(image_path, target_word)
-
-
-
 
 
 def ff():
@@ -566,7 +533,6 @@ def ff2():
     # from PIL import ImageOps
     # image = ImageOps.equalize(image)  # Apply histogram equalization
 
-
     # 阈值化会将图像的像素值映射到两个值之间（例如，黑色和白色）.二值化： 将灰度图像转换为二值图像可以使文字与背景更明显。
     threshold_value = 130  # Adjust this threshold value as needed
     # Apply thresholding to convert gray areas to white
@@ -589,19 +555,7 @@ def ff2():
     image.save(output_image_path)
 
 
-
-
-
-
 if __name__ == '__main__':    # 输入和输出文件路径
     print("我是main()")
-    print('cc'.center(100,'*'))
-
-
-
-
-
-
-
-
+    print('cc'.center(100, '*'))
 

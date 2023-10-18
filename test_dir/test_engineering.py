@@ -8,6 +8,8 @@ from config import RunConfig
 from cc.cc_method import GetTestData, PictureMethod
 from config_ep import page
 import cv2
+
+from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_import import PageImport
 from config_ep.page.page_input import PageInput
@@ -250,22 +252,17 @@ class TestFile:
 
     # @pytest.mark.skip
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
-    def test_file_close(self, job_id, epcam_ui_start):
+    def test_file_close(self, job_id, epcam_ui_start,
+                        download_file_compressed_entity_filter_delete_all_jobs_import):
         pass
         '''
         禅道用例ID：4076。
         :param epcam_ui_start:
         :return:
         '''
-        # 下载料号
-        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-
-        self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        self.engineering.close_job_first() if self.engineering.job_first_is_opened() else None  # 如果料号是打开状态，要先关闭料号
-
-        self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        self.import_job = PageImport()
-        self.import_job.import_job(str(file_compressed_path))  # 导入一个料号
+        # 调用 fixture 并传递参数值,下载料号#
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        print(job_name, file_compressed_path)
 
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
 
@@ -289,7 +286,7 @@ class TestFile:
                 :return:
                 '''
         # 下载料号
-        job_name, file_compressed_path = GetTestData.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
