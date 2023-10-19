@@ -62,7 +62,7 @@ class TestUI:
         :return:
         """
         self.engineering.language_switch(language='Simplified Chinese')
-        assert self.engineering.language_is_Simplified_Chinese()
+        assert self.engineering.language_is_simplified_chinese()
         self.engineering.language_switch(language='EP Default')
 
     def test_file_save_no_job_select(self, epcam_ui_start):
