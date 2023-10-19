@@ -8,10 +8,8 @@ from config import RunConfig
 from cc.cc_method import GetTestData, PictureMethod
 from config_ep import page
 import cv2
-
 from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
-from config_ep.page.page_import import PageImport
 from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
 
@@ -20,11 +18,10 @@ from config_ep.page.page_graphic import PageGraphic
 class TestUI:
     @pytest.fixture(autouse=True)
     def setup_method(self):
-        # 在每个测试方法执行前进行初始化
         self.engineering = PageEngineering()
+        self.engineering.engineering_window.set_focus()  # 激活窗口
 
     def test_ui_all(self, epcam_ui_start):
-        self.engineering.engineering_window.set_focus()  # 激活窗口
         engineering_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         img_cut = engineering_window_pic.crop((10, 30, 42, 60))  # 截取图像# PIL裁剪坐标是左上右下
         text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
@@ -49,9 +46,7 @@ class TestUI:
         """
         job_org_type = 'ipc2581'
         # 下载料号
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
-            job_id, job_org_type)  # 调用 fixture 并传递参数值
-        print(job_name, file_compressed_path)
+        download_file_compressed_entity_filter_delete_all_jobs_import(job_id, job_org_type)  # 调用 fixture 并传递参数值
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.go_up()  # 鼠标点击
         assert self.engineering.job_first_is_opened()
@@ -67,7 +62,6 @@ class TestUI:
         :return:
         """
         self.engineering.language_switch(language='Simplified Chinese')
-        # my_engineering.engineering_window.print_control_identifiers()
         assert self.engineering.language_is_Simplified_Chinese()
         self.engineering.language_switch(language='EP Default')
 
@@ -77,17 +71,15 @@ class TestUI:
         :param epcam_ui_start:
         :return:
         """
-        self.engineering.engineering_window.click_input(coords=(800, 600))  # 鼠标点击空白处，不选择料号
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不选择料号
         self.engineering.file_save()
         engineering_file_save_job_no_select_dialog = RunConfig.driver_epcam_ui.window(
-            **{'title': "Save", 'control_type': "Window"})
+            **page.engineering_file_save_window_para)
         engineering_file_save_job_no_select_jpg = engineering_file_save_job_no_select_dialog.capture_as_image()  # 截图
         # Convert the PIL image to a numpy array,此方法不需要把截图保存到硬盘的。
         img = np.array(engineering_file_save_job_no_select_jpg)
         img_cut = img[35:60, 35:205]  # 后面的是水平方向
-        # 使用Tesseract进行文字识别
         text = pytesseract.image_to_string(img_cut)
-        # 打印识别出的文本
         print('text:', text)
         assert text == 'No elements were selected!\n'
         send_keys("{ENTER}")  # 确认关闭弹窗
@@ -100,13 +92,9 @@ class TestUI:
         :param epcam_ui_start:
         :return:
         """
-        # 调用 fixture 并传递参数值,下载料号#
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        print(job_name, file_compressed_path)
-
-        # 右击打开料号
-        self.engineering.open_job_first_by_context_menu()
-        self.engineering.engineering_window.click_input(coords=(950, 210))  # 鼠标指示放到空白处
+        download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 调用 fixture 并传递参数值,下载料号#
+        self.engineering.open_job_first_by_context_menu()  # 右击打开料号
+        self.engineering.job_list_in_job_click_empty()  # 鼠标指示放到空白处
         engineering_window_job_info = self.engineering.engineering_window.capture_as_image()  # 截图
         img = np.array(engineering_window_job_info)
         x_s, x_e = 30, 830  # x_s,x_e分别是层别列表的x方向开始与结束像素。

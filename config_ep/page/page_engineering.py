@@ -61,7 +61,6 @@ class PageEngineering(Base):
         send_keys("{ENTER}")
 
     def open_job_first_by_double_click(self):
-        # self.engineering_window.set_focus()  # 激活窗口
         self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coor)
 
@@ -160,7 +159,9 @@ class PageEngineering(Base):
         rectangle_count = opencv_compare(img_standard_path,img_current_path)
         return rectangle_count == 0
 
+    def job_list_click_empty(self):
+        self.engineering_window.click_input(coords=page.engineering_jobList_empty_coor)  # 鼠标点击空白处，不选择料号
 
-
-
+    def job_list_in_job_click_empty(self):
+        self.engineering_window.click_input(coords=page.engineering_job_list_in_job_empty_coor)  # 鼠标点击空白处，不选择料号
 

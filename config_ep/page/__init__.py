@@ -8,11 +8,14 @@ engineering_import_input_path_file_path_window_para = {'title': "文件名(N):",
 engineering_import_input_path_confirm_window_para = {'title': "打开(O)", 'auto_id': "1", 'control_type': "Button"} # 确认选择中的文件
 engineering_input_window_child_window_para = {'title': "Input", 'control_type': "Window"} # input job窗口
 engineering_input_path_file_path_window_para = {'title': "Open", 'control_type': "Window"} # input 选择文件窗口中的文件路径对象
+engineering_file_save_window_para = {'title': "Save", 'control_type': "Window"}
 
 engineering_entity_filter_coor = (120, 120)
 
 engineering_jobList_first_coor = (80, 280)
 engineering_jobList_onlyOneJob_empty_coor = (600, 600)
+engineering_jobList_empty_coor = (800, 600)
+engineering_job_list_in_job_empty_coor = (950, 210)
 
 engineering_file_coor = (20, 40)
 engineering_file_import_coor = (20, 210)
