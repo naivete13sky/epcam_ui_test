@@ -1,14 +1,9 @@
 import os
-import shutil
 from pathlib import Path
-
 import pywinauto
 from py.xml import html
-
-from cc.cc_method import DMS
 from config import RunConfig
 import pytest
-
 from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_graphic import PageGraphic
@@ -204,10 +199,9 @@ def epcam_ui_start():
     return driver_epcam_ui
 
 
-
 @pytest.fixture
 def download_file_compressed_entity_filter_delete_all_jobs_import(request):
-    def _epcam_ui_import(job_id,job_org_type='odb_tgz'):
+    def _epcam_ui_import(job_id, job_org_type='odb_tgz'):
         # 在这里可以使用参数 parameter_name
         print(f"job_id: {job_id},job_org_type: {job_org_type}")
         # 其它 fixture 操作
