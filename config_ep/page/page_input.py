@@ -7,8 +7,8 @@ class PageInput(object):
     def __init__(self):
         self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
         # 点击菜单File(F)--import
-        self.engineering_window.click_input(coords=page.engineering_file_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_file_input_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_input_coord)  # 使用鼠标单击按钮，无需主动激活窗口
 
         # 切换到input job窗口
         # self.engineering_input_window = self.engineering_window.child_window(**page.engineering_input_window_child_window_para)
@@ -16,7 +16,7 @@ class PageInput(object):
 
 
     def input_job(self,file_path):
-        self.engineering_input_window.click_input(coords=page.engineering_file_input_path_coor)  # 点击菜单input path
+        self.engineering_input_window.click_input(coords=page.engineering_file_input_path_coord)  # 点击菜单input path
 
         self.top_window = RunConfig.driver_epcam_ui.window(**page.engineering_input_path_file_path_window_para)
         self.top_window.print_control_identifiers()

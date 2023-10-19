@@ -40,9 +40,9 @@ class PageEngineering(Base):
         return rectangle_count == 0
 
     def close_job_first(self):
-        self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(button="right", coords=page.engineering_jobList_first_coor)
-        self.engineering_window.click_input(coords=(page.engineering_jobList_first_coor[0] + 20,page.engineering_jobList_first_coor[1] + 50))
+        self.engineering_window.click_input(coords=page.engineering_jobList_first_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(button="right", coords=page.engineering_jobList_first_coord)
+        self.engineering_window.click_input(coords=(page.engineering_jobList_first_coord[0] + 20, page.engineering_jobList_first_coord[1] + 50))
         send_keys("{ENTER}")
 
     def delete_all_jobs(self):
@@ -55,20 +55,20 @@ class PageEngineering(Base):
         time.sleep(1)
 
     def entity_filter(self,job_name):
-        self.engineering_window.click_input(coords=page.engineering_entity_filter_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_entity_filter_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         send_keys('^a')
         send_keys('*' + job_name)
         send_keys("{ENTER}")
 
     def open_job_first_by_double_click(self):
-        self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coor)
+        self.engineering_window.click_input(coords=page.engineering_jobList_first_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coord)
 
     def open_job_first_by_context_menu(self):
         pass
-        self.engineering_window.right_click_input(coords=page.engineering_jobList_first_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.right_click_input(coords=page.engineering_jobList_first_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         my_engineering_context_menu = RunConfig.driver_epcam_ui.window(class_name="Qt5QWindowPopupDropShadowSaveBits")
-        my_engineering_context_menu.click_input(coords=page.engineering_job_right_click_open_coor)  # 点击Open
+        my_engineering_context_menu.click_input(coords=page.engineering_job_right_click_open_coord)  # 点击Open
 
     def go_up(self,method='click'):
         '''
@@ -76,24 +76,24 @@ class PageEngineering(Base):
         1、鼠标：
         2、菜单：
         '''
-        self.engineering_window.click_input(coords=page.engineering_inJob_go_up_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_inJob_go_up_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         if method == 'click':
-            self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coor)
+            self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coord)
         if method == 'menu':
             pass
             # 点击菜单Action--Open
-            self.engineering_window.click_input(coords=page.engineering_action_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-            self.engineering_window.click_input(coords=page.engineering_action_open_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        mouse.move(coords=page.engineering_jobList_onlyOneJob_empty_coor)
+            self.engineering_window.click_input(coords=page.engineering_action_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+            self.engineering_window.click_input(coords=page.engineering_action_open_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        mouse.move(coords=page.engineering_jobList_onlyOneJob_empty_coord)
 
     def language_switch(self,language = 'english'):
         self.engineering_window.set_focus()  # 激活窗口
-        self.engineering_window.click_input(coords=page.engineering_option_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_option_language_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_option_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_option_language_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         if language == 'EP Default':
-            self.engineering_window.click_input(coords=page.engineering_option_language_EP_Default_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+            self.engineering_window.click_input(coords=page.engineering_option_language_EP_Default_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         if language == 'Simplified Chinese':
-            self.engineering_window.click_input(coords=page.engineering_option_language_Simplified_Chinese_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+            self.engineering_window.click_input(coords=page.engineering_option_language_Simplified_Chinese_coord)  # 使用鼠标单击按钮，无需主动激活窗口
 
     def language_is_Simplified_Chinese(self):
         send_keys("{ESC}")  # 先按一下ESC键，防止有时因为按过Alt键导致菜单栏有下划线，这个会影响比对结果
@@ -125,23 +125,23 @@ class PageEngineering(Base):
         # return ('文件' in text_file) & ('全局' in text_action) & ('全局设置' in text_option)
 
     def select_first_job(self):
-        self.engineering_window.click_input(coords=page.engineering_jobList_first_coor)
+        self.engineering_window.click_input(coords=page.engineering_jobList_first_coord)
 
     def file_save(self):
         self.engineering_window.set_focus()  # 激活窗口
-        self.engineering_window.click_input(coords=page.engineering_file_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_file_save_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_save_coord)  # 使用鼠标单击按钮，无需主动激活窗口
 
     def action_select_unselect_all(self):
         # self.engineering_window.set_focus()  # 激活窗口
-        self.engineering_window.click_input(coords=page.engineering_action_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_action_select_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_action_select_unselect_all_coor)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_select_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_select_unselect_all_coord)  # 使用鼠标单击按钮，无需主动激活窗口
 
     def file_close(self):
         self.engineering_window.set_focus()  # 激活窗口
-        self.engineering_window.click_input(coords=page.engineering_file_coor)  # 使用鼠标单击按钮，无需主动激活窗口
-        self.engineering_window.click_input(coords=page.engineering_file_close_coor) # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_close_coord) # 使用鼠标单击按钮，无需主动激活窗口
 
     def job_first_is_closed(self):
         self.engineering_window.set_focus()  # 激活窗口
@@ -160,14 +160,14 @@ class PageEngineering(Base):
         return rectangle_count == 0
 
     def job_list_click_empty(self):
-        self.engineering_window.click_input(coords=page.engineering_jobList_empty_coor)  # 鼠标点击空白处，不选择料号
+        self.engineering_window.click_input(coords=page.engineering_jobList_empty_coord)  # 鼠标点击空白处，不选择料号
 
     def job_list_in_job_click_empty(self):
-        self.engineering_window.click_input(coords=page.engineering_job_list_in_job_empty_coor)  # 鼠标点击空白处，不选择料号
+        self.engineering_window.click_input(coords=page.engineering_job_list_in_job_empty_coord)  # 鼠标点击空白处，不选择料号
 
     def open_steps_by_double_click(self):
-        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coord)  # 双击打开steps
 
     def open_first_step_by_double_click(self,time_sleep=0.5):
-        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coor)
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coord)
         time.sleep(time_sleep)  # 打开graphic要等一会儿
