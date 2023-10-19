@@ -165,3 +165,9 @@ class PageEngineering(Base):
     def job_list_in_job_click_empty(self):
         self.engineering_window.click_input(coords=page.engineering_job_list_in_job_empty_coor)  # 鼠标点击空白处，不选择料号
 
+    def open_steps_by_double_click(self):
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coor)  # 双击打开steps
+
+    def open_first_step_by_double_click(self,time_sleep=0.5):
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coor)
+        time.sleep(time_sleep)  # 打开graphic要等一会儿
