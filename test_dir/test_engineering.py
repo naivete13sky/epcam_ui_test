@@ -229,11 +229,11 @@ class TestFile:
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_close(self, job_id, epcam_ui_start,
                         download_file_compressed_entity_filter_delete_all_jobs_import):
-        '''
+        """
         禅道用例ID：4076。
         :param epcam_ui_start:
         :return:
-        '''
+        """
         download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 调用 fixture 并传递参数值,下载料号
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.file_close()  # File-close关闭料号

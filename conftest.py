@@ -9,6 +9,7 @@ from cc.cc_method import DMS
 from config import RunConfig
 import pytest
 
+from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_import import PageImport
@@ -210,13 +211,7 @@ def download_file_compressed_entity_filter_delete_all_jobs_import(request):
         # 在这里可以使用参数 parameter_name
         print(f"job_id: {job_id},job_org_type: {job_org_type}")
         # 其它 fixture 操作
-        temp_path = os.path.join(RunConfig.temp_path_base, str(job_id))
-        shutil.rmtree(temp_path) if os.path.exists(temp_path) else None  # 如果已存在旧目录，则删除目录及其内容
-        # 从DMS下载附件，并返回文件名称
-        file_compressed_name = DMS().get_file_from_dms_db(temp_path, job_id, field='file_compressed')
-        temp_compressed_path = os.path.join(temp_path, 'compressed')
-        file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
-        job_name = file_compressed_path.stem
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
         engineering = PageEngineering()
         engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
         if engineering.job_first_is_opened():

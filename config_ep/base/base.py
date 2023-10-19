@@ -1,9 +1,8 @@
 import os
 import shutil
 from pathlib import Path
-from cc.cc_method import get_print_control_identifiers_text, get_coord_of_object, DMS
+from cc.cc_method import DMS
 from config import RunConfig
-
 
 
 class Base:
@@ -20,18 +19,3 @@ class Base:
         file_compressed_path = Path(os.path.join(temp_compressed_path, file_compressed_name))
         job_name = file_compressed_path.stem
         return job_name, file_compressed_path
-
-
-
-class Engineering(object):
-    # 获得坐标
-    def getCoor(self,window,wanted_title):
-        win_text = get_print_control_identifiers_text(window)
-        coor_ok = get_coord_of_object(wanted_title, win_text)
-        return coor_ok
-
-    def get_engineering_left_top_Coor(self):
-        win_text2 = get_print_control_identifiers_text(self.engineering_window)
-        coor_ok = get_coord_of_object(RunConfig.driver_epcam_ui_engineering_title, win_text2)
-        return coor_ok
-
