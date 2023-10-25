@@ -1,7 +1,11 @@
+import os
 import time
+from pathlib import Path
+
 import numpy as np
 import pytest
 import pytesseract
+import rarfile
 from pywinauto.keyboard import send_keys
 from PIL import Image
 from config import RunConfig
@@ -246,16 +250,24 @@ class TestFile:
     def test_file_input_clear(self, job_id, epcam_ui_start):
         pass
         '''
-                禅道用例ID：4054
-                :param job_id:
-                :param epcam_ui_start:
-                :return:
-                '''
+        禅道用例ID：4054
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        '''
         # 下载料号
         job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        # 料号名称设置为小写，不能有'.'
+        # return os.listdir(temp_compressed_path)[0].lower().replace('.', '') + '_ep'
+
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        if self.engineering.job_first_is_opened():
-            self.engineering.close_job_first()
-        self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        self.input_job = PageInput()
-        self.input_job.input_job(str(file_compressed_path))  # 导入一个料号
+        # if self.engineering.job_first_is_opened():
+        #     self.engineering.close_job_first()
+        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        # self.input_job = PageInput()
+        # self.input_job.input_job(str(file_compressed_path))  # 导入一个料号

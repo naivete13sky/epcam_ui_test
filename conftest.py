@@ -177,6 +177,8 @@ def epcam_ui_start():
             driver_epcam_ui = app
 
         except pywinauto.application.AppStartError as e:
+            print('pywinauto.application.AppStartError')
+        except Exception as e:
             print(e)
             print('\n未获取到EP-CAM程序，新生成EP-CAM程序')
             # 获取.exe文件所在的目录路径
