@@ -1,5 +1,7 @@
 import os
 import time
+
+import cv2
 from PIL import Image
 from cc_method import PictureMethod
 
@@ -212,7 +214,15 @@ def f19():
     text_option = pytesseract.image_to_string(im)
     print('text_option:', text_option)
 
+def f20():
+    pass
+    img = cv2.imread(r'C:\cc\share\temp\engineering_file_input_window_png.png')
+    # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
+    img_cut = img[315:335, 20:40]  # 后面的是水平方向
+    cv2.imwrite(r"C:\cc\share\temp\engineering_file_input_window_png_cleared.png", img_cut)
+    cv2.imshow("Cropped Image", img_cut)
+    cv2.waitKey(0)
 
 if __name__ == '__main__':
     pass
-    f19()
+    f20()

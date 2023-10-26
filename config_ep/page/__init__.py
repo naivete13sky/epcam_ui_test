@@ -54,6 +54,12 @@ engineering_file_input_path_first_folder_coord = (170, 100)
 engineering_file_input_path_open_coord = (600, 400)
 engineering_file_input_job_lineedit_coord = (120, 80)
 engineering_file_input_step_lineedit_coord = (520, 80)
+engineering_file_input_identify_coord = (30, 705)
+engineering_file_input_translate_coord = (250, 705)
+engineering_file_input_file_first_right_coord = (100, 320)
+engineering_file_input_file_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
+engineering_file_input_file_right_click_menu_clear_coord = (20, 190)
+engineering_file_input_close_coord = (700, 705)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}

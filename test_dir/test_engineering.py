@@ -275,4 +275,8 @@ class TestFile:
         self.input_job.set_path(file_path)  # 选择料号路径
         self.input_job.set_new_job_name('760')
         self.input_job.set_new_step_name('orig')
-
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
+        self.input_job.clear()
+        assert self.input_job.is_all_file_cleared()
+        self.input_job.close()
