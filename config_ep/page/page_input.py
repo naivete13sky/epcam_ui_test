@@ -1,3 +1,5 @@
+from pywinauto.keyboard import send_keys
+
 from config import RunConfig
 from config_ep import page
 
@@ -16,13 +18,14 @@ class PageInput(object):
 
     def input_job(self, file_path):
         self.engineering_input_window.click_input(coords=page.engineering_file_input_path_coord)  # 点击菜单input path
-        self.top_window = RunConfig.driver_epcam_ui.window(**page.engineering_input_path_file_path_window_para)
-        self.top_window.print_control_identifiers()
+        self.engineering_file_input_path_window = RunConfig.driver_epcam_ui.window(**page.engineering_file_input_path_window_para)
+        # self.engineering_file_input_path_window.print_control_identifiers()
+        self.set_path(file_path)  # 选择文件对象
 
-        print(file_path)
-        # # 选择文件对象
-        # engineering_import_input_path_file_path_window = self.engineering_window.child_window(
-        #     **self.engineering_import_input_path_file_path_window_para)
-        # engineering_import_input_path_file_path_window.draw_outline(colour='red')  # 绘制边框以突出显示控件（可以自行指定颜色和宽度）
-        # engineering_import_input_path_file_path_window.click_input()  # 将焦点设置到控件上
-        # send_keys(file_path)  # 输入文本
+    def set_path(self,file_path):
+        self.engineering_file_input_path_window.click_input(coords=(100, 395))  # 选择文件对象
+        send_keys(file_path)  # 输入文本
+        send_keys("{ENTER}")  # 这个时候可以鼠标点击gerber文件夹了
+        self.engineering_file_input_path_window.click_input(coords=(170, 100))  # 点击第一个文件夹
+        self.engineering_file_input_path_window.click_input(coords=(600, 400))  # 点击open
+

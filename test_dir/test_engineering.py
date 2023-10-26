@@ -266,8 +266,10 @@ class TestFile:
         # return os.listdir(temp_compressed_path)[0].lower().replace('.', '') + '_ep'
 
         self.engineering.entity_filter(job_name)  # 筛选料号，在界面上显示指定某一个料号
-        # if self.engineering.job_first_is_opened():
-        #     self.engineering.close_job_first()
-        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
-        # self.input_job = PageInput()
-        # self.input_job.input_job(str(file_compressed_path))  # 导入一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        # file_path = os.path.join(Path(file_compressed_path).parent,os.listdir(Path(file_compressed_path).parent)[0])
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.input_job(file_path)  # 导入一个料号
