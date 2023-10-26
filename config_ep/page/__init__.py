@@ -49,7 +49,11 @@ engineering_file_import_ok_coord = (30, 180)  # 变形时，字体太大，异�
 
 """ 以下为engineering--input模块信息"""
 engineering_file_input_path_coord = (30, 55)
-
+engineering_file_input_path_file_name_coord = (100, 395)
+engineering_file_input_path_first_folder_coord = (170, 100)
+engineering_file_input_path_open_coord = (600, 400)
+engineering_file_input_job_lineedit_coord = (120, 80)
+engineering_file_input_step_lineedit_coord = (520, 80)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
