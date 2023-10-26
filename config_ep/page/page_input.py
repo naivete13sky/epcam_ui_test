@@ -28,4 +28,3 @@ class PageInput(object):
         send_keys("{ENTER}")  # 这个时候可以鼠标点击gerber文件夹了
         self.engineering_file_input_path_window.click_input(coords=(170, 100))  # 点击第一个文件夹
         self.engineering_file_input_path_window.click_input(coords=(600, 400))  # 点击open
-
