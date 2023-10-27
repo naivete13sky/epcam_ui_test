@@ -60,6 +60,9 @@ engineering_file_input_file_first_right_coord = (100, 320)
 engineering_file_input_file_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
 engineering_file_input_file_right_click_menu_clear_coord = (20, 190)
 engineering_file_input_close_coord = (700, 705)
+engineering_file_input_file_first_select_coord = (30, 320)
+engineering_file_input_file_row_height = 30
+engineering_file_input_file_right_click_menu_select_all_coord = (20, 160)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
