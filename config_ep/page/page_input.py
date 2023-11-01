@@ -16,6 +16,7 @@ class PageInput(object):
         self.top_window = None
         self.engineering_file_input_path_window = None
         self.engineering_input_file_right_click_menu_window = None
+
         # 点击菜单File(F)--import
         self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=page.engineering_file_input_coord)  # 使用鼠标单击按钮，无需主动激活窗口
@@ -120,3 +121,17 @@ class PageInput(object):
         img_current_path = r'C:\cc\share\temp\engineering_file_input_window_png_select_all.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
+
+    def tool_size_edit_open(self, index=1):
+        coord_x, coord_y = page.engineering_file_input_file_first_right_coord
+        self.engineering_input_window.click_input(
+            button='right', coords=(coord_x, coord_y + page.engineering_file_input_file_row_height * (index - 1)))
+        self.engineering_input_file_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.engineering_file_input_file_right_click_menu_window_para)
+        self.engineering_input_file_right_click_menu_window.click_input(
+            coords=page.engineering_file_input_file_right_click_menu_tool_size_edit_coord)
+
+
+
+
+

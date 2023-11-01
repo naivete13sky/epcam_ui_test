@@ -63,6 +63,9 @@ engineering_file_input_close_coord = (700, 705)
 engineering_file_input_file_first_select_coord = (30, 320)
 engineering_file_input_file_row_height = 30
 engineering_file_input_file_right_click_menu_select_all_coord = (20, 160)
+engineering_file_input_file_right_click_menu_tool_size_edit_coord = (20, 100)
+engineering_file_input_tool_size_edit_window_para = {'title': "ToolSize Edit", 'control_type': "Window"}
+engineering_file_input_tool_size_edit_close_coord = (650, 680)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
