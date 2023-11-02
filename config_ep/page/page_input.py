@@ -131,7 +131,14 @@ class PageInput(object):
         self.engineering_input_file_right_click_menu_window.click_input(
             coords=page.engineering_file_input_file_right_click_menu_tool_size_edit_coord)
 
-
+    def dcode_edit_open(self, index=1):
+        coord_x, coord_y = page.engineering_file_input_file_first_right_coord
+        self.engineering_input_window.click_input(
+            button='right', coords=(coord_x, coord_y + page.engineering_file_input_file_row_height * (index - 1)))
+        self.engineering_input_file_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.engineering_file_input_file_right_click_menu_window_para)
+        self.engineering_input_file_right_click_menu_window.click_input(
+            coords=page.engineering_file_input_file_right_click_menu_dcode_edit_coord)
 
 
 
