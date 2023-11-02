@@ -139,6 +139,7 @@ class PageInput(object):
             **page.engineering_file_input_file_right_click_menu_window_para)
         self.engineering_input_file_right_click_menu_window.click_input(
             coords=page.engineering_file_input_file_right_click_menu_dcode_edit_coord)
-
+        # self.top_window = RunConfig.driver_epcam_ui.top_window()
+        # self.top_window.print_control_identifiers()
 
 

@@ -1,7 +1,6 @@
 import os
 import time
 from pathlib import Path
-
 import numpy as np
 import pytest
 import pytesseract
@@ -17,6 +16,7 @@ from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
+from config_ep.page.page_dcode_edit import PageDcodeEdit
 
 
 @pytest.mark.input
@@ -370,7 +370,7 @@ class TestFile:
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
         self.input_job.dcode_edit_open()
-        # self.dcode_edit = PageToolSizeEdit()
-        # assert self.tool_size_edit.is_right()
-        # self.tool_size_edit.close()
-        # self.input_job.close()
+        self.dcode_edit = PageDcodeEdit()
+        assert self.dcode_edit.is_right()
+        self.dcode_edit.close()
+        self.input_job.close()
