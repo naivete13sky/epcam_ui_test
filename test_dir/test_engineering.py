@@ -392,16 +392,16 @@ class TestFile:
         # 删除压缩包
         os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
         self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
-        # if self.engineering.job_first_is_opened():
-        #     self.engineering.close_job_first()
-        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
         self.input_job = PageInput()
-        # file_path = str(Path(file_compressed_path).parent)
-        # self.input_job.set_path(file_path)  # 选择料号路径
-        # self.input_job.set_new_job_name('760')
-        # self.input_job.set_new_step_name('orig')
-        # self.input_job.identify()
-        # self.input_job.translate(time_sleep=0.2)
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
         self.input_job.view_ascii_open()
         self.view_ascii = PageInputViewAscii()
         assert self.view_ascii.is_right()
