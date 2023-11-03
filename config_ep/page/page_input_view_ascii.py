@@ -31,3 +31,6 @@ class PageInputViewAscii(object):
         img_current_path = r'C:\cc\share\temp\input_view_ascii_window_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
+
+    def minimize(self):
+        self.engineering_input_view_ascii_window.child_window(title="最小化", control_type="Button").click_input()

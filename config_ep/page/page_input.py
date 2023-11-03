@@ -6,7 +6,7 @@ from pathlib import Path
 import cv2
 from pywinauto.keyboard import send_keys
 
-from cc.cc_method import opencv_compare, get_print_control_identifiers_text, get_coord_of_object
+from cc.cc_method import opencv_compare, get_print_control_identifiers_text
 from config import RunConfig
 from config_ep import page
 
@@ -152,12 +152,10 @@ class PageInput(object):
         self.engineering_input_file_right_click_menu_window.click_input(
             coords=page.engineering_file_input_file_right_click_menu_view_ascii_coord)
         self.top_window = RunConfig.driver_epcam_ui.top_window()
-        # self.top_window.print_control_identifiers()
-        win_text2 = get_print_control_identifiers_text(self.top_window)
-        print('cc:',win_text2[2][0])
+        self.top_window.print_control_identifiers()
+        text = get_print_control_identifiers_text(self.top_window)
         # 使用正则表达式匹配title属性的内容
-        match = re.search(r'child_window\(title="([^"]+)"', win_text2[2][0])
-
+        match = re.search(r'child_window\(title="([^"]+)"', text[2][0])
         if match:
             title_content = match.group(1)
             print('find:',title_content)
