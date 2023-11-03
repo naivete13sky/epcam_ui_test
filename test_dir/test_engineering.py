@@ -17,6 +17,7 @@ from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
+from config_ep.page.page_input_view_ascii import PageInputViewAscii
 
 
 @pytest.mark.input
@@ -402,7 +403,7 @@ class TestFile:
         # self.input_job.identify()
         # self.input_job.translate(time_sleep=0.2)
         self.input_job.view_ascii_open()
-        # self.dcode_edit = PageDcodeEdit()
-        # assert self.dcode_edit.is_right()
-        # self.dcode_edit.close()
-        # self.input_job.close()
+        self.view_ascii = PageInputViewAscii()
+        assert self.view_ascii.is_right()
+        self.view_ascii.close()
+        self.input_job.close()
