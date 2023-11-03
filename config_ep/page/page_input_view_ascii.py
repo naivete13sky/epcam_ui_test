@@ -1,8 +1,10 @@
 import os
+import time
 from pathlib import Path
 import cv2
+import pyautogui
 from pywinauto.keyboard import send_keys
-
+from pywinauto.mouse import click,release
 from cc.cc_method import opencv_compare, PictureMethod
 from config import RunConfig
 from config_ep import page
@@ -49,5 +51,10 @@ class PageInputViewAscii(object):
         top_left, bottom_right = PictureMethod.get_small_pic_position_from_large_pic(small_pic_path, large_pic_path)
         x = int((top_left[0] + bottom_right[0])/2)
         y = int((top_left[1] + bottom_right[1])/2)
+        print('x,y:',x,y)
         self.engineering_input_view_ascii_window.click_input(coords=(x, y))
+        pyautogui.mouseDown()  # 按下鼠标
+        pyautogui.moveTo(452 + x, 85 + y + 10, duration=2)  # 移动鼠标以模拟拖动滚动条垂直方向移动10像素，duration控制拖动速度
+        pyautogui.mouseUp()  # 释放鼠标左键，完成滚动操作
+        time.sleep(100)
 
