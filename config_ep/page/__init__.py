@@ -69,6 +69,11 @@ engineering_file_input_tool_size_edit_close_coord = (650, 680)
 engineering_file_input_file_right_click_menu_dcode_edit_coord = (20, 75)
 engineering_file_input_dcode_edit_window_para = {'title': "D code Edit", 'control_type': "Window"}
 engineering_file_input_dcode_edit_close_coord = (650, 680)
+engineering_file_input_file_right_click_menu_view_ascii_coord = (20, 50)
+engineering_file_input_view_ascii_window_para = {
+    'title': r"C:\cc\share\temp\268\compressed\760tbv01\0114-1240-1-10.drl", 'control_type': "Window"}
+engineering_file_input_view_ascii_close_coord = (500, 800)
+
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}

@@ -342,7 +342,6 @@ class TestFile:
         self.tool_size_edit.close()
         self.input_job.close()
 
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
     def test_file_input_dcode_edit_close(self, job_id, epcam_ui_start):
         """
@@ -374,3 +373,36 @@ class TestFile:
         assert self.dcode_edit.is_right()
         self.dcode_edit.close()
         self.input_job.close()
+
+    @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_view_ascii_close(self, job_id, epcam_ui_start):
+        """
+        禅道用例ID：4045,
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        # if self.engineering.job_first_is_opened():
+        #     self.engineering.close_job_first()
+        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        # file_path = str(Path(file_compressed_path).parent)
+        # self.input_job.set_path(file_path)  # 选择料号路径
+        # self.input_job.set_new_job_name('760')
+        # self.input_job.set_new_step_name('orig')
+        # self.input_job.identify()
+        # self.input_job.translate(time_sleep=0.2)
+        self.input_job.view_ascii_open()
+        # self.dcode_edit = PageDcodeEdit()
+        # assert self.dcode_edit.is_right()
+        # self.dcode_edit.close()
+        # self.input_job.close()
