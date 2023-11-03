@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
 import cv2
-from cc.cc_method import opencv_compare
+from pywinauto.keyboard import send_keys
+
+from cc.cc_method import opencv_compare, PictureMethod
 from config import RunConfig
 from config_ep import page
 
@@ -10,12 +12,12 @@ class PageInputViewAscii(object):
     def __init__(self):
         self.engineering_input_view_ascii_window = RunConfig.driver_epcam_ui.window(
             **page.engineering_file_input_view_ascii_window_para)
+        self.engineering_input_view_ascii_window_scroll_coord = None
 
 
     def close(self):
         self.engineering_input_view_ascii_window.click_input(
             coords=page.engineering_file_input_view_ascii_close_coord)
-
 
     def is_right(self):
         input_view_ascii_window_pic = self.engineering_input_view_ascii_window.capture_as_image()  # 截图
@@ -34,3 +36,18 @@ class PageInputViewAscii(object):
 
     def minimize(self):
         self.engineering_input_view_ascii_window.child_window(title="最小化", control_type="Button").click_input()
+
+    def maximize(self):
+        send_keys('%{TAB}')  # 模拟按下 Alt + Tab,可以将最小化的窗口再恢复。
+
+    def scroll(self):
+        large_pic_path = r'C:\cc\share\temp\input_view_ascii_window.png'
+        if not os.path.exists(large_pic_path):
+            engineering_input_view_ascii_window= self.engineering_input_view_ascii_window.capture_as_image()
+            engineering_input_view_ascii_window.save(large_pic_path)
+        small_pic_path = r"data\pic\engineering\input_view_ascii_window_scroll_standard.png"
+        top_left, bottom_right = PictureMethod.get_small_pic_position_from_large_pic(small_pic_path, large_pic_path)
+        x = int((top_left[0] + bottom_right[0])/2)
+        y = int((top_left[1] + bottom_right[1])/2)
+        self.engineering_input_view_ascii_window.click_input(coords=(x, y))
+

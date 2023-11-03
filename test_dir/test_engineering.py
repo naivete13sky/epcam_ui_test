@@ -406,6 +406,7 @@ class TestFile:
         self.view_ascii = PageInputViewAscii()
         assert self.view_ascii.is_right()
         self.view_ascii.minimize()
-        send_keys('%{TAB}')  # 模拟按下 Alt + Tab,可以将最小化的窗口再恢复。
-        self.view_ascii.close()
-        self.input_job.close()
+        self.view_ascii.maximize()
+        self.view_ascii.scroll()
+        # self.view_ascii.close()
+        # self.input_job.close()

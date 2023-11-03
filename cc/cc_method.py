@@ -458,6 +458,28 @@ class PictureMethod(object):
         else:
             return -1, -1
 
+    @staticmethod
+    def get_small_pic_position_from_large_pic(small_pic_path, large_pic_path):
+        import cv2
+        # 读取大图和小图
+        large_image = cv2.imread(large_pic_path)
+        small_image = cv2.imread(small_pic_path)
+        # 执行模板匹配
+        result = cv2.matchTemplate(large_image, small_image, cv2.TM_CCOEFF_NORMED)
+        # 获取匹配的位置
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        # 如果使用TM_SQDIFF_NORMED方法，min_loc包含最佳匹配的位置
+        # 如果使用其他方法，max_loc包含最佳匹配的位置
+        # 绘制矩形框来标记小图的位置
+        h, w, _ = small_image.shape
+        top_left = max_loc
+        bottom_right = (top_left[0] + w, top_left[1] + h)
+        # cv2.rectangle(large_image, top_left, bottom_right, (0, 255, 0), 2)
+        # cv2.imshow('Result', large_image)  # 显示结果
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        return top_left, bottom_right
+
 
 def f_png_to_tiff_one_file():
     pass
