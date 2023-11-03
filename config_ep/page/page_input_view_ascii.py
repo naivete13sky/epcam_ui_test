@@ -42,7 +42,7 @@ class PageInputViewAscii(object):
     def maximize(self):
         send_keys('%{TAB}')  # 模拟按下 Alt + Tab,可以将最小化的窗口再恢复。
 
-    def scroll(self):
+    def scroll_y(self,y_pixel):
         large_pic_path = r'C:\cc\share\temp\input_view_ascii_window.png'
         if not os.path.exists(large_pic_path):
             engineering_input_view_ascii_window= self.engineering_input_view_ascii_window.capture_as_image()
@@ -54,7 +54,7 @@ class PageInputViewAscii(object):
         print('x,y:',x,y)
         self.engineering_input_view_ascii_window.click_input(coords=(x, y))
         pyautogui.mouseDown()  # 按下鼠标
-        pyautogui.moveTo(452 + x, 85 + y + 10, duration=2)  # 移动鼠标以模拟拖动滚动条垂直方向移动10像素，duration控制拖动速度
+        pyautogui.moveTo(452 + x, 85 + y + y_pixel, duration=2)  # 移动鼠标以模拟拖动滚动条垂直方向移动10像素，duration控制拖动速度
         pyautogui.mouseUp()  # 释放鼠标左键，完成滚动操作
-        time.sleep(100)
+
 

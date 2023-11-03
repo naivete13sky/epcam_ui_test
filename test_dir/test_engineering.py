@@ -8,7 +8,7 @@ import rarfile
 from pywinauto.keyboard import send_keys, SendKeys
 from PIL import Image
 from config import RunConfig
-from cc.cc_method import GetTestData, PictureMethod
+from cc.cc_method import GetTestData, PictureMethod, opencv_compare
 from config_ep import page
 import cv2
 from config_ep.base.base import Base
@@ -379,34 +379,49 @@ class TestFile:
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
     def test_file_input_view_ascii_close(self, job_id, epcam_ui_start):
         """
-        禅道用例ID：4045,4046
+        禅道用例ID：4045,4046,4047
         :param job_id:
         :param epcam_ui_start:
         :return:
         """
-        # # 下载料号
-        # job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
-        # # 解压rar
-        # rf = rarfile.RarFile(file_compressed_path)
-        # rf.extractall(Path(file_compressed_path).parent)
-        # # 删除压缩包
-        # os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
-        # self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
-        # if self.engineering.job_first_is_opened():
-        #     self.engineering.close_job_first()
-        # self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
         self.input_job = PageInput()
-        # file_path = str(Path(file_compressed_path).parent)
-        # self.input_job.set_path(file_path)  # 选择料号路径
-        # self.input_job.set_new_job_name('760')
-        # self.input_job.set_new_step_name('orig')
-        # self.input_job.identify()
-        # self.input_job.translate(time_sleep=0.2)
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
         self.input_job.view_ascii_open()
         self.view_ascii = PageInputViewAscii()
         assert self.view_ascii.is_right()
         self.view_ascii.minimize()
         self.view_ascii.maximize()
-        self.view_ascii.scroll()
-        # self.view_ascii.close()
-        # self.input_job.close()
+
+        self.view_ascii.scroll_y(y_pixel=10)
+        input_view_ascii_window_scroll_y = self.view_ascii.engineering_input_view_ascii_window.capture_as_image()# 截图
+        input_view_ascii_window_scroll_y.save(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')
+        img_cut = img[0:822, 8:1005]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\input_view_ascii_window_scroll_y_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(
+            Path(os.path.dirname(__file__)).parent,
+            r'data\pic\engineering\input_view_ascii_window_scroll_y_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\input_view_ascii_window_scroll_y_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
+        self.view_ascii.close()
+        self.input_job.close()
