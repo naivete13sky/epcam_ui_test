@@ -2,17 +2,17 @@ import os
 import re
 import time
 from pathlib import Path
-
 import cv2
 from pywinauto.keyboard import send_keys
-
 from cc.cc_method import opencv_compare, get_print_control_identifiers_text
 from config import RunConfig
 from config_ep import page
+from config_ep.base.base import Base
 
 
-class PageInput(object):
+class PageInput(Base):
     def __init__(self):
+        super().__init__()  # 调用父类的构造函数
         self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
         self.top_window = None
         self.engineering_file_input_path_window = None
