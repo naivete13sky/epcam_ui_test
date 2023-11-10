@@ -7,13 +7,11 @@ class RunConfig:
     运行测试配置
     """
 
-    #配置EPCAM路径，只要换了版本就要更改
-    my_config_json_path = os.path.join(os.path.dirname(__file__),r'my_config.json')
+    # 配置EPCAM路径，只要换了版本就要更改
+    my_config_json_path = os.path.join(os.path.dirname(__file__), r'my_config.json')
     with open(my_config_json_path, encoding='utf-8') as f:
         cfg = json.load(f)
     ep_cam_path = cfg['epcam']['path']
-
-
 
     # 运行测试用例的目录或文件
     cases_path = "./test_dir/"
@@ -25,10 +23,8 @@ class RunConfig:
     # driver_type = "epcam_kernel"
     driver_type = "epcam_ui"
 
-
-    #悦谱python接口目录
+    # 悦谱python接口目录
     epcam_python_interface_path = r'config_ep/epcam'
-
 
     # 配置运行的 URL
     url = "http://www.epsemicon.com/"
@@ -48,7 +44,7 @@ class RunConfig:
     # epcam UI驱动（不需要修改）
     driver_epcam_ui = None
 
-    driver_epcam_ui_exe_path = os.path.join(ep_cam_path,r'EP-CAM.exe')
+    driver_epcam_ui_exe_path = os.path.join(ep_cam_path, r'EP-CAM.exe')
     driver_epcam_ui_engineering_title = cfg['epcam']['engineering_title']
     driver_epcam_ui_graphic_title = cfg['epcam']['graphic_title']
 
@@ -73,8 +69,5 @@ class RunConfig:
     # g软件导入默认参数
     config_g_input = r'config_g\config.json'
 
-
     # test_item = ['1','2','3','4','5','6','7']
     test_item = ['1', '2', '3']
-
-
