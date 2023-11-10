@@ -9,7 +9,6 @@
 HACK_SIZE_LIMIT = 200 * 1024 * 1024
 
 
-
 # 架构说明
 ## Pytest + Pywinauto + POM
 ## Pytest
