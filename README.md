@@ -1,12 +1,49 @@
-# 概要说明1
+# 简介
 ## 项目名称：epcam_ui_test
 ## 项目作用：EP-CAM软件的UI自动化测试。
 
 # 环境配置
-## python：
-* 版本：python3.11.4
-* 修改rarfile.py配置：C:\Users\用户名\Envs\虚拟环境名\Lib\site-packages\rarfile.py。
-HACK_SIZE_LIMIT = 200 * 1024 * 1024
+## python环境：
+### Python3.11.4，64位
+* 安装python-3.11.4-amd64.exe。如已安装此版本，则略过。
+  * 右击安装包，以管理员身份运行，打开安装程序。
+  * 点击“Customize installation”。
+  * 点击“Next”
+  * 钩选“Install for all users”。
+  * 安装路径改为“C:\Python3114”。然后点击“Install”。
+  * 完成安装。
+* 配置Python包安装源（为了提升下载包的速度） 
+  * 在当前用户目录下新建“pip”名称的文件夹，在其中放入pip.ini文件。
+  * 如果无些文件可以自行新建此文件，pip.ini中的内容为：
+    * [global]
+    * timeout = 6000
+    * index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+    * trusted-host = pypi.tuna.tsinghua.edu.cn
+* 创建虚拟环境
+  * 管理员权限打开cmd。
+  * 执行“pip install virtualenvwrapper-win”，安装好virtualenvwrapper-win。
+  * 默认创建的虚拟环境位于C:\Users\username\envs,可以通过环境变量 WORKON_HOME 来定制。（一般无需设置）
+  * 执行“mkvirtualenv -p python3.11.4 epcam_ui_test”，为当前项目创建虚拟环境。
+  * 当前CMD界面会默认进入“epcam_test_client”虚拟环境下。
+  * 常用命令如下（方便以后使用）：	
+    * 创建虚拟环境：mkvirtualenv epcam_ui_test
+    * 创建指定解释器的虚拟环境：mkvirtualenv -p python3.11.4 epcam_ui_test
+    * 启动虚拟环境：workon epcam_ui_test
+    * 退出虚拟环境：deactivate
+    * 删除虚拟环境：rmvirtualenv epcam_ui_test
+* Python包
+  * 在当前项目的虚拟环境下，执行“pip install -r requirements.txt”
+  * 参见requirements.txt
+* 修改rarfile.py配置，设置支持最大200M文件。
+  * 文件位置：C:\Users\用户名\Envs\虚拟环境名\Lib\site-packages\rarfile.py。
+  * 代码修改：HACK_SIZE_LIMIT = 200 * 1024 * 1024
+## WinRAR
+  * 安装WinRAR
+  * 配置环境变量：安装目录添加到系统环境变量Path里。
+## Pycharm
+## Git
+
+
 
 # 架构说明
 ## Pytest + Pywinauto + POM
