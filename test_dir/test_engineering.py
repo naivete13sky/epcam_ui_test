@@ -416,12 +416,15 @@ class TestFile:
         cv2.imwrite(r"C:\cc\share\temp\input_view_ascii_window_scroll_y_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
-        img_standard_path = os.path.join(
-            Path(os.path.dirname(__file__)).parent,
-            r'data\pic\engineering\input_view_ascii_window_scroll_y_cut_standard.png')
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+            r'engineering\input_view_ascii_window_scroll_y_cut_standard.png')
         img_current_path = r'C:\cc\share\temp\input_view_ascii_window_scroll_y_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
 
         self.view_ascii.close()
         self.input_job.close()
+
+    def test_cc(self,epcam_ui_start):
+        pass
+

@@ -28,9 +28,8 @@ class PageDcodeEdit(object):
         cv2.imwrite(r"C:\cc\share\temp\dcode_edit_window_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
-        img_standard_path = os.path.join(
-            Path(os.path.dirname(__file__)).parent.parent,
-            r'data\pic\engineering\dcode_edit_window_cut_standard.png')
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+            r'engineering\dcode_edit_window_cut_standard.png')
         img_current_path = r'C:\cc\share\temp\dcode_edit_window_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0

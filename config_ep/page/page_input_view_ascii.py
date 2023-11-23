@@ -29,9 +29,8 @@ class PageInputViewAscii(object):
         cv2.imwrite(r"C:\cc\share\temp\input_view_ascii_window_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
-        img_standard_path = os.path.join(
-            Path(os.path.dirname(__file__)).parent.parent,
-            r'data\pic\engineering\input_view_ascii_window_cut_standard.png')
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+            r'engineering\input_view_ascii_window_cut_standard.png')
         img_current_path = r'C:\cc\share\temp\input_view_ascii_window_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
@@ -47,7 +46,7 @@ class PageInputViewAscii(object):
         if not os.path.exists(large_pic_path):
             engineering_input_view_ascii_window= self.engineering_input_view_ascii_window.capture_as_image()
             engineering_input_view_ascii_window.save(large_pic_path)
-        small_pic_path = r"data\pic\engineering\input_view_ascii_window_scroll_standard.png"
+        small_pic_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path, r"engineering\input_view_ascii_window_scroll_standard.png")
         top_left, bottom_right = PictureMethod.get_small_pic_position_from_large_pic(small_pic_path, large_pic_path)
         x = int((top_left[0] + bottom_right[0])/2)
         y = int((top_left[1] + bottom_right[1])/2)

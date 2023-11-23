@@ -69,5 +69,12 @@ class RunConfig:
     # g软件导入默认参数
     config_g_input = r'config_g\config.json'
 
+    current_os_version = None
+
+    epcam_ui_standard_pic_base_path = None
+
+
+
+
     # test_item = ['1','2','3','4','5','6','7']
     test_item = ['1', '2', '3']

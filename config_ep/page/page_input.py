@@ -84,9 +84,8 @@ class PageInput(Base):
         cv2.imwrite(r"C:\cc\share\temp\engineering_file_input_window_png_cleared.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
-        img_standard_path = os.path.join(
-            Path(os.path.dirname(__file__)).parent.parent,
-            r'data\pic\engineering\engineering_file_input_window_png_cleared_standard.png')
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+            r'engineering\engineering_file_input_window_png_cleared_standard.png')
         img_current_path = r'C:\cc\share\temp\engineering_file_input_window_png_cleared.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
@@ -116,9 +115,8 @@ class PageInput(Base):
         cv2.imwrite(r"C:\cc\share\temp\engineering_file_input_window_png_select_all.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
-        img_standard_path = os.path.join(
-            Path(os.path.dirname(__file__)).parent.parent,
-            r'data\pic\engineering\engineering_file_input_window_png_select_all_standard.png')
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+            r'engineering\engineering_file_input_window_png_select_all_standard.png')
         img_current_path = r'C:\cc\share\temp\engineering_file_input_window_png_select_all.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0

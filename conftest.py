@@ -131,6 +131,31 @@ def capture_screenshots(case_name):
         # RunConfig.driver.save_screenshot(image_dir)
 
 
+
+# 获取当前操作系统版本信息
+@pytest.fixture(scope='session', autouse=True)
+def set_os_version():
+    """
+    设置当前操作系统版本
+    :return:
+    """
+    import platform
+
+    os_name = platform.system()  # 获取操作系统名称
+    os_version = platform.version()  # 获取操作系统版本号
+    os_info = platform.platform()  # 获取操作系统的详细信息
+    # print(f"操作系统名称: {os_name}")
+    # print(f"操作系统版本号: {os_version}")
+    # print(f"操作系统详细信息: {os_info}")
+    RunConfig.current_os_version = os_version
+    RunConfig.epcam_ui_standard_pic_base_path = os.path.join(os.path.dirname(__file__),r'data\pic',os_version.replace('.','_'))
+    # print('path:',RunConfig.epcam_ui_standard_pic_base_path)
+
+
+
+
+
+
 # 加载g
 @pytest.fixture(scope='session', autouse=False)
 def g():
