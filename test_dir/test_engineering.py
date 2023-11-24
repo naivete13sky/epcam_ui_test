@@ -412,7 +412,7 @@ class TestFile:
         input_view_ascii_window_scroll_y = self.view_ascii.engineering_input_view_ascii_window.capture_as_image()# 截图
         input_view_ascii_window_scroll_y.save(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')
-        img_cut = img[0:822, 8:1005]  # 后面的是水平方向
+        img_cut = img[5:822, 8:1005]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\input_view_ascii_window_scroll_y_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
