@@ -20,13 +20,14 @@ class PageToolSizeEdit(object):
 
 
     def is_right(self):
+        self.engineering_input_tool_size_edit_window.set_focus()  # 激活窗口
         tool_size_edit_window_pic = self.engineering_input_tool_size_edit_window.capture_as_image()  # 截图
         tool_size_edit_window_pic.save(r'C:\cc\share\temp\tool_size_edit_window.png')  # 保存到硬盘
         # 显示图像
         # tool_size_edit_window_pic.show()  # PIL方式显示图像
         img = cv2.imread(r'C:\cc\share\temp\tool_size_edit_window.png')
         # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
-        img_cut = img[0:732, 8:808]  # 后面的是水平方向
+        img_cut = img[3:728, 12:804]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\tool_size_edit_window_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
