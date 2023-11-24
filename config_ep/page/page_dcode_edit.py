@@ -1,4 +1,5 @@
 import os
+import time
 from pathlib import Path
 import cv2
 from cc.cc_method import opencv_compare
@@ -18,6 +19,8 @@ class PageDcodeEdit(object):
 
 
     def is_right(self):
+        self.engineering_input_dcode_edit_window.set_focus()  # 激活窗口
+        time.sleep(0.1)
         dcode_edit_window_pic = self.engineering_input_dcode_edit_window.capture_as_image()  # 截图
         dcode_edit_window_pic.save(r'C:\cc\share\temp\dcode_edit_window.png')  # 保存到硬盘
         # 显示图像

@@ -22,6 +22,8 @@ class PageInputViewAscii(object):
             coords=page.engineering_file_input_view_ascii_close_coord)
 
     def is_right(self):
+        self.engineering_input_view_ascii_window.set_focus()  # 激活窗口
+        time.sleep(0.1)
         input_view_ascii_window_pic = self.engineering_input_view_ascii_window.capture_as_image()  # 截图
         input_view_ascii_window_pic.save(r'C:\cc\share\temp\input_view_ascii_window.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\input_view_ascii_window.png')
