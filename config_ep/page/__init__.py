@@ -21,6 +21,8 @@ engineering_jobList_empty_coord = (800, 600)
 engineering_job_list_in_job_empty_coord = (950, 210)
 
 engineering_file_coord = (20, 40)
+engineering_file_create_coord = (20, 65)
+engineering_file_create_close_coord = (650, 350)
 engineering_file_import_coord = (20, 210)
 engineering_file_input_coord = (20, 160)
 engineering_file_save_coord = (20, 250)

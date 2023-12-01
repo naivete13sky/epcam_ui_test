@@ -90,6 +90,40 @@ class TestUI:
         assert text == 'No elements were selected!\n'
         send_keys("{ENTER}")  # 确认关闭弹窗
 
+    def test_open_file_menu(self, epcam_ui_start):
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_coord)  # 单击打开File菜单
+        engineering_file_menu_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_menu_pic.save(r'C:\cc\share\temp\engineering_file_menu_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_menu_pic.png')
+        img_cut = img[5:315, 8:190]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_menu_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_menu_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_file_menu_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
+
+    def test_open_close_create_window(self, epcam_ui_start):  # 验证打开、关闭Create弹窗
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_coord)  # 单击打开File菜单
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_create_coord)  # 单击打开Create窗口
+        time.sleep(0.2)
+        engineering_file_create_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_window_pic.save(r'C:\cc\share\temp\engineering_file_create_window_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_window_pic.png')
+        img_cut = img[50:780, 380:455]  # 前纵后横
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_window_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_window_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_window_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_create_close_coord)  # 关闭窗口
+
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Save'))
     def test_open_job(self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
         """
