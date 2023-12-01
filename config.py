@@ -47,6 +47,7 @@ class RunConfig:
     driver_epcam_ui_exe_path = os.path.join(ep_cam_path, r'EP-CAM.exe')
     driver_epcam_ui_engineering_title = cfg['epcam']['engineering_title']
     driver_epcam_ui_graphic_title = cfg['epcam']['graphic_title']
+    driver_epcam_ui_matrix_title = cfg['epcam']['matrix_title']
 
     # g驱动类型
     driver_type_g = "g"

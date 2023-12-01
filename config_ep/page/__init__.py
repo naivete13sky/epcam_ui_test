@@ -41,6 +41,7 @@ engineering_job_right_click_open_coord = (20, 10)
 engineering_inJob_go_up_coord = (80, 250)
 engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
+engineering_inJob_matrix_coord = (80 + 130, 250)
 
 """ 以下为engineering--import模块信息"""
 engineering_file_import_input_path_coord = (30, 80)  # 变形时，字体太大，异常情况,y = 100
@@ -77,3 +78,10 @@ engineering_file_input_view_ascii_close_coord = (500, 800)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
+
+""" 以下为matrix模块信息"""
+matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}
+
+matrix_drill_layer_coord = (120, 685)
+matrix_drill_correlation_top_coord = (26, 200)
+matrix_drill_correlation_bot_coord = (26, 655)
