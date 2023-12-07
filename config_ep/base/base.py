@@ -57,6 +57,23 @@ class MyODB:
             dict_layer[lines[4].split('=')[1]] = {'row': lines[1].split('=')[1]}
         return dict_layer
 
+    @staticmethod
+    def get_step_info_from_odb_file(odb_matrix_file) -> dict:
+        """
+        获取每个step中的部分信息
+        :param odb_matrix_file:
+        :return：
+        """
+        with open(odb_matrix_file, 'r') as f:
+            content = f.read()
+        # print('content:', content)
+        re_com = re.compile(r"STEP \{([\s\S]*?)\}")
+        matches = re_com.findall(content)
+        dict_step = {}
+        for match in matches:
+            lines = match.splitlines()
+            dict_step[lines[2].split('=')[1]] = {'col': lines[1].split('=')[1]}
+        return dict_step
 
 class File:
     @staticmethod

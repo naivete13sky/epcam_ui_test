@@ -14,20 +14,22 @@ class PageGraphic(object):
     def close(self):
         self.graphic_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def is_right(self,img_name, cut_coords, img_standard_str):
+    def cut_img(self, img_name, cut_coords=None):
         self.graphic_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        dcode_edit_window_pic = self.graphic_window.capture_as_image()  # 截图
-        save_path = os.path.join(self.temp_path,img_name + '.png')
-        dcode_edit_window_pic.save(save_path)  # 保存到硬盘
-        # 显示图像
-        # tool_size_edit_window_pic.show()  # PIL方式显示图像
-        img = cv2.imread(save_path)
-        # img_cut = img[249:331, 46:137]  # 后面的是水平方向，异常时，字体过大时
-        img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
-        save_path_cut = os.path.join(self.temp_path,img_name + '_cut.png')
-        cv2.imwrite(save_path_cut, img_cut)
-        cv2.waitKey(0)
+        drill_correlation_layer_pic = self.graphic_window.capture_as_image()  # 截图
+        save_path = os.path.join(self.temp_path, img_name + '.png')
+        drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
+        if cut_coords:
+            img = cv2.imread(save_path)
+            img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
+            save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
+            cv2.imwrite(save_path_cut, img_cut)
+            return save_path_cut
+        # cv2.waitKey(0)
+        return save_path
+
+    def is_right(self,save_path_cut, img_standard_str):
         # 加载两张图片
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                                          img_standard_str)
