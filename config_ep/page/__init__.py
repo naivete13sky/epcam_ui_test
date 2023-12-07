@@ -22,7 +22,14 @@ engineering_job_list_in_job_empty_coord = (950, 210)
 
 engineering_file_coord = (20, 40)
 engineering_file_create_coord = (20, 65)
+engineering_file_create_x_coord = (650, 350)
 engineering_file_create_close_coord = (650, 350)
+engineering_file_create_entity_filter_coord = (580, 380)  # 郭
+engineering_file_create_database_filter_coord = (580, 412)  # 郭
+engineering_file_create_database_button_coord = (420, 412)  # 郭
+engineering_file_create_ok_button_coord = (400, 445)
+engineering_file_create_apply_button_coord = (535, 445)
+engineering_file_create_yes_button_coord = (560, 440)
 engineering_file_import_coord = (20, 210)
 engineering_file_input_coord = (20, 160)
 engineering_file_save_coord = (20, 250)
