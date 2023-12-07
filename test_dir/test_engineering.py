@@ -184,6 +184,7 @@ class TestUI:
 
     def test_create_new_job_ok(self, epcam_ui_start):
         self.engineering.entity_filter('760')
+        self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
