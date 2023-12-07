@@ -77,6 +77,9 @@ engineering_file_input_view_ascii_window_para = {
     'title': r"C:\cc\share\temp\268\compressed\760tbv01\0114-1240-1-10.drl", 'control_type': "Window"}
 engineering_file_input_view_ascii_close_coord = (500, 800)
 
+engineering_file_input_view_graphic_window_para = {'title': "EP-CAM", 'control_type': "Window"}
+engineering_file_input_view_graphic_close_coord = (810, 155)
+
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
@@ -85,5 +88,6 @@ graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'contro
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}
 
 matrix_drill_layer_coord = (120, 685)
-matrix_drill_correlation_top_coord = (26, 200)
-matrix_drill_correlation_bot_coord = (26, 655)
+matrix_double_click_layer_has_step_coord = (230, 295)
+matrix_double_click_step_coord = (240, 165)
+matrix_click_layer_coord = (110, 295)
