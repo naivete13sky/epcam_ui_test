@@ -18,6 +18,7 @@ from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
 from config_ep.page.page_input_view_ascii import PageInputViewAscii
+from config_ep.page.page_engineering_file import PageFile
 
 
 @pytest.mark.input
@@ -25,6 +26,7 @@ class TestUI:
     @pytest.fixture(autouse=True)
     def setup_method(self):
         self.engineering = PageEngineering()
+        self.file = PageFile()
         self.engineering.engineering_window.set_focus()  # 激活窗口
 
     def test_ui_all(self, epcam_ui_start):
@@ -95,7 +97,7 @@ class TestUI:
         engineering_file_menu_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_menu_pic.save(r'C:\cc\share\temp\engineering_file_menu_pic.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\engineering_file_menu_pic.png')
-        img_cut = img[5:315, 8:190]  # 后面的是水平方向
+        img_cut = img[25:315, 8:190]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\engineering_file_menu_pic_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
@@ -106,14 +108,13 @@ class TestUI:
         assert rectangle_count == 0
         self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
 
-    def test_open_close_create_window(self, epcam_ui_start):  # 验证打开、关闭Create弹窗
-        self.engineering.engineering_window.click_input(coords=page.engineering_file_coord)  # 单击打开File菜单
-        self.engineering.engineering_window.click_input(coords=page.engineering_file_create_coord)  # 单击打开Create窗口
+    def test_open_close_create_window(self, epcam_ui_start):
+        self.file.open_create_window()
         time.sleep(0.2)
         engineering_file_create_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_window_pic.save(r'C:\cc\share\temp\engineering_file_create_window_pic.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_window_pic.png')
-        img_cut = img[50:780, 380:455]  # 前纵后横
+        img_cut = img[50:780, 380:455]  # 前面纵向，后面横向
         cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_window_pic_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
@@ -122,7 +123,117 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_window_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.engineering.engineering_window.click_input(coords=page.engineering_file_create_close_coord)  # 关闭窗口
+        self.file.close_create_window('x')
+        assert self.file.create_window_is_closed()
+
+    def test_create_entity_input(self, epcam_ui_start):
+        self.file.open_create_window()
+        self.file.clear_entity_name()
+        self.file.entity_name_input()
+        engineering_file_create_entity_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_entity_pic.save(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')
+        img_cut = img[50:780, 460:666]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_entity_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_entity_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('x')
+
+    def test_create_entity_illegal_input(self, epcam_ui_start):
+        self.file.open_create_window()
+        self.file.clear_entity_name()
+        self.file.entity_name_illegal_input()
+        engineering_file_create_entity_illegal_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_entity_illegal_pic.save(
+            r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic.png')
+        img_cut = img[50:780, 460:666]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_entity_illegal_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_entity_illegal_pic_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('x')
+
+    def test_create_database_reset(self, epcam_ui_start):
+        self.file.open_create_window()
+        self.file.clear_entity_name()
+        self.file.database_reset()
+        engineering_file_create_database_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_database_pic.save(
+            r'C:\cc\share\temp\engineering_file_create_database_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_database_pic.png')
+        img_cut = img[50:780, 460:666]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_database_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_database_pic_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_database_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('x')
+
+    def test_create_new_job_ok(self, epcam_ui_start):
+        self.engineering.entity_filter('760')
+        self.engineering.entity_filter('760')
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()
+        self.file.open_create_window()
+        self.file.clear_entity_name()
+        self.file.create_job('760', 'ok')
+        engineering_file_create_new_job_ok_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_new_job_ok_pic.save(
+            r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic.png')
+        img_cut = img[88:780, 25:800]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_new_job_ok_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_new_job_ok_pic_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('close')
+
+    def test_create_new_job_apply(self, epcam_ui_start):
+        self.engineering.entity_filter('760')
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()
+        self.file.open_create_window()
+        self.file.clear_entity_name()
+        self.file.create_job('760', 'apply')
+        engineering_file_create_new_job_apply_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_new_job_apply_pic.save(
+            r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic.png')
+        img_cut = img[88:780, 25:455]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_new_job_apply_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_new_job_apply_pic_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('close')
+
+    # def test_create_exists_job_ok(self, epcam_ui_start):
+    #     pass
+    #
+    # def test_create_exists_job_apply(self, epcam_ui_start):
+    #     pass
 
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Save'))
     def test_open_job(self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
