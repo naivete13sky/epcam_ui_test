@@ -718,6 +718,194 @@ class TestFile:
         self.view_ascii.close()
         self.input_job.close()
 
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_parameters(self, job_id, epcam_ui_start):
+        """
+        禅道用例ID：4036  Parameters视窗展示正确
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
+        self.input_job.engineering_input_window.click_input(
+            button='right', coords=(page.engineering_file_parameters_coord))
+        self.input_job.engineering_input_window.click_input(
+            coords=(page.engineering_file_parameters_menu_coord))
+        send_keys("{TAB}")  # 按下TAB键，挪动光标位置
+
+        engineering_input_parameters_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_input_parameters_pic.save(r'C:\cc\share\temp\engineering_input_parameters_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_input_parameters_pic.png')
+        img_cut = img[370:800, 480:800]  # 前纵后横
+        cv2.imwrite(r"C:\cc\share\temp\engineering_input_parameters_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_input_parameters_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_input_parameters_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
+        self.input_job.close()
+
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_view_graphic(self, job_id, epcam_ui_start):
+
+        """
+        禅道用例ID：4029  验证View Graphic视窗展示正确
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
+        self.input_job.engineering_input_window.click_input(
+            button='right', coords=(page.engineering_file_input_view_graphic_coord))  # 右击层别栏
+        self.input_job.engineering_input_window.click_input(
+            coords=(page.engineering_file_input_view_graphic_menu_coord))
+
+        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_view_graphic_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_input_view_graphic_pic.png')
+        img_cut = img[150:650, 208:825]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_input_view_graphic_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_input_view_graphic_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_input_view_graphic_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
+        self.input_job.close()
+
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_right_click_menu(self, job_id, epcam_ui_start):
+
+        """
+        禅道用例ID：4643 验证右击菜单栏展示正确展示正确
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
+        self.input_job.engineering_input_window.click_input(
+            button='right', coords=(page.engineering_file_input_right_click_menu_coord))  # 右击层别栏
+
+        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_right_click_menu_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_input_right_click_menu_pic.png')
+        img_cut = img[368:562, 425:510]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_input_right_click_menu_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_input_right_click_menu_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_input_right_click_menu_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
+
+        self.input_job.close()
+
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_file_input_job_window_close(self, job_id, epcam_ui_start):
+
+        """
+        禅道用例ID：3989 验证Job视窗展示正确、3990 已有Job会全部展示在Job视窗中、3991 Job视窗可正确关闭
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('760')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('760')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=0.2)
+        self.input_job.engineering_input_window.click_input(
+            coords=(page.engineering_file_input_job_window_menu_coord))  # 左击Input视窗的Job按钮
+        send_keys("{TAB}")  # 按下TAB键，挪动光标位置
+
+        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_job_window_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_input_job_window_pic.png')
+        img_cut = img[375:678, 470:750]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_input_job_window_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_input_job_window_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_input_job_window_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
+        self.input_job.close_job_window()
+        self.input_job.close()
+
+
     def test_cc(self,epcam_ui_start):
         pass
 

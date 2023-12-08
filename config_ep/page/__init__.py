@@ -90,6 +90,14 @@ engineering_file_input_view_ascii_close_coord = (500, 800)
 engineering_file_input_view_graphic_window_para = {'title': "EP-CAM", 'control_type': "Window"}
 engineering_file_input_view_graphic_close_coord = (810, 155)
 
+engineering_file_parameters_coord = (272, 320)
+engineering_file_parameters_menu_coord = (300, 350)
+engineering_file_input_view_graphic_coord = (272, 320)
+engineering_file_input_view_graphic_menu_coord = (300, 330)
+engineering_file_input_right_click_menu_coord = (300, 330)#右击层别栏，调出右击菜单栏
+engineering_file_input_job_window_menu_coord = (56, 84)
+engineering_file_input_job_window_close_menu_coord= (573, 617)
+
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
