@@ -1,6 +1,3 @@
-import re
-from pathlib import Path
-import pyautogui
 from config import RunConfig
 from config_ep import page
 import time
@@ -30,12 +27,13 @@ class PageMatrix(Base,MyMouse):
             img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
             save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
             cv2.imwrite(save_path_cut, img_cut)
+            cv2.waitKey(0)
             return save_path_cut
         # cv2.waitKey(0)
         return save_path
 
     def is_right(self, save_path_cut, img_standard_str):
-        # # 加载两张图片
+        # 加载两张图片
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                                          img_standard_str)
         img_current_path = save_path_cut
@@ -63,7 +61,7 @@ class PageMatrix(Base,MyMouse):
         layer_info = job_info.get('layer_info')
         layer_name_row = int(layer_info.get(layer.upper())['row'])
         coords = (110, 200 + (layer_name_row - 1) * 30)
-        self.click_layer(coords)
+        self.matrix_click_input(coords)
 
         img_name = 'matrix_window'
         save_path = self.cut_img(img_name)  # 截图
@@ -80,14 +78,41 @@ class PageMatrix(Base,MyMouse):
         end_coord_y = 200 + (end_name_row - 1) * 30
         MyMouse.mouse_simulator(440 + x, 106 + end_coord_y) # 移动孔带底部
 
-    def double_click_layer_has_step(self, time_sleep = 0.5):
-        self.matrix_window.double_click_input(coords=page.matrix_double_click_layer_has_step_coord) # 双击有step的layer单元格
+    def double_click_layer_has_step(self, job_info, step, layer):
+        step_info = job_info.get('step_info')
+        layer_info = job_info.get('layer_info')
+        step_col = int(step_info.get(step.upper())['col'])
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coord_x = 235 + (step_col - 1) * 100
+        coord_y = 200 + (layer_row - 1) * 30
+        coords = (coord_x, coord_y)
+        self.matrix_double_click_input(coords=coords) # 双击有step的layer单元格
+
+    def double_click_step(self, job_info, step):
+        step_info = job_info.get('step_info')
+        step_col =  int(step_info.get(step.upper())['col'])
+        coord_x  =235 + (step_col - 1) * 100
+        coord_y = 160
+        coords = (coord_x, coord_y)
+        self.matrix_double_click_input(coords) # 双击
+
+    def click_layer(self, job_info, layer):
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coords = (120, 200 + (layer_row - 1) * 30)
+        self.matrix_click_input(coords)
+
+    def selections_layer(self,job_info,layer):
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coord_x = 550
+        coord_y = 105 + 200 + (layer_row - 1) *  30
+        MyMouse.mouse_simulator(coord_x, coord_y)
+
+    def matrix_double_click_input(self, coords, time_sleep = 0.5):
+        self.matrix_window.double_click_input(coords=coords) # 双击有step的layer单元格
         time.sleep(time_sleep)
 
-    def double_click_step(self, time_sleep = 0.5):
-        self.matrix_window.double_click_input(coords=page.matrix_double_click_step_coord) # 双击step
-        time.sleep(time_sleep)
-
-    def click_layer(self,coords, time_sleep = 0.5):
+    def matrix_click_input(self,coords, time_sleep = 0.5):
         self.matrix_window.click_input(coords=coords) # 单击layer
         time.sleep(time_sleep)
