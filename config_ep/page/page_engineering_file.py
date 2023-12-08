@@ -38,16 +38,12 @@ class PageFile(object):
 
     def entity_name_input(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
-        send_keys('666abc-')
-        send_keys('+{_}')
-        send_keys('+{+}')
+        send_keys('666abc-+{_}+{+}')
         send_keys('{TAB}')  # Tab切走，光标影响截图
 
     def entity_name_illegal_input(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
-        send_keys('ABC')
-        send_keys('!@#$')
-        send_keys('你瞅啥？')
+        send_keys('ABC!@#$你瞅啥？')
         send_keys('{TAB}')  # Tab切走，光标影响截图
 
     def clear_entity_name(self):
@@ -55,11 +51,10 @@ class PageFile(object):
         send_keys('^a')
         send_keys('{BACK}')  # 输入框全选删除
 
-    def database_reset(self):
+    def database_input_reset(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
         send_keys('^a')
         send_keys('{BACK}')
-        time.sleep(0.2)
         self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
         self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
         send_keys('^a')
@@ -71,7 +66,7 @@ class PageFile(object):
         self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
 
     def create_job(self, job_name, button):
-        self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
+        self.clear_entity_name()
         send_keys(job_name)
         if button == 'ok':
             self.engineering_window.click_input(coords=page.engineering_file_create_ok_button_coord)

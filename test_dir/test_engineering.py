@@ -166,7 +166,7 @@ class TestUI:
     def test_create_database_reset(self, epcam_ui_start):
         self.file.open_create_window()
         self.file.clear_entity_name()
-        self.file.database_reset()
+        self.file.database_input_reset()
         engineering_file_create_database_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_database_pic.save(
             r'C:\cc\share\temp\engineering_file_create_database_pic.png')  # 保存到硬盘
@@ -229,9 +229,30 @@ class TestUI:
         assert rectangle_count == 0
         self.file.close_create_window('close')
 
-    # def test_create_exists_job_ok(self, epcam_ui_start):
-    #     pass
-    #
+    def test_create_exists_job_ok(self, epcam_ui_start):
+        self.engineering.entity_filter('760')
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()
+        self.file.open_create_window()
+        self.file.create_job('760', 'ok')
+        self.file.open_create_window()
+        self.file.create_job('760', 'ok')
+        engineering_file_create_new_job_apply_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_file_create_new_job_apply_pic.save(
+            r'C:\cc\share\temp\engineering_file_create_exists_job_ok_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_exists_job_ok_pic.png')
+        img_cut = img[88:780, 25:455]  # 前面纵向，后面横向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_file_create_exists_job_ok_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_file_create_exists_job_ok_pic_cut_standard.png')
+        img_current_path = r'C:\cc\share\temp\engineering_file_create_exists_job_ok_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.file.close_create_window('close')
+
     # def test_create_exists_job_apply(self, epcam_ui_start):
     #     pass
 
