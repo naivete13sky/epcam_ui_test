@@ -124,6 +124,133 @@ class TestUI:
         assert rectangle_count == 0
         self.engineering.engineering_window.click_input(coords=page.engineering_file_create_close_coord)  # 关闭窗口
 
+    # 验证打开Option菜单栏
+    def test_open_option_menu(self, epcam_ui_start):
+        """
+        禅道用例ID：3970、3971
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        self.engineering.engineering_window.click_input(coords=page.engineering_option_coord)  # 单击打开Option菜单
+        self.engineering.engineering_window.click_input(coords=page.engineering_option_language_coord)  #单机打开language子菜单
+        time.sleep(0.3)
+        engineering_option_menu_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_option_menu_pic.save(r'C:\cc\share\temp\engineering_option_menu_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_option_menu_pic.png')
+        img_cut = img[25:173, 150:570]  # 前纵后横（A:B,C:D，A裁剪的越多，数值越大，B裁剪的越多，数值越小；CD一样的说法）
+        cv2.imwrite(r"C:\cc\share\temp\engineering_option_menu_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_option_menu_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_option_menu_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
+
+    # 验证打开、关闭About_Us弹窗
+    def test_open_close_about_us_window(self,epcam_ui_start):
+        """
+        禅道用例ID：3975、3976
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+
+        self.engineering.engineering_window.click_input(coords=page.engineering_option_coord)    #单击打开Option菜单
+        # time.sleep(0.4)
+        self.engineering.engineering_window.click_input(coords=page.engineering_option_About_Us_coord)   #单机打开About_Us窗口
+        time.sleep(0.3)
+        engineering_option_about_us_window_pic = self.engineering.engineering_window.capture_as_image()   #截图
+        engineering_option_about_us_window_pic.save(r'C:\cc\share\temp\engineering_option_about_us_window_pic.png')  #保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_option_about_us_window_pic.png')
+        img_cut = img[360:580, 460:720]  # 前纵后横（A:B,C:D，A裁剪的越多，数值越大，B裁剪的越多，数值越小；CD一样的说法）
+        cv2.imwrite(r"C:\cc\share\temp\engineering_option_about_us_window_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        #加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_option_about_us_window_pic_cut_standard.png')  #要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_option_about_us_window_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path,img_current_path)
+        assert rectangle_count == 0
+        self.engineering.engineering_window.click_input(coords=page.engineering_option_close_About_Us_coord)  #关闭窗口
+
+        # 验证Action菜单栏打开状态
+
+    # 验证打开action菜单栏
+    def test_open_action_menu(self, epcam_ui_start):
+        """
+        禅道用例ID：3944、3945
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_coord)  # 单击打开Option菜单
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_select_coord)  # 单机打开language子菜单
+        time.sleep(0.3)
+        engineering_option_menu_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_option_menu_pic.save(r'C:\cc\share\temp\engineering_action_menu_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_action_menu_pic.png')
+        img_cut = img[25:173, 8:470]  # 前纵后横（A:B,C:D，A裁剪的越多，数值越大，B裁剪的越多，数值越小；CD一样的说法）
+        cv2.imwrite(r"C:\cc\share\temp\engineering_action_menu_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_action_menu_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_action_menu_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
+
+    # 验证input导入多个料号全部选中、取消
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
+    def test_action_select_all(self, job_id, epcam_ui_start):
+        """
+        禅道用例ID：3946、3952
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+
+        for i in range(3):
+            # 下载料号
+            job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+            # 解压rar
+            rf = rarfile.RarFile(file_compressed_path)
+            rf.extractall(Path(file_compressed_path).parent)
+            # 删除压缩包
+            os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+            self.engineering.entity_filter('760*')  # 筛选料号，在界面上显示指定某一个料号
+            self.input_job = PageInput()
+            file_path = str(Path(file_compressed_path).parent)
+            self.input_job.set_path(file_path)  # 选择料号路径
+            self.input_job.set_new_job_name(f'760_{i}')  # 使用索引来生成不同的料号名称
+            self.input_job.set_new_step_name('orig')
+            self.input_job.identify()
+            self.input_job.translate(time_sleep=0.2)
+            self.input_job.close()
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_select_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_select_select_all_coord)
+        time.sleep(0.3)
+        engineering_action_select_all_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_action_select_all_window_pic.save(r'C:\cc\share\temp\engineering_action_select_all_window_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_action_select_all_window_pic.png')
+        img_cut = img[5:822, 9:780]  # 前纵后横（A:B,C:D，A裁剪的越多，数值越大，B裁剪的越多，数值越小；CD一样的说法）
+        cv2.imwrite(r"C:\cc\share\temp\engineering_action_select_all_window_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_action_select_all_window_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_action_select_all_window_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_select_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_action_select_unselect_all_coord)
+
+
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Save'))
     def test_open_job(self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
         """

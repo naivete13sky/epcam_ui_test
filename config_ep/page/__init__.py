@@ -32,11 +32,14 @@ engineering_action_coord = (80, 40)
 engineering_action_open_coord = (80, 90)
 engineering_action_select_coord = (80, 70)
 engineering_action_select_unselect_all_coord = (280, 95)
+engineering_action_select_select_all_coord = (280, 60)
 
 engineering_option_coord = (190, 40)
 engineering_option_language_coord = (190, 60)
 engineering_option_language_EP_Default_coord = (390, 60)
 engineering_option_language_Simplified_Chinese_coord = (390, 110)
+engineering_option_About_Us_coord = (190,120)
+engineering_option_close_About_Us_coord = (660, 505)
 
 engineering_job_right_click_open_coord = (20, 10)
 
