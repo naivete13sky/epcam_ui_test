@@ -1,10 +1,9 @@
 import pytest
 from config_ep.page.page_engineering import PageEngineering
-from cc.cc_method import GetTestData
+from cc.cc_method import GetTestData, PictureMethod
 from config_ep.page.page_matrix import PageMatrix
 from config_ep.page.page_view_graphic import PageViewGraphic
 from config_ep.page.page_graphic import PageGraphic
-import pyautogui
 from config_ep.base.base import MyODB
 
 
@@ -12,8 +11,60 @@ class Test_Matrix_UI:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.engineering.engineering_window.set_focus()  # 激活窗口
+        # self.matrix_window = RunConfig.driver_epcam_ui.window(**page.matrix_window_pare)
+        # self.matrix_window_scroll_coord = None
 
     @pytest.mark.coding
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
+    def test_matrix_ui_all(self, job_id,epcam_ui_start,
+                           download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        验证matrix窗口
+        禅道用例ID：4608
+        DMS_ID：42983
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_pathfile_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
+
+        self.matrix = PageMatrix()
+        img_name = 'matrix_window'
+
+        cut_coords = [30, 60, 10, 42]  # 后面的是水平方向,file
+        save_path_cut = self.matrix.cut_img(img_name, cut_coords)
+        text = PictureMethod.get_text_from_img(save_path_cut)
+        assert "File\n" == text # 验证matrix窗口中存在file菜单
+
+        cut_coords = [30, 60, 75, 104]  # 后面的是水平方向,file
+        save_path_cut = self.matrix.cut_img(img_name, cut_coords)
+        text = PictureMethod.get_text_from_img(save_path_cut)
+        assert "Edit\n" == text # 验证matrix窗口中存在edit菜单
+
+        cut_coords = [30, 60, 135, 184]  # 后面的是水平方向,file
+        save_path_cut = self.matrix.cut_img(img_name, cut_coords)
+        text = PictureMethod.get_text_from_img(save_path_cut)
+        assert "Option\n" == text # 验证matrix窗口中存在option菜单
+
+        # illegals = [' ', '_', '-']
+        # case = 'lower'
+        width_scale_factor = 3.1
+        height_scale_factor = 2.3
+        cut_coords = [60, 90, 15, 1025] # 后面的是水平方向,file
+        save_path_cut = self.matrix.cut_img(img_name, cut_coords)
+        text = PictureMethod.get_text_from_img(save_path_cut, width_scale_factor, height_scale_factor)
+        # for illegal in illegals:
+        #     job_name = job_name.replace(illegal,'')
+        job_name = 'Job : ' + job_name + '\n'
+        print("job_name", job_name)
+        assert job_name == text # 验证matrix窗口打开料号跟下载料号一致
+
+        self.matrix.close()  # 关闭matrix窗口
+        self.engineering.go_up()  # 鼠标双击go_up
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_change_drill_correlation_layer(self,job_id,epcam_ui_start,
                                                    download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -43,8 +94,6 @@ class Test_Matrix_UI:
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.go_up()  # 鼠标双击go_up
 
-
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_layer_has_step(self, job_id, epcam_ui_start,
                                                    download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -79,7 +128,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_step(self, job_id, epcam_ui_start,
                                                 download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -113,7 +161,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_click_layer(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -144,7 +191,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_selections_layer(self, job_id, epcam_ui_start,
                                 download_file_compressed_entity_filter_delete_all_jobs_import):

@@ -61,7 +61,7 @@ class PageMatrix(Base,MyMouse):
         layer_info = job_info.get('layer_info')
         layer_name_row = int(layer_info.get(layer.upper())['row'])
         coords = (110, 200 + (layer_name_row - 1) * 30)
-        self.matrix_click_input(coords)
+        self.matrix_click(coords)
 
         img_name = 'matrix_window'
         save_path = self.cut_img(img_name)  # 截图
@@ -86,7 +86,7 @@ class PageMatrix(Base,MyMouse):
         coord_x = 235 + (step_col - 1) * 100
         coord_y = 200 + (layer_row - 1) * 30
         coords = (coord_x, coord_y)
-        self.matrix_double_click_input(coords=coords) # 双击有step的layer单元格
+        self.matrix_double_click(coords=coords) # 双击有step的layer单元格
 
     def double_click_step(self, job_info, step):
         step_info = job_info.get('step_info')
@@ -94,13 +94,13 @@ class PageMatrix(Base,MyMouse):
         coord_x  =235 + (step_col - 1) * 100
         coord_y = 160
         coords = (coord_x, coord_y)
-        self.matrix_double_click_input(coords) # 双击
+        self.matrix_double_click(coords) # 双击
 
     def click_layer(self, job_info, layer):
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
         coords = (120, 200 + (layer_row - 1) * 30)
-        self.matrix_click_input(coords)
+        self.matrix_click(coords)
 
     def selections_layer(self,job_info,layer):
         layer_info = job_info.get('layer_info')
@@ -109,10 +109,10 @@ class PageMatrix(Base,MyMouse):
         coord_y = 105 + 200 + (layer_row - 1) *  30
         MyMouse.mouse_simulator(coord_x, coord_y)
 
-    def matrix_double_click_input(self, coords, time_sleep = 0.5):
+    def matrix_double_click(self, coords, time_sleep = 0.5):
         self.matrix_window.double_click_input(coords=coords) # 双击有step的layer单元格
         time.sleep(time_sleep)
 
-    def matrix_click_input(self,coords, time_sleep = 0.5):
+    def matrix_click(self,coords, time_sleep = 0.5):
         self.matrix_window.click_input(coords=coords) # 单击layer
         time.sleep(time_sleep)
