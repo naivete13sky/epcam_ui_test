@@ -17,6 +17,12 @@ class PageMatrix(Base,MyMouse):
         self.temp_path = RunConfig.temp_path_base
 
     def cut_img(self, img_name, cut_coords = None):
+        """
+        截图图标
+        :param img_name:
+        :param cut_coords:
+        :return:
+        """
         self.matrix_window.set_focus()  # 激活窗口
         time.sleep(0.1)
         drill_correlation_layer_pic = self.matrix_window.capture_as_image()  # 截图
@@ -27,13 +33,20 @@ class PageMatrix(Base,MyMouse):
             img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
             save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
             cv2.imwrite(save_path_cut, img_cut)
+            # img = cv2.imread(save_path_cut)
+            # cv2.imshow("Cropped Image", img)
             cv2.waitKey(0)
             return save_path_cut
-        # cv2.waitKey(0)
         return save_path
 
     def is_right(self, save_path_cut, img_standard_str):
-        # 加载两张图片
+        """
+        验证两张图片是否一致
+        :param save_path_cut:
+        :param img_standard_str:
+        :return:
+        """
+
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                                          img_standard_str)
         img_current_path = save_path_cut
@@ -41,12 +54,57 @@ class PageMatrix(Base,MyMouse):
         return rectangle_count == 0
 
     def close(self):
-        self.matrix_window.child_window(title="关闭", control_type="Button").click_input()  #关闭matrix窗口
+        """
+        关闭Matrix窗口
+        """
+        self.matrix_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def select_drill_layer(self):
-        self.matrix_window.click_input(coords=page.matrix_drill_layer_coord) # 选中drill层
+    def get_drill_rout_count(self,layer_info):
+        """
+        得到layer中dirll和rout类型的数量
+        :param layer_info:
+        :return:
+        """
+        drill_rout_count = 0
+        # 遍历字典中的值，检查'type'键对应的值是否为'drill'或'rout'
+        for value in layer_info.values():
+            value.get('type').lower()
+            if value.get('type').lower() in ['drill', 'rout']:
+                drill_rout_count += 1
+        return drill_rout_count
 
-    def select_drill_correlation(self, large_pic_path, small_pic_str, time_sleep = 0.5):
+    def check_layer_img(self, job_info):
+        """
+        验证layer图片（有物件和没有物件两种情况）
+        :param job_info:
+        """
+        step_info = job_info.get('step_info')
+        layer_info = job_info.get('layer_info')
+        layer_feature_info = job_info.get('layer_feature_info')
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
+        for step in layer_feature_info:
+            steps = layer_feature_info.get(step)
+            for layer in layer_feature_info.get(step):
+                layers = steps.get(layer)
+                if layers.get('features') == True:
+                    img_standard_str = r'matrix\has_feature.png'
+                else:
+                    img_standard_str = r'matrix\not_has_feature.png'
+                step_col = int(step_info.get(step.upper())['col'])
+                layer_row = int(layer_info.get(layer.upper())['row'])
+
+                img_name = 'layer_feature'
+                coords = [192 + (layer_row - 1) * 30, 201  + (layer_row - 1) * 30,
+                          172 + (step_col - 1) * 100 + drill_rout_count * 15, #水平方向
+                          176 + (step_col - 1) * 100 + drill_rout_count * 15] #水平方向
+                save_path_cut = self.cut_img(img_name, coords)
+                print(step + "[" + step_info.get(step.upper()).get('col') + "]",
+                      layer + "[" + layer_info.get(layer.upper()).get('row') + "]", layers)
+                print("img_standard_str",img_standard_str)
+                assert self.is_right(save_path_cut, img_standard_str)
+
+    def select_drill_cross(self, large_pic_path, small_pic_str, time_sleep = 0.5):
         small_pic_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                      small_pic_str)
         top_left, bottom_right = PictureMethod.get_small_pic_position_from_large_pic(small_pic_path, large_pic_path)
@@ -67,52 +125,92 @@ class PageMatrix(Base,MyMouse):
         save_path = self.cut_img(img_name)  # 截图
 
         small_pic_str = r"matrix\drill_top.png"
-        x, y = self.select_drill_correlation(save_path, small_pic_str)  # 选中drill关联线的顶部
+        x, y = self.select_drill_cross(save_path, small_pic_str)  # 选中drill关联线的顶部
         start_name_row = int(layer_info.get(start_name.upper())['row'])
         start_coord_y = 200 + (start_name_row - 1) * 30
         MyMouse.mouse_simulator(440 + x, 106 + start_coord_y) # 移动孔带顶部
 
         small_pic_str = r"matrix\drill_bot.png"
-        x, y = self.select_drill_correlation(save_path, small_pic_str)  # 选中drill关联线的底部
+        x, y = self.select_drill_cross(save_path, small_pic_str)  # 选中drill关联线的底部
         end_name_row = int(layer_info.get(end_name.upper())['row'])
         end_coord_y = 200 + (end_name_row - 1) * 30
         MyMouse.mouse_simulator(440 + x, 106 + end_coord_y) # 移动孔带底部
 
     def double_click_layer_has_step(self, job_info, step, layer):
+        """
+        双击有step的层别单元格
+        :param job_info:
+        :param step:
+        :param layer:
+        """
         step_info = job_info.get('step_info')
         layer_info = job_info.get('layer_info')
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
         step_col = int(step_info.get(step.upper())['col'])
         layer_row = int(layer_info.get(layer.upper())['row'])
-        coord_x = 235 + (step_col - 1) * 100
+        coord_x = 220 + (step_col - 1) * 100 + drill_rout_count * 15
         coord_y = 200 + (layer_row - 1) * 30
         coords = (coord_x, coord_y)
         self.matrix_double_click(coords=coords) # 双击有step的layer单元格
 
     def double_click_step(self, job_info, step):
+        """
+        双击step
+        :param job_info:
+        :param step:
+        """
         step_info = job_info.get('step_info')
+        layer_info = job_info.get('layer_info')
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
         step_col =  int(step_info.get(step.upper())['col'])
-        coord_x  =235 + (step_col - 1) * 100
+        coord_x  =220 + (step_col - 1) * 100 + drill_rout_count * 15
         coord_y = 160
         coords = (coord_x, coord_y)
         self.matrix_double_click(coords) # 双击
 
     def click_layer(self, job_info, layer):
+        """
+        单击层别
+        :param job_info:
+        :param layer:
+        """
         layer_info = job_info.get('layer_info')
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
         layer_row = int(layer_info.get(layer.upper())['row'])
-        coords = (120, 200 + (layer_row - 1) * 30)
+        coord_x = 105 + drill_rout_count * 15
+        coord_y = 200 + (layer_row - 1) * 30
+        coords = (coord_x, coord_y)
         self.matrix_click(coords)
 
     def selections_layer(self,job_info,layer):
+        """
+        框选多个layer
+        :param job_info:
+        :param layer:
+        """
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
-        coord_x = 550
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
+        coord_x = 535 + drill_rout_count * 15
         coord_y = 105 + 200 + (layer_row - 1) *  30
         MyMouse.mouse_simulator(coord_x, coord_y)
 
     def matrix_double_click(self, coords, time_sleep = 0.5):
-        self.matrix_window.double_click_input(coords=coords) # 双击有step的layer单元格
+        """
+        matrix窗口双击
+        :param coords:
+        """
+        self.matrix_window.double_click_input(coords=coords)
         time.sleep(time_sleep)
 
     def matrix_click(self,coords, time_sleep = 0.5):
-        self.matrix_window.click_input(coords=coords) # 单击layer
+        """
+        matrix窗口单击
+        :param coords:
+        """
+        self.matrix_window.click_input(coords=coords)
         time.sleep(time_sleep)

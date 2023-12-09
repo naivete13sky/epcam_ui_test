@@ -27,25 +27,29 @@ class Base:
 
 class MyODB:
     pass
+
     @staticmethod
-    def get_odb_matrix_file_path(file_compressed_path) -> str:
+    def get_odb_folder_path(file_compressed_path) -> str:
         """
         获取odb中所有layer信息
         :param file_compressed_path:
+        :return:
         """
         ifn = file_compressed_path  # 解压文件路径
         untgz_path = Path(ifn).parent  # 解压后存放路径
         job_name = File.untgz(ifn, untgz_path)  # 解压
-        odb_matix_file = os.path.join(untgz_path, job_name + r"\matrix\matrix")
-        return odb_matix_file
+        odb_folder_path = os.path.join(untgz_path, job_name)
+        return odb_folder_path
 
     @staticmethod
-    def get_layer_info_from_odb_file(odb_matrix_file) -> dict:
+    def get_layer_info_from_odb_file(odb_folder_path, matrix_file_str = r"matrix\matrix") -> dict:
         """
         获取每个layer中的部分信息
-        :param odb_matrix_file:
+        :param odb_folder_path:
+        :param matrix_file_str:
         :return：
         """
+        odb_matrix_file = os.path.join(odb_folder_path,matrix_file_str)
         with open(odb_matrix_file, 'r') as f:
             content = f.read()
         # print('content:', content)
@@ -54,16 +58,18 @@ class MyODB:
         dict_layer = {}
         for match in matches:
             lines = match.splitlines()
-            dict_layer[lines[4].split('=')[1]] = {'row': lines[1].split('=')[1]}
+            dict_layer[lines[4].split('=')[1]] = {'row': lines[1].split('=')[1],'type': lines[3].split('=')[1]}
         return dict_layer
 
     @staticmethod
-    def get_step_info_from_odb_file(odb_matrix_file) -> dict:
+    def get_step_info_from_odb_file(odb_folder_path, matrix_file_str = r"matrix\matrix") -> dict:
         """
         获取每个step中的部分信息
-        :param odb_matrix_file:
+        :param odb_folder_path:
+        :param matrix_file_str:
         :return：
         """
+        odb_matrix_file = os.path.join(odb_folder_path,matrix_file_str)
         with open(odb_matrix_file, 'r') as f:
             content = f.read()
         # print('content:', content)
@@ -74,6 +80,37 @@ class MyODB:
             lines = match.splitlines()
             dict_step[lines[2].split('=')[1]] = {'col': lines[1].split('=')[1]}
         return dict_step
+
+    @staticmethod
+    def get_layer_featur_from_odb_file(odb_folder_path, steps_folder_str = r"steps") -> dict:
+        """
+        获取每个layer的feature信息
+        :param odb_folder_path:
+        :param steps_folder_str:
+        :return:
+        """
+        odb_steps_folder_path = os.path.join(odb_folder_path, steps_folder_str)
+        dict_layer_feature = {}
+        for step in os.listdir(odb_steps_folder_path):
+            step_path = os.path.join(odb_steps_folder_path, step)
+            if os.path.isdir(step_path):
+                dict_layer_feature[step] = {}
+                for subdirectory in os.listdir(step_path):
+                    if subdirectory == "layers":
+                        layers_path = os.path.join(step_path, subdirectory)
+                        for layer in os.listdir(layers_path):
+                            layer_path = os.path.join(layers_path, layer)
+                            if os.path.isdir(layer_path):
+                                dict_layer_feature[step][layer] = {}
+                                feature_path = os.path.join(layer_path, 'features')
+                                if os.path.exists(feature_path):
+                                    file_size = os.path.getsize(feature_path)
+                                    dict_layer_feature[step][layer][
+                                        'features'] = file_size > 0
+                                else:
+                                    dict_layer_feature[step][layer][
+                                        'features'] = False
+        return dict_layer_feature
 
 class File:
     @staticmethod

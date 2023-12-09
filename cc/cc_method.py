@@ -485,17 +485,24 @@ class PictureMethod(object):
     def get_text_from_img(save_path_cut, width_scale_factor=1,  height_scale_factor=1, illegals = None, case = None):
         """
         获取图片中的文字
+        :param save_path_cut:
+        :param width_scale_factor: 图片宽度放大倍数
+        :param height_scale_factor: 图片高度放大倍数
+        :param illegals: 非法字符集合
+        :param case: 字母转换大小写
+        :return:
         """
         img_cut = cv2.imread(save_path_cut)
-        # 计算新的图像尺寸
-        new_width = int(img_cut.shape[1] * width_scale_factor) # 设置原始图像的宽度放大1.5倍
-        new_height = int(img_cut.shape[0] * height_scale_factor) # 设置原始图像的高度放大2倍
+        new_width = int(img_cut.shape[1] * width_scale_factor) # 设置原始图像的新宽度
+        new_height = int(img_cut.shape[0] * height_scale_factor) # 设置原始图像的新高度
         img_cut = cv2.resize(img_cut, (new_width, new_height)) # 放大图像
-        # 将裁剪后的图像转换为灰度图像
-        gray = cv2.cvtColor(img_cut, cv2.COLOR_BGR2GRAY)
-        # 应用阈值来将图像转换为二值图像
-        _, thresh = cv2.threshold(gray, 190, 200, cv2.THRESH_BINARY)
-        text = pytesseract.image_to_string(thresh)  # 使用Tesseract进行文字识别,并转为小写
+
+        gray = cv2.cvtColor(img_cut, cv2.COLOR_BGR2GRAY) # 将裁剪后的图像转换为灰度图像
+
+        _, thresh = cv2.threshold(gray, 190, 200, cv2.THRESH_BINARY) # 应用阈值来将图像转换为二值图像
+
+        text = pytesseract.image_to_string(thresh)  # 使用Tesseract进行文字识别
+
         if case == 'upper':
             text = text.upper()
         if case == 'lower':
@@ -503,7 +510,6 @@ class PictureMethod(object):
         if illegals:
             for illegal in illegals:
                 text = text.replace(illegal, '')
-            # return text
         return text
 
 def f_png_to_tiff_one_file():

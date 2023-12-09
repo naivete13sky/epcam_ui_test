@@ -11,8 +11,6 @@ class Test_Matrix_UI:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.engineering.engineering_window.set_focus()  # 激活窗口
-        # self.matrix_window = RunConfig.driver_epcam_ui.window(**page.matrix_window_pare)
-        # self.matrix_window_scroll_coord = None
 
     @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
@@ -21,12 +19,11 @@ class Test_Matrix_UI:
         """
         验证matrix窗口
         禅道用例ID：4608
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
-        job_name, file_compressed_pathfile_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
             job_id)  # 调用 fixture 并传递参数值,下载料号
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
@@ -34,45 +31,57 @@ class Test_Matrix_UI:
         self.matrix = PageMatrix()
         img_name = 'matrix_window'
 
-        cut_coords = [30, 60, 10, 42]  # 后面的是水平方向,file
+        cut_coords = [30, 60, 10, 42]  # File菜单，后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         text = PictureMethod.get_text_from_img(save_path_cut)
-        assert "File\n" == text # 验证matrix窗口中存在file菜单
+        assert text == "File\n" # 验证matrix窗口中存在file菜单
 
-        cut_coords = [30, 60, 75, 104]  # 后面的是水平方向,file
+        cut_coords = [30, 60, 75, 104]  # Edit菜单，后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         text = PictureMethod.get_text_from_img(save_path_cut)
-        assert "Edit\n" == text # 验证matrix窗口中存在edit菜单
+        assert text == "Edit\n" # 验证matrix窗口中存在edit菜单
 
-        cut_coords = [30, 60, 135, 184]  # 后面的是水平方向,file
+        cut_coords = [30, 60, 135, 184]  # Option菜单，后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         text = PictureMethod.get_text_from_img(save_path_cut)
-        assert "Option\n" == text # 验证matrix窗口中存在option菜单
+        assert text == "Option\n" # 验证matrix窗口中存在option菜单
 
-        # illegals = [' ', '_', '-']
-        # case = 'lower'
-        width_scale_factor = 3.1
-        height_scale_factor = 2.3
-        cut_coords = [60, 90, 15, 1025] # 后面的是水平方向,file
+
+        width_scale_factor = 3.1 # 图片宽度缩放倍数
+        height_scale_factor = 2.3 # 图片高度缩放倍数
+        # illegals = [' ', '_', '-'] # 非法字符集合
+        # case = 'lower' # 英文大、小写
+        cut_coords = [60, 90, 15, 1025] # job名，后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         text = PictureMethod.get_text_from_img(save_path_cut, width_scale_factor, height_scale_factor)
         # for illegal in illegals:
         #     job_name = job_name.replace(illegal,'')
         job_name = 'Job : ' + job_name + '\n'
-        print("job_name", job_name)
-        assert job_name == text # 验证matrix窗口打开料号跟下载料号一致
+        assert text == job_name # 验证matrix窗口的job名和测试料号是否一致
+
+        job_info = {}
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        job_info["step_info"] = MyODB.get_step_info_from_odb_file(odb_folder_path)
+        job_info["layer_info"] = MyODB.get_layer_info_from_odb_file(odb_folder_path)
+        job_info["layer_feature_info"] = MyODB.get_layer_featur_from_odb_file(odb_folder_path)
+        self.matrix.check_layer_img(job_info) # 验证matrix窗口每个layer图片是否正确
+
+        cut_coords = [759, 788, 400, 600]  # Close按钮，后面的是水平方向
+        save_path_cut = self.matrix.cut_img(img_name, cut_coords)
+        text = PictureMethod.get_text_from_img(save_path_cut, width_scale_factor, height_scale_factor)
+        assert text == "close\n"  # 验证matrix窗口中存在close按钮
 
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.go_up()  # 鼠标双击go_up
 
+    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
-    def test_matrix_change_drill_correlation_layer(self,job_id,epcam_ui_start,
+    def test_matrix_change_drill_cross(self,job_id,epcam_ui_start,
                                                    download_file_compressed_entity_filter_delete_all_jobs_import):
         """
-        调整drill层的关联层
+        调整孔带
         禅道用例ID：4608
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
@@ -81,12 +90,12 @@ class Test_Matrix_UI:
         self.engineering.open_matrix_by_double_click() # 双击Matrix,打开Matrix窗口
         self.matrix = PageMatrix()
         job_info = {}
-        matrix_file_path = MyODB.get_odb_matrix_file_path(file_compressed_path)  # 得到odb的matrix文件路径
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(matrix_file_path) # 得到料号layer信息
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_folder_path) # 得到料号layer信息
 
         self.matrix.change_drill_cross(job_info,'drl1-10','top','bot') # 修改孔带
 
-        img_name = 'drill_correlation_layer'
+        img_name = 'drill_cross'
         cut_coords = [100, 799, 8, 1032] # 后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         img_standard_str = "matrix\\" + img_name + "_cut_standard.png"
@@ -94,14 +103,14 @@ class Test_Matrix_UI:
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.go_up()  # 鼠标双击go_up
 
+    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_layer_has_step(self, job_id, epcam_ui_start,
                                                    download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         双击有step名的对应layer单元格
         禅道用例ID：4194
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
@@ -111,9 +120,9 @@ class Test_Matrix_UI:
 
         self.matrix = PageMatrix()
         job_info = {}
-        matrix_file_path = MyODB.get_odb_matrix_file_path(file_compressed_path)
-        job_info['step_info'] = MyODB.get_step_info_from_odb_file(matrix_file_path)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(matrix_file_path)
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_folder_path)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_folder_path)
 
         self.matrix.double_click_layer_has_step(job_info,'orig','top') # 双击有step的layer单元格
 
@@ -128,14 +137,14 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
+    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_step(self, job_id, epcam_ui_start,
                                                 download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         双击有step名的对应layer单元格
         禅道用例ID：4193
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
@@ -145,8 +154,9 @@ class Test_Matrix_UI:
 
         self.matrix = PageMatrix()
         job_info = {}
-        matrix_file_path = MyODB.get_odb_matrix_file_path(file_compressed_path)
-        job_info['step_info'] = MyODB.get_step_info_from_odb_file(matrix_file_path)
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_folder_path)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_folder_path)
 
         self.matrix.double_click_step(job_info, 'orig')  # 双击有step的layer单元格
 
@@ -161,14 +171,14 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
+    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_click_layer(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         单击layer名后显示
         禅道用例ID：4182
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
@@ -178,8 +188,8 @@ class Test_Matrix_UI:
 
         self.matrix = PageMatrix()
         job_info = {}
-        matrix_file_path =  MyODB.get_odb_matrix_file_path(file_compressed_path)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(matrix_file_path)
+        odb_folder_path =  MyODB.get_odb_folder_path(file_compressed_path)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_folder_path)
         self.matrix.click_layer(job_info, 'top')  # 单击layer
 
         img_name = 'click_layer'
@@ -191,14 +201,14 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
+    @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_selections_layer(self, job_id, epcam_ui_start,
                                 download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         选中多层layer后
         禅道用例ID：4183
-        DMS_ID：42983
-        :param job_id:
+        :param job_id:42983
         :param epcam_ui_start:
         :return:
         """
@@ -208,8 +218,8 @@ class Test_Matrix_UI:
 
         self.matrix = PageMatrix()
         job_info = {}
-        matrix_file_path = MyODB.get_odb_matrix_file_path(file_compressed_path)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(matrix_file_path)
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_folder_path)
 
         self.matrix.click_layer(job_info, 'top')  # 单击layer
 
@@ -219,7 +229,7 @@ class Test_Matrix_UI:
         cut_coords = [100, 799, 8, 1032]  # 后面的是水平方向
         save_path_cut = self.matrix.cut_img(img_name, cut_coords)
         img_standard_str = "matrix\\" + img_name + "_cut_standard.png"
-        self.matrix.is_right(save_path_cut, img_standard_str)
+        assert self.matrix.is_right(save_path_cut, img_standard_str)
 
         self.matrix.close()
         self.engineering.go_up()

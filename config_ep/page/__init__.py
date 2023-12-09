@@ -104,8 +104,3 @@ graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'contro
 
 """ 以下为matrix模块信息"""
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}
-
-matrix_drill_layer_coord = (120, 685)
-matrix_double_click_layer_has_step_coord = (230, 295)
-matrix_double_click_step_coord = (240, 165)
-matrix_click_layer_coord = (110, 295)
