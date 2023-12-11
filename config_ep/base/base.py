@@ -42,14 +42,12 @@ class MyODB:
         return odb_folder_path
 
     @staticmethod
-    def get_layer_info_from_odb_file(odb_folder_path, matrix_file_str = r"matrix\matrix") -> dict:
+    def get_layer_info_from_odb_file(odb_matrix_file) -> dict:
         """
         获取每个layer中的部分信息
-        :param odb_folder_path:
-        :param matrix_file_str:
+        :param odb_matrix_file:
         :return：
         """
-        odb_matrix_file = os.path.join(odb_folder_path,matrix_file_str)
         with open(odb_matrix_file, 'r') as f:
             content = f.read()
         # print('content:', content)
@@ -62,14 +60,12 @@ class MyODB:
         return dict_layer
 
     @staticmethod
-    def get_step_info_from_odb_file(odb_folder_path, matrix_file_str = r"matrix\matrix") -> dict:
+    def get_step_info_from_odb_file(odb_matrix_file) -> dict:
         """
         获取每个step中的部分信息
-        :param odb_folder_path:
-        :param matrix_file_str:
+        :param odb_matrix_file:
         :return：
         """
-        odb_matrix_file = os.path.join(odb_folder_path,matrix_file_str)
         with open(odb_matrix_file, 'r') as f:
             content = f.read()
         # print('content:', content)
@@ -82,14 +78,12 @@ class MyODB:
         return dict_step
 
     @staticmethod
-    def get_layer_featur_from_odb_file(odb_folder_path, steps_folder_str = r"steps") -> dict:
+    def get_layer_featur_from_odb_file(odb_steps_folder_path) -> dict:
         """
         获取每个layer的feature信息
-        :param odb_folder_path:
-        :param steps_folder_str:
+        :param odb_steps_folder_path:
         :return:
         """
-        odb_steps_folder_path = os.path.join(odb_folder_path, steps_folder_str)
         dict_layer_feature = {}
         for step in os.listdir(odb_steps_folder_path):
             step_path = os.path.join(odb_steps_folder_path, step)

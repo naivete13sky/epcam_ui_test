@@ -14,20 +14,21 @@ class PageGraphic(object):
     def close(self):
         self.graphic_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def cut_img(self, img_name, cut_coords=None):
+    def capture_image(self, img_name):
         self.graphic_window.set_focus()  # 激活窗口
         time.sleep(0.1)
         drill_correlation_layer_pic = self.graphic_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
-        if cut_coords:
-            img = cv2.imread(save_path)
-            img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
-            save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
-            cv2.imwrite(save_path_cut, img_cut)
-            return save_path_cut
-        # cv2.waitKey(0)
         return save_path
+
+    def cut_img(self, img_path, img_name, cut_coords):
+        img = cv2.imread(img_path)
+        img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
+        save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
+        cv2.imwrite(save_path_cut, img_cut)
+        cv2.waitKey(0)
+        return save_path_cut
 
     def is_right(self,save_path_cut, img_standard_str):
         # 加载两张图片

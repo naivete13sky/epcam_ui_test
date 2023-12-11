@@ -16,11 +16,10 @@ class PageMatrix(Base,MyMouse):
         self.matrix_window_scroll_coord = None
         self.temp_path = RunConfig.temp_path_base
 
-    def cut_img(self, img_name, cut_coords = None):
+    def capture_image(self,img_name):
         """
-        截图图标
+        捉取图片
         :param img_name:
-        :param cut_coords:
         :return:
         """
         self.matrix_window.set_focus()  # 激活窗口
@@ -28,16 +27,25 @@ class PageMatrix(Base,MyMouse):
         drill_correlation_layer_pic = self.matrix_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
-        if cut_coords:
-            img = cv2.imread(save_path)
-            img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
-            save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
-            cv2.imwrite(save_path_cut, img_cut)
-            # img = cv2.imread(save_path_cut)
-            # cv2.imshow("Cropped Image", img)
-            cv2.waitKey(0)
-            return save_path_cut
         return save_path
+
+    def cut_img(self, img_path, img_name, cut_coords):
+        """
+        减切图像
+        :param img_path:
+        :param img_name:
+        :param cut_coords:
+        :return:
+        """
+        img = cv2.imread(img_path)
+        img_cut = img[cut_coords[0]:cut_coords[1], cut_coords[2]:cut_coords[3]]  # 后面的是水平方向
+        save_path_cut = os.path.join(self.temp_path, img_name + '_cut.png')
+        cv2.imwrite(save_path_cut, img_cut)
+        # img = cv2.imread(save_path_cut)
+        # cv2.imshow("Cropped Image", img)
+        cv2.waitKey(0)
+        return save_path_cut
+        # return save_path
 
     def is_right(self, save_path_cut, img_standard_str):
         """
@@ -46,7 +54,6 @@ class PageMatrix(Base,MyMouse):
         :param img_standard_str:
         :return:
         """
-
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                                          img_standard_str)
         img_current_path = save_path_cut
@@ -73,7 +80,7 @@ class PageMatrix(Base,MyMouse):
                 drill_rout_count += 1
         return drill_rout_count
 
-    def check_layer_img(self, job_info):
+    def check_layer_img(self, job_info, img_path):
         """
         验证layer图片（有物件和没有物件两种情况）
         :param job_info:
@@ -98,7 +105,7 @@ class PageMatrix(Base,MyMouse):
                 coords = [192 + (layer_row - 1) * 30, 201  + (layer_row - 1) * 30,
                           172 + (step_col - 1) * 100 + drill_rout_count * 15, #水平方向
                           176 + (step_col - 1) * 100 + drill_rout_count * 15] #水平方向
-                save_path_cut = self.cut_img(img_name, coords)
+                save_path_cut = self.cut_img(img_path, img_name, coords)
                 print(step + "[" + step_info.get(step.upper()).get('col') + "]",
                       layer + "[" + layer_info.get(layer.upper()).get('row') + "]", layers)
                 print("img_standard_str",img_standard_str)
@@ -115,14 +122,15 @@ class PageMatrix(Base,MyMouse):
         time.sleep(time_sleep)
         return x, y
 
-    def change_drill_cross(self,job_info,layer, start_name, end_name):
+    def change_drill_cross(self, job_info, layer, start_name, end_name):
         layer_info = job_info.get('layer_info')
         layer_name_row = int(layer_info.get(layer.upper())['row'])
+
         coords = (110, 200 + (layer_name_row - 1) * 30)
         self.matrix_click(coords)
 
         img_name = 'matrix_window'
-        save_path = self.cut_img(img_name)  # 截图
+        save_path = self.capture_image(img_name)  # 截图
 
         small_pic_str = r"matrix\drill_top.png"
         x, y = self.select_drill_cross(save_path, small_pic_str)  # 选中drill关联线的顶部
