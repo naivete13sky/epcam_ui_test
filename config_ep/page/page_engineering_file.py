@@ -49,16 +49,17 @@ class PageFile(object):
     def clear_entity_name(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
         send_keys('^a')
-        send_keys('{BACK}')  # 输入框全选删除
+        send_keys('{BACK}')
+
+    def clear_database_name(self):
+        self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
+        send_keys('^a')
+        send_keys('{BACK}')
 
     def database_input_reset(self):
-        self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
-        send_keys('^a')
-        send_keys('{BACK}')
+        self.clear_database_name()
         self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
-        self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
-        send_keys('^a')
-        send_keys('{BACK}')
+        self.clear_database_name()
         send_keys('666abc-+{_}+{+}ABC!@#$你说啥')
         self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
         self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
