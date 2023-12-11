@@ -482,12 +482,12 @@ class PictureMethod(object):
         return top_left, bottom_right
 
     @staticmethod
-    def get_text_from_img(save_path_cut, width_scale_factor=1,  height_scale_factor=1, illegals = None, case = None):
+    def get_text_from_img(save_path_cut, width_scale_factor=1,  height_scale_factor=1, illegals = None):
         """
         获取图片中的文字
         :param save_path_cut:
-        :param width_scale_factor: 图片宽度放大倍数
-        :param height_scale_factor: 图片高度放大倍数
+        :param width_scale_factor: 图片宽度缩放比例
+        :param height_scale_factor: 图片高度缩放比例
         :param illegals: 非法字符集合
         :param case: 字母转换大小写
         :return:
@@ -503,10 +503,6 @@ class PictureMethod(object):
 
         text = pytesseract.image_to_string(thresh)  # 使用Tesseract进行文字识别
 
-        if case == 'upper':
-            text = text.upper()
-        if case == 'lower':
-            text = text.lower()
         if illegals:
             for illegal in illegals:
                 text = text.replace(illegal, '')

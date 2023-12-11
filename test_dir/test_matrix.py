@@ -1,5 +1,4 @@
 import os
-
 import pytest
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData, PictureMethod
@@ -12,7 +11,10 @@ from config_ep.base.base import MyODB
 class Test_Matrix_UI:
     def setup_method(self):
         self.engineering = PageEngineering()
-        self.engineering.engineering_window.set_focus()  # 激活窗口
+        # self.engineering.engineering_window.set_focus()  # 激活窗口
+        self.graphic = PageGraphic()
+        self.view_graphic = PageViewGraphic()
+        self.matrix = PageMatrix()
 
     @pytest.mark.coding
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
@@ -30,7 +32,6 @@ class Test_Matrix_UI:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
 
-        self.matrix = PageMatrix()
         img_name = 'matrix_window'
 
         img_path = self.matrix.capture_image(img_name) # 捉取图片
@@ -51,8 +52,8 @@ class Test_Matrix_UI:
         assert text == "Option\n" # 验证matrix窗口中存在option菜单
 
 
-        width_scale_factor = 3.1 # 图片宽度缩放倍数
-        height_scale_factor = 2.3 # 图片高度缩放倍数
+        width_scale_factor = 3.1 # 图片宽度缩放比例
+        height_scale_factor = 2.3 # 图片高度缩放比例
         # illegals = [' ', '_', '-'] # 非法字符集合
         # case = 'lower' # 英文大、小写
         cut_coords = [60, 90, 15, 1025] # job名，后面的是水平方向
@@ -94,7 +95,6 @@ class Test_Matrix_UI:
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 调用 fixture 并传递参数值,下载料号
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click() # 双击Matrix,打开Matrix窗口
-        self.matrix = PageMatrix()
 
         job_info = {}
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
@@ -127,7 +127,6 @@ class Test_Matrix_UI:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
 
-        self.matrix = PageMatrix()
         job_info = {}
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
         odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
@@ -136,7 +135,6 @@ class Test_Matrix_UI:
 
         self.matrix.double_click_layer_has_step(job_info,'orig','top') # 双击有step的layer单元格
 
-        self.view_graphic = PageViewGraphic()
         img_name = 'view_graphic_window'
         img_path = self.view_graphic.capture_image(img_name)
         cut_coords = [0, 511, 8, 648]  # 后面的是水平方向
@@ -163,7 +161,6 @@ class Test_Matrix_UI:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
 
-        self.matrix = PageMatrix()
         job_info = {}
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
         odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
@@ -172,7 +169,6 @@ class Test_Matrix_UI:
 
         self.matrix.double_click_step(job_info, 'orig')  # 双击有step的layer单元格
 
-        self.graphic = PageGraphic()
         img_name = 'matrix_to_graphic_window'
         img_path = self.graphic.capture_image(img_name)
         cut_coords = [30, 799, 8, 1374] # 截图坐标，后面的是水平方向
@@ -199,7 +195,6 @@ class Test_Matrix_UI:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
 
-        self.matrix = PageMatrix()
         job_info = {}
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
         odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
@@ -231,7 +226,6 @@ class Test_Matrix_UI:
         self.engineering.open_job_first_by_double_click()  # 双击打开料号
         self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
 
-        self.matrix = PageMatrix()
         job_info = {}
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
         odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
