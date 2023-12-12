@@ -74,3 +74,7 @@ class PageFile(object):
         elif button == 'apply':
             self.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         self.engineering_window.click_input(coords=page.engineering_file_create_yes_button_coord)
+
+    def database_input(self):
+        self.clear_database_name()
+        send_keys('123')
