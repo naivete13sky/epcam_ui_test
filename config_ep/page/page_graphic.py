@@ -37,3 +37,17 @@ class PageGraphic(object):
         img_current_path = save_path_cut
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
+
+    def copper_exposed_area_open(self,job_info,layer):
+        """打开右侧工具栏copper/exposed_area窗口"""
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+        row_height = page.engineering_file_input_file_row_height
+        coord_y = coord_y + (layer_row - 1) * row_height
+        coords = (coord_x, coord_y)
+        self.graphic_window.click_input(button='right',coords=coords)
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.graphic_left_layer_bar_right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=page.graphic_left_layer_bar_right_click_menu_copper_exposed_area)

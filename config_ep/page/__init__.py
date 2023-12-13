@@ -20,6 +20,9 @@ engineering_jobList_onlyOneJob_empty_coord = (600, 600)
 engineering_jobList_empty_coord = (800, 600)
 engineering_job_list_in_job_empty_coord = (950, 210)
 
+engineering_jobList_col_space = (135) # engineering窗口job图标x轴中心间距-张
+engineering_jobList_row_space = (170)  # engineering窗口job图标y轴中心间距-张
+
 engineering_file_coord = (20, 40)
 engineering_file_create_coord = (20, 65)
 engineering_file_create_x_coord = (650, 350)
@@ -102,5 +105,21 @@ engineering_file_input_job_window_close_menu_coord= (573, 617)
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
 
+grahic_left_layer_bar_row_height = 25 # graphic窗口左侧层别栏行高  -张
+graphic_left_layer_bar_first_row_coord = (130, 175) # graphic窗口左侧层别栏第一行的坐标 -张
+graphic_left_layer_bar_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
+graphic_left_layer_bar_right_click_menu_copper_exposed_area = (40, 200) # layer右击copper/exposed area坐标 -张
+
+graphic_left_layer_bar_copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"}
+graphic_copper_exposed_area_warning_window_para = {'title': "warning", 'control_type': "Window"}
+
+graphic_copper_exposed_area_measurement_copper_area_coords = (113, 51) # copper_area单选按钮坐标 -张
+graphic_copper_exposed_area_measurement_exposed_area_coords = (213, 51) # exposed_area单选按钮坐标 -张
+
+graphic_copper_exposed_area_apply_button_coords = (100, 205) # button按钮坐标 -张
+
+
 """ 以下为matrix模块信息"""
-matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}
+matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"} # -张
+
+

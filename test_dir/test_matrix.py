@@ -51,7 +51,6 @@ class Test_Matrix_UI:
         text = PictureMethod.get_text_from_img(save_path_cut)
         assert text == "Option\n" # 验证matrix窗口中存在option菜单
 
-
         width_scale_factor = 3.1 # 图片宽度缩放比例
         height_scale_factor = 2.3 # 图片高度缩放比例
         # illegals = [' ', '_', '-'] # 非法字符集合
@@ -137,7 +136,7 @@ class Test_Matrix_UI:
 
         img_name = 'view_graphic_window'
         img_path = self.view_graphic.capture_image(img_name)
-        cut_coords = [0, 511, 8, 648]  # 后面的是水平方向
+        cut_coords = [30, 511, 8, 648]  # 后面的是水平方向
         save_path_cut = self.view_graphic.cut_img(img_path, img_name, cut_coords)
         img_standard_str = "engineering\\" + img_name + "_cut_standard.png"
         assert self.view_graphic.is_right(save_path_cut, img_standard_str)
