@@ -53,6 +53,7 @@ engineering_job_right_click_open_coord = (20, 10)
 engineering_inJob_go_up_coord = (80, 250)
 engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
+engineering_inJob_steps_step_fourth_coord = (80 + 520, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
 
 """ 以下为engineering--import模块信息"""
@@ -101,6 +102,15 @@ engineering_file_input_job_window_close_menu_coord= (573, 617)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
+graphic_step_coord = (88, 40)
+graphic_step_panelzation_coord = (88, 140)
+graphic_step_panelization_by_table_coord = (320, 170)
+graphic_by_table_new_step_coord = (350, 450)
+graphic_by_table_new_step_pcs_coord = (700, 640)
+graphic_by_table_new_step_pcs_ok_coord = (700, 755)
+graphic_by_table_new_step_mirror_coord = (1050, 450)
+graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
+graphic_by_table_window_close_coord = (1100, 380)
 
 """ 以下为matrix模块信息"""
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}

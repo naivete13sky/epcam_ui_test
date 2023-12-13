@@ -30,10 +30,26 @@ class PageGraphic(object):
         cv2.waitKey(0)
         return save_path_cut
 
-    def is_right(self,save_path_cut, img_standard_str):
+    def is_right(self, save_path_cut, img_standard_str):
         # 加载两张图片
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
                                          img_standard_str)
         img_current_path = save_path_cut
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
+
+    def open_step_panelization_by_table(self):
+        self.graphic_window.click_input(coords=page.graphic_step_coord)
+        self.graphic_window.click_input(coords=page.graphic_step_panelzation_coord)
+        self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
+
+    def close_by_table_window(self):
+        self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
+
+    def add_new_step_by_table_mirror(self):
+        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_coord)
+        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_coord)
+        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_ok_coord)
+        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_coord)
+        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_yes_coord)
+
