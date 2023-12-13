@@ -11,7 +11,7 @@ from config import RunConfig
 from cc.cc_method import GetTestData, PictureMethod, opencv_compare
 from config_ep import page
 import cv2
-from config_ep.base.base import Base
+from config_ep.base.base import Base, MyODB
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
@@ -473,6 +473,28 @@ class TestUI:
         print('text:', text)
         assert '(GO Up) matrix steps symbols' in text
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
+
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_Job'))
+    def test_open_pcs_step(self, job_id, epcam_ui_start,
+                           download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道bug ID: 1305 验证打开pcs软件不闪退（影响版本号：beta_2.28.054_s16）
+        测试用例ID：4648
+        :param job_id:44120
+        :param epcam_ui_start:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()  # 双击打开steps
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'pcs')  # 双击打开panel
+        self.graphic = PageGraphic()
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
 
 
 class TestFile:

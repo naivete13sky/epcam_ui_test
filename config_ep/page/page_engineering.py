@@ -180,6 +180,11 @@ class PageEngineering(Base):
         time.sleep(time_sleep)
 
     def open_step_by_double_click(self, job_info, step):
+        """
+        双击打开指定step
+        :param job_info:
+        :param step:
+        """
         step_info = job_info.get('step_info')
         step_col = int(step_info.get(step.upper())['col']) + 1
         result = step_col / 7
@@ -189,7 +194,7 @@ class PageEngineering(Base):
         else:
             row = int(result)
         col = step_col - int(result) * 7 #得到step在第几列
-        print(step, "在第", row, "行的第", col, "列")
+        print("{}在第{}行的第{}列".format(step,row,col))
         coord_x = page.engineering_jobList_first_coord[0] + (col - 1) * page.engineering_jobList_col_space
         coord_y = page.engineering_jobList_first_coord[1] + (row - 1) * page.engineering_jobList_row_space
         coords = (coord_x,  coord_y)
