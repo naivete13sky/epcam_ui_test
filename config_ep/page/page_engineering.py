@@ -175,6 +175,10 @@ class PageEngineering(Base):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coord)
         time.sleep(time_sleep)  # 打开graphic要等一会儿
 
+    def open_fourth_step_by_double_click(self, time_sleep=0.5):
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_fourth_coord)
+        time.sleep(time_sleep)  # 打开graphic要等一会儿
+
     def open_matrix_by_double_click(self, time_sleep=0.5):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_matrix_coord)
         time.sleep(time_sleep)
