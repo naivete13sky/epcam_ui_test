@@ -89,6 +89,7 @@ class PageMatrix(Base,MyMouse):
         layer_info = job_info.get('layer_info')
         layer_feature_info = job_info.get('layer_feature_info')
         drill_rout_count = self.get_drill_rout_count(layer_info)
+        sum = 0
 
         for step in layer_feature_info:
             steps = layer_feature_info.get(step)
@@ -109,7 +110,10 @@ class PageMatrix(Base,MyMouse):
                 print(step + "[" + step_info.get(step.upper()).get('col') + "]",
                       layer + "[" + layer_info.get(layer.upper()).get('row') + "]", layers)
                 print("img_standard_str",img_standard_str)
+                sum = sum + 1
                 assert self.is_right(save_path_cut, img_standard_str)
+                time.sleep(0.01)
+        print("共验证了",sum,"个层别")
 
     def select_drill_cross(self, large_pic_path, small_pic_str, time_sleep = 0.5):
         small_pic_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,

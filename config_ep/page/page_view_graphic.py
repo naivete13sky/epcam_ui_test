@@ -8,19 +8,19 @@ from config_ep import page
 
 class PageViewGraphic(object):
     def __init__(self):
-        self.engineering_input_view_graphic_dindow = RunConfig.driver_epcam_ui.window(
+        self.engineering_input_view_graphic_window = RunConfig.driver_epcam_ui.window(
             **page.engineering_file_input_view_graphic_window_para
         )
         self.temp_path = RunConfig.temp_path_base
 
     def close(self):
-        self.engineering_input_view_graphic_dindow.click_input(
+        self.engineering_input_view_graphic_window.click_input(
             coords=page.engineering_file_input_view_graphic_close_coord)
 
     def capture_image(self, img_name):
-        self.engineering_input_view_graphic_dindow.set_focus()  # 激活窗口
+        self.engineering_input_view_graphic_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        drill_correlation_layer_pic = self.engineering_input_view_graphic_dindow.capture_as_image()  # 截图
+        drill_correlation_layer_pic = self.engineering_input_view_graphic_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
         return save_path

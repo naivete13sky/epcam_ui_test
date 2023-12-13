@@ -2,6 +2,7 @@ import os
 import time
 from pathlib import Path
 import cv2
+import numpy as np
 from PIL import Image
 from pywinauto import mouse
 from pywinauto.keyboard import send_keys
@@ -177,3 +178,20 @@ class PageEngineering(Base):
     def open_matrix_by_double_click(self, time_sleep=0.5):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_matrix_coord)
         time.sleep(time_sleep)
+
+    def open_step_by_double_click(self, job_info, step):
+        step_info = job_info.get('step_info')
+        step_col = int(step_info.get(step.upper())['col']) + 1
+        result = step_col / 7
+        # 得到step在第几行
+        if result % 1 != 0:
+            row = int(result) + 1
+        else:
+            row = int(result)
+        col = step_col - int(result) * 7 #得到step在第几列
+        print(step, "在第", row, "行的第", col, "列")
+        coord_x = page.engineering_jobList_first_coord[0] + (col - 1) * page.engineering_jobList_col_space
+        coord_y = page.engineering_jobList_first_coord[1] + (row - 1) * page.engineering_jobList_row_space
+        coords = (coord_x,  coord_y)
+        self.engineering_window.double_click_input(coords=coords)
+        time.sleep(0.5)
