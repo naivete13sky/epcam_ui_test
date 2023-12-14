@@ -16,6 +16,9 @@ class PageMeasurementMark(object):
 
         self.temp_path = RunConfig.temp_path_base
 
+    def close(self):
+        self.measuremen_mark_window.child_window(title="关闭", control_type="Button").click_input()
+
     def capture_image(self, img_name):
         self.measuremen_mark_window.set_focus()  # 激活窗口
         time.sleep(0.1)

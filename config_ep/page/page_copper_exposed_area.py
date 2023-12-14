@@ -12,7 +12,7 @@ class PageCopperExposedArea(object):
 
         # 切换到copper/exposed area子窗口
         self.copper_exposed_area_window = self.graphic_window.child_window(
-            **page.graphic_left_layer_bar_copper_exposed_area_window_para)
+            **page.graphic_copper_exposed_area_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -48,7 +48,7 @@ class PageCopperExposedArea(object):
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
 
-    def apply_exposed_area(self,layer_1="name",mask_1=None,layer_2=None,mask_2=None):
+    def apply_exposed_area_case_4646(self,layer_1="name",mask_1=None,layer_2=None,mask_2=None):
         """
         执行exposed_area
         :param layer_1:

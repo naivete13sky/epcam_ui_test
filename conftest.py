@@ -264,7 +264,9 @@ def graphic_close_engineering_save_first_job(request):
 
 def pytest_configure(config):
     marker_list = [
-        'input_output', 'output', 'test', 'cc', 'testcc', 'example', 'input', 'coding'
+        'zjr','gcc','zzr','ze',
+        'engineering','matrix','graphic',
+        'input_output', 'output', 'test', 'cc', 'testcc', 'example', 'input', 'coding','from_bug','crash'
     ]
     for markers in marker_list:
         config.addinivalue_line('markers', markers)
