@@ -134,4 +134,32 @@ class TestGraphicUI:
     def test_multi_layer_copy(self, job_id, epcam_ui_start,
                               download_file_compressed_entity_filter_delete_all_jobs_import):
         print("123sdasdas")
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Import'))
+    def test_open_left_two_layer(self, job_id, epcam_ui_start,
+                                 download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道用例ID：4650
+        关联bug:5592
+        DMS_ID：44118
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name,file_compressed_path=download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 调用 fixture 并传递参数值,下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()
+
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path) #解压后得odb路径
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'edit')  # 双击打开panel
+        self.graphic.click_layer(job_info,"gw-0001-5050-co")
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+
+
 

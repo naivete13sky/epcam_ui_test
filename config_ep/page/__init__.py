@@ -12,6 +12,7 @@ engineering_import_input_path_confirm_window_para = {
 engineering_input_window_child_window_para = {'title': "Input", 'control_type': "Window"}  # input job窗口
 engineering_file_input_path_window_para = {'title': "Open", 'control_type': "Window"}  # input 选择文件窗口中的文件路径对象
 engineering_file_save_window_para = {'title': "Save", 'control_type': "Window"}
+engineering_output_window_child_window_para = {'title': "Output", 'control_type': "Window"}  # output窗口
 
 engineering_entity_filter_coord = (120, 120)
 
@@ -35,6 +36,7 @@ engineering_file_create_apply_button_coord = (535, 445)
 engineering_file_create_yes_button_coord = (560, 440)
 engineering_file_import_coord = (20, 210)
 engineering_file_input_coord = (20, 160)
+engineering_file_output_coord = (20, 185)
 engineering_file_save_coord = (20, 250)
 engineering_file_close_coord = (20, 275)
 
@@ -114,6 +116,8 @@ graphic_by_table_new_step_pcs_ok_coord = (700, 755)
 graphic_by_table_new_step_mirror_coord = (1050, 450)
 graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
 graphic_by_table_window_close_coord = (1100, 380)
+graphic_step_open_left_two_layer = (180, 190)
+graphic_step_right_home = (1290, 70)
 
 grahic_left_layer_bar_row_height = 25 # graphic窗口左侧层别栏行高  -张
 graphic_left_layer_bar_first_row_coord = (130, 175) # graphic窗口左侧层别栏第一行的坐标 -张
