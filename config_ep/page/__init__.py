@@ -60,6 +60,7 @@ engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
 engineering_inJob_steps_step_fourth_coord = (80 + 520, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
+engineering_inJob_symbols_coord=(80+390,250)
 
 """ 以下为engineering--import模块信息"""
 engineering_file_import_input_path_coord = (30, 80)  # 变形时，字体太大，异常情况,y = 100
@@ -101,8 +102,10 @@ engineering_file_parameters_menu_coord = (300, 350)
 engineering_file_input_view_graphic_coord = (272, 320)
 engineering_file_input_view_graphic_menu_coord = (300, 330)
 engineering_file_input_right_click_menu_coord = (300, 330)#右击层别栏，调出右击菜单栏
-engineering_file_input_job_window_menu_coord = (56, 84)
+engineering_file_input_job_window_menu_coord = (56, 85)
 engineering_file_input_job_window_close_menu_coord= (573, 617)
+engineering_file_input_step_window_menu_coord = (455, 85)
+engineering_file_input_step_window_close_menu_coord= (580, 617)
 
 
 """ 以下为graphic模块信息"""
