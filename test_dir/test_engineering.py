@@ -499,8 +499,12 @@ class TestUI:
         assert '(GO Up) matrix steps symbols' in text
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
 
+    @pytest.mark.zjr
+    @pytest.mark.engineering
+    @pytest.mark.from_bug
+    @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_Job'))
-    def test_open_pcs_step(self, job_id, epcam_ui_start,
+    def test_open_step_case_4648(self, job_id, epcam_ui_start,
                            download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道bug ID: 1305 验证打开pcs软件不闪退（影响版本号：beta_2.28.054_s16）

@@ -65,7 +65,7 @@ class PageGraphic(object):
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
         coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-        row_height = page.engineering_file_input_file_row_height
+        row_height = page.grahic_left_layer_bar_row_height
         coord_y = coord_y + (layer_row - 1) * row_height
         layer_coord = (coord_x, coord_y)
         self.graphic_window.click_input(coords=layer_coord) # 左击layer
@@ -80,7 +80,7 @@ class PageGraphic(object):
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
         coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-        row_height = page.engineering_file_input_file_row_height
+        row_height = page.grahic_left_layer_bar_row_height
         coord_y = coord_y + (layer_row - 1) * row_height
         layer_coord = (coord_x, coord_y)
         self.graphic_window.click_input(button='right',coords=layer_coord)  # 右击layer
@@ -123,3 +123,12 @@ class PageGraphic(object):
         coords= (coord_x, coord_y)
         self.graphic_window.click_input(button='right', coords=coords)  # 右击画布
         time.sleep(time_sleep)
+
+    def open_multi_layer_copy_dindow(self):
+        """
+        打开Multi Layer Copy窗口
+        """
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.graphic_left_layer_bar_right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=page.graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords)
