@@ -400,6 +400,31 @@ class TestUI:
         assert rectangle_count == 0
         self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
 
+    def test_file_output_open(self, epcam_ui_start):
+        """
+        禅道用例ID：3726。
+        DMS_ID：
+        :param epcam_ui_start:
+        :return:
+        """
+        # download_file_compressed_entity_filter_delete_all_jobs_import(job_id)# 调用 fixture 并传递参数值,下载料号
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_output_coord)
+        time.sleep(0.3)
+        engineering_output_open_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_output_open_window_pic.save(
+            r'C:\cc\share\temp\engineering_output_open_window_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_output_open_window_pic.png')
+        img_cut = img[35:760, 145:890]  # 前纵后横（A:B,C:D，A裁剪的越多，数值越大，B裁剪的越多，数值越小；CD一样的说法）
+        cv2.imwrite(r"C:\cc\share\temp\engineering_output_open_window_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_output_open_window_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_output_open_window_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))      # 验证input导入多个料号全部选中、取消
     def test_action_select_all(self, job_id, epcam_ui_start):
         """
