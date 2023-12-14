@@ -38,19 +38,64 @@ class PageGraphic(object):
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
 
-    def copper_exposed_area_open(self,job_info,layer):
-        """打开右侧工具栏copper/exposed_area窗口"""
+    def open_copper_exposed_area_dindow(self):
+        """
+        打开Copper/Exposed Area 窗口
+        """
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.graphic_left_layer_bar_right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=page.graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords)
+
+    def open_measurement_mark_window(self):
+        """
+        打开Measurement Mark窗口
+        """
+        self.graphic_canvas_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **page.graphic_left_layer_bar_right_click_menu_window_para)
+        self.graphic_canvas_right_click_menu_window.click_input(
+            coords=page.graphic_canvas_right_click_menu_measure_coords)
+
+    def click_layer(self,job_info,layer,time_sleep=0.5):
+        """
+        单击层别
+        :param job_info:
+        :param layer:
+        """
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
         coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
         row_height = page.engineering_file_input_file_row_height
         coord_y = coord_y + (layer_row - 1) * row_height
-        coords = (coord_x, coord_y)
-        self.graphic_window.click_input(button='right',coords=coords)
-        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
-            **page.graphic_left_layer_bar_right_click_menu_window_para)
-        self.graphic_left_layer_bar_right_click_menu_window.click_input(
-            coords=page.graphic_left_layer_bar_right_click_menu_copper_exposed_area)
+        layer_coord = (coord_x, coord_y)
+        self.graphic_window.click_input(coords=layer_coord) # 左击layer
+        time.sleep(time_sleep)
+
+    def right_click_layer(self,job_info,layer,time_sleep=0.5):
+        """
+        右击层别
+        :param job_info:
+        :param layer:
+        """
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+        row_height = page.engineering_file_input_file_row_height
+        coord_y = coord_y + (layer_row - 1) * row_height
+        layer_coord = (coord_x, coord_y)
+        self.graphic_window.click_input(button='right',coords=layer_coord)  # 右击layer
+        time.sleep(time_sleep)
+
+    def click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
+                           coord_y=page.graphic_canvas_centre_coord[1],time_sleep = 0.5):
+        """
+        右击画布
+        :param coord_x:
+        :param coord_y:
+        """
+        coords= (coord_x, coord_y)
+        self.graphic_window.click_input(coords=coords)  # 右击画布
+        time.sleep(time_sleep)
 
     def open_step_panelization_by_table(self):
         self.graphic_window.click_input(coords=page.graphic_step_coord)
@@ -67,3 +112,14 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_yes_coord)
 
+
+    def right_click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
+                           coord_y=page.graphic_canvas_centre_coord[1],time_sleep = 0.5):
+        """
+        右击画布
+        :param coord_x:
+        :param coord_y:
+        """
+        coords= (coord_x, coord_y)
+        self.graphic_window.click_input(button='right', coords=coords)  # 右击画布
+        time.sleep(time_sleep)

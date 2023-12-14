@@ -7,6 +7,7 @@ from config import RunConfig
 from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_copper_exposed_area import PageCopperExposedArea
+from config_ep.page.page_measurement_mark import PageMeasurementMark
 from config_ep.base.base import MyODB
 from cc.cc_method import GetTestData, PictureMethod, opencv_compare
 
@@ -42,6 +43,11 @@ class TestGraphicUI:
         self.graphic.copper_exposed_area_open(job_info, 'gtl')  # 打开copper_exposed_area功能
         text = self.copper_exposed_area.apply_exposed_area('gtl')  # 执行exposed_area功能,mask为空有提示框
         assert text == 'Mask 1 is empty!\n'  # 验证提示框
+        self.engineering.open_step_by_double_click(job_info,'panel') # 双击打开panel
+        self.graphic.right_click_layer(job_info,'gtl')  # 右击层别
+        self.graphic.open_copper_exposed_area_dindow() # 打开Copper/Exposed Area窗口
+        text = self.copper_exposed_area.apply_exposed_area('gtl') # 执行exposed_area功能,mask为空有提示框
+        assert text == 'Mask 1 is empty!\n' # 验证提示框
 
         self.graphic.close()  # 关闭graphic窗口
         self.engineering.go_up()  # 鼠标双击go_up
@@ -102,6 +108,25 @@ class TestGraphicUI:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Measure'))
+    def test_measure_between_midpoints(self,job_id,epcam_ui_start,
+                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()  # 双击steps
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'net')  # 双击打开panel
+        self.graphic = PageGraphic()
+        self.graphic.click_layer(job_info,'gtl',10)
+        self.graphic.right_click_canvas() # 右击画布
+        self.graphic.open_measurement_mark_window() # 打开Measurement Mark窗口
+        self.measure = PageMeasurementMark()
+        self.measure.select_measure_mode(5) # 选择measure_mode
+        self.graphic.click_canvas(690, 300)
 
 
 

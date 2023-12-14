@@ -117,8 +117,13 @@ graphic_by_table_window_close_coord = (1100, 380)
 
 grahic_left_layer_bar_row_height = 25 # graphic窗口左侧层别栏行高  -张
 graphic_left_layer_bar_first_row_coord = (130, 175) # graphic窗口左侧层别栏第一行的坐标 -张
+
+graphic_canvas_centre_coord = (690, 400) # graphic窗口画布中的坐标 -张
+graphic_canvas_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
+graphic_canvas_right_click_menu_measure_coords = (40, 60)
+
 graphic_left_layer_bar_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
-graphic_left_layer_bar_right_click_menu_copper_exposed_area = (40, 200) # layer右击copper/exposed area坐标 -张
+graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords = (40, 200) # layer右击copper/exposed area坐标 -张
 
 graphic_left_layer_bar_copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"}
 graphic_copper_exposed_area_warning_window_para = {'title': "warning", 'control_type': "Window"}
@@ -128,6 +133,9 @@ graphic_copper_exposed_area_measurement_exposed_area_coords = (213, 51) # expose
 
 graphic_copper_exposed_area_apply_button_coords = (100, 205) # button按钮坐标 -张
 
+graphic_measuremen_mark_window_para = {'title': "Measurement Mark", 'control_type': "Window"}
+graphic_measuremen_mark_first_mode_coords = (25, 75)  # Measuremen Mark窗口第一个mode的坐标 -张
+graphic_measuremen_mark_mode_spacing = (27)  # mode间距 -张
 
 """ 以下为matrix模块信息"""
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"} # -张
