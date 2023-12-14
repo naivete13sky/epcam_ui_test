@@ -165,5 +165,9 @@ class PageInput(Base):
         self.engineering_input_window.click_input(
             coords=(page.engineering_file_input_job_window_close_menu_coord))  # 左击Job视窗的Close按钮关闭视窗
 
+    def close_step_window(self):
+        self.engineering_input_window.click_input(
+            coords=(page.engineering_file_input_step_window_close_menu_coord))  # 左击Job视窗的Close按钮关闭视窗
+
 
 
