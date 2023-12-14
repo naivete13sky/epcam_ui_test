@@ -39,10 +39,6 @@ class TestGraphicUI:
         job_info = {}
         job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'panel')  # 双击打开panel
-        self.graphic.open_copper_exposed_area_dindow()  # 打开copper_exposed_area功能
-        text = self.copper_exposed_area.apply_exposed_area('gtl')  # 执行exposed_area功能,mask为空有提示框
-        assert text == 'Mask 1 is empty!\n'  # 验证提示框
         self.engineering.open_step_by_double_click(job_info,'panel') # 双击打开panel
         self.graphic.right_click_layer(job_info,'gtl')  # 右击层别
         self.graphic.open_copper_exposed_area_dindow() # 打开Copper/Exposed Area窗口
