@@ -104,6 +104,7 @@ class TestGraphicUI:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
+
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Measure'))
     def test_measure_between_midpoints(self,job_id,epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -123,6 +124,14 @@ class TestGraphicUI:
         self.measure = PageMeasurementMark()
         self.measure.select_measure_mode(5) # 选择measure_mode
         self.graphic.click_canvas(690, 300)
+        self.graphic.click_canvas(690+50, 300)
+        self.measure.close() # 关闭Measurement Mark窗口
+        self.graphic.close() # 关闭graphic窗口
+        self.engineering.go_up() # 鼠标双击go_up
+        self.engineering.go_up() # 鼠标双击go_up
 
-
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Graphic'))
+    def test_multi_layer_copy(self, job_id, epcam_ui_start,
+                              download_file_compressed_entity_filter_delete_all_jobs_import):
+        print("123sdasdas")
 
