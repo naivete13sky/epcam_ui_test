@@ -1093,7 +1093,7 @@ class TestFile:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id("Input"))
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id("Input_Crash"))
     def test_file_input_case_4671(self, job_id, epcam_ui_start):
         """
         验证input附件资料，软件不闪退
