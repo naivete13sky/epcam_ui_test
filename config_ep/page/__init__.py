@@ -3,6 +3,7 @@ from config import RunConfig
 """ 以下为engineering模块信息"""
 engineering_window_para = {'title': RunConfig.driver_epcam_ui_engineering_title}  # engineering_window
 engineering_import_window_child_window_para = {'title': "Import Job", 'control_type': "Window"}  # import job窗口
+engineering_create_window_child_window_para = {'title': "Create", 'control_type': "Window"}
 engineering_import_input_path_file_type_window_para = {
     'title': "文件类型(T):", 'auto_id': "1136", 'control_type': "ComboBox"}  # import job窗口，获得选择文件类型控件
 engineering_import_input_path_file_path_window_para = {
@@ -58,7 +59,6 @@ engineering_job_right_click_open_coord = (20, 10)
 engineering_inJob_go_up_coord = (80, 250)
 engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
-engineering_inJob_steps_step_fourth_coord = (80 + 520, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
 engineering_inJob_symbols_coord = (80+390, 250)
 
@@ -111,10 +111,11 @@ engineering_file_input_step_window_close_menu_coord = (580, 617)
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
 graphic_step_coord = (88, 40)
-graphic_step_panelzation_coord = (88, 140)
+graphic_step_panelization_coord = (88, 140)
 graphic_step_panelization_by_table_coord = (320, 170)
 
-graphic_step_panelization_by_table_window_para = {'title': "Setp and Repeat Puzzle by Tabel", 'control_type': "Window"}
+graphic_step_step_and_repeat_puzzle_by_table_window_para = {
+    'title': "Step and Repeat Puzzle by Table", 'control_type': "Window"}
 
 graphic_by_table_new_step_coord = (350, 450)
 graphic_by_table_new_step_pcs_coord = (700, 640)
@@ -132,7 +133,7 @@ graphic_edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 
 '''右侧工具栏坐标'''
 graphic_zoom_home_coord = (1295, 80)
-graphic_feature_seletion_coord = (1210, 450)
+graphic_feature_selection_coord = (1210, 450)
 
 
 grahic_left_layer_bar_row_height = 25  # graphic窗口左侧层别栏行高  -张

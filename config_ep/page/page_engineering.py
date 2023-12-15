@@ -157,7 +157,7 @@ class PageEngineering(Base):
         cv2.waitKey(0)
         # 加载两张图片
         img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
-            r'engineering\engineering_window_job_closed_first_standard.png')
+                                         r'engineering\engineering_window_job_closed_first_standard.png')
         img_current_path = r'C:\cc\share\temp\engineering_window_job_closed_first.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
@@ -175,9 +175,9 @@ class PageEngineering(Base):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coord)
         time.sleep(time_sleep)  # 打开graphic要等一会儿
 
-    def open_fourth_step_by_double_click(self, time_sleep=0.5):
-        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_fourth_coord)
-        time.sleep(time_sleep)  # 打开graphic要等一会儿
+    def open_create_window(self):
+        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 单击打开File菜单
+        self.engineering_window.click_input(coords=page.engineering_file_create_coord)  # 单击打开Create窗口
 
     def open_matrix_by_double_click(self, time_sleep=0.5):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_matrix_coord)
@@ -197,8 +197,8 @@ class PageEngineering(Base):
             row = int(result) + 1
         else:
             row = int(result)
-        col = step_col - int(result) * 7 #得到step在第几列
-        print("{}在第{}行的第{}列".format(step,row,col))
+        col = step_col - int(result) * 7  # 得到step在第几列
+        print("{}在第{}行的第{}列".format(step, row, col))
         coord_x = page.engineering_jobList_first_coord[0] + (col - 1) * page.engineering_jobList_col_space
         coord_y = page.engineering_jobList_first_coord[1] + (row - 1) * page.engineering_jobList_row_space
         coords = (coord_x,  coord_y)
