@@ -41,6 +41,9 @@ engineering_file_output_coord = (20, 185)
 engineering_file_output_close_coord = (845, 735)
 engineering_file_save_coord = (20, 250)
 engineering_file_close_coord = (20, 275)
+engineering_file_delete_coord=(75, 137)
+engineering_file_delete_yes_coord=(550, 440)
+engineering_file_delete_ok_coord=(550, 440)
 
 engineering_action_coord = (80, 40)
 engineering_action_open_coord = (80, 90)
@@ -106,7 +109,7 @@ engineering_file_input_right_click_menu_coord = (300, 330)  # 右击层别栏，
 engineering_file_input_job_window_menu_coord = (56, 85)
 engineering_file_input_job_window_close_menu_coord = (573, 617)
 engineering_file_input_step_window_menu_coord = (455, 85)
-engineering_file_input_step_window_close_menu_coord = (580, 617)
+engineering_file_input_step_window_close_menu_coord= (580, 617)
 
 
 """ 以下为graphic模块信息"""
@@ -159,6 +162,11 @@ graphic_analysis_mrc_view_results_coord = (1065,520)
 graphic_analysis_mrc_select_first_results_coord = (990,475)
 graphic_analysis_mrc_close_results_viewer_coord = (858,820)
 graphic_unit_british_system_coord = (1245, 760)
+
+graphic_analysis_coord = (408, 42)
+graphic_analysis_signal_layer_check_coord = (445, 115)
+graphic_analysis_signal_layer_check_windows_run_coord = (758, 940)
+graphic_analysis_signal_layer_check_windows_close_coord = (910, 1000)
 
 
 grahic_left_layer_bar_row_height = 25  # graphic窗口左侧层别栏行高  -张

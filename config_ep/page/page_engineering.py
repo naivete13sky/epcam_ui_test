@@ -134,11 +134,25 @@ class PageEngineering(Base):
         self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=page.engineering_file_save_coord)  # 使用鼠标单击按钮，无需主动激活窗口
 
+    def file_delete(self):
+        self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_file_delete_coord)
+        self.engineering_window.click_input(coords=page.engineering_file_delete_yes_coord)
+        self.engineering_window.click_input(coords=page.engineering_file_delete_ok_coord)
+
+
     def action_select_unselect_all(self):
         # self.engineering_window.set_focus()  # 激活窗口
         self.engineering_window.click_input(coords=page.engineering_action_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=page.engineering_action_select_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.click_input(coords=page.engineering_action_select_unselect_all_coord)
+
+    def action_select_select_all(self):
+        # self.engineering_window.set_focus()  # 激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_select_coord)  # 使用鼠标单击按钮，无需主动激活窗口
+        self.engineering_window.click_input(coords=page.engineering_action_select_select_all_coord)
 
     def file_close(self):
         self.engineering_window.set_focus()  # 激活窗口

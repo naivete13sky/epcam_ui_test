@@ -20,6 +20,7 @@ import rarfile
 from pathlib import Path
 from config_ep.page.page_input import PageInput
 
+
 class TestGraphicUI:
     def setup_method(self):
         self.engineering = PageEngineering()
@@ -217,6 +218,31 @@ class TestGraphicUI:
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
         self.engineering.open_step_by_double_click(job_info, 'edit')  # 双击打开panel
         self.graphic.click_layer(job_info, "gw-0001-5050-co")
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Signal_layer_check'))
+    def test_graphic_analysis_Signal_layer_check_case_4672(self, job_id, epcam_ui_start,
+                                   download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道用例ID：4672 打开附件资料的panel的画布，使用signal layer check 功能可以正确执行分析操作不发生闪退
+        禅道bugID：2963
+        :param job_id:44170
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()  # 双击打开steps
+        self.engineering.open_fourth_step_by_double_click()  # 双击打开第四个step(panel)
+        self.graphic.open_analysis_signal_layer_check_windows()
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_run_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_close_coord)
+
+
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

@@ -133,3 +133,7 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_coord)
         self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_coord)
         self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_ok_coord)
+
+    def open_analysis_signal_layer_check_windows(self):
+        self.graphic_window.click_input(coords=page.graphic_analysis_coord)
+        self.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_coord)
