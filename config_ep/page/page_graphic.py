@@ -128,10 +128,6 @@ class PageGraphic(object):
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
             coords=page.graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords)
 
-    def click_canvas_coord(self, coord):
-        self.graphic_window.click_input(coords=coord)
-        time.sleep(0.5)
-
     def feature_seletion(self):
         self.graphic_window.click_input(coords=page.graphic_feature_seletion_coord)
 

@@ -54,13 +54,13 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Graphic'))
-    def test_graphic_case_4652(self, job_id, epcam_ui_start,
-                               download_file_compressed_entity_filter_delete_all_jobs_import):
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Set_mirror'))
+    def test_graphic_panelization_case_4652(self, job_id, epcam_ui_start,
+                                            download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道BUG：1546
-        料号ID：44117
-        :param job_id:
+        禅道用例：4652
+        :param job_id:44117
         :param epcam_ui_start:
         :return:
         """
@@ -83,13 +83,13 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Graphic'))
-    def test_graphic_case_4653(self, job_id, epcam_ui_start,
-                               download_file_compressed_entity_filter_delete_all_jobs_import):
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Angle_for_usersymbol'))
+    def test_graphic_usersymbol_case_4653(self, job_id, epcam_ui_start,
+                                          download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道BUG：1811
-        料号ID：44123
-        :param job_id:
+        禅道用例：4653
+        :param job_id:44123
         :param epcam_ui_start:
         :return:
         """
@@ -107,8 +107,7 @@ class TestGraphicUI:
         self.graphic = PageGraphic()
         self.graphic.zoom_home()
         self.graphic.feature_seletion()
-        coord = (562, 520)
-        self.graphic.click_canvas_coord(coord)
+        self.graphic.click_canvas(562, 520)
         self.graphic.open_close_angle_for_usersymbol()
         self.graphic.close()
         self.engineering.go_up()
