@@ -15,6 +15,7 @@ from config_ep.base.base import Base, MyODB
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
+from config_ep.page.page_matrix import PageMatrix
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
 from config_ep.page.page_input_view_ascii import PageInputViewAscii
@@ -526,6 +527,7 @@ class TestFile:
     @pytest.fixture(autouse=True)
     def setup_method(self):
         self.engineering = PageEngineering()
+        self.matrix = PageMatrix()
         self.engineering.engineering_window.set_focus()  # 激活窗口
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
@@ -831,7 +833,7 @@ class TestFile:
     def test_file_input_parameters(self, job_id, epcam_ui_start):
         """
         禅道用例ID：4036  Parameters视窗展示正确
-        :param job_id:
+        :param job_id:268
         :param epcam_ui_start:
         :return:
         """
@@ -879,7 +881,7 @@ class TestFile:
 
         """
         禅道用例ID：4029  验证View Graphic视窗展示正确
-        :param job_id:
+        :param job_id:268
         :param epcam_ui_start:
         :return:
         """
@@ -926,7 +928,7 @@ class TestFile:
 
         """
         禅道用例ID：4643 验证右击菜单栏展示正确展示正确
-        :param job_id:
+        :param job_id:268
         :param epcam_ui_start:
         :return:
         """
@@ -972,7 +974,7 @@ class TestFile:
 
         """
         禅道用例ID：3989 验证Job视窗展示正确、3990 已有Job会全部展示在Job视窗中、3991 Job视窗可正确关闭
-        :param job_id:
+        :param job_id:268
         :param epcam_ui_start:
         :return:
         """
@@ -1019,7 +1021,7 @@ class TestFile:
 
         """
         禅道用例ID：4003 step视窗展示正确、34007 step视窗可正确关闭
-        :param job_id:
+        :param job_id:268
         :param epcam_ui_start:
         :return:
         """
@@ -1040,7 +1042,7 @@ class TestFile:
         self.input_job.set_new_job_name('760')
         self.input_job.set_new_step_name('orig')
         self.input_job.set_new_step_name('net')
-        self.input_job.set_new_step_name('pre')#多创建几个step，方便step市场展示
+        self.input_job.set_new_step_name('pre')#多创建几个step，方便step视窗展示
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
         self.input_job.engineering_input_window.click_input(
@@ -1063,14 +1065,15 @@ class TestFile:
         self.input_job.close_step_window()#关闭step视窗
         self.input_job.close()
 
-
-
+    @pytest.mark.from_bug
+    @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols'))
-    def test_symbols_open(self, job_id, epcam_ui_start,
+    def test_symbols_open_case_4647(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
 
         """
         禅道用例ID：4647 正确打开附件资料的Symbol库
+        禅道bugID：2724
         :param job_id:44119
         :param epcam_ui_start:
         :return:
@@ -1087,6 +1090,33 @@ class TestFile:
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()  # 删除料,不影响后续用例的执行
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Close_Job'))
+    def test_engineering_Close_Job_case_4654(self, job_id, epcam_ui_start,
+                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        禅道用例ID：4654 在主界面可正确关闭料号，软件不闪退
+        禅道bugID：2307
+        :param job_id:44122
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
+        self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
+        self.matrix.close()  # 关闭matrix窗口
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coord)  # 双击打开steps
+        self.engineering.action_select_select_all()#选中所有step
+        self.engineering.file_delete()#删除所以step
+        self.engineering.go_up() #双击go up按钮返回到上一级
+        self.engineering.go_up() #再双击go up按钮到软件主界面
+
+
+
 
     def test_cc(self,epcam_ui_start):
         pass

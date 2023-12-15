@@ -102,6 +102,10 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic_step_panelzation_coord)
         self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
 
+    def open_analysis_signal_layer_check_windows(self):
+        self.graphic_window.click_input(coords=page.graphic_analysis_coord)
+        self.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_coord)
+
     def close_by_table_window(self):
         self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
 

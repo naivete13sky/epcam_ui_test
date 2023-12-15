@@ -39,6 +39,9 @@ engineering_file_input_coord = (20, 160)
 engineering_file_output_coord = (20, 185)
 engineering_file_save_coord = (20, 250)
 engineering_file_close_coord = (20, 275)
+engineering_file_delete_coord=(75, 137)
+engineering_file_delete_yes_coord=(550, 440)
+engineering_file_delete_ok_coord=(550, 440)
 
 engineering_action_coord = (80, 40)
 engineering_action_open_coord = (80, 90)
@@ -121,6 +124,11 @@ graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
 graphic_by_table_window_close_coord = (1100, 380)
 graphic_step_open_left_two_layer = (180, 190)
 graphic_step_right_home = (1290, 70)
+graphic_analysis_coord = (408, 42)
+graphic_analysis_signal_layer_check_coord = (445, 115)
+graphic_analysis_signal_layer_check_windows_run_coord = (758, 940)
+graphic_analysis_signal_layer_check_windows_close_coord = (910, 1000)
+
 
 grahic_left_layer_bar_row_height = 25 # graphic窗口左侧层别栏行高  -张
 graphic_left_layer_bar_first_row_coord = (130, 175) # graphic窗口左侧层别栏第一行的坐标 -张
