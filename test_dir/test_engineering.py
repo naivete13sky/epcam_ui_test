@@ -400,9 +400,9 @@ class TestUI:
         assert rectangle_count == 0
         self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
 
-    def test_file_output_open(self, epcam_ui_start):
+    def test_file_output_open_close_3726(self, epcam_ui_start):
         """
-        禅道用例ID：3726。
+        禅道用例ID：3726、3727
         DMS_ID：
         :param epcam_ui_start:
         :return:
@@ -424,6 +424,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_output_open_window_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
+        self.engineering.engineering_window.click_input(coords=page.engineering_file_output_close_coord)
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))      # 验证input导入多个料号全部选中、取消
     def test_action_select_all(self, job_id, epcam_ui_start):
