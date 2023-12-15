@@ -23,7 +23,7 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Exposed_Area_Mask'))
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Exposed_Area_Mask_Crash'))
     def test_graphic_exposed_area_mask_case_4646(self, job_id, epcam_ui_start,
                                                      download_file_compressed_entity_filter_delete_all_jobs_import):
         """
@@ -115,7 +115,7 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Measure'))
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Measure_Crash'))
     def test_measure_between_midpoints_case_4649(self,job_id,epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """
@@ -150,7 +150,7 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Multi_Layer_Copy'))
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Multi_Layer_Copy_Crash'))
     def test_multi_layer_copy_case_4651(self, job_id, epcam_ui_start,
                               download_file_compressed_entity_filter_delete_all_jobs_import):
         """
