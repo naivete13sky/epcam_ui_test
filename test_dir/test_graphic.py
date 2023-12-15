@@ -10,7 +10,12 @@ from config_ep.page.page_copper_exposed_area import PageCopperExposedArea
 from config_ep.page.page_measurement_mark import PageMeasurementMark
 from config_ep.base.base import MyODB
 from cc.cc_method import GetTestData, PictureMethod, opencv_compare
-
+from config_ep import page
+import time
+from config_ep.base.base import Base, MyODB
+import rarfile
+from pathlib import Path
+from config_ep.page.page_input import PageInput
 
 class TestGraphicUI:
     def setup_method(self):
@@ -124,14 +129,16 @@ class TestGraphicUI:
         self.measure.select_measure_mode(5) # 选择measure_mode
         self.graphic.click_canvas(690, 300)
 
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Import'))
-    def test_open_left_two_layer(self, job_id, epcam_ui_start,
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_layer'))
+    def test_graphic_open_left_two_layer(self, job_id, epcam_ui_start,
                                  download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证打开第二层layer正确显示
         禅道用例ID：4650
         关联bug:5592
-        DMS_ID：44118
-        :param job_id:
+        :param job_id:44118
         :param epcam_ui_start:
         :return:
         """
@@ -151,5 +158,83 @@ class TestGraphicUI:
         self.engineering.go_up()
 
 
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Analysis_MRC'))
+    def test_graphic_mrc_case_4655(self, job_id, epcam_ui_start,
+                                   download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        验证不导入json，mrc运行结束后，点击单位切换，软件闪退
+        禅道用例ID：4655
+        关联bug:5486
+        :param job_id:44121
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 解压后得odb路径
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'prepare')  # 双击打开prepare
+        self.graphic.graphic_window.click_input(coords=page.graphic_step_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_save_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_ok_information_window_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_close_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_run_globally_coord)
+        time.sleep(20)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_view_results_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_select_first_results_coord)  #此步可省略，也能闪退
+        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_close_results_viewer_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_unit_british_system_coord)
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
 
-
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_layer'))
+    def test_graphic_open_layer_4658(self, job_id, epcam_ui_start):
+        """
+        验证导入附件资料，打开第一层，点击home，软件闪退
+        禅道用例ID：4658
+        关联bug:5105
+        :param job_id:44168
+        :param epcam_ui_start:
+        :return:
+        """
+        # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('y6t280e15919b0')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('y6t280e15919b0')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=15)
+        self.input_job.close()
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_steps_by_double_click()
+        self.engineering.open_first_step_by_double_click()
+        self.graphic.graphic_window.click_input(coords=page.graphic_first_layer_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic_right_home)
+        time.sleep(0.10)
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
