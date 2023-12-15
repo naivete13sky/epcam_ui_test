@@ -113,6 +113,9 @@ graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'contro
 graphic_step_coord = (88, 40)
 graphic_step_panelzation_coord = (88, 140)
 graphic_step_panelization_by_table_coord = (320, 170)
+
+graphic_step_panelization_by_table_window_para = {'title': "Setp and Repeat Puzzle by Tabel", 'control_type': "Window"}
+
 graphic_by_table_new_step_coord = (350, 450)
 graphic_by_table_new_step_pcs_coord = (700, 640)
 graphic_by_table_new_step_pcs_ok_coord = (700, 755)

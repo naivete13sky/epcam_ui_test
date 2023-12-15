@@ -98,15 +98,18 @@ class PageGraphic(object):
         time.sleep(time_sleep)
 
     def open_close_step_panelization_by_table(self):
-        self.graphic_window.click_input(coords=page.graphic_step_coord)
-        self.graphic_window.click_input(coords=page.graphic_step_panelzation_coord)
-        self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
+
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_ok_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_yes_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
+
+    def open_step_panelization_by_table_window(self):
+        self.graphic_window.click_input(coords=page.graphic_step_coord)
+        self.graphic_window.click_input(coords=page.graphic_step_panelzation_coord)
+        self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
 
     def right_click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
                            coord_y=page.graphic_canvas_centre_coord[1],time_sleep = 0.5):
