@@ -18,7 +18,7 @@ from config_ep.page.page_graphic import PageGraphic
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
 from config_ep.page.page_input_view_ascii import PageInputViewAscii
-from config_ep.page.page_engineering_file import PageFile
+from config_ep.page.page_create import PageCreate
 
 
 @pytest.mark.input
@@ -26,7 +26,7 @@ class TestUI:
     @pytest.fixture(autouse=True)
     def setup_method(self):
         self.engineering = PageEngineering()
-        self.file = PageFile()
+        self.create = PageCreate()
         self.engineering.engineering_window.set_focus()  # 激活窗口
 
     def test_ui_all(self, epcam_ui_start):
@@ -109,7 +109,7 @@ class TestUI:
         self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
 
     def test_open_close_create_window(self, epcam_ui_start):
-        self.file.open_create_window()
+        self.engineering.open_create_window()
         time.sleep(0.2)
         engineering_file_create_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_window_pic.save(r'C:\cc\share\temp\engineering_file_create_window_pic.png')  # 保存到硬盘
@@ -123,13 +123,13 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_window_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('x')
-        assert self.file.create_window_is_closed()
+        self.create.close_create_window('x')
+        assert self.create.create_window_is_closed()
 
     def test_create_entity_input(self, epcam_ui_start):
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.entity_name_input()
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.entity_name_input()
         engineering_file_create_entity_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_entity_pic.save(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')
@@ -142,12 +142,12 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('x')
+        self.create.close_create_window('x')
 
     def test_create_entity_illegal_input(self, epcam_ui_start):
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.entity_name_illegal_input()
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.entity_name_illegal_input()
         engineering_file_create_entity_illegal_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_entity_illegal_pic.save(
             r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic.png')  # 保存到硬盘
@@ -161,12 +161,12 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('x')
+        self.create.close_create_window('x')
 
     def test_create_database_reset(self, epcam_ui_start):
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.database_input_reset()
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.database_input_reset()
         engineering_file_create_database_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_database_pic.save(
             r'C:\cc\share\temp\engineering_file_create_database_pic.png')  # 保存到硬盘
@@ -180,7 +180,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_database_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('x')
+        self.create.close_create_window('x')
 
     def test_create_new_job_ok(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -188,9 +188,9 @@ class TestUI:
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.create_job('760', 'ok')
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.create_job('760', 'ok')
         engineering_file_create_new_job_ok_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_new_job_ok_pic.save(
             r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic.png')  # 保存到硬盘
@@ -204,16 +204,16 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_create_new_job_apply(self, epcam_ui_start):
         self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.create_job('760', 'apply')
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.create_job('760', 'apply')
         engineering_file_create_new_job_apply_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_new_job_apply_pic.save(
             r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic.png')  # 保存到硬盘
@@ -227,17 +227,17 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_create_exist_job(self, epcam_ui_start):
         self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.create_job('760', 'apply')
-        self.file.create_job('760', 'apply')
-        self.file.create_job('760', 'ok')
+        self.engineering.open_create_window()
+        self.create.create_job('760', 'apply')
+        self.create.create_job('760', 'apply')
+        self.create.create_job('760', 'ok')
         engineering_file_create_exist_job_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_exist_job_pic.save(
             r'C:\cc\share\temp\engineering_file_create_exist_job_pic.png')  # 保存到硬盘
@@ -251,16 +251,16 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_exist_job_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_create_job_entity_none(self, epcam_ui_start):
         self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         engineering_file_create_job_database_none_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_job_database_none_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_entity_none_pic.png')  # 保存到硬盘
@@ -274,19 +274,19 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_entity_none_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_create_job_database_none(self, epcam_ui_start):
         self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.entity_name_input()
-        self.file.clear_database_name()
-        self.file.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.entity_name_input()
+        self.create.clear_database_name()
+        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         engineering_file_create_job_database_none_pic = self.engineering.engineering_window.capture_as_image()
         engineering_file_create_job_database_none_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_database_none_pic.png')  # 保存到硬盘
@@ -300,19 +300,19 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_database_none_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_create_job_database_not_exist(self, epcam_ui_start):
         self.engineering.entity_filter('760')
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()
-        self.file.open_create_window()
-        self.file.clear_entity_name()
-        self.file.entity_name_input()
-        self.file.database_input()
-        self.file.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.engineering.open_create_window()
+        self.create.clear_entity_name()
+        self.create.entity_name_input()
+        self.create.database_input()
+        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         engineering_file_create_job_database_not_exist_pic = self.engineering.engineering_window.capture_as_image()
         engineering_file_create_job_database_not_exist_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_database_not_exist_pic.png')  # 保存到硬盘
@@ -327,8 +327,8 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_database_not_exist_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.file.close_create_window('close')
-        self.file.close_create_window('close')
+        self.create.close_create_window('close')
+        self.create.close_create_window('close')
 
     def test_open_option_menu(self, epcam_ui_start):  # 验证打开Option菜单栏
         """
@@ -505,7 +505,7 @@ class TestUI:
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_Job'))
     def test_open_step_case_4648(self, job_id, epcam_ui_start,
-                           download_file_compressed_entity_filter_delete_all_jobs_import):
+                                 download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道bug ID: 1305 验证打开pcs软件不闪退（影响版本号：beta_2.28.054_s16）
         测试用例ID：4648
@@ -815,7 +815,7 @@ class TestFile:
         self.view_ascii.maximize()
 
         self.view_ascii.scroll_y(y_pixel=10)
-        input_view_ascii_window_scroll_y = self.view_ascii.engineering_input_view_ascii_window.capture_as_image()# 截图
+        input_view_ascii_window_scroll_y = self.view_ascii.engineering_input_view_ascii_window.capture_as_image()  # 截图
         input_view_ascii_window_scroll_y.save(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\input_view_ascii_window_scroll_y.png')
         img_cut = img[5:822, 8:1005]  # 后面的是水平方向
@@ -857,10 +857,10 @@ class TestFile:
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
-        self.input_job.engineering_input_window.click_input(
-            button='right', coords=(page.engineering_file_parameters_coord))
-        self.input_job.engineering_input_window.click_input(
-            coords=(page.engineering_file_parameters_menu_coord))
+        self.input_job.engineering_input_window.click_input(button='right', coords=(
+            page.engineering_file_parameters_coord))
+        self.input_job.engineering_input_window.click_input(coords=(
+            page.engineering_file_parameters_menu_coord))
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
         engineering_input_parameters_pic = self.engineering.engineering_window.capture_as_image()  # 截图
@@ -905,10 +905,10 @@ class TestFile:
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
-        self.input_job.engineering_input_window.click_input(
-            button='right', coords=(page.engineering_file_input_view_graphic_coord))  # 右击层别栏
-        self.input_job.engineering_input_window.click_input(
-            coords=(page.engineering_file_input_view_graphic_menu_coord))
+        self.input_job.engineering_input_window.click_input(button='right', coords=(
+            page.engineering_file_input_view_graphic_coord))  # 右击层别栏
+        self.input_job.engineering_input_window.click_input(coords=(
+            page.engineering_file_input_view_graphic_menu_coord))
 
         engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_view_graphic_pic.png')  # 保存到硬盘
@@ -952,8 +952,8 @@ class TestFile:
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
-        self.input_job.engineering_input_window.click_input(
-            button='right', coords=(page.engineering_file_input_right_click_menu_coord))  # 右击层别栏
+        self.input_job.engineering_input_window.click_input(button='right', coords=(
+            page.engineering_file_input_right_click_menu_coord))  # 右击层别栏
 
         engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_right_click_menu_pic.png')  # 保存到硬盘
@@ -998,8 +998,8 @@ class TestFile:
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
-        self.input_job.engineering_input_window.click_input(
-            coords=(page.engineering_file_input_job_window_menu_coord))  # 左击Input视窗的Job按钮
+        self.input_job.engineering_input_window.click_input(coords=(
+            page.engineering_file_input_job_window_menu_coord))  # 左击Input视窗的Job按钮
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
         engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
@@ -1044,11 +1044,11 @@ class TestFile:
         self.input_job.set_new_job_name('760')
         self.input_job.set_new_step_name('orig')
         self.input_job.set_new_step_name('net')
-        self.input_job.set_new_step_name('pre')#多创建几个step，方便step市场展示
+        self.input_job.set_new_step_name('pre')  # 多创建几个step，方便step市场展示
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
-        self.input_job.engineering_input_window.click_input(
-            coords=(page.engineering_file_input_step_window_menu_coord))  # 左击Input视窗的step按钮
+        self.input_job.engineering_input_window.click_input(coords=(
+            page.engineering_file_input_step_window_menu_coord))  # 左击Input视窗的step按钮
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
         engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
@@ -1064,14 +1064,12 @@ class TestFile:
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
 
-        self.input_job.close_step_window()#关闭step视窗
+        self.input_job.close_step_window()  # 关闭step视窗
         self.input_job.close()
-
-
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols'))
     def test_symbols_open(self, job_id, epcam_ui_start,
-                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+                          download_file_compressed_entity_filter_delete_all_jobs_import):
 
         """
         禅道用例ID：4647 正确打开附件资料的Symbol库
@@ -1081,17 +1079,16 @@ class TestFile:
         """
         download_file_compressed_entity_filter_delete_all_jobs_import(
             job_id)  # 调用 fixture 并传递参数值,下载料号
-        time.sleep(30)#资料比较大，等待30s
+        time.sleep(30)  # 资料比较大，等待30s
 
         self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)  #双击打开symbol库
-        self.engineering.go_up() #双击go up按钮返回到上一级
-        self.engineering.go_up() #再双击go up按钮到软件主界面
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)
+        self.engineering.go_up()  # 双击go up按钮返回到上一级
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
         self.engineering.entity_filter('2344473c_58Te6ao')  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()  # 删除料,不影响后续用例的执行
 
-    def test_cc(self,epcam_ui_start):
+    def test_cc(self, epcam_ui_start):
         pass
-

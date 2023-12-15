@@ -1,20 +1,21 @@
 import os
 import cv2
-import time
 from config_ep import page
 from config import RunConfig
 from cc.cc_method import opencv_compare
 from pywinauto.keyboard import send_keys
 
 
-class PageFile(object):
+class PageCreate(object):
     def __init__(self):
         super().__init__()  # 调用父类的构造函数
         self.engineering_window = RunConfig.driver_epcam_ui.window(**page.engineering_window_para)
 
-    def open_create_window(self):
-        self.engineering_window.click_input(coords=page.engineering_file_coord)  # 单击打开File菜单
-        self.engineering_window.click_input(coords=page.engineering_file_create_coord)  # 单击打开Create窗口
+        # 切换到create job窗口
+        self.engineering_create_window = self.engineering_window.child_window(
+            **page.engineering_create_window_child_window_para)
+
+        self.temp_path = RunConfig.temp_path_base
 
     def close_create_window(self, button):
         if button == 'x':
