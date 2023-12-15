@@ -97,21 +97,16 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=coords)  # 右击画布
         time.sleep(time_sleep)
 
-    def open_step_panelization_by_table(self):
+    def open_close_step_panelization_by_table(self):
         self.graphic_window.click_input(coords=page.graphic_step_coord)
         self.graphic_window.click_input(coords=page.graphic_step_panelzation_coord)
         self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
-
-    def close_by_table_window(self):
-        self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
-
-    def add_new_step_by_table_mirror(self):
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_ok_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_coord)
         self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_yes_coord)
-
+        self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
 
     def right_click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
                            coord_y=page.graphic_canvas_centre_coord[1],time_sleep = 0.5):
@@ -132,3 +127,19 @@ class PageGraphic(object):
             **page.graphic_left_layer_bar_right_click_menu_window_para)
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
             coords=page.graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords)
+
+    def click_canvas_coord(self, coord):
+        self.graphic_window.click_input(coords=coord)
+        time.sleep(0.5)
+
+    def feature_seletion(self):
+        self.graphic_window.click_input(coords=page.graphic_feature_seletion_coord)
+
+    def zoom_home(self):
+        self.graphic_window.click_input(coords=page.graphic_zoom_home_coord)
+
+    def open_close_angle_for_usersymbol(self):
+        self.graphic_window.click_input(coords=page.graphic_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_coord)
+        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_coord)
+        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_ok_coord)

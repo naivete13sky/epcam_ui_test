@@ -21,8 +21,8 @@ engineering_jobList_onlyOneJob_empty_coord = (600, 600)
 engineering_jobList_empty_coord = (800, 600)
 engineering_job_list_in_job_empty_coord = (950, 210)
 
-engineering_jobList_col_space = (135) # engineering窗口job图标x轴中心间距-张
-engineering_jobList_row_space = (170)  # engineering窗口job图标y轴中心间距-张
+engineering_jobList_col_space = 135  # engineering窗口job图标x轴中心间距-张
+engineering_jobList_row_space = 170  # engineering窗口job图标y轴中心间距-张
 
 engineering_file_coord = (20, 40)
 engineering_file_create_coord = (20, 65)
@@ -50,7 +50,7 @@ engineering_option_coord = (190, 40)
 engineering_option_language_coord = (190, 60)
 engineering_option_language_EP_Default_coord = (390, 60)
 engineering_option_language_Simplified_Chinese_coord = (390, 110)
-engineering_option_About_Us_coord = (190,120)
+engineering_option_About_Us_coord = (190, 120)
 engineering_option_close_About_Us_coord = (660, 505)
 
 engineering_job_right_click_open_coord = (20, 10)
@@ -60,7 +60,7 @@ engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
 engineering_inJob_steps_step_fourth_coord = (80 + 520, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
-engineering_inJob_symbols_coord=(80+390,250)
+engineering_inJob_symbols_coord = (80+390, 250)
 
 """ 以下为engineering--import模块信息"""
 engineering_file_import_input_path_coord = (30, 80)  # 变形时，字体太大，异常情况,y = 100
@@ -101,11 +101,11 @@ engineering_file_parameters_coord = (272, 320)
 engineering_file_parameters_menu_coord = (300, 350)
 engineering_file_input_view_graphic_coord = (272, 320)
 engineering_file_input_view_graphic_menu_coord = (300, 330)
-engineering_file_input_right_click_menu_coord = (300, 330)#右击层别栏，调出右击菜单栏
+engineering_file_input_right_click_menu_coord = (300, 330)  # 右击层别栏，调出右击菜单栏
 engineering_file_input_job_window_menu_coord = (56, 85)
-engineering_file_input_job_window_close_menu_coord= (573, 617)
+engineering_file_input_job_window_close_menu_coord = (573, 617)
 engineering_file_input_step_window_menu_coord = (455, 85)
-engineering_file_input_step_window_close_menu_coord= (580, 617)
+engineering_file_input_step_window_close_menu_coord = (580, 617)
 
 
 """ 以下为graphic模块信息"""
@@ -121,22 +121,32 @@ graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
 graphic_by_table_window_close_coord = (1100, 380)
 graphic_step_open_left_two_layer = (180, 190)
 graphic_step_right_home = (1290, 70)
+graphic_edit_coord = (88+66, 40)
+graphic_edit_usersymbol_coord = (88+66, 288)
+graphic_edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
+graphic_edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 
-grahic_left_layer_bar_row_height = 25 # graphic窗口左侧层别栏行高  -张
-graphic_left_layer_bar_first_row_coord = (130, 175) # graphic窗口左侧层别栏第一行的坐标 -张
 
-graphic_canvas_centre_coord = (690, 400) # graphic窗口画布中的坐标 -张
+'''右侧工具栏坐标'''
+graphic_zoom_home_coord = (1295, 80)
+graphic_feature_seletion_coord = (1210, 450)
+
+
+grahic_left_layer_bar_row_height = 25  # graphic窗口左侧层别栏行高  -张
+graphic_left_layer_bar_first_row_coord = (130, 175)  # graphic窗口左侧层别栏第一行的坐标 -张
+
+graphic_canvas_centre_coord = (690, 400)  # graphic窗口画布中的坐标 -张
 graphic_canvas_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
 graphic_canvas_right_click_menu_measure_coords = (40, 60)
 
 graphic_left_layer_bar_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"}
-graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords = (40, 200) # layer右击copper/exposed area坐标 -张
-graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords = (40, 160) # layer右击multi layer copy坐标 -张
+graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords = (40, 200)  # layer右击copper/exposed area坐标 -张
+graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer copy坐标 -张
 
 graphic_copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"}
-graphic_copper_exposed_area_measurement_copper_area_coords = (113, 51) # copper_area单选按钮坐标 -张
-graphic_copper_exposed_area_measurement_exposed_area_coords = (213, 51) # exposed_area单选按钮坐标 -张
-graphic_copper_exposed_area_apply_button_coords = (100, 205) # button按钮坐标 -张
+graphic_copper_exposed_area_measurement_copper_area_coords = (113, 51)  # copper_area单选按钮坐标 -张
+graphic_copper_exposed_area_measurement_exposed_area_coords = (213, 51)  # exposed_area单选按钮坐标 -张
+graphic_copper_exposed_area_apply_button_coords = (100, 205)  # button按钮坐标 -张
 graphic_copper_exposed_area_warning_window_para = {'title': "warning", 'control_type': "Window"}
 
 
@@ -159,13 +169,9 @@ graphic_multi_layer_copy_information_window_para = {'title': "Information", 'con
 graphic_multi_layer_copy_information_ok_button_coords = (150, 110)
 
 
-
-
 graphic_measuremen_mark_window_para = {'title': "Measurement Mark", 'control_type': "Window"}
 graphic_measuremen_mark_first_mode_coords = (25, 75)  # Measuremen Mark窗口第一个mode的坐标 -张
-graphic_measuremen_mark_mode_spacing = (27)  # mode间距 -张
+graphic_measuremen_mark_mode_spacing = 27  # mode间距 -张
 
 """ 以下为matrix模块信息"""
-matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"} # -张
-
-
+matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}  # -张
