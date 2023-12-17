@@ -56,44 +56,46 @@ class PageGraphic(object):
         self.graphic_canvas_right_click_menu_window.click_input(
             coords=page.graphic_canvas_right_click_menu_measure_coords)
 
-    def click_layer(self,job_info,layer, max_layer_row = 24, min_layer_row = 1, button_type = 'left', time_sleep=0.5):
+    def click_layer(self,job_info,layer, max_layer_row = page.graphic_left_layer_bar_max_layer_row,
+                    min_layer_row = page.graphic_left_layer_bar_min_layer_row, button_type = 'left', time_sleep=0.5):
         """
         单击层别
         :param job_info:
         :param layer:
+        :param max_layer_row:
+        :param min_layer_row:
+        :param button_type:
+        :param time_sleep:
+        :return:
         """
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
-        if layer_row <= 24 and max_layer_row == 24 and min_layer_row == 1:
-            coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-            row_height = page.grahic_left_layer_bar_row_height
-            coord_y = 165 + layer_row * row_height - 15
-            self.graphic_window.click_input(button=button_type, coords=(coord_x, coord_y))
+        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+        row_height = page.grahic_left_layer_bar_row_height
+        # coord_y = 165 + layer_row * row_height - 15
+        layer_coord_y = coord_y + (layer_row -1) * row_height
+        if (layer_row <= page.graphic_left_layer_bar_max_layer_row and
+                max_layer_row == page.graphic_left_layer_bar_max_layer_row and
+                min_layer_row == page.graphic_left_layer_bar_min_layer_row):
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
         else:
             if layer_row > max_layer_row:
+                layer_coord_y = coord_y + (page.graphic_left_layer_bar_min_layer_row -1 ) * row_height
                 diff = layer_row - max_layer_row
-                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-                row_height = page.grahic_left_layer_bar_row_height
-                coord_y = 165 + 24 * row_height - 15
                 for num in range(diff):
-                    self.graphic_window.click_input(coords=(230, 750))
+                    self.graphic_window.click_input(coords=page.graphic_left_layer_bar_scroll_bar_bot_button_coords)
                 max_layer_row = layer_row
                 min_layer_row = min_layer_row + diff
             elif layer_row < min_layer_row:
+                layer_coord_y = coord_y
                 diff = min_layer_row - layer_row
-                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-                row_height = page.grahic_left_layer_bar_row_height
-                coord_y = 165 + row_height - 15
                 for num in range(diff):
-                    self.graphic_window.click_input(coords=(230, 170))
+                    self.graphic_window.click_input(coords=page.graphic_left_layer_bar_scroll_bar_top_button_coords)
                 max_layer_row = max_layer_row - diff
                 min_layer_row = min_layer_row - diff
             else:
-                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-                row_height = page.grahic_left_layer_bar_row_height
-                coord_y = 165 + (layer_row - (min_layer_row - 1)) * row_height - 15
-            self.graphic_window.click_input(button=button_type, coords=(coord_x, coord_y))
-
+                layer_coord_y = coord_y + (layer_row - min_layer_row) * row_height
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
         time.sleep(time_sleep)
         print("最大row:{}".format(max_layer_row))
         print("最小row:{}".format(min_layer_row))
@@ -107,7 +109,7 @@ class PageGraphic(object):
         :param coord_y:
         """
         coords= (coord_x, coord_y)
-        self.graphic_window.click_input(button=button_type,coords=coords)  # 右击画布
+        self.graphic_window.click_input(button=button_type,coords=coords)  # 点击击画布
         time.sleep(time_sleep)
 
     def open_step_and_repeat_puzzle_by_table_window(self):

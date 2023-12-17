@@ -147,7 +147,7 @@ class TestGraphicUI:
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
         self.engineering.open_step_by_double_click(job_info, 'net')  # 双击打开panel
         self.graphic = PageGraphic()
-        self.graphic.click_layer(job_info, 'gtl', 10)
+        self.graphic.click_layer(job_info, layer='gtl', time_sleep=10)
         self.graphic.click_canvas(button_type='right')  # 右击画布
         self.graphic.open_measurement_mark_window()  # 打开Measurement Mark窗口
         self.measure = PageMeasurementMark()
