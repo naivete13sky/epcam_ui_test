@@ -80,7 +80,7 @@ class PageGraphic(object):
             self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
         else:
             if layer_row > max_layer_row:
-                layer_coord_y = coord_y + (page.graphic_left_layer_bar_min_layer_row -1 ) * row_height
+                layer_coord_y = coord_y + (page.graphic_left_layer_bar_max_layer_row -1 ) * row_height
                 diff = layer_row - max_layer_row
                 for num in range(diff):
                     self.graphic_window.click_input(coords=page.graphic_left_layer_bar_scroll_bar_bot_button_coords)
