@@ -56,7 +56,7 @@ class PageGraphic(object):
         self.graphic_canvas_right_click_menu_window.click_input(
             coords=page.graphic_canvas_right_click_menu_measure_coords)
 
-    def click_layer(self,job_info,layer,time_sleep=0.5):
+    def click_layer(self,job_info,layer, max_layer_row = 24, min_layer_row = 1, button_type = 'left', time_sleep=0.5):
         """
         单击层别
         :param job_info:
@@ -64,54 +64,56 @@ class PageGraphic(object):
         """
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
-        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-        row_height = page.grahic_left_layer_bar_row_height
-        coord_y = coord_y + (layer_row - 1) * row_height
-        layer_coord = (coord_x, coord_y)
-        self.graphic_window.click_input(coords=layer_coord) # 左击layer
-        time.sleep(time_sleep)
+        if layer_row <= 24 and max_layer_row == 24 and min_layer_row == 1:
+            coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+            row_height = page.grahic_left_layer_bar_row_height
+            coord_y = 165 + layer_row * row_height - 15
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, coord_y))
+        else:
+            if layer_row > max_layer_row:
+                diff = layer_row - max_layer_row
+                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+                row_height = page.grahic_left_layer_bar_row_height
+                coord_y = 165 + 24 * row_height - 15
+                for num in range(diff):
+                    self.graphic_window.click_input(coords=(230, 750))
+                max_layer_row = layer_row
+                min_layer_row = min_layer_row + diff
+            elif layer_row < min_layer_row:
+                diff = min_layer_row - layer_row
+                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+                row_height = page.grahic_left_layer_bar_row_height
+                coord_y = 165 + row_height - 15
+                for num in range(diff):
+                    self.graphic_window.click_input(coords=(230, 170))
+                max_layer_row = max_layer_row - diff
+                min_layer_row = min_layer_row - diff
+            else:
+                coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
+                row_height = page.grahic_left_layer_bar_row_height
+                coord_y = 165 + (layer_row - (min_layer_row - 1)) * row_height - 15
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, coord_y))
 
-    def right_click_layer(self,job_info,layer,time_sleep=0.5):
-        """
-        右击层别
-        :param job_info:
-        :param layer:
-        """
-        layer_info = job_info.get('layer_info')
-        layer_row = int(layer_info.get(layer.upper())['row'])
-        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-        row_height = page.grahic_left_layer_bar_row_height
-        coord_y = coord_y + (layer_row - 1) * row_height
-        layer_coord = (coord_x, coord_y)
-        self.graphic_window.click_input(button='right',coords=layer_coord)  # 右击layer
         time.sleep(time_sleep)
+        print("最大row:{}".format(max_layer_row))
+        print("最小row:{}".format(min_layer_row))
+        return max_layer_row, min_layer_row
 
     def click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
-                           coord_y=page.graphic_canvas_centre_coord[1],time_sleep = 0.5):
+                           coord_y=page.graphic_canvas_centre_coord[1],button_type='left', time_sleep = 0.5):
         """
-        右击画布
+        点击画布
         :param coord_x:
         :param coord_y:
         """
         coords= (coord_x, coord_y)
-        self.graphic_window.click_input(coords=coords)  # 右击画布
+        self.graphic_window.click_input(button=button_type,coords=coords)  # 右击画布
         time.sleep(time_sleep)
 
     def open_step_and_repeat_puzzle_by_table_window(self):
         self.graphic_window.click_input(coords=page.graphic_step_coord)
         self.graphic_window.click_input(coords=page.graphic_step_panelization_coord)
         self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
-
-    def right_click_canvas(self, coord_x=page.graphic_canvas_centre_coord[0],
-                           coord_y=page.graphic_canvas_centre_coord[1], time_sleep = 0.5):
-        """
-        右击画布
-        :param coord_x:
-        :param coord_y:
-        """
-        coords= (coord_x, coord_y)
-        self.graphic_window.click_input(button='right', coords=coords)  # 右击画布
-        time.sleep(time_sleep)
 
     def open_multi_layer_copy_dindow(self):
         """

@@ -1,4 +1,6 @@
 import os
+import time
+
 import pytest
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData, PictureMethod
@@ -16,7 +18,6 @@ class Test_Matrix_UI:
         self.view_graphic = PageViewGraphic()
         self.matrix = PageMatrix()
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_ui_all(self, job_id,epcam_ui_start,
@@ -81,7 +82,6 @@ class Test_Matrix_UI:
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.go_up()  # 鼠标双击go_up
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_change_drill_cross(self,job_id,epcam_ui_start,
@@ -113,7 +113,6 @@ class Test_Matrix_UI:
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.go_up()  # 鼠标双击go_up
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_layer_has_step(self, job_id, epcam_ui_start,
@@ -148,7 +147,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_double_click_step(self, job_id, epcam_ui_start,
@@ -183,7 +181,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_click_layer(self, job_id, epcam_ui_start,
@@ -215,7 +212,6 @@ class Test_Matrix_UI:
         self.matrix.close()
         self.engineering.go_up()
 
-    @pytest.mark.zjr
     @pytest.mark.matrix
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Change_Matrix'))
     def test_matrix_selections_layer(self, job_id, epcam_ui_start,
@@ -249,3 +245,5 @@ class Test_Matrix_UI:
 
         self.matrix.close()
         self.engineering.go_up()
+
+

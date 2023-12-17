@@ -1,3 +1,5 @@
+import pyautogui
+
 from config import RunConfig
 from config_ep import page
 import time
@@ -226,3 +228,76 @@ class PageMatrix(Base,MyMouse):
         """
         self.matrix_window.click_input(coords=coords)
         time.sleep(time_sleep)
+
+    def click_layer_test(self,job_info, layer, max_layer_row = 18, min_layer_row = 0):
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        print("{}的row是{}".format(layer,layer_row))
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+        if layer_row <= 18 and max_layer_row == 18 and min_layer_row == 0:
+            print("进入第1个条件")
+            coord_x = 105 + drill_rout_count * 15
+            coord_y = 140 + 50 + layer_row * 30 - 15
+            self.matrix_window.click_input(coords=(coord_x,coord_y))
+        else:
+            if 18 < layer_row and max_layer_row == 18 and min_layer_row == 0:
+                print("进入第2个条件")
+                self.matrix_window.click_input(coords=(1015,750))
+                max_layer_row = 20
+                min_layer_row = 1
+            if layer_row > max_layer_row:
+                print("进入第3个条件")
+                diff = layer_row - max_layer_row
+                coord_x = 105 + drill_rout_count * 15
+                coord_y = 140 + 20 * 30 - 15
+                print("{}的row比{}大{}".format(layer,max_layer_row,diff))
+                for num in range(diff):
+                    self.matrix_window.click_input(coords=(1015, 750))
+
+                max_layer_row = layer_row
+                min_layer_row = min_layer_row + diff
+
+            elif layer_row < min_layer_row:
+                print("进入第4个条件")
+                diff = min_layer_row - layer_row
+                print("{}比{}的row大{}".format(min_layer_row, layer, diff))
+                coord_x = 105 + drill_rout_count * 15
+                coord_y = 140 + 30 - 15
+                print("diff:",diff)
+                for num in range(diff):
+                    self.matrix_window.click_input(coords=(1015, 145))
+
+                max_layer_row = max_layer_row - diff
+                min_layer_row = min_layer_row - diff
+
+            else:
+                print("进入第5个条件")
+                coord_x = 105 + drill_rout_count * 15
+                coord_y = 140 + (layer_row - 1) * 30 - 15
+                if layer_row <= 20:
+                    print("进入第6个条件")
+                    coord_y = 140 + layer_row * 30 - 15
+                if min_layer_row != 1:
+                    print("进入第7个条件")
+                    coord_y = 140 + (layer_row - (min_layer_row- 1)) * 30 - 15
+
+            self.matrix_window.click_input(coords=(coord_x,coord_y))
+
+        print("最大row:{}".format(max_layer_row))
+        print("最小row:{}".format(min_layer_row))
+        return max_layer_row,min_layer_row
+
+    # def click_layer_top_from_layer(self):
+    #     img_name = "matrix_window"
+    #     large_pic_path = self.capture_image(img_name)
+    #     # self.cut_img(r'C:\cc\share\temp\cc.png',"fisrt_row_second_col.png",[138,190, 35,189])
+    #     small_pic_str = r"matrix\fisrt_row_second_col_2.png"
+    #     small_pic_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+    #                                   small_pic_str)
+    #     print("small_pic_path",small_pic_path)
+    #     print("large_pic_path",large_pic_path)
+    #     top_left, bottom_right=PictureMethod.get_small_pic_position_from_large_pic(small_pic_path, large_pic_path)
+    #     print("top_left",top_left)
+    #     print("bottom_right",bottom_right)
+    #     self.cut_img(large_pic_path,'fisrt_row_second_col',[top_left[1],bottom_right[1],top_left[0],bottom_right[0]])
+    #     return top_left, bottom_right
