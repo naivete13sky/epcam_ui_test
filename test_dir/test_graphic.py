@@ -51,7 +51,7 @@ class TestGraphicUI:
         job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
         self.engineering.open_step_by_double_click(job_info, 'panel')  # 双击打开panel
-        self.graphic.right_click_layer(job_info, 'gtl')  # 右击层别
+        self.graphic.click_layer(job_info, layer='gtl', button_type='right')  # 右击层别
         self.graphic.open_copper_exposed_area_dindow()  # 打开Copper/Exposed Area窗口
         text = self.copper_exposed_area.apply_exposed_area_case_4646('gtl')  # 执行exposed_area功能,mask为空有提示框
         assert text == 'Mask 1 is empty!\n'  # 验证提示框
@@ -148,7 +148,7 @@ class TestGraphicUI:
         self.engineering.open_step_by_double_click(job_info, 'net')  # 双击打开panel
         self.graphic = PageGraphic()
         self.graphic.click_layer(job_info, 'gtl', 10)
-        self.graphic.right_click_canvas()  # 右击画布
+        self.graphic.click_canvas(button_type='right')  # 右击画布
         self.graphic.open_measurement_mark_window()  # 打开Measurement Mark窗口
         self.measure = PageMeasurementMark()
         self.measure.select_measure_mode(5)  # 选择measure_mode
@@ -165,8 +165,8 @@ class TestGraphicUI:
     def test_multi_layer_copy_case_4651(self, job_id, epcam_ui_start,
                                         download_file_compressed_entity_filter_delete_all_jobs_import):
         """
-         测试附件资料使用multi layer copy功能软件不能闪退
-         禅道用例ID：4651
+        测试附件资料使用multi layer copy功能软件不能闪退
+        禅道用例ID：4651
         禅道bug ID:1809
         :param job_id:44120
         :param epcam_ui_start:
@@ -184,7 +184,7 @@ class TestGraphicUI:
         self.engineering.open_step_by_double_click(job_info, 'pcs')
 
         self.graphic = PageGraphic()
-        self.graphic.right_click_layer(job_info, 'gtl')
+        self.graphic.click_layer(job_info, layer='gtl', button_type='right')
         self.graphic.open_multi_layer_copy_dindow()
 
         self.mutli = PageMultiLayerCopy()

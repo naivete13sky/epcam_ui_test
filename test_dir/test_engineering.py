@@ -501,8 +501,6 @@ class TestUI:
         assert '(GO Up) matrix steps symbols' in text
         self.engineering.go_up()  # 鼠标点击，返回到了job list界面
 
-    @pytest.mark.zjr
-    @pytest.mark.engineering
     @pytest.mark.from_bug
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_Job'))
