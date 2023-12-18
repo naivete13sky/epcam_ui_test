@@ -1,6 +1,6 @@
 import pytest
 import os
-from config_ep.page.page_graphic import PageGraphic
+from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.upper_menu_bar.step.page_robotcam import PageRobotCAM
 from config_ep.page.graphic.upper_menu_bar.analysis.page_mrc import PageMRC

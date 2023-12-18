@@ -1,6 +1,6 @@
 import pytest
 import os
-from config_ep.page.page_graphic import PageGraphic
+from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB

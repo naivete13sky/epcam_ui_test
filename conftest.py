@@ -6,7 +6,7 @@ from config import RunConfig
 import pytest
 from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
-from config_ep.page.page_graphic import PageGraphic
+from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_import import PageImport
 from config_g.g_cc_method import G
 from pywinauto.application import Application

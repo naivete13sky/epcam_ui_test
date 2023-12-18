@@ -1,6 +1,6 @@
 import pytest
 import os
-from config_ep.page.page_graphic import PageGraphic
+from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.central_canvas.page_measurement_mark import PageMeasurementMark
 from cc.cc_method import GetTestData
