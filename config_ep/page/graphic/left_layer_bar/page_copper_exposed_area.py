@@ -5,6 +5,7 @@ from cc.cc_method import opencv_compare
 from cc.cc_method import PictureMethod
 from config import RunConfig
 from config_ep import page
+from config_ep.page.graphic import left_layer_bar
 
 class PageCopperExposedArea(object):
     def __init__(self):
@@ -12,7 +13,7 @@ class PageCopperExposedArea(object):
 
         # 切换到copper/exposed area子窗口
         self.copper_exposed_area_window = self.graphic_window.child_window(
-            **page.graphic_copper_exposed_area_window_para)
+            **left_layer_bar.copper_exposed_area_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -57,10 +58,10 @@ class PageCopperExposedArea(object):
         :param mask_2:
         :return:
         """
-        self.copper_exposed_area_window.click_input(coords=page.graphic_copper_exposed_area_measurement_exposed_area_coords)
+        self.copper_exposed_area_window.click_input(coords=left_layer_bar.copper_exposed_area_measurement_exposed_area_coords)
         self.warning_window = RunConfig.driver_epcam_ui.window(
-            **page.graphic_copper_exposed_area_warning_window_para)
-        self.copper_exposed_area_window.click_input(coords=page.graphic_copper_exposed_area_apply_button_coords)
+            **left_layer_bar.copper_exposed_area_warning_window_para)
+        self.copper_exposed_area_window.click_input(coords=left_layer_bar.copper_exposed_area_apply_button_coords)
         if layer_1:
             if mask_1:
                 print("mask_1")

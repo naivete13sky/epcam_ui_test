@@ -1,5 +1,10 @@
 from config import RunConfig
 from config_ep import page
+from config_ep.page import graphic
+from config_ep.page.graphic import upper_menu_bar
+from config_ep.page.graphic import left_layer_bar
+from config_ep.page.graphic import central_canvas
+from config_ep.page.graphic import right_tool_bar
 import time
 import cv2
 import os
@@ -43,21 +48,21 @@ class PageGraphic(object):
         打开Copper/Exposed Area 窗口
         """
         self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
-            **page.graphic_left_layer_bar_right_click_menu_window_para)
+            **left_layer_bar.right_click_menu_window_para)
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
-            coords=page.graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords)
+            coords=left_layer_bar.right_click_menu_copper_exposed_area_coords)
 
     def open_measurement_mark_window(self):
         """
         打开Measurement Mark窗口
         """
         self.graphic_canvas_right_click_menu_window = RunConfig.driver_epcam_ui.window(
-            **page.graphic_left_layer_bar_right_click_menu_window_para)
+            **central_canvas.right_click_menu_window_para)
         self.graphic_canvas_right_click_menu_window.click_input(
-            coords=page.graphic_canvas_right_click_menu_measure_coords)
+            coords=central_canvas.right_click_menu_measure_coords)
 
-    def click_layer(self,job_info,layer, max_layer_row = page.graphic_left_layer_bar_max_layer_row,
-                    min_layer_row = page.graphic_left_layer_bar_min_layer_row, button_type = 'left', time_sleep=0.5):
+    def click_layer(self,job_info,layer, max_layer_row = graphic.left_layer_bar_max_layer_row,
+                    min_layer_row = graphic.left_layer_bar_min_layer_row, button_type = 'left', time_sleep=0.5):
         """
         单击层别
         :param job_info:
@@ -70,27 +75,27 @@ class PageGraphic(object):
         """
         layer_info = job_info.get('layer_info')
         layer_row = int(layer_info.get(layer.upper())['row'])
-        coord_x, coord_y = page.graphic_left_layer_bar_first_row_coord
-        row_height = page.grahic_left_layer_bar_row_height
+        coord_x, coord_y = graphic.left_layer_bar_first_row_coord
+        row_height = graphic.left_layer_bar_row_height
         # coord_y = 165 + layer_row * row_height - 15
         layer_coord_y = coord_y + (layer_row -1) * row_height
-        if (layer_row <= page.graphic_left_layer_bar_max_layer_row and
-                max_layer_row == page.graphic_left_layer_bar_max_layer_row and
-                min_layer_row == page.graphic_left_layer_bar_min_layer_row):
+        if (layer_row <= graphic.left_layer_bar_max_layer_row and
+                max_layer_row == graphic.left_layer_bar_max_layer_row and
+                min_layer_row == graphic.left_layer_bar_min_layer_row):
             self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
         else:
             if layer_row > max_layer_row:
-                layer_coord_y = coord_y + (page.graphic_left_layer_bar_max_layer_row -1 ) * row_height
+                layer_coord_y = coord_y + (graphic.left_layer_bar_max_layer_row -1 ) * row_height
                 diff = layer_row - max_layer_row
                 for num in range(diff):
-                    self.graphic_window.click_input(coords=page.graphic_left_layer_bar_scroll_bar_bot_button_coords)
+                    self.graphic_window.click_input(coords=graphic.left_layer_bar_scroll_bar_bot_button_coords)
                 max_layer_row = layer_row
                 min_layer_row = min_layer_row + diff
             elif layer_row < min_layer_row:
                 layer_coord_y = coord_y
                 diff = min_layer_row - layer_row
                 for num in range(diff):
-                    self.graphic_window.click_input(coords=page.graphic_left_layer_bar_scroll_bar_top_button_coords)
+                    self.graphic_window.click_input(coords=graphic.left_layer_bar_scroll_bar_top_button_coords)
                 max_layer_row = max_layer_row - diff
                 min_layer_row = min_layer_row - diff
             else:
@@ -101,8 +106,8 @@ class PageGraphic(object):
         print("最小row:{}".format(min_layer_row))
         return max_layer_row, min_layer_row
 
-    def click_canvas(self,coord_x=page.graphic_canvas_centre_coord[0],
-                           coord_y=page.graphic_canvas_centre_coord[1],button_type='left', time_sleep = 0.5):
+    def click_canvas(self,coord_x=graphic.canvas_centre_coord[0],
+                           coord_y=graphic.canvas_centre_coord[1],button_type='left', time_sleep = 0.5):
         """
         点击画布
         :param coord_x:
@@ -113,30 +118,30 @@ class PageGraphic(object):
         time.sleep(time_sleep)
 
     def open_step_and_repeat_puzzle_by_table_window(self):
-        self.graphic_window.click_input(coords=page.graphic_step_coord)
-        self.graphic_window.click_input(coords=page.graphic_step_panelization_coord)
-        self.graphic_window.click_input(coords=page.graphic_step_panelization_by_table_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.panelization_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.step_panelization_by_table_coord)
 
     def open_multi_layer_copy_dindow(self):
         """
         打开Multi Layer Copy窗口
         """
         self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
-            **page.graphic_left_layer_bar_right_click_menu_window_para)
+            **left_layer_bar.right_click_menu_window_para)
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
-            coords=page.graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords)
+            coords=left_layer_bar.right_click_menu_multi_layer_copy_coords)
 
     def feature_selection(self):
-        self.graphic_window.click_input(coords=page.graphic_feature_selection_coord)
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_feature_selection_coord)
 
     def zoom_home(self):
-        self.graphic_window.click_input(coords=page.graphic_zoom_home_coord)
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_zoom_home_coord)
 
     def open_close_angle_for_usersymbol(self):
-        self.graphic_window.click_input(coords=page.graphic_edit_coord)
-        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_coord)
-        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_coord)
-        self.graphic_window.click_input(coords=page.graphic_edit_usersymbol_angle_for_usersymbol_ok_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_angle_for_usersymbol_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_angle_for_usersymbol_ok_coord)
 
     def open_analysis_signal_layer_check_windows(self):
         self.graphic_window.click_input(coords=page.graphic_analysis_coord)

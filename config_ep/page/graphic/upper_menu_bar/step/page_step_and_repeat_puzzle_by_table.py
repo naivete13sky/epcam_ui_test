@@ -5,6 +5,7 @@ from cc.cc_method import opencv_compare
 from cc.cc_method import PictureMethod
 from config import RunConfig
 from config_ep import page
+from config_ep.page.graphic import upper_menu_bar
 
 
 class PageStepAndRepeatPuzzleByTable(object):
@@ -13,7 +14,7 @@ class PageStepAndRepeatPuzzleByTable(object):
 
         # 切换到Step And Repeat P_panelization_by_table子窗口
         self.step_and_repeat_puzzle_by_table = self.graphic_window.child_window(
-            **page.graphic_step_step_and_repeat_puzzle_by_table_window_para)
+            **upper_menu_bar.step_and_repeat_puzzle_by_table_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -47,11 +48,11 @@ class PageStepAndRepeatPuzzleByTable(object):
         return rectangle_count == 0
 
     def new_step_mirror(self):
-        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_coord)
-        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_coord)
-        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_pcs_ok_coord)
-        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_coord)
-        self.graphic_window.click_input(coords=page.graphic_by_table_new_step_mirror_yes_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.step_and_repeat_puzzle_by_table_new_step_button_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.step_and_repeat_puzzle_by_table_new_step_pcs_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.graphic_by_table_new_step_pcs_ok_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.graphic_by_table_new_step_mirror_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.graphic_by_table_new_step_mirror_yes_coord)
 
     def close_step_and_repeat_window(self):
-        self.graphic_window.click_input(coords=page.graphic_by_table_window_close_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.graphic_by_table_window_close_coord)

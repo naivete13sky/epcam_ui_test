@@ -114,31 +114,11 @@ engineering_file_input_step_window_close_menu_coord= (580, 617)
 
 """ 以下为graphic模块信息"""
 graphic_window_para = {'title': RunConfig.driver_epcam_ui_graphic_title, 'control_type': "Window"}
-graphic_step_coord = (88, 40)
-graphic_step_panelization_coord = (88, 140)
-graphic_step_panelization_by_table_coord = (320, 170)
 
-graphic_step_step_and_repeat_puzzle_by_table_window_para = {
-    'title': "Step and Repeat Puzzle by Table", 'control_type': "Window"}
-
-graphic_by_table_new_step_coord = (350, 450)
-graphic_by_table_new_step_pcs_coord = (700, 640)
-graphic_by_table_new_step_pcs_ok_coord = (700, 755)
-graphic_by_table_new_step_mirror_coord = (1050, 450)
-graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
-graphic_by_table_window_close_coord = (1100, 380)
 graphic_step_open_left_two_layer = (180, 190)
 graphic_step_right_home = (1290, 70)
-graphic_edit_coord = (88+66, 40)
-graphic_edit_usersymbol_coord = (88+66, 288)
-graphic_edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
-graphic_edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
-
 
 '''右侧工具栏坐标'''
-graphic_zoom_home_coord = (1295, 80)
-graphic_feature_selection_coord = (1210, 450)
-
 graphic_first_layer_coord = (97, 175)
 graphic_right_feature_selection_coord = (1195, 440)
 graphic_select_canvas_feature_coord = (370,485)
@@ -167,53 +147,6 @@ graphic_analysis_coord = (408, 42)
 graphic_analysis_signal_layer_check_coord = (445, 115)
 graphic_analysis_signal_layer_check_windows_run_coord = (758, 940)
 graphic_analysis_signal_layer_check_windows_close_coord = (910, 1000)
-
-
-grahic_left_layer_bar_row_height = 25  # 左侧层别栏行高  -张
-graphic_left_layer_bar_first_row_coord = (130, 175)  # 左侧层别栏第一行的坐标 -张
-graphic_left_layer_bar_max_layer_row = 24 # 左侧层别栏最大初始layer_row  -张
-graphic_left_layer_bar_min_layer_row = 1 # 左侧层别栏最小初始layer_row  -张
-graphic_left_layer_bar_scroll_bar_top_button_coords = (230, 170) # 左侧层别栏最小初始layer_row  -张
-graphic_left_layer_bar_scroll_bar_bot_button_coords = (230, 750) # 左侧层别栏最小初始layer_row  -张
-
-
-graphic_canvas_centre_coord = (690, 400)  # graphic窗口画布中的坐标 -张
-graphic_canvas_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"} # -张
-graphic_canvas_right_click_menu_measure_coords = (40, 60) # 画布右击菜单measure坐标 -张
-
-graphic_left_layer_bar_right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"} # -张
-graphic_left_layer_bar_right_click_menu_copper_exposed_area_coords = (40, 200)  # layer右击copper/exposed area坐标 -张
-graphic_left_layer_bar_right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer copy坐标 -张
-
-graphic_copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
-graphic_copper_exposed_area_measurement_copper_area_coords = (113, 51)  # copper_area单选按钮坐标 -张
-graphic_copper_exposed_area_measurement_exposed_area_coords = (213, 51)  # exposed_area单选按钮坐标 -张
-graphic_copper_exposed_area_apply_button_coords = (100, 205)  # button按钮坐标 -张
-graphic_copper_exposed_area_warning_window_para = {'title': "warning", 'control_type': "Window"} # -张
-
-
-graphic_multi_layer_copy_window_para = {'title': "Multi Layer Copy", 'control_type': "Window"}
-graphic_multi_layer_copy_source_step_button_coords = (60, 85) # 左侧层别右击Multi Layer Copy窗口Dource Step按钮坐标 -张
-graphic_multi_layer_copy_add_layers_button_coords = (60, 115) # 左侧层别右击Multi Layer Copy窗口Add Layers按钮坐标 -张
-graphic_multi_layer_copy_suffix_text_coords = (160, 150) # 左侧层别右击Multi Layer Copy窗口Suffix Text坐标 -张
-graphic_multi_layer_copy_ok_button_coords = (60, 540) # 左侧层别右击Multi Layer Copy窗口OK按钮坐标 -张
-
-graphic_multi_layer_copy_steps_pop_window_para = {'title': "Steps Popup", 'control_type': "Window"} # -张
-graphic_multi_layer_copy_steps_pop_row_spacing = 20 # 左侧层别右击Multi Layer Copy功能Steps窗口行间距 -张
-graphic_multi_layer_copy_steps_pop_first_row_coords = (40, 80) # 左侧层别右击Multi Layer Copy功能Steps窗口第一行间坐标 -张
-
-graphic_multi_layer_copy_layers_pop_window_para = {'title': "Layers Popup", 'control_type': "Window"} # -张
-graphic_multi_layer_copy_layers_pop_row_spacing = 20 # 左侧层别右击Multi Layer Copy功能Layers窗口行间距 -张
-graphic_multi_layer_copy_layers_pop_first_row_coords = (40, 80) # 左侧层别右击Multi Layer Copy功能Layers窗口第一行间坐标 -张
-graphic_multi_layer_copy_layers_pop_ok_button_coords = (70, 320) # 左侧层别右击Multi Layer Copy功能Ok按钮坐标 -张
-
-graphic_multi_layer_copy_information_window_para = {'title': "Information", 'control_type': "Window"} # -张
-graphic_multi_layer_copy_information_ok_button_coords = (150, 110) # Information提示窗口Ok按钮坐标 -张
-
-
-graphic_measuremen_mark_window_para = {'title': "Measurement Mark", 'control_type': "Window"}
-graphic_measuremen_mark_first_mode_coords = (25, 75)  # Measuremen Mark窗口第一个mode的坐标 -张
-graphic_measuremen_mark_mode_spacing = 27  # mode间距 -张
 
 """ 以下为matrix模块信息"""
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}  # -张

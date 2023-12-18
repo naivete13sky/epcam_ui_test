@@ -2,9 +2,9 @@ import os
 import time
 import cv2
 from cc.cc_method import opencv_compare
-from cc.cc_method import PictureMethod
 from config import RunConfig
 from config_ep import page
+from config_ep.page.graphic import central_canvas
 
 class PageMeasurementMark(object):
     def __init__(self):
@@ -12,7 +12,7 @@ class PageMeasurementMark(object):
 
         # 切换到Measurement Mark子窗口
         self.measuremen_mark_window = self.graphic_window.child_window(
-            **page.graphic_measuremen_mark_window_para)
+            **central_canvas.measuremen_mark_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -44,8 +44,9 @@ class PageMeasurementMark(object):
         return rectangle_count == 0
 
     def select_measure_mode(self,mode_index=1):
-        coord_x = page.graphic_measuremen_mark_first_mode_coords[0]
-        coord_y = page.graphic_measuremen_mark_first_mode_coords[1] + (mode_index -1) * page.graphic_measuremen_mark_mode_spacing
+        coord_x = central_canvas.measuremen_mark_first_mode_coords[0]
+        coord_y = (central_canvas.measuremen_mark_first_mode_coords[1] + (mode_index -1) *
+                   central_canvas.measuremen_mark_mode_spacing)
         coords= (coord_x,coord_y)
         self.measuremen_mark_window.click_input(coords=coords)
 

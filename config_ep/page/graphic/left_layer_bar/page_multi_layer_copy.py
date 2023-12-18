@@ -4,6 +4,7 @@ import cv2
 from cc.cc_method import opencv_compare
 from config import RunConfig
 from config_ep import page
+from config_ep.page.graphic import left_layer_bar
 from pywinauto.keyboard import send_keys
 
 class PageMultiLayerCopy(object):
@@ -12,7 +13,7 @@ class PageMultiLayerCopy(object):
 
         # 切换到Multi Layer Copy子窗口
         self.multi_layer_copy_window = self.graphic_window.child_window(
-            **page.graphic_multi_layer_copy_window_para)
+            **left_layer_bar.multi_layer_copy_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -47,13 +48,13 @@ class PageMultiLayerCopy(object):
         if soure_job:
             print("123")
         if soure_step:
-            self.multi_layer_copy_window.click_input(coords=page.graphic_multi_layer_copy_source_step_button_coords)
+            self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_source_step_button_coords)
             self.open_steps_pop_window(job_info,soure_step)
         if suffix:
-            self.multi_layer_copy_window.click_input(coords=page.graphic_multi_layer_copy_suffix_text_coords)
+            self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_suffix_text_coords)
             send_keys(suffix)
         if add_layers:
-            self.multi_layer_copy_window.click_input(coords=page.graphic_multi_layer_copy_add_layers_button_coords)
+            self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_add_layers_button_coords)
             self.open_layers_pop_window(job_info, add_layers)
 
         self.click_ok_button()
@@ -71,11 +72,11 @@ class PageMultiLayerCopy(object):
         step_col = int(step_info.get(step.upper())['col'])
         # 切换到Steps Popup子窗口
         self.steps_pop_window = self.graphic_window.child_window(
-            **page.graphic_multi_layer_copy_steps_pop_window_para)
+            **left_layer_bar.multi_layer_copy_steps_pop_window_para)
 
-        coord_x = page.graphic_multi_layer_copy_steps_pop_first_row_coords[0]
-        coord_y = page.graphic_multi_layer_copy_steps_pop_first_row_coords[1] + (
-                step_col - 1) * page.graphic_multi_layer_copy_steps_pop_row_spacing
+        coord_x = left_layer_bar.multi_layer_copy_steps_pop_first_row_coords[0]
+        coord_y = left_layer_bar.multi_layer_copy_steps_pop_first_row_coords[1] + (
+                step_col - 1) * left_layer_bar.multi_layer_copy_steps_pop_row_spacing
         coords = (coord_x, coord_y)
         self.steps_pop_window.double_click_input(coords=coords)
 
@@ -90,20 +91,20 @@ class PageMultiLayerCopy(object):
             layer_row = int(layer_info.get(layer.upper())['row'])
             # 切换到Layers Popup子窗口
             self.layers_pop_window = self.graphic_window.child_window(
-                **page.graphic_multi_layer_copy_layers_pop_window_para)
+                **left_layer_bar.multi_layer_copy_layers_pop_window_para)
 
-            coord_x = page.graphic_multi_layer_copy_layers_pop_first_row_coords[0]
-            coord_y = page.graphic_multi_layer_copy_layers_pop_first_row_coords[1] + (
-                    layer_row - 1) * page.graphic_multi_layer_copy_layers_pop_row_spacing
+            coord_x = left_layer_bar.multi_layer_copy_layers_pop_first_row_coords[0]
+            coord_y = left_layer_bar.multi_layer_copy_layers_pop_first_row_coords[1] + (
+                    layer_row - 1) * left_layer_bar.multi_layer_copy_layers_pop_row_spacing
             coords = (coord_x, coord_y)
             self.layers_pop_window.click_input(coords=coords)
-        self.layers_pop_window.click_input(coords=page.graphic_multi_layer_copy_layers_pop_ok_button_coords)
+        self.layers_pop_window.click_input(coords=left_layer_bar.multi_layer_copy_layers_pop_ok_button_coords)
 
     def click_ok_button(self):
         """
         点击Ok按钮
         """
-        self.multi_layer_copy_window.click_input(coords=page.graphic_multi_layer_copy_ok_button_coords)
+        self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_ok_button_coords)
 
     def information_pop_window(self):
         """
@@ -111,6 +112,6 @@ class PageMultiLayerCopy(object):
         """
         # 切换到MLayers Popup子窗口
         self.information_window = self.graphic_window.child_window(
-            **page.graphic_multi_layer_copy_information_window_para)
-        self.information_window.click_input(coords=page.graphic_multi_layer_copy_information_ok_button_coords)
+            **left_layer_bar.multi_layer_copy_information_window_para)
+        self.information_window.click_input(coords=left_layer_bar.multi_layer_copy_information_ok_button_coords)
 
