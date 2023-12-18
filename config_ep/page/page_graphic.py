@@ -4,7 +4,6 @@ from config_ep.page import graphic
 from config_ep.page.graphic import upper_menu_bar
 from config_ep.page.graphic import left_layer_bar
 from config_ep.page.graphic import central_canvas
-from config_ep.page.graphic import right_tool_bar
 import time
 import cv2
 import os
