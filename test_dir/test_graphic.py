@@ -80,45 +80,6 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Analysis_MRC'))
-    def test_graphic_mrc_case_4655(self, job_id, epcam_ui_start,
-                                   download_file_compressed_entity_filter_delete_all_jobs_import):
-        """
-        验证不导入json，mrc运行结束后，点击单位切换，软件闪退
-        禅道用例ID：4655
-        关联bug:5486
-        :param job_id:44121
-        :param epcam_ui_start:
-        :return:
-        """
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(
-            job_id)  # 调用 fixture 并传递参数值,下载料号
-        self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        self.engineering.open_steps_by_double_click()
-        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 解压后得odb路径
-        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
-        job_info = {}
-        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'prepare')  # 双击打开prepare
-        self.graphic.graphic_window.click_input(coords=page.graphic_step_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_save_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_ok_information_window_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_step_robotcam_close_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_run_globally_coord)
-        time.sleep(20)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_view_results_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_select_first_results_coord)  #此步可省略，也能闪退
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_mrc_close_results_viewer_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_unit_british_system_coord)
-        self.graphic.close()
-        self.engineering.go_up()
-        self.engineering.go_up()
-    @pytest.mark.from_bug
-    @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_layer'))
     def test_graphic_open_layer_4658(self, job_id, epcam_ui_start):
         """

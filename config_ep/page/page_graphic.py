@@ -145,3 +145,14 @@ class PageGraphic(object):
     def open_analysis_signal_layer_check_windows(self):
         self.graphic_window.click_input(coords=page.graphic_analysis_coord)
         self.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_coord)
+
+    def open_robotcam(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
+        self.graphic_window.click_input(coords=upper_menu_bar.step_robotcam_coords)
+
+    def open_mrc(self):
+        self.graphic_window.click_input(coords=graphic.uper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=upper_menu_bar.analysis_mrc_coords)
+
+    def click_unit_british_system(self):
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_unit_british_system_coords)
