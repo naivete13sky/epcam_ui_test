@@ -1,10 +1,9 @@
 import os
-import time
 
 import pytest
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData, PictureMethod
-from config_ep.page.page_matrix import PageMatrix
+from config_ep.page.graphic.page_matrix import PageMatrix
 from config_ep.page.page_view_graphic import PageViewGraphic
 from config_ep.page.page_graphic import PageGraphic
 from config_ep.base.base import MyODB

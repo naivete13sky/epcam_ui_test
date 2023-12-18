@@ -15,7 +15,7 @@ from config_ep.base.base import Base, MyODB
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.page_input import PageInput
 from config_ep.page.page_graphic import PageGraphic
-from config_ep.page.page_matrix import PageMatrix
+from config_ep.page.graphic.page_matrix import PageMatrix
 from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
 from config_ep.page.page_input_view_ascii import PageInputViewAscii
