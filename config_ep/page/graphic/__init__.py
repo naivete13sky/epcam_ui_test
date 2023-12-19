@@ -2,7 +2,14 @@
 
 """ 以下是上方菜单栏模块信息 """
 upper_menu_bar_step_coord = (88, 40)
+step_panelization_coord = (88, 140)
+step_panelization_by_table_coord = (320, 170)
+
 upper_menu_bar_edit_coord = (88+66, 40)
+edit_usersymbol_coord = (88+66, 288)
+edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
+edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
+
 uper_menu_bar_analysis_coords = ((405, 42))
 
 """以下是左侧层别栏模块信息"""

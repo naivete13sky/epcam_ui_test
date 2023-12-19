@@ -1,8 +1,6 @@
 """"""
 
 """ 以下是Step模块信息 """
-panelization_coord = (88, 140)
-step_panelization_by_table_coord = (320, 170)
 
 step_and_repeat_puzzle_by_table_window_para = {
     'title': "Step and Repeat Puzzle by Table", 'control_type': "Window"}
@@ -21,9 +19,7 @@ robotcam_information_window_para = {'title': "Information", 'control_type': "Win
 robotcam_information_ok_button_coords = (110, 100)
 
 """ 以下是Edit模块信息 """
-edit_usersymbol_coord = (88+66, 288)
-edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
-edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
+
 
 """ 以下是Analysis模块信息 """
 analysis_mrc_coords = (435, 375)

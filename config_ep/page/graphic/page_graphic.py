@@ -118,8 +118,8 @@ class PageGraphic(object):
 
     def open_step_and_repeat_puzzle_by_table_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.panelization_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.step_panelization_by_table_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_by_table_coord)
 
     def open_multi_layer_copy_dindow(self):
         """
@@ -138,9 +138,9 @@ class PageGraphic(object):
 
     def open_close_angle_for_usersymbol(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_angle_for_usersymbol_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.edit_usersymbol_angle_for_usersymbol_ok_coord)
+        self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)
+        self.graphic_window.click_input(coords=graphic.edit_usersymbol_angle_for_usersymbol_coord)
+        self.graphic_window.click_input(coords=graphic.edit_usersymbol_angle_for_usersymbol_ok_coord)
 
     def open_analysis_signal_layer_check_windows(self):
         self.graphic_window.click_input(coords=page.graphic_analysis_coord)
