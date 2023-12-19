@@ -1,7 +1,6 @@
 from config import RunConfig
 from config_ep import page
 from config_ep.page import graphic
-from config_ep.page.graphic import upper_menu_bar
 from config_ep.page.graphic import left_layer_bar
 from config_ep.page.graphic import central_canvas
 import time
@@ -148,11 +147,11 @@ class PageGraphic(object):
 
     def open_robotcam(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
-        self.graphic_window.click_input(coords=upper_menu_bar.step_robotcam_coords)
+        self.graphic_window.click_input(coords=graphic.step_robotcam_coords)
 
     def open_mrc(self):
-        self.graphic_window.click_input(coords=graphic.uper_menu_bar_analysis_coords)
-        self.graphic_window.click_input(coords=upper_menu_bar.analysis_mrc_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.analysis_mrc_coords)
 
     def click_unit_british_system(self):
         self.graphic_window.click_input(coords=graphic.right_tool_bar_unit_british_system_coords)
