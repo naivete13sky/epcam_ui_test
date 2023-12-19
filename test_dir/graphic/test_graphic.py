@@ -4,13 +4,15 @@ from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
 from cc.cc_method import GetTestData
-from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_puzzle_by_table import PageStepAndRepeatPuzzleByTable
+from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_puzzle_by_table \
+    import PageStepAndRepeatPuzzleByTable
 from config_ep import page
 import time
 from config_ep.base.base import Base, MyODB
 import rarfile
 from pathlib import Path
 from config_ep.page.page_input import PageInput
+
 
 class TestGraphicUI:
     def setup_method(self):
@@ -24,7 +26,7 @@ class TestGraphicUI:
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Open_layer'))
     def test_graphic_open_left_two_layer(self, job_id, epcam_ui_start,
-                                 download_file_compressed_entity_filter_delete_all_jobs_import):
+                                         download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         验证打开第二层layer正确显示
         禅道用例ID：4650
@@ -72,8 +74,6 @@ class TestGraphicUI:
         self.graphic.open_analysis_signal_layer_check_windows()
         self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_run_coord)
         self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_close_coord)
-
-
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
@@ -115,6 +115,38 @@ class TestGraphicUI:
         self.graphic.graphic_window.click_input(coords=page.graphic_first_layer_coord)
         self.graphic.graphic_window.click_input(coords=page.graphic_right_home)
         time.sleep(0.10)
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Acs_copy_click'))
+    def test_graphic_case_4672(self, job_id, epcam_ui_start,
+                               download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        禅道BUG：2409
+        禅道用例：4690
+        :param job_id:44553
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        print(job_info['layer_info'])
+        self.engineering.open_step_by_double_click(job_info, 'edit')
+        self.graphic = PageGraphic()
+        self.graphic.click_layer(job_info, 'txt-1-8')
+        self.graphic.zoom_home()
+        self.graphic.feature_selection()
+        self.graphic.click_acs_and_copy()
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
