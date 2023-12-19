@@ -5,6 +5,7 @@ from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestCreateUserSymbol:
     def setup_method(self):
         self.engineering = PageEngineering()
@@ -45,7 +46,7 @@ class TestAngleForUserSymbol:
         self.graphic.zoom_home()
         self.graphic.feature_selection()
         self.graphic.click_canvas(562, 520)
-        self.graphic.open_close_angle_for_usersymbol()
+        self.graphic.open_angle_for_usersymbol_ok()
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

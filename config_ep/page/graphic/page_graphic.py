@@ -7,6 +7,7 @@ import time
 import cv2
 import os
 from cc.cc_method import opencv_compare
+from pywinauto.keyboard import send_keys
 
 
 class PageGraphic(object):
@@ -118,7 +119,7 @@ class PageGraphic(object):
     def open_step_and_repeat_puzzle_by_table_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
         self.graphic_window.click_input(coords=graphic.step_panelization_coord)
-        self.graphic_window.click_input(coords=graphic.step_panelization_by_table_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_step_and_repeat_puzzle_by_table_coord)
 
     def open_multi_layer_copy_dindow(self):
         """
@@ -135,7 +136,7 @@ class PageGraphic(object):
     def zoom_home(self):
         self.graphic_window.click_input(coords=graphic.right_tool_bar_zoom_home_coord)
 
-    def open_close_angle_for_usersymbol(self):
+    def open_angle_for_usersymbol_ok(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_angle_for_usersymbol_coord)
@@ -155,3 +156,15 @@ class PageGraphic(object):
 
     def click_unit_british_system(self):
         self.graphic_window.click_input(coords=graphic.right_tool_bar_unit_british_system_coords)
+
+    def click_acs_and_copy(self):
+        send_keys('^w')
+        self.click_canvas(610, 490)
+        send_keys('^c')
+        self.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.click_canvas(610, 490)
+        self.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.click_canvas(610, 490)
+        send_keys('^c')
+        self.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.click_canvas(610, 490)
