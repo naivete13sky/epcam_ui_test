@@ -7,8 +7,9 @@ import cv2
 import os
 from cc.cc_method import opencv_compare
 from cc.cc_method import PictureMethod
-from config_ep.base.base import Base
+from config_ep.base.base import Base, MyODB
 from config_ep.base.base import MyMouse
+from pywinauto.keyboard import send_keys
 
 
 class PageMatrix(Base,MyMouse):
@@ -301,3 +302,15 @@ class PageMatrix(Base,MyMouse):
     #     print("bottom_right",bottom_right)
     #     self.cut_img(large_pic_path,'fisrt_row_second_col',[top_left[1],bottom_right[1],top_left[0],bottom_right[0]])
     #     return top_left, bottom_right
+
+    def rename_step_open(self, job_info, step, step_name):
+        step_info = job_info.get('step_info')
+        step_col = int(step_info.get(step.upper())['col'])
+        coord_x = 220 + (step_col - 1) * 100
+        coord_y = 160
+        coord = (coord_x, coord_y)
+        self.matrix_click(coord)
+        self.matrix_click(coords=page.matrix.step_name_input_coord)
+        send_keys('^a')
+        send_keys(step_name)
+        self.matrix_double_click(coord)

@@ -168,3 +168,7 @@ class PageGraphic(object):
         send_keys('^c')
         self.graphic_window.click_input(coords=page.graphic.acs_coord)
         self.click_canvas(610, 490)
+
+    def open_add_solt_by_drillmap_window(self):
+        self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
