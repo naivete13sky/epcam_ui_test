@@ -1,6 +1,7 @@
 import os
 import pytest
 from config_ep.page.graphic.page_graphic import PageGraphic
+from config_ep.page.graphic.upper_menu_bar.edit.page_add_slot_by_drillmap import PageAddSlotByDrillmap
 from config_ep.page.matrix.page_matrix import PageMatrix
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData
@@ -13,12 +14,14 @@ class TestAddSlotByDrillmap:
         self.engineering.engineering_window.set_focus()
         self.matrix = PageMatrix()
         self.graphic = PageGraphic()
+        self.add_slot_by_drlmap = PageAddSlotByDrillmap()
 
     @pytest.mark.from_bug
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Add_slot_by_drlmap'))
     def test_graphic_add_slot_by_drillmap_case_44555(self, job_id, epcam_ui_start,
                                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+
         """
         禅道BUG：2573
         禅道用例：4692
@@ -39,7 +42,10 @@ class TestAddSlotByDrillmap:
         self.graphic.click_layer(job_info, 'drl1-4')
         self.graphic.click_layer(job_info, 'drillmap')
         self.graphic.open_add_solt_by_drillmap_window()
-
-        # self.graphic.close()
-        # self.engineering.go_up()
-        # self.engineering.go_up()
+        self.add_slot_by_drlmap = PageAddSlotByDrillmap()
+        self.add_slot_by_drlmap.layer_input('drl1-4')
+        self.add_slot_by_drlmap.maplayer_input('drillmap')
+        self.add_slot_by_drlmap.add_slot_by_dilmap_ok()
+        self.graphic.close()
+        self.matrix.close()
+        self.engineering.go_up()
