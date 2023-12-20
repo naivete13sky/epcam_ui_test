@@ -13,11 +13,15 @@ graphic_by_table_window_close_coord = (1100, 380)
 
 
 robotcam_window_para = {'title': "RobotCAM", 'control_type': "Window"}
-robotcam_save_button_coords = ((735, 140))
+robotcam_save_button_coords = (735, 140)
 robotcam_information_window_para = {'title': "Information", 'control_type': "Window"}
 robotcam_information_ok_button_coords = (110, 100)
 """ 以下是Edit模块信息 """
-
+edit_create_usersymbol_window_para = {'title': "Create UserSymbol", 'control_type': "Window"}
+edit_create_symbol_name_coord = (108, 51)    #symbol名称文本框的坐标
+edit_create_usersymbol_ok_coord = (63, 230)
+create_usersymbol_information_window_para = {'title': "Information", 'control_type': "Window"}
+create_usersymbol_information_ok_button_coord = (192, 98)    #usersymbol的子弹窗坐标
 
 """ 以下是Analysis模块信息 """
 mrc_window_para = {'title': "MRC", 'control_type': "Window"}

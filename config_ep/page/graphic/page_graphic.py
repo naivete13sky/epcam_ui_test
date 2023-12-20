@@ -142,19 +142,30 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_angle_for_usersymbol_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_angle_for_usersymbol_ok_coord)
 
+    def open_create_usersymbol(self):
+        """
+        打开edit菜单栏下的Creat_UserSymbol窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)
+        self.graphic_window.click_input(coords=graphic.edit_usersymbol_create_usersymbol_coord)
+
     def open_analysis_signal_layer_check_windows(self):
         self.graphic_window.click_input(coords=page.graphic_analysis_coord)
         self.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_coord)
 
     def open_robotcam(self):
+        """打开step菜单栏下的robotcam窗口"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
         self.graphic_window.click_input(coords=graphic.step_robotcam_coords)
 
     def open_mrc(self):
+        """打开Analysis菜单栏下的mrc窗口"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.analysis_mrc_coords)
 
     def click_unit_british_system(self):
+        """切换graphic主界面的单位"""
         self.graphic_window.click_input(coords=graphic.right_tool_bar_unit_british_system_coords)
 
     def click_acs_and_copy(self):
