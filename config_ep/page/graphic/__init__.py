@@ -7,6 +7,12 @@ step_panelization_step_and_repeat_puzzle_by_table_coord = (320, 170)
 step_robotcam_coords = (135, 190)
 
 upper_menu_bar_edit_coord = (88+66, 40)
+edit_connection_coord = (88+66, 220)
+edit_connection_area_zoom_1_coord = (390, 390)
+edit_connection_area_zoom_2_coord = (400, 410)
+edit_connection_canvas_select_line_coord = (740, 300)
+edit_connection_canvas_select_arc_coord = (900, 470)
+
 edit_usersymbol_coord = (88+66, 288)
 edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
 edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
@@ -32,8 +38,10 @@ canvas_centre_coord = (690, 400)  # 画布中心坐标（大概位置） -张
 acs_coord = (280, 777)
 
 """ 以下是右侧工具栏模块信息 """
-right_tool_bar_zoom_home_coord = (1295, 80)
+right_tool_bar_zoom_home_coord = (1295, 85)  # 工具栏间距大概是40
+right_tool_bar_area_zoom_coord = (1210, 250)
 right_tool_bar_feature_selection_coord = (1210, 450)
+right_tool_bar_select_by_net_coord = (1340, 450)
 right_tool_bar_unit_british_system_coords = (1245, 760)
 
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
