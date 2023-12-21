@@ -8,6 +8,7 @@ import cv2
 import os
 from cc.cc_method import opencv_compare
 from pywinauto.keyboard import send_keys
+import pyautogui
 
 
 class PageGraphic(object):
@@ -60,8 +61,9 @@ class PageGraphic(object):
         self.graphic_canvas_right_click_menu_window.click_input(
             coords=central_canvas.right_click_menu_measure_coords)
 
-    def click_layer(self,job_info,layer, max_layer_row = graphic.left_layer_bar_max_layer_row,
-                    min_layer_row = graphic.left_layer_bar_min_layer_row, button_type = 'left', time_sleep=0.5):
+    def click_layer(self,job_info:dict,layer:str, max_layer_row:int = graphic.left_layer_bar_max_layer_row,
+                    min_layer_row:int = graphic.left_layer_bar_min_layer_row, button_type:str = 'left',
+                    time_sleep:float=0.5):
         """
         单击层别
         :param job_info:
@@ -105,15 +107,29 @@ class PageGraphic(object):
         print("最小row:{}".format(min_layer_row))
         return max_layer_row, min_layer_row
 
-    def click_canvas(self,coord_x=graphic.canvas_centre_coord[0],
-                           coord_y=graphic.canvas_centre_coord[1],button_type='left', time_sleep = 0.5):
+    def click_canvas(self,coord_x:float=graphic.canvas_centre_coord[0],
+                           coord_y:float=graphic.canvas_centre_coord[1],
+                     button_type:str='left', time_sleep:float = 0.5):
+        """
+        点击画布
+        :param coord_x:
+        :param coord_y:
+        :param button_type:
+        :param time_sleep:
+        """
+        coords= (coord_x, coord_y)
+        self.graphic_window.click_input(button=button_type,coords=coords)  # 点击画布
+        time.sleep(time_sleep)
+
+    def double_click_canvas(self,coord_x:float=graphic.canvas_centre_coord[0],
+                           coord_y:float=graphic.canvas_centre_coord[1],button_type='left', time_sleep = 0.5):
         """
         点击画布
         :param coord_x:
         :param coord_y:
         """
         coords= (coord_x, coord_y)
-        self.graphic_window.click_input(button=button_type,coords=coords)  # 点击击画布
+        self.graphic_window.double_click_input(button=button_type,coords=coords)  # 双击
         time.sleep(time_sleep)
 
     def open_step_and_repeat_puzzle_by_table_window(self):
@@ -183,3 +199,40 @@ class PageGraphic(object):
     def open_add_solt_by_drillmap_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
+
+
+    def open_chain(self):
+        """
+        打开上方菜单栏ROUT的chain功能
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_rout_coords)
+        self.graphic_window.click_input(coords=graphic.rout_chain_coords)
+
+    def click_delete_feature(self,delete_type:int=0):
+        """
+        点击右侧工具栏delete_feature功能
+        :param delete_type:0代表delete feature类型,1代表delete_to_intresetion类型
+        """
+        if delete_type in (0, 1):
+            if delete_type == 0:
+                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_feature_coords)
+            else:
+                self.graphic_window.click_input(button="right",coords=graphic.right_tool_bar_delete_feature_coords)
+                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_to_intresetion_coords)
+        else:
+            raise ValueError("Parameter must be 0 or 1")
+
+    def execute_delete_to_intresetion(self,coord_x:float,coord_y:float,key_downs:int=0,time_sleep:float=0.5):
+        """
+        使用delete_to_intresetion功能
+        :param coord_x:
+        :param coord_y:
+        :param key_downs:
+        :param time_sleep:
+        """
+        self.graphic_window.click_input(coords=(coord_x,coord_y))
+        time.sleep(time_sleep)
+        for key in range(key_downs):
+            pyautogui.keyDown('n')
+        time.sleep(time_sleep)
+        self.graphic_window.double_click_input(coords=(coord_x, coord_y))

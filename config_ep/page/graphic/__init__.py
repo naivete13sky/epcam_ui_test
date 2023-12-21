@@ -16,6 +16,9 @@ edit_add_solt_by_drillmap_coord = (88+66, 498)
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 
+upper_menu_bar_rout_coords =  (560, 40) # 上方菜单栏的rout坐标 -张
+rout_chain_coords = (570, 65) # rout下拉列表的chain坐标 -张
+
 """以下是左侧层别栏模块信息"""
 left_layer_bar_row_height = 25  # 行高  -张
 left_layer_bar_first_row_coord = (130, 175)  # 第一行的坐标 -张
@@ -32,3 +35,6 @@ acs_coord = (280, 777)
 right_tool_bar_zoom_home_coord = (1295, 80)
 right_tool_bar_feature_selection_coord = (1210, 450)
 right_tool_bar_unit_british_system_coords = (1245, 760)
+
+right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
+right_tool_bar_delete_to_intresetion_coords = (1290, 320) # 右侧工具栏delete_to_intresetion功能坐标 -张
