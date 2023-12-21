@@ -187,18 +187,6 @@ class PageGraphic(object):
         """切换graphic主界面的单位"""
         self.graphic_window.click_input(coords=graphic.right_tool_bar_unit_british_system_coords)
 
-    def click_acs_and_copy(self):
-        send_keys('^w')
-        self.click_canvas(610, 490)
-        send_keys('^c')
-        self.graphic_window.click_input(coords=page.graphic.acs_coord)
-        self.click_canvas(610, 490)
-        self.graphic_window.click_input(coords=page.graphic.acs_coord)
-        self.click_canvas(610, 490)
-        send_keys('^c')
-        self.graphic_window.click_input(coords=page.graphic.acs_coord)
-        self.click_canvas(610, 490)
-
     def open_add_solt_by_drillmap_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
@@ -239,17 +227,7 @@ class PageGraphic(object):
         time.sleep(time_sleep)
         self.graphic_window.double_click_input(coords=(coord_x, coord_y))
 
-    def connection_area_zoom(self):
-        self.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_1_coord)
-        self.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_2_coord)
-
     def open_connection_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
 
-    def click_canvas_select_line_arc(self):
-        send_keys('^w')
-        send_keys("{VK_SHIFT down}")
-        self.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_line_coord)
-        self.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_arc_coord)
-        send_keys("{VK_SHIFT up}")
