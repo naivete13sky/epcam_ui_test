@@ -33,7 +33,7 @@ class TestChain:
         self.engineering.open_step_by_double_click(job_info, 'set')  # 双击打开panel
         self.graphic.open_chain() # 打开chain窗口
         self.chain = PageChain()
-        self.chain.chain_no_crash_with_file('22',1)
+        self.chain.create_chain('22',1)
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

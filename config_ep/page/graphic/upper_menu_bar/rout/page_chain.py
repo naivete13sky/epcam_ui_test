@@ -51,24 +51,24 @@ class PageChain(object):
 
     def set_rout_layer(self,rout_layer:str):
         """
-        向rout layer文本框中输入文本
+        输入rout layer
         :param rout_layer:
         """
         self.chain_window.click_input(coords=upper_menu_bar.chain_layer_text_coords)
         send_keys('^a')
         send_keys(rout_layer)
 
-    def set_tool_size(self, tool_size:int):
+    def set_tool_size(self, tool_size:float):
         """
-        向tool_size文本框输入文本
+        输入tool size
         """
         self.chain_window.click_input(coords=upper_menu_bar.chain_tool_size_text_coords)
         send_keys('^a')
         send_keys(str(tool_size))
 
-    def chain_no_crash_with_file_case_4689(self,rout_layer:str,tool_size:int):
+    def create_chain(self,rout_layer:str,tool_size:float):
         """
-        附件资料使用chain功能不闪退
+        创建捞
         :param rout_layer:
         :param tool_size
         """
