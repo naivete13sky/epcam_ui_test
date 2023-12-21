@@ -24,3 +24,12 @@ mrc_window_para = {'title': "MRC", 'control_type': "Window"}
 mrc_run_globally_button_coords = (35, 150)
 mrc_viewer_result_button_coords = (440, 150)
 mrc_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Window"}
+
+""" 以下是ROUT模块信息 """
+chain_window_para = {'title': "Chain", 'control_type': "Window"}
+chain_layer_button_coords = (50, 50)
+chain_layer_text_coords = (105, 50)
+chain_tool_size_text_coords = (170, 410)
+chain_ok_button_coords = (80, 640)
+chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
+chain_dialog_box_yes_button_coords = (275, 100)

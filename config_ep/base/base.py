@@ -146,3 +146,11 @@ class MyMouse:
         pyautogui.moveTo(coord_x, coord_y, duration=duration)  # 移动鼠标到指定位置（x，y），duration控制拖动速度
         pyautogui.mouseUp(button='left')  # 模拟释放鼠标左键
 
+    @staticmethod
+    def mouse_scroll(clicks:int):
+        """
+        模拟鼠标滚动
+        ：param pixel:滚动像素。100,模拟向上滚动100像素；-100，模拟向下滚动100像素。
+        """
+        pyautogui.scroll(clicks=clicks)
+
