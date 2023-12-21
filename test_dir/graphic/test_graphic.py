@@ -1,5 +1,8 @@
 import pytest
 import os
+
+from pywinauto.keyboard import send_keys
+
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
@@ -146,7 +149,16 @@ class TestGraphicUI:
         self.graphic.click_layer(job_info, 'txt-1-8')
         self.graphic.zoom_home()
         self.graphic.feature_selection()
-        self.graphic.click_acs_and_copy()
+        send_keys('^w')
+        self.graphic.click_canvas(610, 490)
+        send_keys('^c')
+        self.graphic.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.graphic.click_canvas(610, 490)
+        self.graphic.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.graphic.click_canvas(610, 490)
+        send_keys('^c')
+        self.graphic.graphic_window.click_input(coords=page.graphic.acs_coord)
+        self.graphic.click_canvas(610, 490)
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

@@ -1,5 +1,8 @@
 import os
 import pytest
+from config_ep import page
+from pywinauto.keyboard import send_keys
+
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.matrix.page_matrix import PageMatrix
 from config_ep.page.graphic.page_graphic import PageGraphic
@@ -41,9 +44,14 @@ class TestConnection:
         self.graphic.click_layer(job_info, 'rout')
         self.graphic.zoom_home()
         self.graphic.area_zoom()
-        self.graphic.connection_area_zoom()
+        self.graphic.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_1_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_2_coord)
         self.graphic.feature_selection()
-        self.graphic.click_canvas_select_line_arc()
+        send_keys('^w')
+        send_keys("{VK_SHIFT down}")
+        self.graphic.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_line_coord)
+        self.graphic.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_arc_coord)
+        send_keys("{VK_SHIFT up}")
         self.graphic.open_connection_window()
         self.connection.click_apply_button()
         self.connection.close()
