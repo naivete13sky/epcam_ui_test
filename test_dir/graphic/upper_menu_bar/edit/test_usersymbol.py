@@ -38,10 +38,10 @@ class TestCreateUserSymbol:
         self.graphic = PageGraphic()
         self.graphic.click_layer(job_info, 'l1')
         self.graphic.feature_selection()
-        self.graphic.click_canvas(562, 520)   #选中物件的坐标（画布）
-        self.graphic.open_create_usersymbol()    #打开Creat UserSymbol窗口
+        self.graphic.click_canvas(562, 520)   # 选中物件的坐标（画布）
+        self.graphic.open_create_usersymbol()    # 打开Creat UserSymbol窗口
         self.creat = PageCreateUserSymbol()
-        self.creat.symbol_name(symbol='r10')   #给选中symbol输入一个名称
+        self.creat.symbol_name(symbol='r10')   # 给选中symbol输入一个名称
         self.creat.click_ok_button()
         self.graphic.close()
         self.engineering.go_up()
@@ -80,6 +80,7 @@ class TestCreateUserSymbol:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
+
 
 class TestAngleForUserSymbol:
     def setup_method(self):

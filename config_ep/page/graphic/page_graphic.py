@@ -136,6 +136,9 @@ class PageGraphic(object):
     def zoom_home(self):
         self.graphic_window.click_input(coords=graphic.right_tool_bar_zoom_home_coord)
 
+    def area_zoom(self):
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_area_zoom_coord)
+
     def open_angle_for_usersymbol_ok(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)
@@ -183,3 +186,18 @@ class PageGraphic(object):
     def open_add_solt_by_drillmap_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
+
+    def connection_area_zoom(self):
+        self.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_1_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_connection_area_zoom_2_coord)
+
+    def open_connection_window(self):
+        self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
+
+    def click_canvas_select_line_arc(self):
+        send_keys('^w')
+        send_keys("{VK_SHIFT down}")
+        self.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_line_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_connection_canvas_select_arc_coord)
+        send_keys("{VK_SHIFT up}")
