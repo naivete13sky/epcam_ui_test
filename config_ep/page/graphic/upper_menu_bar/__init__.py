@@ -3,15 +3,13 @@
 """ 以下是Step模块信息 """
 step_and_repeat_puzzle_by_table_window_para = {
     'title': "Step and Repeat Puzzle by Table", 'control_type': "Window"}
-step_and_repeat_puzzle_by_table_new_step_button_coord = (350, 450)
-step_and_repeat_puzzle_by_table_new_step_pcs_coord = (700, 640)
+step_and_repeat_puzzle_by_table_new_step_button_coord = (110, 85)
+step_and_repeat_puzzle_by_table_mirror_button_coord = (800, 85)
+step_and_repeat_puzzle_by_table_mirror_yes_button_coord = (800, 130)
 
-
-graphic_by_table_new_step_pcs_ok_coord = (700, 755)
-graphic_by_table_new_step_mirror_coord = (1050, 450)
-graphic_by_table_new_step_mirror_yes_coord = (1050, 500)
-graphic_by_table_window_close_coord = (1100, 380)
-
+step_and_repeat_puzzle_by_table_steps_popup_window_para = {'title': "Steps Popup", 'control_type': "Window"}
+steps_popup_pcs_step_coord = (45, 160)
+steps_popup_ok_button_coord = (70, 285)
 
 robotcam_window_para = {'title': "RobotCAM", 'control_type': "Window"}
 robotcam_save_button_coords = (735, 140)

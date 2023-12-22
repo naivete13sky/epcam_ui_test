@@ -1,5 +1,7 @@
 import pytest
 import os
+
+from config_ep.page.graphic import upper_menu_bar
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
@@ -50,8 +52,11 @@ class TestStepAndRepeatPuzzleByTable:
         self.graphic.click_layer(job_info, 'drill-map')
         self.graphic.open_step_and_repeat_puzzle_by_table_window()
         self.step_and_repeat = PageStepAndRepeatPuzzleByTable()
-        self.step_and_repeat.new_step_mirror()
-        self.step_and_repeat.close_step_and_repeat_window()
+        self.step_and_repeat.new_step_button()
+        self.step_and_repeat.steps_popup_window.click_input(coords=upper_menu_bar.steps_popup_pcs_step_coord)
+        self.step_and_repeat.steps_popup_ok_button()
+        self.step_and_repeat.step_mirror()
+        self.step_and_repeat.close()
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
