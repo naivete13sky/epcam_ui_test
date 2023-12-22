@@ -1,12 +1,18 @@
 """ 以下为graphic模块信息"""
 
 """ 以下是上方菜单栏模块信息 """
+file_coord = (35, 40)
+file_close_coord = (35, 90)
+
 upper_menu_bar_step_coord = (88, 40)
 step_panelization_coord = (88, 140)
 step_panelization_step_and_repeat_puzzle_by_table_coord = (320, 170)
 step_robotcam_coords = (135, 190)
 
 upper_menu_bar_edit_coord = (160, 40)
+edit_resize_coord = (160, 170)
+edit_resize_global_coord = (470, 170)
+
 edit_connection_coord = (160, 220)
 edit_connection_area_zoom_1_coord = (390, 390)
 edit_connection_area_zoom_2_coord = (400, 410)

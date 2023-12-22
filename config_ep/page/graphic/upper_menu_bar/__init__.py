@@ -18,6 +18,12 @@ robotcam_information_ok_button_coords = (110, 100)
 
 
 """ 以下是Edit模块信息 """
+edit_global_window_para = {'title': "Global", 'control_type': "Window"}
+edit_global_size_input_coord = (140, 50)
+edit_global_ok_button_coord = (55, 135)
+edit_global_information_window_para = {'title': "Information", 'control_type': "Window"}
+edit_global_information_yes_button_coord = (230, 90)
+
 edit_connection_window_para = {'title': "Connection", 'control_type': "Window"}
 edit_connection_apply_coord = (90, 235)
 edit_connection_information_ok_coord = (90, 235)
