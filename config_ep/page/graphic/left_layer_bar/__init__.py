@@ -3,6 +3,7 @@
 right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"} # -张
 right_click_menu_copper_exposed_area_coords = (40, 200)  # layer右击copper/exposed area坐标 -张
 right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer copy坐标 -张
+right_click_menu_split_layer_coords = (40, 360) # layer右击split layer坐标 -张
 
 """ 以下是Copper/Exposed Area功能模块信息 """
 copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
@@ -27,5 +28,9 @@ multi_layer_copy_layers_pop_row_spacing = 20 # 左侧层别右击Multi Layer Cop
 multi_layer_copy_layers_pop_first_row_coords = (40, 80) # 左侧层别右击Multi Layer Copy功能Layers窗口第一行间坐标 -张
 multi_layer_copy_layers_pop_ok_button_coords = (70, 320) # 左侧层别右击Multi Layer Copy功能Ok按钮坐标 -张
 
-multi_layer_copy_information_window_para = {'title': "Information", 'control_type': "Window"} # -张
-multi_layer_copy_information_ok_button_coords = (150, 110) # Information提示窗口Ok按钮坐标 -张
+split_layer_window_para = {'title': "Split Layer", 'control_type': "Window"}
+split_layer_text_para = (105, 55)
+split_layer_attribute_button_coodrs = (155, 145)
+
+information_window_para = {'title': "Information", 'control_type': "Window"} # -张
+information_ok_button_coords = (150, 100) # Information提示窗口Ok按钮坐标 -张

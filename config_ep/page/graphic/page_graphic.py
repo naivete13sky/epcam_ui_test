@@ -231,3 +231,14 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
 
+
+    def open_split_layer_window(self):
+        """
+        打开Split Layer窗口
+        """
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **left_layer_bar.right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=left_layer_bar.right_click_menu_split_layer_coords)
+        # self.graphic_left_layer_bar_right_click_menu_window.click_input(
+        #     coords=(30, 285)) # 2.29.055_s17版本坐标
