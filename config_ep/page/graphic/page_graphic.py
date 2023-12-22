@@ -231,3 +231,7 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
 
+    def open_substitute_window(self):
+        self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_reshape_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_reshape_substitute_coord)

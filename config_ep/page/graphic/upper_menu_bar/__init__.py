@@ -22,6 +22,11 @@ edit_connection_window_para = {'title': "Connection", 'control_type': "Window"}
 edit_connection_apply_coord = (90, 235)
 edit_connection_information_ok_coord = (90, 235)
 
+edit_reshape_substitute_window_para = {'title': "Substitute", 'control_type': "Window"}
+edit_reshape_substitute_symbol_input_coord = (200, 85)
+edit_reshape_substitute_ok_button_coord = (60, 205)
+edit_reshape_substitute_information_window_para = {'title': "Information", 'control_type': "Window"}
+edit_reshape_substitute_information_ok_button_coord = (270, 100)
 
 edit_create_usersymbol_window_para = {'title': "Create UserSymbol", 'control_type': "Window"}
 edit_create_symbol_name_coord = (108, 51)    # symbol名称文本框的坐标
