@@ -3,6 +3,7 @@
 right_click_menu_window_para = {'title': "EP-CAM", 'control_type': "Pane"} # -张
 right_click_menu_copper_exposed_area_coords = (40, 200)  # layer右击copper/exposed area坐标 -张
 right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer copy坐标 -张
+right_click_menu_mark_note_coords = (40, 255)
 
 """ 以下是Copper/Exposed Area功能模块信息 """
 copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
@@ -29,3 +30,23 @@ multi_layer_copy_layers_pop_ok_button_coords = (70, 320) # 左侧层别右击Mul
 
 multi_layer_copy_information_window_para = {'title': "Information", 'control_type': "Window"} # -张
 multi_layer_copy_information_ok_button_coords = (150, 110) # Information提示窗口Ok按钮坐标 -张
+
+
+"""以下是Mark Note功能模块信息"""
+right_mark_note_window_para = {'title': "Mark Note", 'control_type': "Window"}
+right_mark_note_delete_all_notes_from_the_list_coords = (405, 60)
+right_mark_note_delete_note_from_the_list_coords = (350, 60)
+right_mark_note_right_coords = (310, 60)
+right_mark_note_left_coords = (270, 60)
+right_mark_note_add_new_note_coords = (230, 60)
+right_mark_note_copy_note_coords = (190, 60)
+right_mark_note_delete_note_by_mouse_coords = (150, 60)
+right_mark_note_move_note_coords = (90, 55)
+right_mark_note_select_note_coords = (50, 60)
+right_mark_note_click_box_note_coords = (180, 182)  #点击mark note窗口中显示框中的任意一个已存在的note标记
+
+right_mark_note_no_note_information_window_para = {'title': "Information", 'control_type': "Window"}  #层别里无note标记的提示窗
+right_mark_note_no_note_information_ok_button_coords = (130, 98)
+
+right_mark_note_delete_note_information_window_para = {'title': "Information", 'control_type': "Window"}  #层别里有note标记的提示窗
+right_mark_note_delete_note_information_ok_button_coords = (203, 100)

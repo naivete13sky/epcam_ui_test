@@ -15,6 +15,12 @@ edit_usersymbol_create_usersymbol_coord = (460, 280)
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 
+upper_menu_bar_dfm_coords =(487, 40)
+dfm_cleanup_coords = (500, 64)
+construct_pad_coords = (815, 257)
+
+upper_menu_bar_edit_undo_coords = (160, 68)
+
 """以下是左侧层别栏模块信息"""
 left_layer_bar_row_height = 25  # 行高  -张
 left_layer_bar_first_row_coord = (130, 175)  # 第一行的坐标 -张
