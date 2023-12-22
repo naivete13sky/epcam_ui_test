@@ -60,6 +60,28 @@ mrc_viewer_result_button_coords = (440, 150)
 mrc_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Window"}
 
 
+""" 以下是DFM模块信息 """
+dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", 'control_type': "Window"}
+dynamic_etch_compensation_compensation_functions_first_button_coords = (105, 165)
+dynamic_etch_compensation_compensation_functions_x_spacing = 169
+dynamic_etch_compensation_compensation_functions_y_spacing = 31
+dynamic_etch_compensation_dynamc_compensation_range_window_para = \
+    {'title': "Dynamic Compensate Range", 'control_type': "Window"}
+dynamic_compensation_range_add_button_coords = (370, 65)
+dynamic_compensation_range_delete_button_coords = (525, 65)
+dynamic_compensation_range_save_as_button_coords = (675, 65)
+dynamic_compensation_range_ok_button_coords = (60, 410)
+dynamic_compensation_range_apply_button_coords = ()
+
+add_window = {'title': "Add", 'control_type': "Window"}
+save_as_window = {'title': "Save As", 'control_type': "Window"}
+erf_name_text_coords = (100, 55)
+erf_name_ok_button_coords = (55, 90)
+
+warning_window_para = {'title': "Warning", 'control_type': "Window"}
+warning_yes_button = (180, 100)
+
+
 """ 以下是ROUT模块信息 """
 chain_window_para = {'title': "Chain", 'control_type': "Window"}
 chain_layer_button_coords = (50, 50) # chain窗口的chain layer按钮坐标 -张

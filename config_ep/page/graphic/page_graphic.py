@@ -247,6 +247,14 @@ class PageGraphic(object):
         # self.graphic_left_layer_bar_right_click_menu_window.click_input(
         #     coords=(30, 285)) # 2.29.055_s17版本坐标
 
+    def open_dynamc_etch_compensation_window(self):
+        """
+        打开dynamc_etch_compensation窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_yield_improvement_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_yield_improvement_dynamic_etch_compensation_coords)
+
     def open_mark_note_window(self):
         """
         打开Mark Note窗口
