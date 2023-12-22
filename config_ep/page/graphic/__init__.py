@@ -22,8 +22,14 @@ edit_add_solt_by_drillmap_coord = (88+66, 498)
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 
+upper_menu_bar_dfm_coords = (490, 40) # 上方菜单栏的DFM坐标 -张
+dfm_yield_improvement_coords = (500, 115) # dfm下的yield_improvement坐标 -张
+dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190) # dfm下的yield_improvement下的dynamc_etch_compensation坐标
+
 upper_menu_bar_rout_coords =  (560, 40) # 上方菜单栏的rout坐标 -张
 rout_chain_coords = (570, 65) # rout下拉列表的chain坐标 -张
+
+
 
 """以下是左侧层别栏模块信息"""
 left_layer_bar_row_height = 25  # 行高  -张
