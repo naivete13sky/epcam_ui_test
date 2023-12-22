@@ -43,6 +43,10 @@ edit_add_slot_by_drillmap_maplayer_input_coord = (150, 85)
 edit_add_slot_by_drillmap_ok_coord = (50, 145)
 
 
+edit_undo_information_window_para = {'title': "Information", 'control_type': "Window"}
+edit_undo_information_yes_button_coord = (55, 90)
+edit_undo_information_no_button_coord = (130, 90)
+
 """ 以下是Analysis模块信息 """
 mrc_window_para = {'title': "MRC", 'control_type': "Window"}
 mrc_run_globally_button_coords = (35, 150)
@@ -58,3 +62,14 @@ chain_tool_size_text_coords = (170, 410) # chain窗口的tool size文本框坐�
 chain_ok_button_coords = (80, 640) # chain窗口的ok按钮坐标 -张
 chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
 chain_dialog_box_yes_button_coords = (275, 100) # dialog_box提示窗yes按钮坐标 -张
+
+
+""" 以下是DFM模块信息 """
+dfm_construct_pad_window_para = {'title': "Construct Pads(Ref)", 'control_type': "Window"}
+dfm_construct_pad_run_all_coords = (32, 330)
+dfm_construct_pad_layer_coords = (40, 83)
+
+construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
+construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
+construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
+construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标

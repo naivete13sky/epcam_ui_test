@@ -32,6 +32,12 @@ analysis_mrc_coords = (435, 375)
 upper_menu_bar_rout_coords =  (560, 40) # 上方菜单栏的rout坐标 -张
 rout_chain_coords = (570, 65) # rout下拉列表的chain坐标 -张
 
+upper_menu_bar_dfm_coords =(487, 40)
+dfm_cleanup_coords = (500, 64)
+construct_pad_coords = (815, 257)
+
+upper_menu_bar_edit_undo_coords = (160, 68)
+
 """以下是左侧层别栏模块信息"""
 left_layer_bar_row_height = 25  # 行高  -张
 left_layer_bar_first_row_coord = (130, 175)  # 第一行的坐标 -张

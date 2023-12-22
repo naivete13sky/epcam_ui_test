@@ -58,7 +58,7 @@ class PageMRC(object):
         time.sleep(time_sleep)
 
     def close_viewer_result_window(self):
-        # 切换到RobotCAM子窗口
+        # 切换到viewer_result子窗口
         self.viewer_result_window = self.graphic_window.child_window(
             **upper_menu_bar.mrc_viewer_result_window_para)
         self.viewer_result_window.child_window(title="关闭", control_type="Button").click_input()

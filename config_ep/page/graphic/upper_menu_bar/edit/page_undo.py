@@ -5,23 +5,22 @@ from cc.cc_method import opencv_compare
 from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
-from pywinauto.keyboard import send_keys
 
 
-class PageCreateUserSymbol(object):
+class PageUndo(object):
     def __init__(self):
         self.graphic_window = RunConfig.driver_epcam_ui.window(**page.graphic_window_para)
 
-        # 切换到Create UserSymbol窗口
-        self.create_usersymbol_window = self.graphic_window.child_window(
-            **upper_menu_bar.edit_create_usersymbol_window_para)
+        # 切换到undo_information窗口
+        self.undo_window = self.graphic_window.child_window(
+            **upper_menu_bar.edit_undo_information_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
     def capture_image(self, img_name):
-        self.create_usersymbol_window.set_focus()  # 激活窗口
+        self.undo_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        drill_correlation_layer_pic = self.create_usersymbol_window.capture_as_image()  # 截图
+        drill_correlation_layer_pic = self.undo_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
         return save_path
@@ -48,24 +47,18 @@ class PageCreateUserSymbol(object):
         return rectangle_count == 0
 
     def close(self):
-        """点击Creat UserSymbol窗口的关闭"""
-        self.create_usersymbol_window.child_window(title="关闭", control_type="Button").click_input()
+        self.undo_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def symbol_name(self,symbol=None):
-        """symbol文本框输入名称"""
-        if symbol:
-            self.create_usersymbol_window.click_input(coords=upper_menu_bar.edit_create_symbol_name_coord)
-            send_keys(symbol)
-
-    def click_ok_button(self,time_sleep=0.5):
-        """点击Ok按钮"""
-        self.create_usersymbol_window.click_input(coords=upper_menu_bar.edit_create_usersymbol_ok_coord)
+    def click_yes_button(self, time_sleep=0.5):
+        """点击undo_information弹窗的yes按钮"""
+        self.undo_window.click_input(coords=upper_menu_bar.edit_undo_information_yes_button_coord)
         time.sleep(time_sleep)
 
-    def information_click_ok_button(self):
-        # 切换Creat UserSymbol到子窗口
-        self.information_window = self.graphic_window.child_window(
-            **upper_menu_bar.create_usersymbol_information_window_para)
-        self.information_window.click_input(coords=upper_menu_bar.create_usersymbol_information_ok_button_coord)
+    def click_no_button(self, time_sleep=0.5):
+        """点击undo_information弹窗的no按钮"""
+        self.undo_window.click_input(coords=upper_menu_bar.edit_undo_information_no_button_coord)
+        time.sleep(time_sleep)
+
+
 
 

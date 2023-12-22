@@ -15,7 +15,7 @@ class TestCreateUserSymbol:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Create_UserSymbol_name'))
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Create_UserSymbol_name_Crash'))
     def test_graphic_create_usersymbol_case_4691(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
@@ -43,13 +43,14 @@ class TestCreateUserSymbol:
         self.creat = PageCreateUserSymbol()
         self.creat.symbol_name(symbol='r10')   # 给选中symbol输入一个名称
         self.creat.click_ok_button()
+        self.creat.information_click_ok_button()
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Create_UserSymbol_length'))
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Create_UserSymbol_length_Crash'))
     def test_graphic_create_usersymbol_case_4693(self, job_id, epcam_ui_start,
                                                  download_file_compressed_entity_filter_delete_all_jobs_import):
         """

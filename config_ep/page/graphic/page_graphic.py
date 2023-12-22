@@ -246,3 +246,36 @@ class PageGraphic(object):
             coords=left_layer_bar.right_click_menu_split_layer_coords)
         # self.graphic_left_layer_bar_right_click_menu_window.click_input(
         #     coords=(30, 285)) # 2.29.055_s17版本坐标
+
+
+    def open_mark_note_window(self):
+        """
+        打开Mark Note窗口
+        """
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **left_layer_bar.right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=left_layer_bar.right_click_menu_mark_note_coords)
+
+
+    def add_double_click(self, double_x, double_y, time_sleep=0.8):
+        """
+        双击画布，添加mark note
+        :param coord_x: 双击的横坐标
+        :param coord_y: 双击的纵坐标
+        """
+        coords = (double_x, double_y)
+        self.graphic_window.double_click_input(coords=coords)
+        time.sleep(time_sleep)
+
+
+    def open_dfm_cleanup_construct_pad_window(self):
+        """打开DFM菜单栏下的construct_pad窗口"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
+        self.graphic_window.click_input(coords=graphic.construct_pad_coords)
+
+    def click_undo_button(self):
+        """点击edit菜单栏下的undo"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_undo_coords)
