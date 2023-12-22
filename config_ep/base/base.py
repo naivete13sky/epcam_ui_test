@@ -150,7 +150,7 @@ class MyMouse:
     def mouse_scroll(clicks:int):
         """
         模拟鼠标滚动
-        ：param pixel:滚动像素。100,模拟向上滚动100像素；-100，模拟向下滚动100像素。
+        ：param clicks:滚动次数
         """
         pyautogui.scroll(clicks=clicks)
 

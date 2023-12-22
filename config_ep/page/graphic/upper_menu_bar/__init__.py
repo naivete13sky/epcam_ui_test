@@ -49,9 +49,9 @@ mrc_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Win
 
 """ 以下是ROUT模块信息 """
 chain_window_para = {'title': "Chain", 'control_type': "Window"}
-chain_layer_button_coords = (50, 50)
-chain_layer_text_coords = (105, 50)
-chain_tool_size_text_coords = (170, 410)
-chain_ok_button_coords = (80, 640)
+chain_layer_button_coords = (50, 50) # chain窗口的chain layer按钮坐标 -张
+chain_layer_text_coords = (105, 50) # chain窗口的chain layer文本框坐标 -张
+chain_tool_size_text_coords = (170, 410) # chain窗口的tool size文本框坐标 -张
+chain_ok_button_coords = (80, 640) # chain窗口的ok按钮坐标 -张
 chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
-chain_dialog_box_yes_button_coords = (275, 100)
+chain_dialog_box_yes_button_coords = (275, 100) # dialog_box提示窗yes按钮坐标 -张

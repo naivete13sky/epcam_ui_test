@@ -110,8 +110,8 @@ class PageMultiLayerCopy(object):
         """
         点击提示框的Ok按钮
         """
-        # 切换到MLayers Popup子窗口
+        # 切换到Information子窗口
         self.information_window = self.graphic_window.child_window(
-            **left_layer_bar.multi_layer_copy_information_window_para)
-        self.information_window.click_input(coords=left_layer_bar.multi_layer_copy_information_ok_button_coords)
+            **left_layer_bar.information_window_para)
+        self.information_window.click_input(coords=left_layer_bar.information_ok_button_coords)
 
