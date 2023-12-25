@@ -66,8 +66,12 @@ canvas_centre_coord = (690, 400)  # 画布中心坐标（大概位置） -张
 acs_coord = (280, 777)
 
 """ 以下是右侧工具栏模块信息 """
+right_tool_bar_first_button_corrds = (1200, 85) # 右侧工具栏第一个按钮坐标 -张
+right_tool_bar_button_x_spacing = (45) # 右侧工具栏x方向按钮间距 -张
+right_tool_bar_button_y_spacing = (40) # 右侧工具栏y方向按钮间距 -张
 right_tool_bar_zoom_home_coord = (1295, 85)  # 工具栏间距大概是40
 right_tool_bar_area_zoom_coord = (1210, 250)
+right_tool_bar_add_feature_coords = (1,6) # Add_Feature按钮的坐标在第1列第6行 -张
 right_tool_bar_feature_selection_coord = (1210, 450)
 right_tool_bar_select_by_net_coord = (1340, 450)
 right_tool_bar_unit_british_system_coords = (1245, 760)
