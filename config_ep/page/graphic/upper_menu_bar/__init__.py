@@ -28,6 +28,8 @@ edit_connection_window_para = {'title': "Connection", 'control_type': "Window"}
 edit_connection_apply_coord = (90, 235)
 edit_connection_information_ok_coord = (90, 235)
 
+edit_reshape_contour2pad_window_para = {'title': "Contour To Pad", 'control_type': "Window"}
+edit_reshape_contour2pad_ok_button_coord = (60, 110)
 edit_reshape_substitute_window_para = {'title': "Substitute", 'control_type': "Window"}
 edit_reshape_substitute_symbol_input_coord = (200, 85)
 edit_reshape_substitute_ok_button_coord = (60, 205)

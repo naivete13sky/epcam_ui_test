@@ -20,6 +20,7 @@ edit_connection_canvas_select_line_coord = (740, 300)
 edit_connection_canvas_select_arc_coord = (900, 470)
 
 edit_reshape_coord = (160, 245)
+edit_reshape_contour2pad_coord = (470, 365)
 edit_reshape_substitute_coord = (470, 485)
 edit_reshape_substitute_area_zoom_1_coord = (650, 400)
 edit_reshape_substitute_area_zoom_2_coord = (700, 430)
