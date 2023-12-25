@@ -130,7 +130,7 @@ class TestUI:
     def test_create_entity_input(self, epcam_ui_start):
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.entity_name_input()
+        self.create.entity_name_input('666abc-+{_}+{+}')
         engineering_file_create_entity_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_entity_pic.save(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\engineering_file_create_entity_pic.png')
@@ -148,7 +148,7 @@ class TestUI:
     def test_create_entity_illegal_input(self, epcam_ui_start):
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.entity_name_illegal_input()
+        self.create.entity_name_input('ABC!@#$你瞅啥？')
         engineering_file_create_entity_illegal_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_entity_illegal_pic.save(
             r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic.png')  # 保存到硬盘
@@ -167,7 +167,10 @@ class TestUI:
     def test_create_database_reset(self, epcam_ui_start):
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.database_input_reset()
+        self.create.clear_database_name()
+        self.create.database_reset()
+        self.create.database_input('666abc-+{_}+{+}ABC!@#$你说啥？')
+        self.create.database_reset()
         engineering_file_create_database_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_database_pic.save(
             r'C:\cc\share\temp\engineering_file_create_database_pic.png')  # 保存到硬盘
@@ -285,7 +288,7 @@ class TestUI:
         self.engineering.delete_all_jobs()
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.entity_name_input()
+        self.create.entity_name_input('666abc-+{_}+{+}')
         self.create.clear_database_name()
         self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         engineering_file_create_job_database_none_pic = self.engineering.engineering_window.capture_as_image()
@@ -311,8 +314,8 @@ class TestUI:
         self.engineering.delete_all_jobs()
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.entity_name_input()
-        self.create.database_input()
+        self.create.entity_name_input('666abc-+{_}+{+}')
+        self.create.database_input('123')
         self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         engineering_file_create_job_database_not_exist_pic = self.engineering.engineering_window.capture_as_image()
         engineering_file_create_job_database_not_exist_pic.save(

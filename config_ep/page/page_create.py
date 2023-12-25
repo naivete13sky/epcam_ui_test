@@ -37,15 +37,14 @@ class PageCreate(object):
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
 
-    def entity_name_input(self):
+    def entity_name_input(self, text):
         self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
-        send_keys('666abc-+{_}+{+}')
+        send_keys(text)
         send_keys('{TAB}')  # Tab切走，光标影响截图
 
-    def entity_name_illegal_input(self):
-        self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
-        send_keys('ABC!@#$你瞅啥？')
-        send_keys('{TAB}')  # Tab切走，光标影响截图
+    def database_input(self, text):
+        self.clear_database_name()
+        send_keys(text)
 
     def clear_entity_name(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_entity_filter_coord)
@@ -57,14 +56,7 @@ class PageCreate(object):
         send_keys('^a')
         send_keys('{BACK}')
 
-    def database_input_reset(self):
-        self.clear_database_name()
-        self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
-        self.clear_database_name()
-        send_keys('666abc-+{_}+{+}ABC!@#$你说啥')
-        self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
-        self.engineering_window.click_input(coords=page.engineering_file_create_database_filter_coord)
-        send_keys('666abc-+{_}+{+}ABC!@#$你说啥？')
+    def database_reset(self):
         self.engineering_window.click_input(coords=page.engineering_file_create_database_button_coord)
 
     def create_job(self, job_name, button):
@@ -76,6 +68,3 @@ class PageCreate(object):
             self.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
         self.engineering_window.click_input(coords=page.engineering_file_create_yes_button_coord)
 
-    def database_input(self):
-        self.clear_database_name()
-        send_keys('123')
