@@ -306,3 +306,25 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
         self.graphic_window.click_input(coords=graphic.dfm_optimization_coords)
         self.graphic_window.click_input(coords=graphic.dfm_powerground_optimization_coords)
+
+    def get_right_tool_bar_button_coords(self,col_row:list):
+        """
+        获取右侧工具栏按钮坐标
+        """
+        col = col_row[0]
+        row = col_row[1]
+        if 1 <= col <= 4 and 1 <= row <= 11:
+            coord_x = graphic.right_tool_bar_first_button_corrds[0] + (
+                        col - 1) * graphic.right_tool_bar_button_x_spacing
+            coord_y = graphic.right_tool_bar_first_button_corrds[1] + (
+                        row - 1) * graphic.right_tool_bar_button_y_spacing
+            return coord_x,coord_y
+        elif 4 <= col <= 1:
+            raise ValueError("parameter 'col' must be 1 - 4")
+        elif 11 <= row <= 1:
+            raise ValueError("parameter 'row' must be 1 - 11")
+
+    def click_add_feature(self):
+        """点击Add Feature按钮"""
+        coords = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_add_feature_coords)
+        self.graphic_window.click_input(coords=coords)

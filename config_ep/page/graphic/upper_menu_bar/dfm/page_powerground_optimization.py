@@ -57,12 +57,11 @@ class PagePowerGroundOptimization(object):
                 pyautogui.press('f1')
                 self.information_window_close()
             else:
-                raise ValueError("press must be 'f1'")
+                raise ValueError("parameter 'press' must be 'f1'")
         time.sleep(time_sleep)
 
     def information_window_close(self):
         self.information_window = self.graphic_window.child_window(
             **upper_menu_bar.information_window_para)
-        title = upper_menu_bar.information_window_para.get('title')
-        coords = MyGw.get_information_window_ok_button_coords(title,upper_menu_bar.information_ok_button_right_bot_coords)
+        coords = MyGw.get_information_window_ok_button_coords(upper_menu_bar.information_ok_button_right_bot_coords)
         self.information_window.click_input(coords=coords)

@@ -173,9 +173,9 @@ class MyMouse:
 
 class MyGw:
     @staticmethod
-    def get_information_window_ok_button_coords(window_title,coords,time_sleep=0.5):
+    def get_information_window_ok_button_coords(coords,window_title='Information',time_sleep=0.5):
         """
-        获取information窗口ok按钮坐标
+        获取消息窗口ok按钮坐标
         :param window_title:
         :param coords:
         :param time_sleep:

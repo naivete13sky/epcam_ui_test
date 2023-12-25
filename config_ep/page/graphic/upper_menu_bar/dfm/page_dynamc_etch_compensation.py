@@ -60,9 +60,9 @@ class PageDynamicEtchCompensation(object):
             coord_y = coord_y + (row - 1) * y_spacing
             self.dynamic_etch_compensation_window.click_input(coords=(coord_x,coord_y))
         elif not (1 <= col <= 4):
-            raise ValueError("col must be 1 - 4")
+            raise ValueError("parameter 'col' must be 1 - 4")
         elif not (1 <= row <= 5):
-            raise ValueError("row must be 1 - 5")
+            raise ValueError("parameter 'row' must be 1 - 5")
 
     def save_as_json(self,json_name:str="newERF",col:int=1,row:int=1):
         """
