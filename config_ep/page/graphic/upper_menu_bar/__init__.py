@@ -61,25 +61,29 @@ mrc_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Win
 
 
 """ 以下是DFM模块信息 """
-dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", 'control_type': "Window"}
-dynamic_etch_compensation_compensation_functions_first_button_coords = (105, 165)
-dynamic_etch_compensation_compensation_functions_x_spacing = 169
-dynamic_etch_compensation_compensation_functions_y_spacing = 31
-dynamic_etch_compensation_dynamc_compensation_range_window_para = \
-    {'title': "Dynamic Compensate Range", 'control_type': "Window"}
-dynamic_compensation_range_add_button_coords = (370, 65)
-dynamic_compensation_range_delete_button_coords = (525, 65)
-dynamic_compensation_range_save_as_button_coords = (675, 65)
-dynamic_compensation_range_ok_button_coords = (60, 410)
-dynamic_compensation_range_apply_button_coords = ()
+powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}
+powerground_optimization_run_globally_button_coords = (30, 495) # Run globally按钮坐标 -张
 
+
+dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", 'control_type': "Window"}
+dynamic_etch_compensation_compensation_functions_first_button_coords = (105, 165) # Compensation Functions第一个按钮坐标 -张
+dynamic_etch_compensation_compensation_functions_x_spacing = 169 # Compensation Functions x方向按钮间距 -张
+dynamic_etch_compensation_compensation_functions_y_spacing = 31 # Compensation Functions y方向按钮间距 -张
+dynamic_etch_compensation_dynamc_compensate_range_window_para = \
+    {'title': "Dynamic Compensate Range", 'control_type': "Window"}
+dynamic_compensate_range_add_button_coords = (370, 65) # dynamic_etch_compensate窗口add按钮坐标 -张
+dynamic_compensate_range_delete_button_coords = (525, 65) # dynamic_etch_compensate窗口delete按钮坐标 -张
+dynamic_compensate_range_save_as_button_coords = (675, 65) # dynamic_etch_compensate窗口save as按钮坐标 -张
+dynamic_compensate_range_ok_button_coords = (60, 410) # dynamic_etch_compensate窗口ok按钮坐标 -张
+dynamic_compensate_range_apply_button_coords = () # dynamic_etch_compensate窗口apply按钮坐标 -张
+dynamic_compensate_range_first_json_coords = (50, 90) # dynamic_etch_compensate窗口左侧第一个json坐标 -张
+dynamic_compensate_range_json_spacing = 20 # dynamic_etch_compensate窗口左侧json间距 -张
 add_window = {'title': "Add", 'control_type': "Window"}
 save_as_window = {'title': "Save As", 'control_type': "Window"}
-erf_name_text_coords = (100, 55)
-erf_name_ok_button_coords = (55, 90)
-
+erf_name_text_coords = (100, 55) # efr_name文本框坐标 -张
+erf_name_ok_button_coords = (55, 90) # efr_nameok按钮坐标 -张
 warning_window_para = {'title': "Warning", 'control_type': "Window"}
-warning_yes_button = (180, 100)
+warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
 
 
 """ 以下是ROUT模块信息 """
@@ -101,3 +105,7 @@ construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type'
 construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
 construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
+
+information_window_para = {'title': "Information", 'control_type': "Window"}
+information_ok_button_coords = (230, 100)
+information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标

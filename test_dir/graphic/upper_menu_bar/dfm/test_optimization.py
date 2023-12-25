@@ -1,12 +1,12 @@
-import pytest
 import os
+import pytest
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
-from config_ep.page.graphic.upper_menu_bar.dfm.page_dynamc_etch_compensation import PageDynamicEtchCompensation
+from config_ep.page.graphic.upper_menu_bar.dfm.page_powerground_optimization import PagePowerGroundOptimization
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
-class TestDynamicEtchCompensation:
+class TestPowerGroundOptimization:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.graphic = PageGraphic()
@@ -14,13 +14,13 @@ class TestDynamicEtchCompensation:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Dynamc_Etch_Compensation'))
-    def test_dynamic_etch_compensation_case_4703(self, job_id, epcam_ui_start,
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('PowerGround_Optimization'))
+    def test_powerground_optimization_case_4711(self, job_id, epcam_ui_start,
                                         download_file_compressed_entity_filter_delete_all_jobs_import):
         """
-        验证Attribute不存在的layer弹出提示框
-        禅道bug ID:5904
-        :param job_id:44559
+        验证PowerGround Optimization执行优化过程中按下F1键，软件不闪退
+        禅道bug ID:1384
+        :param job_id:44563
         :param epcam_ui_start:
         :return:
         """
@@ -32,16 +32,15 @@ class TestDynamicEtchCompensation:
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
         odb_matrix_file = os.path.join(odb_folder_path, r"matrix\matrix")
         job_info["step_info"] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
-        job_info["layer_info"] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'edit-35')
+        self.engineering.open_step_by_double_click(job_info, 'pcs')
 
         self.graphic = PageGraphic()
-        self.graphic.open_dynamc_etch_compensation_window()
+        self.graphic.open_powerground_optimization_window()
 
-        self.dynamic_etch_compensation = PageDynamicEtchCompensation()
-        self.dynamic_etch_compensation.save_as_json(json_name="123")
-        self.dynamic_etch_compensation.delete_json(json_name="123")
-        self.dynamic_etch_compensation.close()
+        self.powerground = PagePowerGroundOptimization()
+        self.powerground.click_run_globally_button('f1')
+        self.powerground.close()
+
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

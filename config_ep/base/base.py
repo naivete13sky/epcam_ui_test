@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+import time
 from pathlib import Path
 import pyautogui
 from cc.cc_method import DMS
@@ -106,6 +107,22 @@ class MyODB:
                                         'features'] = False
         return dict_layer_feature
 
+    @staticmethod
+    def get_dynamic_compensate_ranges() -> dict:
+        """
+        dynamic_compensate_ranges文件夹中的所有json文件
+        :return:
+        """
+        dict_rangs = {}
+        ep_cam_path = RunConfig.ep_cam_path
+        dynamic_compensate_ranges_path = os.path.join(ep_cam_path,r"ERFconfig\DynamicCompensateRanges")
+        for root, directories, filenames in os.walk(dynamic_compensate_ranges_path):
+            index = 0
+            for filename in filenames:
+                dict_rangs[filename] = {'index':index}
+                index = index + 1
+        return dict_rangs
+
 class File:
     @staticmethod
     def untgz(ifn, untgz_path):
@@ -153,4 +170,20 @@ class MyMouse:
         ：param clicks:滚动次数
         """
         pyautogui.scroll(clicks=clicks)
+
+class MyGw:
+    @staticmethod
+    def get_information_window_ok_button_coords(window_title,coords,time_sleep=0.5):
+        """
+        获取information窗口ok按钮坐标
+        :param window_title:
+        :param coords:
+        :param time_sleep:
+        :return:
+        """
+        import pygetwindow as gw
+        time.sleep(time_sleep)
+        window = gw.getWindowsWithTitle(window_title)[0]
+        coords = (window.right - coords[0] - window.left, window.bottom - coords[1] - window.top)
+        return coords
 

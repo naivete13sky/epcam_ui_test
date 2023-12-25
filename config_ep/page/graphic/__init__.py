@@ -36,6 +36,9 @@ upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 
 upper_menu_bar_dfm_coords = (490, 40) # 上方菜单栏的DFM坐标 -张
+dfm_optimization_coords = (500, 90) # 上方菜单栏DFM-Optimization坐标 -张
+dfm_powerground_optimization_coords = (800, 140) # 上方菜单栏DFM-Optimization-PowerGround_Optimization坐标 -张
+
 dfm_yield_improvement_coords = (500, 115) # dfm下的yield_improvement坐标 -张
 dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190) # dfm下的yield_improvement下的dynamc_etch_compensation坐标
 

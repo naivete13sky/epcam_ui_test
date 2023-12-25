@@ -6,6 +6,7 @@ from cc.cc_method import opencv_compare
 from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
+from config_ep.base.base import MyODB
 
 class PageDynamicEtchCompensation(object):
     def __init__(self):
@@ -15,11 +16,10 @@ class PageDynamicEtchCompensation(object):
         self.dynamic_etch_compensation_window = self.graphic_window.child_window(
             **upper_menu_bar.dynamic_etch_compensation_window_para)
 
-        self.dynamc_compensation_range_window = self.graphic_window.child_window(
-            **upper_menu_bar.dynamic_etch_compensation_dynamc_compensation_range_window_para)
+        self.dynamc_compensate_range_window = self.graphic_window.child_window(
+            **upper_menu_bar.dynamic_etch_compensation_dynamc_compensate_range_window_para)
 
         self.temp_path = RunConfig.temp_path_base
-        self.layer = None
 
     def close(self):
         self.dynamic_etch_compensation_window.child_window(title="关闭", control_type="Button").click_input()
@@ -64,38 +64,44 @@ class PageDynamicEtchCompensation(object):
         elif not (1 <= row <= 5):
             raise ValueError("row must be 1 - 5")
 
-    def save_as_json(self,col:int=1,row:int=1,json_name:str="newERF"):
+    def save_as_json(self,json_name:str="newERF",col:int=1,row:int=1):
         """
-        save as一个jsonn
+        save as一个json
         """
-        # 切换到MLayers Popup子窗口
-        # self.dynamc_compensation_range_window = self.graphic_window.child_window(
-        #     **upper_menu_bar.dynamic_etch_compensation_dynamc_compensation_range_window_para)
+        ranges = MyODB.get_dynamic_compensate_ranges()
         self.click_compensation_functions_button(col,row)
 
-        self.dynamc_compensation_range_window.click_input(
-            coords=upper_menu_bar.dynamic_compensation_range_save_as_button_coords)
+        self.dynamc_compensate_range_window.click_input(
+            coords=upper_menu_bar.dynamic_compensate_range_save_as_button_coords)
         self.save_as_window = self.graphic_window.child_window(
             **upper_menu_bar.save_as_window)
         self.save_as_window.click_input(coords=upper_menu_bar.erf_name_text_coords)
         send_keys('^a')
         send_keys(json_name)
         self.save_as_window.click_input(coords=upper_menu_bar.erf_name_ok_button_coords)
-        self.dynamc_compensation_range_window.click_input(
-            coords=upper_menu_bar.dynamic_compensation_range_ok_button_coords)
+        if json_name + '.json' in ranges:
+            information_window =  self.graphic_window.child_window(
+            **upper_menu_bar.information_window_para)
+            information_window.click_input(coords=upper_menu_bar.information_ok_button_coords)
+        self.dynamc_compensate_range_window.click_input(
+            coords=upper_menu_bar.dynamic_compensate_range_ok_button_coords)
 
-    def delete_json(self,col:int=1,row:int=1,json_name:str=None):
+    def delete_json(self,json_name:str,col:int=1,row:int=1):
         """
         delete一个json
         """
-        if json_name:
-            json_name = json_name + '.json'
-            print("json_name",json_name)
         self.click_compensation_functions_button(col, row)
-        self.dynamc_compensation_range_window.click_input(
-            coords=upper_menu_bar.dynamic_compensation_range_delete_button_coords)
-        self.warning_window = self.graphic_window.child_window(
-            **upper_menu_bar.warning_window_para)
-        self.warning_window.click_input(coords=upper_menu_bar.warning_yes_button)
-        self.dynamc_compensation_range_window.click_input(
-            coords=upper_menu_bar.dynamic_compensation_range_ok_button_coords)
+        ranges = MyODB.get_dynamic_compensate_ranges()
+        json_name = json_name + '.json'
+        if json_name in ranges:
+            json_index = int(ranges.get(json_name)['index'])
+            coord_x,coord_y = upper_menu_bar.dynamic_compensate_range_first_json_coords
+            spacing = upper_menu_bar.dynamic_compensate_range_json_spacing
+            self.dynamc_compensate_range_window.click_input(coords=(coord_x,coord_y+json_index*spacing))
+            self.dynamc_compensate_range_window.click_input(
+                coords=upper_menu_bar.dynamic_compensate_range_delete_button_coords)
+            self.warning_window = self.graphic_window.child_window(
+                **upper_menu_bar.warning_window_para)
+            self.warning_window.click_input(coords=upper_menu_bar.warning_yes_button)
+            self.dynamc_compensate_range_window.click_input(
+                coords=upper_menu_bar.dynamic_compensate_range_ok_button_coords)
