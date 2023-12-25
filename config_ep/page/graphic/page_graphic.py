@@ -293,3 +293,11 @@ class PageGraphic(object):
     def file_close(self):
         self.graphic_window.click_input(coords=graphic.file_coord)
         self.graphic_window.click_input(coords=graphic.file_close_coord)
+
+    def open_powerground_optimization_window(self):
+        """
+        打开PowerGround_Optimization窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_optimization_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_powerground_optimization_coords)
