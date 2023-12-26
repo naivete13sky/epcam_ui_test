@@ -36,7 +36,7 @@ split_layer_attribute_button_coodrs = (155, 145)
 information_window_para = {'title': "Information", 'control_type': "Window"} # -张
 information_ok_button_coords = (150, 100) # Information提示窗口Ok按钮坐标 -张
 multi_layer_copy_information_window_para = {'title': "Information", 'control_type': "Window"} # -张
-multi_layer_copy_information_ok_button_coords = (150, 110) # Information提示窗口Ok按钮坐标 -张
+multi_layer_copy_information_ok_button_coords = (170, 110) # Information提示窗口Ok按钮坐标 -张
 
 
 """以下是Mark Note功能模块信息"""
