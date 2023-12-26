@@ -1,6 +1,7 @@
 from config import RunConfig
 from config_ep import page
 from pywinauto.keyboard import send_keys
+from config_ep.base.base import MyGw
 from config_ep.page.graphic import upper_menu_bar
 
 
@@ -36,3 +37,9 @@ class PageStepAndRepeatPuzzleByAutomatic(object):
             coords=upper_menu_bar.step_and_repeat_puzzle_by_automatic_panel_y_min_input_coord)
         send_keys('^a')
         send_keys(y_min)
+
+    def click_information_ok_button(self):
+        coord = MyGw.get_information_window_ok_button_coords(upper_menu_bar.information_ok_button_right_bot_coords)
+        self.information_window = self.step_and_repeat_puzzle_by_automatic_window.child_window(
+            **upper_menu_bar.information_window_para)
+        self.information_window.click_input(coords=coord)

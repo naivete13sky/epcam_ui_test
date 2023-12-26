@@ -97,7 +97,7 @@ class TestSubstitute:
         self.graphic.open_substitute_window()
         self.substitute.symbol_input('100')
         self.substitute.click_ok_button()
-        self.substitute.information_click_ok_button()
+        self.substitute.click_information_ok_button()
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

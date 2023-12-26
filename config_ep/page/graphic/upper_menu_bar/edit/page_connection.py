@@ -1,11 +1,6 @@
-import os
-import time
-import cv2
-from cc.cc_method import opencv_compare
 from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
-from pywinauto.keyboard import send_keys
 
 
 class PageConnection(object):

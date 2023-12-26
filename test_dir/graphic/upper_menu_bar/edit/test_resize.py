@@ -1,6 +1,5 @@
 import pytest
 import os
-from config_ep import page
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 from config_ep.page.graphic.upper_menu_bar.edit.page_resize import PageGlobal
@@ -17,7 +16,7 @@ class TestGlobal:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Global'))
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Global_close'))
     def test_graphic_global_case_4702(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """

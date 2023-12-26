@@ -1,5 +1,6 @@
 from config import RunConfig
 from config_ep import page
+from config_ep.base.base import MyGw
 from config_ep.page.graphic import upper_menu_bar
 from pywinauto.keyboard import send_keys
 
@@ -23,7 +24,8 @@ class PageSubstitute(object):
     def click_ok_button(self):
         self.substitute_window.click_input(coords=upper_menu_bar.edit_reshape_substitute_ok_button_coord)
 
-    def information_click_ok_button(self):
+    def click_information_ok_button(self):
+        coord = MyGw.get_information_window_ok_button_coords(upper_menu_bar.information_ok_button_right_bot_coords)
         self.information_window = self.graphic_window.child_window(
-            **upper_menu_bar.edit_reshape_substitute_information_window_para)
-        self.information_window.click_input(coords=upper_menu_bar.edit_reshape_substitute_information_ok_button_coord)
+            **upper_menu_bar.information_window_para)
+        self.information_window.click_input(coords=coord)

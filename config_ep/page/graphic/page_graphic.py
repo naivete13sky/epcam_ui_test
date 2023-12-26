@@ -152,13 +152,16 @@ class PageGraphic(object):
             coords=left_layer_bar.right_click_menu_multi_layer_copy_coords)
 
     def feature_selection(self):
-        self.graphic_window.click_input(coords=graphic.right_tool_bar_feature_selection_coord)
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_coord)
+        self.graphic_window.click_input(coords=coord)
 
     def zoom_home(self):
-        self.graphic_window.click_input(coords=graphic.right_tool_bar_zoom_home_coord)
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_zoom_home_coord)
+        self.graphic_window.click_input(coords=coord)
 
     def area_zoom(self):
-        self.graphic_window.click_input(coords=graphic.right_tool_bar_area_zoom_coord)
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_area_zoom_coord)
+        self.graphic_window.click_input(coords=coord)
 
     def open_angle_for_usersymbol_ok(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
