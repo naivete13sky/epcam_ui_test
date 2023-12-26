@@ -6,6 +6,7 @@ file_close_coord = (35, 90)
 
 upper_menu_bar_step_coord = (88, 40)
 step_panelization_coord = (88, 140)
+step_panelization_step_and_repeat_puzzle_by_automatic_coord = (320, 140)
 step_panelization_step_and_repeat_puzzle_by_table_coord = (320, 170)
 step_robotcam_coords = (135, 190)
 
