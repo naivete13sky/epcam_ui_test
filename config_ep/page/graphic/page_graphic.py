@@ -132,6 +132,11 @@ class PageGraphic(object):
         self.graphic_window.double_click_input(button=button_type,coords=coords)  # 双击
         time.sleep(time_sleep)
 
+    def open_step_and_repeat_puzzle_by_automatic_window(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_step_and_repeat_puzzle_by_automatic_coord)
+
     def open_step_and_repeat_puzzle_by_table_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
         self.graphic_window.click_input(coords=graphic.step_panelization_coord)

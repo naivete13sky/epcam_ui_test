@@ -2,7 +2,6 @@ import os
 import time
 import cv2
 from cc.cc_method import opencv_compare
-from cc.cc_method import PictureMethod
 from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
@@ -64,4 +63,5 @@ class PageStepAndRepeatPuzzleByTable(object):
         self.step_and_repeat_puzzle_by_table_window.child_window(title="关闭", control_type="Button").click_input()
 
     def steps_popup_ok_button(self):
-        self.steps_popup_window.click_input(coords=upper_menu_bar.steps_popup_ok_button_coord)
+        self.steps_popup_window.click_input(
+            coords=upper_menu_bar.step_and_repeat_puzzle_by_table_steps_popup_ok_button_coord)

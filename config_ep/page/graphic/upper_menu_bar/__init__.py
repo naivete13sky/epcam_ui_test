@@ -8,8 +8,15 @@ step_and_repeat_puzzle_by_table_mirror_button_coord = (800, 85)
 step_and_repeat_puzzle_by_table_mirror_yes_button_coord = (800, 130)
 
 step_and_repeat_puzzle_by_table_steps_popup_window_para = {'title': "Steps Popup", 'control_type': "Window"}
-steps_popup_pcs_step_coord = (45, 160)
-steps_popup_ok_button_coord = (70, 285)
+step_and_repeat_puzzle_by_table_steps_popup_pcs_step_coord = (45, 160)
+step_and_repeat_puzzle_by_table_steps_popup_ok_button_coord = (70, 285)
+
+step_and_repeat_puzzle_by_automatic_window_para = {
+    'title': "Step and Repeat Puzzle by Automatic", 'control_type': "Window"}
+step_and_repeat_puzzle_by_automatic_step_name_input_coord = (140, 50)
+step_and_repeat_puzzle_by_automatic_panel_x_min_input_coord = (140, 215)
+step_and_repeat_puzzle_by_automatic_panel_y_min_input_coord = (140, 250)
+step_and_repeat_puzzle_by_automatic_ok_button_coord = (70, 810)
 
 robotcam_window_para = {'title': "RobotCAM", 'control_type': "Window"}
 robotcam_save_button_coords = (735, 140)
