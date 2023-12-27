@@ -58,6 +58,7 @@ upper_menu_bar_edit_undo_coords = (160, 68)
 """以下是左侧层别栏模块信息"""
 left_layer_bar_row_height = 25  # 行高  -张
 left_layer_bar_first_row_coord = (130, 175)  # 第一行的坐标 -张
+left_layer_bar_first_row_affected_layer_coord = (26, 175)
 left_layer_bar_max_layer_row = 24  # 最大初始layer_row  -张
 left_layer_bar_min_layer_row = 1  # 最小初始layer_row  -张
 left_layer_bar_scroll_bar_top_button_coords = (230, 170)  # 滚动条顶部按钮  -张
@@ -75,6 +76,7 @@ right_tool_bar_zoom_home_coord = (3, 1)  # 工具栏间距大概是40
 right_tool_bar_area_zoom_coord = (1, 5)
 right_tool_bar_add_feature_coords = (1,6) # Add_Feature按钮的坐标在第1列第6行 -张
 right_tool_bar_feature_selection_coord = (1, 10)
+right_tool_bar_feature_selection_filter_coord = (4, 3)
 right_tool_bar_select_by_net_coord = (1340, 450)
 right_tool_bar_unit_british_system_coords = (1245, 760)
 

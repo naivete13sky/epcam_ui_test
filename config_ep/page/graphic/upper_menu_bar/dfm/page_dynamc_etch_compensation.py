@@ -8,6 +8,7 @@ from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
 from config_ep.base.base import MyODB
 
+
 class PageDynamicEtchCompensation(object):
     def __init__(self):
         self.graphic_window = RunConfig.driver_epcam_ui.window(**page.graphic_window_para)
@@ -18,6 +19,8 @@ class PageDynamicEtchCompensation(object):
 
         self.dynamc_compensate_range_window = self.graphic_window.child_window(
             **upper_menu_bar.dynamic_etch_compensation_dynamc_compensate_range_window_para)
+
+        self.add_window = self.graphic_window.child_window(**upper_menu_bar.add_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
@@ -86,6 +89,14 @@ class PageDynamicEtchCompensation(object):
         self.dynamc_compensate_range_window.click_input(
             coords=upper_menu_bar.dynamic_compensate_range_ok_button_coords)
 
+    def add_new_json(self, json_name):
+        self.dynamc_compensate_range_window.click_input(
+            coords=upper_menu_bar.dynamic_compensate_range_add_button_coords)
+        self.add_window.click_input(coords=upper_menu_bar.erf_name_text_coords)
+        send_keys('^a')
+        send_keys(json_name)
+        self.add_window.click_input(coords=upper_menu_bar.erf_name_ok_button_coords)
+
     def delete_json(self,json_name:str,col:int=1,row:int=1):
         """
         delete一个json
@@ -105,3 +116,31 @@ class PageDynamicEtchCompensation(object):
             self.warning_window.click_input(coords=upper_menu_bar.warning_yes_button)
             self.dynamc_compensate_range_window.click_input(
                 coords=upper_menu_bar.dynamic_compensate_range_ok_button_coords)
+
+    def get_all_json_input_coords(self, col=4, row=5):
+        x1 = upper_menu_bar.dynamic_etch_compensation_pad_pad_input_coord[0]
+        y1 = upper_menu_bar.dynamic_etch_compensation_pad_pad_input_coord[1]
+        row_spacing = upper_menu_bar.dynamic_etch_compensation_compensation_functions_x_spacing
+        col_spacing = upper_menu_bar.dynamic_etch_compensation_compensation_functions_y_spacing
+        coords = []
+        for i in range(1, col + 1):
+            for j in range(1, row + 1):
+                x = x1 + (i - 1) * row_spacing
+                y = y1 + (j - 1) * col_spacing
+                coords.append((x, y))
+        return coords
+
+    def run_on_selected_features_yes(self):
+        self.dynamic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.dynamic_etch_compensation_run_on_selected_features_yes_coord)
+
+    def run_operation(self, mode):
+        if mode == 1:  # run on all feature
+            self.dynamic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.dynamic_etch_compensation_run_globally_button_coord)
+        elif mode == 2:  # run on feature on screen
+            self.dynamic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.dynamic_etch_compensation_run_on_features_on_screen_only_button_coord)
+        elif mode == 3:  # run on feature on inside profile
+            self.dynamic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.dynamic_etch_compensation_run_on_features_inside_profile_button_coord)

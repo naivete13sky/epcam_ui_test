@@ -107,6 +107,52 @@ class PageGraphic(object):
         print("最小row:{}".format(min_layer_row))
         return max_layer_row, min_layer_row
 
+    def click_affected_layer(self, job_info: dict, layer: str, max_layer_row: int = graphic.left_layer_bar_max_layer_row
+                             , min_layer_row: int = graphic.left_layer_bar_min_layer_row, button_type: str = 'left',
+                             time_sleep: float = 0.5):
+        """
+        单击层别
+        :param job_info:
+        :param layer:
+        :param max_layer_row:
+        :param min_layer_row:
+        :param button_type:
+        :param time_sleep:
+        :return:
+        """
+        layer_info = job_info.get('layer_info')
+        layer_row = int(layer_info.get(layer.upper())['row'])
+        coord_x, coord_y = graphic.left_layer_bar_first_row_affected_layer_coord
+        row_height = graphic.left_layer_bar_row_height
+        # coord_y = 165 + layer_row * row_height - 15
+        layer_coord_y = coord_y + (layer_row -1) * row_height
+        if (layer_row <= graphic.left_layer_bar_max_layer_row and
+                max_layer_row == graphic.left_layer_bar_max_layer_row and
+                min_layer_row == graphic.left_layer_bar_min_layer_row):
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
+        else:
+            if layer_row > max_layer_row:
+                layer_coord_y = coord_y + (graphic.left_layer_bar_max_layer_row - 1) * row_height
+                diff = layer_row - max_layer_row
+                for num in range(diff):
+                    self.graphic_window.click_input(coords=graphic.left_layer_bar_scroll_bar_bot_button_coords)
+                max_layer_row = layer_row
+                min_layer_row = min_layer_row + diff
+            elif layer_row < min_layer_row:
+                layer_coord_y = coord_y
+                diff = min_layer_row - layer_row
+                for num in range(diff):
+                    self.graphic_window.click_input(coords=graphic.left_layer_bar_scroll_bar_top_button_coords)
+                max_layer_row = max_layer_row - diff
+                min_layer_row = min_layer_row - diff
+            else:
+                layer_coord_y = coord_y + (layer_row - min_layer_row) * row_height
+            self.graphic_window.click_input(button=button_type, coords=(coord_x, layer_coord_y))
+        time.sleep(time_sleep)
+        print("最大row:{}".format(max_layer_row))
+        print("最小row:{}".format(min_layer_row))
+        return max_layer_row, min_layer_row
+
     def click_canvas(self,coord_x:float=graphic.canvas_centre_coord[0],
                            coord_y:float=graphic.canvas_centre_coord[1],
                      button_type:str='left', time_sleep:float = 0.5):
@@ -161,6 +207,10 @@ class PageGraphic(object):
 
     def area_zoom(self):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_area_zoom_coord)
+        self.graphic_window.click_input(coords=coord)
+
+    def feature_selection_filter(self):
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
     def open_angle_for_usersymbol_ok(self):
@@ -260,9 +310,9 @@ class PageGraphic(object):
         # self.graphic_left_layer_bar_right_click_menu_window.click_input(
         #     coords=(30, 285)) # 2.29.055_s17版本坐标
 
-    def open_dynamc_etch_compensation_window(self):
+    def open_dynamic_etch_compensation_window(self):
         """
-        打开dynamc_etch_compensation窗口
+        打开dynamic_etch_compensation窗口
         """
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
         self.graphic_window.click_input(coords=graphic.dfm_yield_improvement_coords)
