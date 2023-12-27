@@ -142,7 +142,7 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.step_panelization_coord)
         self.graphic_window.click_input(coords=graphic.step_panelization_step_and_repeat_puzzle_by_table_coord)
 
-    def open_multi_layer_copy_dindow(self):
+    def open_multi_layer_copy_window(self):
         """
         打开Multi Layer Copy窗口
         """
@@ -235,6 +235,19 @@ class PageGraphic(object):
         time.sleep(time_sleep)
         self.graphic_window.double_click_input(coords=(coord_x, coord_y))
 
+    def click_move_feature(self, time_sleep=0.5):
+        """点击右侧工具栏的move feature功能"""
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_move_feature_coords)
+        time.sleep(time_sleep)
+
+    def click_copy_feature(self, time_sleep=0.5):
+        """点击右侧工具栏的move feature功能"""
+        self.graphic_window.click_input(coords=graphic.right_tool_bar_copy_feature_coords)
+        time.sleep(time_sleep)
+
+
+
+
     def open_connection_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
@@ -280,8 +293,8 @@ class PageGraphic(object):
     def add_double_click(self, double_x, double_y, time_sleep=0.8):
         """
         双击画布，添加mark note
-        :param coord_x: 双击的横坐标
-        :param coord_y: 双击的纵坐标
+        :param double_x: 双击的横坐标
+        :param double_y: 双击的纵坐标
         """
         coords = (double_x, double_y)
         self.graphic_window.double_click_input(coords=coords)
@@ -336,3 +349,12 @@ class PageGraphic(object):
         """点击Add Feature按钮"""
         coords = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_add_feature_coords)
         self.graphic_window.click_input(coords=coords)
+
+    def click_job_matrix_button(self):
+        """在Graphic界面通过job_matrix按钮打开Matrix界面"""
+        self.graphic_window.click_input(coords=graphic.open_job_matrix)
+
+    def click_edit_delete_button(self, time_sleep=0.5):
+        """点击edit菜单栏的delete功能"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_delete_coords)

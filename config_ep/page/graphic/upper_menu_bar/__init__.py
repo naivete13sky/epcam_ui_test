@@ -61,6 +61,11 @@ edit_add_slot_by_drillmap_ok_coord = (50, 145)
 edit_undo_information_window_para = {'title': "Information", 'control_type': "Window"}
 edit_undo_information_yes_button_coord = (55, 90)
 edit_undo_information_no_button_coord = (130, 90)
+undo_revocable_no_button_coord = (200, 100)
+
+edit_delete_information_window_para = {'title': "Information", 'control_type': "Window"}
+edit_delete_information_yes_button_coord = (140, 90)
+edit_delete_information_no_button_coord = (220, 90)
 
 """ 以下是Analysis模块信息 """
 mrc_window_para = {'title': "MRC", 'control_type': "Window"}

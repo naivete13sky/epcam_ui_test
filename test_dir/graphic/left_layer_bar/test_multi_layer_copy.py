@@ -38,7 +38,7 @@ class TestMultiLayerCopy:
 
         self.graphic = PageGraphic()
         self.graphic.click_layer(job_info, layer='gtl', button_type='right')
-        self.graphic.open_multi_layer_copy_dindow()
+        self.graphic.open_multi_layer_copy_window()
 
         self.mutli = PageMultiLayerCopy()
         self.mutli.multi_layer_copy_case_4651(job_info, soure_step='net', add_layers=['gtl'], suffix='_net')

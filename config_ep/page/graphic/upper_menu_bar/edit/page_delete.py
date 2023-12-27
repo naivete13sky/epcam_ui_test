@@ -7,20 +7,20 @@ from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
 
 
-class PageUndo(object):
+class PageDelete(object):
     def __init__(self):
         self.graphic_window = RunConfig.driver_epcam_ui.window(**page.graphic_window_para)
 
         # 切换到undo_information窗口
-        self.undo_window = self.graphic_window.child_window(
-            **upper_menu_bar.edit_undo_information_window_para)
+        self.delete_window = self.graphic_window.child_window(
+            **upper_menu_bar.edit_delete_information_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
     def capture_image(self, img_name):
-        self.undo_window.set_focus()  # 激活窗口
+        self.delete_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        drill_correlation_layer_pic = self.undo_window.capture_as_image()  # 截图
+        drill_correlation_layer_pic = self.delete_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
         return save_path
@@ -47,23 +47,14 @@ class PageUndo(object):
         return rectangle_count == 0
 
     def close(self):
-        self.undo_window.child_window(title="关闭", control_type="Button").click_input()
+        self.delete_window.child_window(title="关闭", control_type="Button").click_input()
 
     def click_yes_button(self, time_sleep=0.5):
         """点击undo_information弹窗的yes按钮"""
-        self.undo_window.click_input(coords=upper_menu_bar.edit_undo_information_yes_button_coord)
+        self.delete_window.click_input(coords=upper_menu_bar.edit_delete_information_yes_button_coord)
         time.sleep(time_sleep)
 
     def click_no_button(self, time_sleep=0.5):
-        """点击undo_information弹窗的no按钮"""
-        self.undo_window.click_input(coords=upper_menu_bar.edit_undo_information_no_button_coord)
+        """点击undo_information弹窗的yes按钮"""
+        self.delete_window.click_input(coords=upper_menu_bar.edit_delete_information_no_button_coord)
         time.sleep(time_sleep)
-
-    def click_no_revocable_button(self, time_sleep=0.5):
-        """无撤销操作的弹窗提示，点击no按钮"""
-
-        self.undo_window.click_input(coords=upper_menu_bar.undo_revocable_no_button_coord)
-
-
-
-

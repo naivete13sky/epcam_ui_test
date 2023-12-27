@@ -47,11 +47,11 @@ dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190) # dfm下的y
 upper_menu_bar_rout_coords =  (560, 40) # 上方菜单栏的rout坐标 -张
 rout_chain_coords = (570, 65) # rout下拉列表的chain坐标 -张
 
-upper_menu_bar_dfm_coords =(487, 40)
 dfm_cleanup_coords = (500, 64)
 construct_pad_coords = (815, 257)
 
 upper_menu_bar_edit_undo_coords = (160, 68)
+upper_menu_bar_edit_delete_coords = (160, 90)
 
 
 
@@ -66,6 +66,7 @@ left_layer_bar_scroll_bar_bot_button_coords = (230, 750)  # 滚动条底部按�
 """ 以下是中间画布模块信息"""
 canvas_centre_coord = (690, 400)  # 画布中心坐标（大概位置） -张
 acs_coord = (280, 777)
+open_job_matrix = (115, 145)     #通过Graphic界面打开matrix
 
 """ 以下是右侧工具栏模块信息 """
 right_tool_bar_first_button_corrds = (1200, 85) # 右侧工具栏第一个按钮坐标 -张
@@ -80,3 +81,6 @@ right_tool_bar_unit_british_system_coords = (1245, 760)
 
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
 right_tool_bar_delete_to_intresetion_coords = (1290, 320) # 右侧工具栏delete_to_intresetion功能坐标 -张
+
+right_tool_bar_move_feature_coords = (1290, 280)
+right_tool_bar_copy_feature_coords = (1340, 280)

@@ -80,6 +80,24 @@ class PageMultiLayerCopy(object):
         coords = (coord_x, coord_y)
         self.steps_pop_window.double_click_input(coords=coords)
 
+    def click_source_step_button(self):
+        """
+        点击source_step按钮打开Steps Popup窗口
+        :param job_info:
+        :paramm layers:
+        """
+
+        self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_source_step_button_coords)
+
+    def click_add_layers_button(self):
+        """
+        点击add layers按钮打开Layers Popup窗口
+        :param job_info:
+        :paramm layers:
+        """
+
+        self.multi_layer_copy_window.click_input(coords=left_layer_bar.multi_layer_copy_add_layers_button_coords)
+
     def open_layers_pop_window(self,job_info,layers):
         """
         点击Add Layers按钮打开Layer Popup窗口
@@ -112,6 +130,6 @@ class PageMultiLayerCopy(object):
         """
         # 切换到Information子窗口
         self.information_window = self.graphic_window.child_window(
-            **left_layer_bar.information_window_para)
-        self.information_window.click_input(coords=left_layer_bar.information_ok_button_coords)
+            **left_layer_bar.multi_layer_copy_information_window_para)
+        self.information_window.click_input(coords=left_layer_bar.multi_layer_copy_information_ok_button_coords)
 
