@@ -55,7 +55,7 @@ class TestDynamicEtchCompensation:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Compensation_undo'))
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Compensation_Undo'))
     def test_graphic_dynamic_etch_compensation_case_4715(self, job_id, epcam_ui_start,
                                                          download_file_compressed_entity_filter_delete_all_jobs_import):
         """

@@ -20,7 +20,7 @@ class TestAddSlotByDrillmap:
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Add_slot_by_drlmap'))
     def test_graphic_add_slot_by_drillmap_case_4692(self, job_id, epcam_ui_start,
-                                                     download_file_compressed_entity_filter_delete_all_jobs_import):
+                                                    download_file_compressed_entity_filter_delete_all_jobs_import):
 
         """
         禅道BUG：2573

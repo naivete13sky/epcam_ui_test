@@ -18,6 +18,14 @@ step_and_repeat_puzzle_by_automatic_panel_x_min_input_coord = (140, 215)
 step_and_repeat_puzzle_by_automatic_panel_y_min_input_coord = (140, 250)
 step_and_repeat_puzzle_by_automatic_ok_button_coord = (70, 810)
 
+step_and_repeat_edit_window_para = {'title': "S&R Edit Popup", 'control_type': "Window"}
+step_and_repeat_edit_add_step_button_coord = (40, 155)
+step_and_repeat_edit_add_step_window_para = {'title': "EP-CAM", 'control_type': "Window"}
+step_and_repeat_edit_add_step_step_button_coord = (50, 50)
+step_and_repeat_edit_add_step_close_button_coord = (200, 230)
+step_and_repeat_edit_add_step_steps_popup_window_para = {'title': "Steps Popup", 'control_type': "Window"}
+step_and_repeat_edit_add_step_steps_popup_panel_coord = (50, 120)
+
 robotcam_window_para = {'title': "RobotCAM", 'control_type': "Window"}
 robotcam_save_button_coords = (735, 140)
 robotcam_information_window_para = {'title': "Information", 'control_type': "Window"}
@@ -40,8 +48,6 @@ edit_reshape_contour2pad_ok_button_coord = (60, 110)
 edit_reshape_substitute_window_para = {'title': "Substitute", 'control_type': "Window"}
 edit_reshape_substitute_symbol_input_coord = (200, 85)
 edit_reshape_substitute_ok_button_coord = (60, 205)
-edit_reshape_substitute_information_window_para = {'title': "Information", 'control_type': "Window"}
-edit_reshape_substitute_information_ok_button_coord = (270, 100)
 
 edit_create_usersymbol_window_para = {'title': "Create UserSymbol", 'control_type': "Window"}
 edit_create_symbol_name_coord = (108, 51)    # symbol名称文本框的坐标

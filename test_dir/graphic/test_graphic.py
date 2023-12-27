@@ -56,8 +56,8 @@ class TestGraphicUI:
     @pytest.mark.from_bug
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Signal_layer_check'))
-    def test_graphic_analysis_Signal_layer_check_case_4672(self, job_id, epcam_ui_start,
-                                   download_file_compressed_entity_filter_delete_all_jobs_import):
+    def test_graphic_analysis_signal_layer_check_case_4672(
+            self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道用例ID：4672 打开附件资料的panel的画布，使用signal layer check 功能可以正确执行分析操作不发生闪退
         禅道bugID：2963

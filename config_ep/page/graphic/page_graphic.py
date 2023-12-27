@@ -188,6 +188,11 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.step_panelization_coord)
         self.graphic_window.click_input(coords=graphic.step_panelization_step_and_repeat_puzzle_by_table_coord)
 
+    def open_step_and_repeat_edit_window(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_step_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_coord)
+        self.graphic_window.click_input(coords=graphic.step_panelization_step_and_repeat_edit_coord)
+
     def open_multi_layer_copy_window(self):
         """
         打开Multi Layer Copy窗口
@@ -294,9 +299,6 @@ class PageGraphic(object):
         """点击右侧工具栏的move feature功能"""
         self.graphic_window.click_input(coords=graphic.right_tool_bar_copy_feature_coords)
         time.sleep(time_sleep)
-
-
-
 
     def open_connection_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
