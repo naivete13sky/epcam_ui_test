@@ -83,6 +83,12 @@ dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", '
 dynamic_etch_compensation_compensation_functions_first_button_coords = (105, 165) # Compensation Functions第一个按钮坐标 -张
 dynamic_etch_compensation_compensation_functions_x_spacing = 169 # Compensation Functions x方向按钮间距 -张
 dynamic_etch_compensation_compensation_functions_y_spacing = 31 # Compensation Functions y方向按钮间距 -张
+dynamic_etch_compensation_pad_pad_input_coord = (180, 165)
+dynamic_etch_compensation_run_on_selected_features_yes_coord = (25, 590)
+dynamic_etch_compensation_run_globally_button_coord = (35, 650)
+dynamic_etch_compensation_run_on_features_on_screen_only_button_coord = (70, 650)
+dynamic_etch_compensation_run_on_features_inside_profile_button_coord = (105, 650)
+
 dynamic_etch_compensation_dynamc_compensate_range_window_para = \
     {'title': "Dynamic Compensate Range", 'control_type': "Window"}
 dynamic_compensate_range_add_button_coords = (370, 65) # dynamic_etch_compensate窗口add按钮坐标 -张
@@ -92,7 +98,20 @@ dynamic_compensate_range_ok_button_coords = (60, 410) # dynamic_etch_compensate�
 dynamic_compensate_range_apply_button_coords = () # dynamic_etch_compensate窗口apply按钮坐标 -张
 dynamic_compensate_range_first_json_coords = (50, 90) # dynamic_etch_compensate窗口左侧第一个json坐标 -张
 dynamic_compensate_range_json_spacing = 20 # dynamic_etch_compensate窗口左侧json间距 -张
-add_window = {'title': "Add", 'control_type': "Window"}
+
+dynamic_compensate_range_value_row_spacing = 30  # 参数行间距30
+dynamic_compensate_range_add_row_button_coord = (310, 100)
+dynamic_compensate_range_delete_row_button_coord = (310, 130)
+dynamic_compensate_range_spacing_step_first_row_value1_input_coord = (360, 130)
+dynamic_compensate_range_spacing_step_first_row_value2_input_coord = (530, 130)
+dynamic_compensate_range_comp_value_first_row_input_coord = (660, 130)
+dynamic_compensate_range_to_infinity_check_box_coord = (310, 365)
+dynamic_compensate_range_to_infinity_value1_input_coord = (440, 365)
+dynamic_compensate_range_to_infinity_value2_input_coord = (720, 365)
+
+dynamic_compensate_range_ok_waring_yes_button_coord = (260, 100)
+
+add_window_para = {'title': "Add", 'control_type': "Window"}
 save_as_window = {'title': "Save As", 'control_type': "Window"}
 erf_name_text_coords = (100, 55) # efr_name文本框坐标 -张
 erf_name_ok_button_coords = (55, 90) # efr_nameok按钮坐标 -张
