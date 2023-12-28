@@ -218,6 +218,10 @@ class PageGraphic(object):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
+    def select_by_net(self):
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_select_by_net_coord)
+        self.graphic_window.click_input(coords=coord)
+
     def open_angle_for_usersymbol_ok(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)

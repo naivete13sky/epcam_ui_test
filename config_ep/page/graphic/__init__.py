@@ -79,7 +79,7 @@ right_tool_bar_area_zoom_coord = (1, 5)
 right_tool_bar_add_feature_coords = (1,6) # Add_Feature按钮的坐标在第1列第6行 -张
 right_tool_bar_feature_selection_coord = (1, 10)
 right_tool_bar_feature_selection_filter_coord = (4, 3)
-right_tool_bar_select_by_net_coord = (1340, 450)
+right_tool_bar_select_by_net_coord = (4, 10)
 right_tool_bar_unit_british_system_coords = (1245, 760)
 
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张

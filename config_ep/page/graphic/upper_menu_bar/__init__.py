@@ -131,6 +131,16 @@ chain_layer_button_coords = (50, 50) # chain窗口的chain layer按钮坐标 -�
 chain_layer_text_coords = (105, 50) # chain窗口的chain layer文本框坐标 -张
 chain_tool_size_text_coords = (170, 410) # chain窗口的tool size文本框坐标 -张
 chain_ok_button_coords = (80, 640) # chain窗口的ok按钮坐标 -张
+
+chain_button_menu_first_button_coord = (30, 380)
+chain_button_menu_spacing = 28
+chain_create_chain_button_coord = 1
+chain_set_plunge_button_coord = 9
+chain_create_chain_compensation_coord = (170, 440)
+chain_create_chain_compensation_right_coord = (170, 475)
+chain_create_chain_compensation_left_coord = (170, 490)
+chain_set_plunge_type_open_coord = (220, 410)
+
 chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
 chain_dialog_box_yes_button_coords = (275, 100) # dialog_box提示窗yes按钮坐标 -张
 

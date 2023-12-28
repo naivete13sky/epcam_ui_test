@@ -78,3 +78,28 @@ class PageChain(object):
         self.chain_dialog_box_window = self.graphic_window.child_window(**upper_menu_bar.chain_dialog_box_window_para)
         self.chain_dialog_box_window.click_input(coords=upper_menu_bar.chain_dialog_box_yes_button_coords)
 
+    def get_chain_menu_bar_coords(self, coords):
+        x = upper_menu_bar.chain_button_menu_first_button_coord[0]
+        y = upper_menu_bar.chain_button_menu_first_button_coord[1]
+        x_spacing = upper_menu_bar.chain_button_menu_spacing
+        x = x + x_spacing * (coords - 1)
+        coord = (x, y)
+        return coord
+
+    def set_compensation(self, para):
+        if para == 'Right':
+            self.chain_window.click_input(coords=upper_menu_bar.chain_create_chain_compensation_coord)
+            self.chain_window.click_input(coords=upper_menu_bar.chain_create_chain_compensation_right_coord)
+        elif para == 'Left':
+            self.chain_window.click_input(coords=upper_menu_bar.chain_create_chain_compensation_coord)
+            self.chain_window.click_input(coords=upper_menu_bar.chain_create_chain_compensation_left_coord)
+
+    def click_set_plunge_button(self):
+        coord = self.get_chain_menu_bar_coords(coords=upper_menu_bar.chain_set_plunge_button_coord)
+        self.chain_window.click_input(coords=coord)
+
+    def click_set_plunge_type_open(self):
+        self.chain_window.click_input(coords=upper_menu_bar.chain_set_plunge_type_open_coord)
+
+    def click_ok_button(self):
+        self.chain_window.click_input(coords=upper_menu_bar.chain_ok_button_coords)
