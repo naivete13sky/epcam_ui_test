@@ -7,6 +7,7 @@ import pytest
 from config_ep.base.base import Base
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.page_graphic import PageGraphic
+from config_ep.page.matrix.page_matrix import PageMatrix
 from config_ep.page.page_import import PageImport
 from config_g.g_cc_method import G
 from pywinauto.application import Application
@@ -261,10 +262,16 @@ def graphic_close_engineering_save_first_job(request):
 
     return _epcam_ui_import
 
+@pytest.fixture
+def setup_method():
+    engineering = PageEngineering()
+    graphic = PageGraphic()
+    matrix = PageMatrix()
+    engineering.engineering_window.set_focus()
+    return {'engineering':engineering,'matrix':matrix,'graphic':graphic}
 
 def pytest_configure(config):
     marker_list = [
-        'zjr','gcc','zzr','ze',
         'engineering','matrix','graphic',
         'input_output', 'output', 'test', 'cc', 'testcc', 'example', 'input', 'coding','from_bug','crash'
     ]
