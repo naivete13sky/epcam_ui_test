@@ -256,7 +256,7 @@ class PageGraphic(object):
 
     def open_add_solt_by_drillmap_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
-        self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_add_slot_by_drillmap_coord)
 
     def open_chain(self):
         """
@@ -312,6 +312,11 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_reshape_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_reshape_contour2pad_coord)
+
+    def open_feature2drl_pattern_window(self):
+        self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_change_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_change_feature2drl_pattern_coord)
 
     def open_substitute_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)

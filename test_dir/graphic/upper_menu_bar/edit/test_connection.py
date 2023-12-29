@@ -2,9 +2,7 @@ import os
 import pytest
 from config_ep import page
 from pywinauto.keyboard import send_keys
-
 from config_ep.page.page_engineering import PageEngineering
-from config_ep.page.matrix.page_matrix import PageMatrix
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.graphic.upper_menu_bar.edit.page_connection import PageConnection
 from cc.cc_method import GetTestData
@@ -15,7 +13,6 @@ class TestConnection:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.engineering.engineering_window.set_focus()
-        self.matrix = PageMatrix()
         self.graphic = PageGraphic()
         self.connection = PageConnection()
 
@@ -26,7 +23,6 @@ class TestConnection:
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道BUG：2796
-        禅道用例：4694
         :param job_id:44557
         :param epcam_ui_start:
         :return:
