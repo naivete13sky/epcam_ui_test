@@ -20,8 +20,8 @@ class TestGraphicUI:
                                    download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         验证不导入json，mrc运行结束后，点击单位切换，软件闪退
+        禅道bug:5486
         禅道用例ID：4655
-        关联bug:5486
         :param job_id:44121
         :param epcam_ui_start:
         :return:

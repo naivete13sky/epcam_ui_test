@@ -37,6 +37,7 @@ edit_add_solt_by_drillmap_coord = (88+66, 498)
 
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
+analysis_drill_check_coords = (400, 65)
 
 upper_menu_bar_dfm_coords = (490, 40) # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90) # 上方菜单栏DFM-Optimization坐标 -张
@@ -85,5 +86,5 @@ right_tool_bar_unit_british_system_coords = (1245, 760)
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
 right_tool_bar_delete_to_intresetion_coords = (1290, 320) # 右侧工具栏delete_to_intresetion功能坐标 -张
 
-right_tool_bar_move_feature_coords = (1290, 280)
-right_tool_bar_copy_feature_coords = (1340, 280)
+right_tool_bar_move_feature_coords = (3, 6)
+right_tool_bar_copy_feature_coords = (4, 6)

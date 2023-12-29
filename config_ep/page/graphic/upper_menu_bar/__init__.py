@@ -79,6 +79,15 @@ mrc_run_globally_button_coords = (35, 150)
 mrc_viewer_result_button_coords = (440, 150)
 mrc_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Window"}
 
+drill_check_window_para = {'title': "Drill Check", 'control_type': "Window"}
+drill_check_run_globally_button_coords = (30, 460)
+drill_check_result_button_coords = (445, 460)
+drill_check_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Window"}
+# drill_check_viewer_result_first_categories_coords = (340, 110)
+drill_check_computing_board_network_coords = (25, 142)
+
+
+
 
 """ 以下是DFM模块信息 """
 powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}
