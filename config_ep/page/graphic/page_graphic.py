@@ -237,15 +237,15 @@ class PageGraphic(object):
 
     def click_move_feature(self, time_sleep=0.5):
         """点击右侧工具栏的move feature功能"""
-        self.graphic_window.click_input(coords=graphic.right_tool_bar_move_feature_coords)
+        coords = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_move_feature_coords)
+        self.graphic_window.click_input(coords=coords)
         time.sleep(time_sleep)
 
     def click_copy_feature(self, time_sleep=0.5):
-        """点击右侧工具栏的move feature功能"""
-        self.graphic_window.click_input(coords=graphic.right_tool_bar_copy_feature_coords)
+        """点击右侧工具栏的copy feature功能"""
+        coords = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_copy_feature_coords)
+        self.graphic_window.click_input(coords=coords)
         time.sleep(time_sleep)
-
-
 
 
     def open_connection_window(self):
@@ -358,3 +358,10 @@ class PageGraphic(object):
         """点击edit菜单栏的delete功能"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_delete_coords)
+        time.sleep(time_sleep)
+
+
+    def click_drill_check_window(self):
+        """打开Analysis菜单栏下的drill check窗口"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.analysis_drill_check_coords)

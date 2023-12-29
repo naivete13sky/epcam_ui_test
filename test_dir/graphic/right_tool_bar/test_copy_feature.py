@@ -40,14 +40,14 @@ class TestCopyFeature:
         self.graphic.click_layer(job_info, 'gtl')
 
         self.graphic.click_copy_feature()
-        self.graphic.click_canvas(coord_x=712,coord_y=610, button_type='left')
+        self.graphic.click_canvas(coord_x=712, coord_y=610, button_type='left')
         self.graphic.click_edit_delete_button()
 
         self.delete = PageDelete()
         self.delete.click_yes_button(1)
 
         self.graphic = PageGraphic()
-        self.graphic.double_click_canvas(coord_x=712,coord_y=610,button_type='left')
+        self.graphic.double_click_canvas(coord_x=712, coord_y=610, button_type='left', time_sleep=1)
 
         self.graphic.close()
         self.engineering.go_up()
