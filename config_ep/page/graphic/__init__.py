@@ -33,7 +33,11 @@ edit_usersymbol_coord = (160, 288)
 edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
 edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 edit_usersymbol_create_usersymbol_coord = (460, 280)
-edit_add_solt_by_drillmap_coord = (88+66, 498)
+
+edit_change_coord = (160, 315)
+edit_change_feature2drl_pattern_coord = (460, 360)
+
+edit_add_slot_by_drillmap_coord = (88+66, 498)
 
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)

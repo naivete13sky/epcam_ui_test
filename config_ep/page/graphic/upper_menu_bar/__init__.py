@@ -52,10 +52,17 @@ edit_reshape_substitute_ok_button_coord = (60, 205)
 edit_create_usersymbol_window_para = {'title': "Create UserSymbol", 'control_type': "Window"}
 edit_create_symbol_name_coord = (108, 51)    # symbol名称文本框的坐标
 edit_create_usersymbol_ok_coord = (63, 230)
-
-
 create_usersymbol_information_window_para = {'title': "Information", 'control_type': "Window"}
 create_usersymbol_information_ok_button_coord = (192, 98)    # usersymbol的子弹窗坐标
+
+edit_feature2drl_pattern_window_para = {'title': "Feature to Drill Pattern", 'control_type': "Window"}
+edit_feature2drl_pattern_target_layer_button_coord = (60, 80)
+edit_feature2drl_pattern_target_layer_input_coord = (165, 80)
+edit_feature2drl_pattern_drill_size_input_coord = (165, 120)
+edit_feature2drl_pattern_pitch_input_coord = (165, 170)
+edit_feature2drl_pattern_drill_type_button_coord = (165, 210)
+edit_feature2drl_pattern_outline_only_box_coord = (30, 240)
+edit_feature2drl_pattern_apply_button_coord = (80, 270)
 
 
 edit_add_slot_by_drillmap_window_para = {'title': "Add Slot By Drillmap", 'control_type': "Window"}
