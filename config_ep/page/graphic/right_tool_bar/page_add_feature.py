@@ -51,6 +51,9 @@ class PageAddFeature(object):
         coords_y = right_tool_bar.add_feature_first_radio_button_coords[1]
         self.add_feature_window.click_input(coords=(coord_x,coords_y))
 
+    def click_extractor_button(self):
+        self.add_feature_window.click_input(coords=right_tool_bar.add_feature_extractor_coord)
+
 class AddPad(PageAddFeature):
     def add_pad(self,symbol_name:str,symbol_standard=False):
         self.click_fueature_radio(2)

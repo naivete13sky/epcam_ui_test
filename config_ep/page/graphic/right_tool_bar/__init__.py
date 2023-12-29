@@ -29,6 +29,8 @@ add_feature_max_radio_button_num = 6 # 最大单选按钮数 -张
 
 add_pad_symbol_button_coords = (90, 140) # symbol按钮坐标 -张
 
+add_feature_extractor_coord = (20, 135)   #获取提取器的坐标
+
 
 symbol_window_para = {'title': "Symbol Selection Popup", 'control_type': "Window"}
 symbol_apply_button_coords = (460, 540) # apply按钮坐标 -张
