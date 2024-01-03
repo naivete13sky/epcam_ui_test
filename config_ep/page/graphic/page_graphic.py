@@ -275,7 +275,7 @@ class PageGraphic(object):
                 self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_feature_coords)
             else:
                 self.graphic_window.click_input(button="right",coords=graphic.right_tool_bar_delete_feature_coords)
-                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_to_intresetion_coords)
+                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_to_intersection_coords)
         else:
             raise ValueError("Parameter must be 0 or 1")
 
@@ -398,9 +398,9 @@ class PageGraphic(object):
         col = col_row[0]
         row = col_row[1]
         if 1 <= col <= 4 and 1 <= row <= 11:
-            coord_x = graphic.right_tool_bar_first_button_corrds[0] + (
+            coord_x = graphic.right_tool_bar_first_button_coords[0] + (
                         col - 1) * graphic.right_tool_bar_button_x_spacing
-            coord_y = graphic.right_tool_bar_first_button_corrds[1] + (
+            coord_y = graphic.right_tool_bar_first_button_coords[1] + (
                         row - 1) * graphic.right_tool_bar_button_y_spacing
             return coord_x,coord_y
         elif 4 <= col <= 1:
