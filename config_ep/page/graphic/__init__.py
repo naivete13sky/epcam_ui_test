@@ -43,22 +43,21 @@ upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 analysis_drill_check_coords = (400, 65)
 
-upper_menu_bar_dfm_coords = (490, 40) # 上方菜单栏的DFM坐标 -张
-dfm_optimization_coords = (500, 90) # 上方菜单栏DFM-Optimization坐标 -张
-dfm_powerground_optimization_coords = (800, 140) # 上方菜单栏DFM-Optimization-PowerGround_Optimization坐标 -张
+upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
+dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张
+dfm_powerground_optimization_coords = (800, 140)  # 上方菜单栏DFM-Optimization-PowerGround_Optimization坐标 -张
 
-dfm_yield_improvement_coords = (500, 115) # dfm下的yield_improvement坐标 -张
-dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190) # dfm下的yield_improvement下的dynamc_etch_compensation坐标
+dfm_yield_improvement_coords = (500, 115)  # dfm下的yield_improvement坐标 -张
+dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190)  # dfm下yield_improvement下dynamic_etch_compensation坐标
 
-upper_menu_bar_rout_coords =  (560, 40) # 上方菜单栏的rout坐标 -张
-rout_chain_coords = (570, 65) # rout下拉列表的chain坐标 -张
+upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
+rout_chain_coords = (570, 65)  # rout下拉列表的chain坐标 -张
 
 dfm_cleanup_coords = (500, 64)
 construct_pad_coords = (815, 257)
 
 upper_menu_bar_edit_undo_coords = (160, 68)
 upper_menu_bar_edit_delete_coords = (160, 90)
-
 
 
 """以下是左侧层别栏模块信息"""
@@ -73,22 +72,23 @@ left_layer_bar_scroll_bar_bot_button_coords = (230, 750)  # 滚动条底部按�
 """ 以下是中间画布模块信息"""
 canvas_centre_coord = (690, 400)  # 画布中心坐标（大概位置） -张
 acs_coord = (280, 777)
-open_job_matrix = (115, 145)     #通过Graphic界面打开matrix
+open_job_matrix = (115, 145)     # 通过Graphic界面打开matrix
 
 """ 以下是右侧工具栏模块信息 """
-right_tool_bar_first_button_corrds = (1200, 85) # 右侧工具栏第一个按钮坐标 -张
-right_tool_bar_button_x_spacing = (45) # 右侧工具栏x方向按钮间距 -张
-right_tool_bar_button_y_spacing = (40) # 右侧工具栏y方向按钮间距 -张
+right_tool_bar_first_button_coords = (1200, 85)  # 右侧工具栏第一个按钮坐标 -张
+right_tool_bar_button_x_spacing = 45  # 右侧工具栏x方向按钮间距 -张
+right_tool_bar_button_y_spacing = 40  # 右侧工具栏y方向按钮间距 -张
 right_tool_bar_zoom_home_coord = (3, 1)  # 工具栏间距大概是40
 right_tool_bar_area_zoom_coord = (1, 5)
-right_tool_bar_add_feature_coords = (1,6) # Add_Feature按钮的坐标在第1列第6行 -张
+right_tool_bar_add_feature_coords = (1, 6)  # Add_Feature按钮的坐标在第1列第6行 -张
 right_tool_bar_feature_selection_coord = (1, 10)
 right_tool_bar_feature_selection_filter_coord = (4, 3)
+right_tool_bar_break_line_coord = (2, 8)
 right_tool_bar_select_by_net_coord = (4, 10)
 right_tool_bar_unit_british_system_coords = (1245, 760)
 
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
-right_tool_bar_delete_to_intresetion_coords = (1290, 320) # 右侧工具栏delete_to_intresetion功能坐标 -张
+right_tool_bar_delete_to_intersection_coords = (1290, 320)  # 右侧工具栏delete_to_intersection功能坐标 -张
 
 right_tool_bar_move_feature_coords = (3, 6)
 right_tool_bar_copy_feature_coords = (4, 6)
