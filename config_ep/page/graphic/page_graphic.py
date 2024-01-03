@@ -218,6 +218,10 @@ class PageGraphic(object):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
+    def break_line(self):
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_break_line_coord)
+        self.graphic_window.click_input(coords=coord)
+
     def select_by_net(self):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_select_by_net_coord)
         self.graphic_window.click_input(coords=coord)
@@ -304,7 +308,6 @@ class PageGraphic(object):
         coords = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_copy_feature_coords)
         self.graphic_window.click_input(coords=coords)
         time.sleep(time_sleep)
-
 
     def open_connection_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
@@ -422,7 +425,6 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_delete_coords)
         time.sleep(time_sleep)
-
 
     def click_drill_check_window(self):
         """打开Analysis菜单栏下的drill check窗口"""

@@ -64,6 +64,7 @@ upper_menu_bar_edit_delete_coords = (160, 90)
 left_layer_bar_row_height = 25  # 行高  -张
 left_layer_bar_first_row_coord = (130, 175)  # 第一行的坐标 -张
 left_layer_bar_first_row_affected_layer_coord = (26, 175)
+left_layer_bar_blank_area_coord = (120, 640)
 left_layer_bar_max_layer_row = 24  # 最大初始layer_row  -张
 left_layer_bar_min_layer_row = 1  # 最小初始layer_row  -张
 left_layer_bar_scroll_bar_top_button_coords = (230, 170)  # 滚动条顶部按钮  -张
