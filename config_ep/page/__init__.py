@@ -3,7 +3,6 @@ from config import RunConfig
 """ 以下为engineering模块信息"""
 engineering_window_para = {'title': RunConfig.driver_epcam_ui_engineering_title}  # engineering_window
 engineering_import_window_child_window_para = {'title': "Import Job", 'control_type': "Window"}  # import job窗口
-engineering_create_window_child_window_para = {'title': "Create", 'control_type': "Window"}
 engineering_import_input_path_file_type_window_para = {
     'title': "文件类型(T):", 'auto_id': "1136", 'control_type': "ComboBox"}  # import job窗口，获得选择文件类型控件
 engineering_import_input_path_file_path_window_para = {
@@ -27,14 +26,18 @@ engineering_jobList_row_space = 170  # engineering窗口job图标y轴中心间�
 
 engineering_file_coord = (20, 40)
 engineering_file_create_coord = (20, 65)
-engineering_file_create_x_coord = (650, 350)
-engineering_file_create_close_coord = (620, 440)
-engineering_file_create_entity_filter_coord = (580, 380)
-engineering_file_create_database_filter_coord = (580, 412)
-engineering_file_create_database_button_coord = (420, 412)
-engineering_file_create_ok_button_coord = (400, 445)
-engineering_file_create_apply_button_coord = (535, 445)
-engineering_file_create_yes_button_coord = (560, 440)
+
+engineering_create_window_para = {'title': "Create", 'control_type': "Window"}
+create_entity_name_input_coord = (200, 55)
+create_database_input_coord = (200, 85)
+create_database_button_coord = (65, 85)
+create_ok_button_coord = (55, 120)
+create_apply_button_coord = (160, 120)
+create_close_button_coord = (260, 120)
+engineering_create_information_window_para = {'title': "Information", 'control_type': "Window"}
+create_information_yes_button_coord = (240, 100)
+create_information_no_button_coord = (320, 100)
+
 engineering_file_import_coord = (20, 210)
 engineering_file_input_coord = (20, 160)
 engineering_file_output_coord = (20, 185)
