@@ -68,6 +68,10 @@ engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
 engineering_inJob_symbols_coord = (80+390, 250)
+engineering_inJob_symbol_unselect1_coord = (375, 300)
+engineering_inJob_symbol_unselect2_coord = (520, 300)
+engineering_inJob_symbol_Left_clickon1_coord = (1012, 760)
+engineering_inJob_symbol_Left_clickon2_coord = (1012, 230)
 
 """ 以下为engineering--import模块信息"""
 engineering_file_import_input_path_coord = (30, 80)  # 变形时，字体太大，异常情况,y = 100
