@@ -124,7 +124,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_window_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('x')
+        self.create.close()
         assert self.create.create_window_is_closed()
 
     def test_create_entity_input(self, epcam_ui_start):
@@ -143,7 +143,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('x')
+        self.create.close()
 
     def test_create_entity_illegal_input(self, epcam_ui_start):
         self.engineering.open_create_window()
@@ -162,7 +162,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_entity_illegal_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('x')
+        self.create.close()
 
     def test_create_database_reset(self, epcam_ui_start):
         self.engineering.open_create_window()
@@ -184,7 +184,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_database_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('x')
+        self.create.close()
 
     def test_create_new_job_ok(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -208,7 +208,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
+        self.create.close()
 
     def test_create_new_job_apply(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -231,7 +231,7 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
+        self.create.close()
 
     def test_create_exist_job(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -240,8 +240,10 @@ class TestUI:
         self.engineering.delete_all_jobs()
         self.engineering.open_create_window()
         self.create.create_job('760', 'apply')
-        self.create.create_job('760', 'apply')
-        self.create.create_job('760', 'ok')
+        self.engineering.open_create_window()
+        self.create.create_job('760', 'apply', 'True')
+        self.engineering.open_create_window()
+        self.create.create_job('760', 'ok', 'True')
         engineering_file_create_exist_job_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_exist_job_pic.save(
             r'C:\cc\share\temp\engineering_file_create_exist_job_pic.png')  # 保存到硬盘
@@ -255,7 +257,6 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_exist_job_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
 
     def test_create_job_entity_none(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -264,7 +265,8 @@ class TestUI:
         self.engineering.delete_all_jobs()
         self.engineering.open_create_window()
         self.create.clear_entity_name()
-        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.create.create_window.click_input(coords=page.create_apply_button_coord)
+        time.sleep(0.2)
         engineering_file_create_job_database_none_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_job_database_none_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_entity_none_pic.png')  # 保存到硬盘
@@ -278,8 +280,8 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_entity_none_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
-        self.create.close_create_window('close')
+        self.create.click_information_ok_button()
+        self.create.close()
 
     def test_create_job_database_none(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -290,7 +292,8 @@ class TestUI:
         self.create.clear_entity_name()
         self.create.entity_name_input('666abc-+{_}+{+}')
         self.create.clear_database_name()
-        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.create.create_window.click_input(coords=page.create_apply_button_coord)
+        time.sleep(0.2)
         engineering_file_create_job_database_none_pic = self.engineering.engineering_window.capture_as_image()
         engineering_file_create_job_database_none_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_database_none_pic.png')  # 保存到硬盘
@@ -304,8 +307,8 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_database_none_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
-        self.create.close_create_window('close')
+        self.create.click_information_ok_button()
+        self.create.close()
 
     def test_create_job_database_not_exist(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -316,7 +319,8 @@ class TestUI:
         self.create.clear_entity_name()
         self.create.entity_name_input('666abc-+{_}+{+}')
         self.create.database_input('123')
-        self.create.engineering_window.click_input(coords=page.engineering_file_create_apply_button_coord)
+        self.create.create_window.click_input(coords=page.create_apply_button_coord)
+        time.sleep(0.2)
         engineering_file_create_job_database_not_exist_pic = self.engineering.engineering_window.capture_as_image()
         engineering_file_create_job_database_not_exist_pic.save(
             r'C:\cc\share\temp\engineering_file_create_job_database_not_exist_pic.png')  # 保存到硬盘
@@ -331,8 +335,8 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_job_database_not_exist_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close_create_window('close')
-        self.create.close_create_window('close')
+        self.create.click_information_ok_button()
+        self.create.close()
 
     def test_open_option_menu(self, epcam_ui_start):  # 验证打开Option菜单栏
         """
