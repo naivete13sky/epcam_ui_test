@@ -28,6 +28,7 @@ add_feature_radio_button_spacing = 55 # 单选按钮中心间距 -张
 add_feature_max_radio_button_num = 6 # 最大单选按钮数 -张
 
 add_pad_symbol_button_coords = (90, 140) # symbol按钮坐标 -张
+add_pad_symbol_text_coords = (140, 140) #symbol文本框坐标 -张
 
 
 symbol_window_para = {'title': "Symbol Selection Popup", 'control_type': "Window"}
