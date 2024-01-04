@@ -23,7 +23,7 @@ class TestCopperExposedArea:
         """
         验证mask为空时执行exposed_area弹出提示框（软件不闪退）
         禅道用例ID：4646
-        禅道bug ID:5638
+        禅道bug ID:5638、3501
         :param job_id:7763
         :param epcam_ui_start:
         :return:

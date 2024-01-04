@@ -1092,10 +1092,42 @@ class TestFile:
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)
         self.engineering.go_up()  # 双击go up按钮返回到上一级
         self.engineering.go_up()  # 再双击go up按钮到软件主界面
-        self.engineering.entity_filter('2344473c_58Te6ao')  # 筛选料号，在界面上显示指定某一个料号
+
+
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols_unselect'))
+    def test_symbols_unselect_case_4731(self, job_id, epcam_ui_start,
+                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        禅道用例ID：4731 打开任意资料的symbols库界面，先全选symbol再取消选中部分symbol后滑动页面软件不闪退
+        禅道bugID：3493
+        :param job_id:44119
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+        time.sleep(30)  # 资料比较大，等待30s
+
+        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)
+        self.engineering.action_select_select_all()  # 选中所有symbol
+        self.engineering.engineering_window.click_input(button="middle", coords=page.engineering_inJob_symbol_unselect1_coord)
+        self.engineering.engineering_window.click_input(button="middle",
+                                                        coords=page.engineering_inJob_symbol_unselect2_coord)
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbol_Left_clickon1_coord)
+        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbol_Left_clickon2_coord)
+
+        self.engineering.go_up()  # 双击go up按钮返回到上一级
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
+        self.engineering.entity_filter('2344473c1')  # 筛选料号，在界面上显示指定某一个料号
         if self.engineering.job_first_is_opened():
             self.engineering.close_job_first()
         self.engineering.delete_all_jobs()  # 删除料,不影响后续用例的执行
+
 
     @pytest.mark.from_bug
     @pytest.mark.crash
@@ -1151,6 +1183,8 @@ class TestFile:
         self.matrix.close()  # 关闭matrix窗口
         self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coord)  # 双击打开steps
         self.engineering.action_select_select_all()  # 选中所有step
-        self.engineering.file_delete()  # 删除所以step
+        self.engineering.file_delete()  # 删除所有step
         self.engineering.go_up()  # 双击go up按钮返回到上一级
         self.engineering.go_up()  # 再双击go up按钮到软件主界面
+
+
