@@ -6,6 +6,8 @@ right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer c
 right_click_menu_split_layer_coords = (40, 360) # layer右击split layer坐标 -张
 right_click_menu_mark_note_coords = (40, 255)
 
+features_histogram_window_para = {'title': "Features Histogram", 'control_type': "Window"}
+
 """ 以下是Copper/Exposed Area功能模块信息 """
 copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
 copper_exposed_area_measurement_copper_area_coords = (113, 51)  # copper_area单选按钮坐标 -张

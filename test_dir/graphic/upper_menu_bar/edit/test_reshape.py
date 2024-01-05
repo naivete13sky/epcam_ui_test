@@ -1,3 +1,4 @@
+import time
 import pytest
 import os
 from config_ep import page
@@ -33,6 +34,7 @@ class TestContourToPad:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
@@ -75,6 +77,7 @@ class TestSubstitute:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)

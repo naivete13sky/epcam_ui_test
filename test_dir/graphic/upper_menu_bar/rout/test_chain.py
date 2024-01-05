@@ -47,8 +47,8 @@ class TestChain:
     @pytest.mark.from_bug
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData.get_job_id("Chain_Warning"))
-    def test_chain_case_4721(self, job_id, epcam_ui_start,
-                             download_file_compressed_entity_filter_delete_all_jobs_import):
+    def test_graphic_chain_case_4721(self, job_id, epcam_ui_start,
+                                     download_file_compressed_entity_filter_delete_all_jobs_import):
         """
         禅道bug:5303
         :param job_id:44817

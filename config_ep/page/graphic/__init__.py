@@ -70,6 +70,8 @@ left_layer_bar_min_layer_row = 1  # 最小初始layer_row  -张
 left_layer_bar_scroll_bar_top_button_coords = (230, 170)  # 滚动条顶部按钮  -张
 left_layer_bar_scroll_bar_bot_button_coords = (230, 750)  # 滚动条底部按钮  -张
 
+left_layer_bar_feature_histogram_coord = (180, 400)
+
 """ 以下是中间画布模块信息"""
 canvas_centre_coord = (690, 400)  # 画布中心坐标（大概位置） -张
 acs_coord = (280, 777)
