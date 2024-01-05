@@ -91,7 +91,7 @@ class TestAddText():
     def test_add_text(self):
         print("123")
 
-class TestAddExtractor:
+class TestAddFeature:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.graphic = PageGraphic()

@@ -29,6 +29,9 @@ edit_reshape_substitute_area_zoom_2_coord = (700, 430)
 edit_reshape_substitute_canvas_select_1_coord = (666, 480)
 edit_reshape_substitute_canvas_select_2_coord = (666, 580)
 
+
+edit_reshape_change_symbol_coord = (485, 235)
+
 edit_usersymbol_coord = (160, 288)
 edit_usersymbol_angle_for_usersymbol_coord = (450, 315)
 edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
@@ -46,9 +49,11 @@ analysis_drill_check_coords = (400, 65)
 upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张
 dfm_powerground_optimization_coords = (800, 140)  # 上方菜单栏DFM-Optimization-PowerGround_Optimization坐标 -张
+dfm_solder_mask_optimization_coords = (800, 110)
 
 dfm_yield_improvement_coords = (500, 115)  # dfm下的yield_improvement坐标 -张
 dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190)  # dfm下yield_improvement下dynamic_etch_compensation坐标
+dfm_yield_improvement_basic_etch_compensation_coords = (800, 115)  # 打开dfm菜单栏下的basic_etch_compensation功能
 
 upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
 rout_chain_coords = (570, 65)  # rout下拉列表的chain坐标 -张

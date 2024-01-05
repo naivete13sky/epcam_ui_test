@@ -18,6 +18,11 @@ feature_selection_filter_unselect_button_coord = (95, 440)
 feature_selection_filter_high_light_button_coord = (260, 410)
 feature_selection_filter_turn_off_button_coord = (260, 440)
 feature_selection_filter_close_reset_button_coord = (130, 480)
+feature_selection_filter_advanced_button_coord = (435, 370)
+feature_selection_filter_advanced_filter_window_para = {'title': "Advanced Filter Popup", 'control_type': "Window"}
+advanced_filter_popup_surface_button_coord = (370, 50)
+advanced_filter_popup_surface_selection_elements_coord = (35, 105)
+advanced_filter_popup_close_reset_button_coord = (95, 375)
 
 
 """ """

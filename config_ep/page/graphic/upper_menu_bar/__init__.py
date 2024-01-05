@@ -80,6 +80,10 @@ edit_delete_information_window_para = {'title': "Information", 'control_type': "
 edit_delete_information_yes_button_coord = (140, 90)
 edit_delete_information_no_button_coord = (220, 90)
 
+edit_change_symbol_window_para = {'title': "Change Symbol", 'control_type': "Window"}
+edit_change_symbol_parameter_coord = (150, 50)
+edit_change_symbol_ok_button_coord = (50, 115)
+
 """ 以下是Analysis模块信息 """
 mrc_window_para = {'title': "MRC", 'control_type': "Window"}
 mrc_run_globally_button_coords = (35, 150)
@@ -139,6 +143,18 @@ erf_name_text_coords = (100, 55) # efr_name文本框坐标 -张
 erf_name_ok_button_coords = (55, 90) # efr_nameok按钮坐标 -张
 warning_window_para = {'title': "Warning", 'control_type': "Window"}
 warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
+
+basic_etch_compensation_window_para = {'title': "Basic Etch Compensation", 'control_type': "Window"}
+basic_etch_compensation_layer_coord = (150, 80)
+basic_etch_compensation_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
+basic_etch_compensation_layer_popup_first_row_coords = (50, 80)
+basic_etch_compensation_layer_popup_row_spacing = 20
+basic_etch_compensation_layer_popup_ok_button_coords = (60, 280)
+basic_etch_compensation_line_arc_parameter_coords = (410, 320)
+basic_etch_compensation_pad_parameter_coords = (430, 355)
+basic_etch_compensation_surface_parameter_coords = (425, 390)
+basic_etch_compensation_min_spacing_coords = (230, 435)
+basic_etch_compensation_run_globally_coords = (30, 585)
 
 
 """ 以下是ROUT模块信息 """
