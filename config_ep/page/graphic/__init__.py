@@ -93,6 +93,8 @@ right_tool_bar_feature_selection_coord = (1, 10)
 right_tool_bar_feature_selection_filter_coord = (4, 3)
 right_tool_bar_break_line_coord = (2, 8)
 right_tool_bar_select_by_net_coord = (4, 10)
+right_tool_bar_select_polyline_coord = (4, 10)
+right_tool_bar_select_polyline_xy_coord = (1360, 505)
 right_tool_bar_unit_british_system_coords = (1245, 760)
 
 right_tool_bar_delete_feature_coords = (1250, 290)  # 右侧工具栏delete_feature功能坐标 -张
