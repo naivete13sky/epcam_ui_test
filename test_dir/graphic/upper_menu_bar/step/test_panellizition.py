@@ -1,4 +1,5 @@
 import os
+import time
 import pytest
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
@@ -32,6 +33,7 @@ class TestStepAndRepeatPuzzleByAutomatic:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(1)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
@@ -72,6 +74,7 @@ class TestStepAndRepeatPuzzleByTable:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
@@ -114,6 +117,7 @@ class TestStepAndRepeatEdit:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)

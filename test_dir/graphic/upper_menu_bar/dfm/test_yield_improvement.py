@@ -65,6 +65,7 @@ class TestDynamicEtchCompensation:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(2)
         self.engineering = PageEngineering()
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()

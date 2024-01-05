@@ -171,6 +171,7 @@ class TestUI:
         self.create.database_reset()
         self.create.database_input('666abc-+{_}+{+}ABC!@#$你说啥？')
         self.create.database_reset()
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处
         engineering_file_create_database_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_file_create_database_pic.save(
             r'C:\cc\share\temp\engineering_file_create_database_pic.png')  # 保存到硬盘
@@ -208,7 +209,6 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_ok_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close()
 
     def test_create_new_job_apply(self, epcam_ui_start):
         self.engineering.entity_filter('760')
@@ -231,7 +231,6 @@ class TestUI:
         img_current_path = r'C:\cc\share\temp\engineering_file_create_new_job_apply_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.create.close()
 
     def test_create_exist_job(self, epcam_ui_start):
         self.engineering.entity_filter('760')
