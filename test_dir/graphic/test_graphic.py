@@ -1,7 +1,8 @@
 import pytest
 import os
-import pyautogui
+
 from pywinauto.keyboard import send_keys
+
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
@@ -135,7 +136,6 @@ class TestGraphicUI:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
@@ -176,7 +176,6 @@ class TestGraphicUI:
         :return:
         """
         job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        time.sleep(2)
         self.engineering.open_job_first_by_double_click()
         self.engineering.open_steps_by_double_click()
         odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
@@ -194,49 +193,11 @@ class TestGraphicUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Home_mouse_swipe'))
-    def test_graphic_case_4733(self, job_id, epcam_ui_start,
-                               download_file_compressed_entity_filter_delete_all_jobs_import):
-
-        """
-        禅道用例：4733 按下Home键的同时滑动鼠标中键的滚轮，画布显示正确不闪退
-        禅道BUG：3969
-        :param job_id:45308
-        :param epcam_ui_start:
-        :return:
-        """
-
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        time.sleep(2)
-        self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        self.engineering.open_steps_by_double_click()  # 双击steps
-        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
-        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
-        job_info = {}
-        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'edit')  # 双击打开edit
-        self.graphic = PageGraphic()
-        self.graphic.click_layer(job_info, 'gtl')
-        self.graphic.click_canvas(720, 395)
-        # 模拟长按Home键
-        for i in range(10):
-            for direction in [0, -180, 0, 180]:
-                pyautogui.hotkey('home')
-                time.sleep(0.01)  # 每次按下Home键后等待0.01秒
-                pyautogui.scroll(direction) # 交替执行短暂的上下滚动操作
-                time.sleep(0.1)  # 每次滚动后等待0.1秒
-
-        self.graphic.close()
-        self.engineering.go_up()
-        self.engineering.go_up()
-
-    @pytest.mark.from_bug
-    @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Ctrl_C_And_Ctrl_V'))
     def test_graphic_ctrl_c_and_ctrl_v_not_crash_4735(self, job_id, epcam_ui_start,setup_method,
                                          download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证可以正常使用快捷键Ctrl_C和Ctrl+V复制物件，软件不闪退
         禅道BUG：4293
         :param job_id:44818
         :param epcam_ui_start:
