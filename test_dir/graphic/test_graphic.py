@@ -190,3 +190,43 @@ class TestGraphicUI:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Ctrl_C_And_Ctrl_V'))
+    def test_graphic_ctrl_c_and_ctrl_v_not_crash_4735(self, job_id, epcam_ui_start,setup_method,
+                                         download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道BUG：4293
+        :param job_id:44818
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+
+        engineering = setup_method['engineering']
+        engineering.open_job_first_by_double_click()
+        engineering.open_steps_by_double_click()
+        job_info = {}
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r"matrix\matrix")
+        job_info["step_info"] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info["layer_info"] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        engineering.open_step_by_double_click(job_info, 'edit')
+
+        graphic = setup_method.get('graphic')
+        graphic.click_layer(job_info, 'gtl')
+        graphic.feature_selection()
+        graphic.click_canvas(570, 590)
+        send_keys("^c")
+        graphic.click_canvas(570, 590)
+        send_keys("^v")
+        graphic.click_canvas(570, 700)
+
+        graphic.close()
+        engineering.go_up()
+        engineering.go_up()
+
+
+
+        # graphic.click_canvas()
