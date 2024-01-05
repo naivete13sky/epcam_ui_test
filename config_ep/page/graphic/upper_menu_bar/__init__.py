@@ -93,8 +93,11 @@ drill_check_viewer_result_window_para = {'title': "Results Viewer", 'control_typ
 # drill_check_viewer_result_first_categories_coords = (340, 110)
 drill_check_computing_board_network_coords = (25, 142)
 
-
-
+layer_netlist_check_window_para = {'title': "Layer Netlist Check", 'control_type': "Window"}
+layer_netlist_check_layers_text_coords = (120, 75) # Layers文本框坐标 -张
+layer_netlist_check_compare_step_text_coords = (133, 140) # Compare Step文本框坐标 -张
+layer_netlist_check_work_step_text_coords = (342, 140) # Work Step文本框坐标 -张
+layer_netlist_check_compare_button_coords = (60, 515) # Compare按钮坐标 -张
 
 """ 以下是DFM模块信息 """
 powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}

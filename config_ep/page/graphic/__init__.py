@@ -42,6 +42,7 @@ edit_add_slot_by_drillmap_coord = (88+66, 498)
 upper_menu_bar_analysis_coords = (405, 42)
 analysis_mrc_coords = (435, 375)
 analysis_drill_check_coords = (400, 65)
+analysis_layer_netlist_check_coords = (400, 268) # Layer Netlist Check坐标 -张
 
 upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张
