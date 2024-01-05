@@ -459,3 +459,9 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.edit_reshape_coord)
         self.graphic_window.click_input(coords=graphic.edit_reshape_change_symbol_coord)
+
+
+    def open_layer_netlist_check(self):
+        """打开Analysis菜单栏下的Layer Netlist Check窗口"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.analysis_layer_netlist_check_coords)
