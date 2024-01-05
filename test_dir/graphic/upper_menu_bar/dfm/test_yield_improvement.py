@@ -7,6 +7,9 @@ from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.right_tool_bar.page_feature_selection_filter import PageFeatureSelectionFilter
 from config_ep.page.graphic.upper_menu_bar.dfm.page_dynamc_etch_compensation import PageDynamicEtchCompensation
+from config_ep.page.graphic.upper_menu_bar.dfm.page_basic_etch_compensation import PageBasicEtchCompensation
+from config_ep.page.graphic.upper_menu_bar.edit.page_change_symbol import PageChangeSymbol
+from config_ep.page.graphic.upper_menu_bar.edit.page_undo import PageUndo
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
@@ -118,3 +121,86 @@ class TestDynamicEtchCompensation:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
+
+
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Basic_Etch_Compensation_Undo_Crash'))
+    def test_basic_etch_compensation_case_4739(self, job_id, epcam_ui_start,
+                                          download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        【Basic Etch Comp】使用时，点击undo闪退
+        禅道bug ID:4230
+        :param job_id:44816
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering = PageEngineering()
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        job_info = {}
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r"matrix\matrix")
+        job_info["step_info"] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info["layer_info"] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'pre')
+        self.graphic.click_layer(job_info, 'l1')
+        self.graphic.open_basic_etch_compensation_window()
+
+        self.basicetch = PageBasicEtchCompensation()
+        self.basicetch.click_layer_button()
+        self.basicetch.layer_popup_select(job_info, layers=['l1'])
+        self.basicetch.click_layer_ok_button()
+        self.basicetch.line_arc_parameter(parameter='2')
+        self.basicetch.pad_parameter(parameter='3')
+        self.basicetch.surface_parameter(parameter='1')
+        self.basicetch.min_spacing_parameter(parameter='0.01')
+        self.basicetch.click_run_globally(time_sleep=8)
+        self.basicetch.close()
+
+        self.graphic = PageGraphic()
+        self.graphic.area_zoom()
+        self.graphic.click_canvas(530, 290)
+        self.graphic.click_canvas(595, 370)
+        self.graphic.feature_selection()
+        self.graphic.double_click_canvas(635, 250)   #双击画布，选中一样的物件
+        self.graphic.open_change_symbol_window()
+
+        self.changesymbol = PageChangeSymbol()
+        self.changesymbol.symbol_name('s40')
+        self.changesymbol.click_ok_button()
+
+        self.graphic.open_basic_etch_compensation_window()
+
+        self.basicetch = PageBasicEtchCompensation()
+        self.basicetch.click_run_globally(time_sleep=8)
+        self.basicetch.close()
+
+        self.graphic.click_undo_button()
+        self.undo = PageUndo()
+        self.undo.click_yes_button()
+
+        self.graphic.click_undo_button()
+        self.undo = PageUndo()
+        self.undo.click_yes_button()
+
+        self.graphic.click_undo_button()
+        self.undo = PageUndo()
+        self.undo.click_yes_button()
+
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+
+
+
+
+
+
+
+
+
+

@@ -386,6 +386,14 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.dfm_optimization_coords)
         self.graphic_window.click_input(coords=graphic.dfm_powerground_optimization_coords)
 
+    def open_solder_mask_optimization_window(self):
+        """
+        打开solder_mask_optimization窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_optimization_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_solder_mask_optimization_coords)
+
     def get_right_tool_bar_button_coords(self,col_row:list):
         """
         获取右侧工具栏按钮坐标
@@ -423,3 +431,19 @@ class PageGraphic(object):
         """打开Analysis菜单栏下的drill check窗口"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.analysis_drill_check_coords)
+
+    def open_basic_etch_compensation_window(self):
+        """
+        打开basic_etch_compensation窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_yield_improvement_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_yield_improvement_basic_etch_compensation_coords)
+
+    def open_change_symbol_window(self):
+        """
+        打开change_symbol窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.edit_reshape_coord)
+        self.graphic_window.click_input(coords=graphic.edit_reshape_change_symbol_coord)

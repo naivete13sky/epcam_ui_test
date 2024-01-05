@@ -2,6 +2,7 @@ from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import right_tool_bar
 from pywinauto.keyboard import send_keys
+import time
 
 
 class PageFeatureSelectionFilter(object):
@@ -48,9 +49,10 @@ class PageFeatureSelectionFilter(object):
         self.feature_selection_filter_window.click_input(
             coords=right_tool_bar.feature_selection_filter_reset_button_coord)
 
-    def click_select_button(self):
+    def click_select_button(self, time_sleep=0.5):
         self.feature_selection_filter_window.click_input(
             coords=right_tool_bar.feature_selection_filter_select_button_coord)
+        time.sleep(time_sleep)
 
     def click_unselect_button(self):
         self.feature_selection_filter_window.click_input(
@@ -91,4 +93,29 @@ class PageFeatureSelectionFilter(object):
             coords=right_tool_bar.feature_selection_filter_exclude_attributes_input_coord)
         send_keys('^a')
         send_keys(text)
+
+    def click_advanced_button(self):
+        """打开筛选器下的advanced弹窗"""
+        self.feature_selection_filter_window.click_input(
+            coords= right_tool_bar.feature_selection_filter_advanced_button_coord)
+
+    def advanced_close(self):
+        """切换到advanced界面，点击close"""
+        self.advanced_filter_window = self.graphic_window.child_window(
+            **right_tool_bar.feature_selection_filter_advanced_filter_window_para)
+        self.advanced_filter_window.child_window(title="关闭", control_type="Button").click_input()
+
+    def advanced_click_surface_button(self):
+        """切换到advanced界面，点击surface按钮选项"""
+        self.advanced_filter_window = self.graphic_window.child_window(
+            **right_tool_bar.feature_selection_filter_advanced_filter_window_para)
+        self.advanced_filter_window.click_input(
+            coords=right_tool_bar.advanced_filter_popup_surface_button_coord)
+
+    def advanced_surface_elements_button(self):
+        """切换到advanced界面，点击surface按钮，勾选Elements复选框"""
+        self.advanced_filter_window = self.graphic_window.child_window(
+            **right_tool_bar.feature_selection_filter_advanced_filter_window_para)
+        self.advanced_filter_window.click_input(
+            coords=right_tool_bar.advanced_filter_popup_surface_selection_elements_coord)
 
