@@ -227,7 +227,3 @@ class TestGraphicUI:
         graphic.close()
         engineering.go_up()
         engineering.go_up()
-
-
-
-        # graphic.click_canvas()
