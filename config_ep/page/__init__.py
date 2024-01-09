@@ -67,11 +67,8 @@ engineering_inJob_go_up_coord = (80, 250)
 engineering_inJob_steps_coord = (80 + 260, 250)
 engineering_inJob_steps_step_first_coord = (80 + 130, 250)
 engineering_inJob_matrix_coord = (80 + 130, 250)
-engineering_inJob_symbols_coord = (80+390, 250)
-engineering_inJob_symbol_unselect1_coord = (375, 300)
-engineering_inJob_symbol_unselect2_coord = (520, 300)
-engineering_inJob_symbol_Left_clickon1_coord = (1012, 760)
-engineering_inJob_symbol_Left_clickon2_coord = (1012, 230)
+engineering_inJob_symbol_Left_clickon1_coord = (1012, 760)#朱
+engineering_inJob_symbol_Left_clickon2_coord = (1012, 230)#朱
 
 """ 以下为engineering--import模块信息"""
 engineering_file_import_input_path_coord = (30, 80)  # 变形时，字体太大，异常情况,y = 100
@@ -106,17 +103,23 @@ engineering_file_input_view_ascii_window_para = {
 engineering_file_input_view_ascii_close_coord = (500, 800)
 
 engineering_file_input_view_graphic_window_para = {'title': "EP-CAM", 'control_type': "Window"}
-engineering_file_input_view_graphic_close_coord = (810, 155)
 
-engineering_file_parameters_coord = (272, 320)
-engineering_file_parameters_menu_coord = (300, 350)
-engineering_file_input_view_graphic_coord = (272, 320)
-engineering_file_input_view_graphic_menu_coord = (300, 330)
-engineering_file_input_right_click_menu_coord = (300, 330)  # 右击层别栏，调出右击菜单栏
-engineering_file_input_job_window_menu_coord = (56, 85)
-engineering_file_input_job_window_close_menu_coord = (573, 617)
-engineering_file_input_step_window_menu_coord = (455, 85)
-engineering_file_input_step_window_close_menu_coord= (580, 617)
+engineering_file_input_parametes_window_para = {'title': "Parameters Popup", 'control_type': "Window"} # 朱
+engineering_file_parameters_open_menu_coord = (285, 355)  # 朱
+
+engineering_file_input_jobs_window_para = {'title': "Jobs Popup", 'control_type': "Window"}  # 朱
+engineering_file_input_jobs_menu_coord = (56, 85)  # 朱
+
+engineering_file_input_steps_window_para = {'title': "Steps Popup", 'control_type': "Window"}  # 朱
+engineering_file_input_steps_window_menu_coord = (455, 85)  # 朱
+
+engineering_file_input_right_click_menu_coord = (240, 322)  # 右键单击Input视窗的层别栏，调出右击菜单栏  # 朱
+
+
+engineering_file_input_view_graphic_menu_coord = (285, 328)  # 朱
+
+
+
 
 
 """ 以下为graphic模块信息"""
@@ -141,10 +144,6 @@ graphic_step_robotcam_close_coord = (815, 12)
 graphic_analysis_solder_mask_coord = (400, 145)
 graphic_analysis_solder_mask_run_globally_coord =(665, 880)
 
-graphic_analysis_coord = (408, 42)
-graphic_analysis_signal_layer_check_coord = (445, 115)
-graphic_analysis_signal_layer_check_windows_run_coord = (758, 940)
-graphic_analysis_signal_layer_check_windows_close_coord = (910, 1000)
 
 """ 以下为matrix模块信息"""
 matrix_window_pare = {'title': RunConfig.driver_epcam_ui_matrix_title, 'control_type': "Window"}  # -张

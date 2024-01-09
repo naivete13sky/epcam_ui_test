@@ -103,6 +103,13 @@ layer_netlist_check_compare_step_text_coords = (133, 140) # Compare Step文本�
 layer_netlist_check_work_step_text_coords = (342, 140) # Work Step文本框坐标 -张
 layer_netlist_check_compare_button_coords = (60, 515) # Compare按钮坐标 -张
 
+signal_check_window_para = {'title': "Signal Layer Check", 'control_type': "Window"}#朱
+signal_check_window_run_inside_profile_coord = (758, 940)#朱
+signal_check_window_close_coord = (910, 1000)#朱
+
+
+
+
 """ 以下是DFM模块信息 """
 powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}
 powerground_optimization_run_globally_button_coords = (30, 495) # Run globally按钮坐标 -张

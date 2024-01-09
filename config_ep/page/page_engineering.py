@@ -65,6 +65,11 @@ class PageEngineering(Base):
         self.engineering_window.click_input(coords=page.engineering_jobList_first_coord)  # 使用鼠标单击按钮，无需主动激活窗口
         self.engineering_window.double_click_input(coords=page.engineering_jobList_first_coord)
 
+    def double_click_symbols(self):
+        coord_x = page.engineering_jobList_first_coord[0] + page.engineering_jobList_col_space * 3
+        coord_y = page.engineering_jobList_first_coord[1]
+        self.engineering_window.double_click_input(coords=(coord_x,coord_y))
+
     def open_job_first_by_context_menu(self):
         pass
         self.engineering_window.right_click_input(coords=page.engineering_jobList_first_coord)  # 使用鼠标单击按钮，无需主动激活窗口

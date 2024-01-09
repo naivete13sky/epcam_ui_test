@@ -47,6 +47,15 @@ analysis_mrc_coords = (435, 375)
 analysis_drill_check_coords = (400, 65)
 analysis_layer_netlist_check_coords = (400, 268) # Layer Netlist Check坐标 -张
 
+upper_menu_bar_analysis_coord = (408, 42)#朱
+upper_menu_bar_analysis_signal_check_coord = (445, 115)#朱
+upper_menu_bar_analysis_coords = (405, 42)#朱
+analysis_mrc_coords = (435, 375)#朱
+
+
+upper_menu_bar_analysis_drill_check_coords = (400, 65)
+
+
 upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张
 dfm_powerground_optimization_coords = (800, 140)  # 上方菜单栏DFM-Optimization-PowerGround_Optimization坐标 -张
