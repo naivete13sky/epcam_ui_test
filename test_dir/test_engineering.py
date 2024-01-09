@@ -20,7 +20,10 @@ from config_ep.page.page_tool_size_edit import PageToolSizeEdit
 from config_ep.page.page_dcode_edit import PageDcodeEdit
 from config_ep.page.page_input_view_ascii import PageInputViewAscii
 from config_ep.page.page_create import PageCreate
-
+from config_ep.page.page_input_parameters import PageInputParameters
+from config_ep.page.page_view_graphic import PageViewGraphic
+from config_ep.page.page_input_jobs import PageInputJobs
+from config_ep.page.page_input_steps import PageInputSteps
 
 @pytest.mark.input
 class TestUI:
@@ -29,6 +32,7 @@ class TestUI:
         self.engineering = PageEngineering()
         self.create = PageCreate()
         self.engineering.engineering_window.set_focus()  # 激活窗口
+
 
     def test_ui_all(self, epcam_ui_start):
         engineering_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
@@ -532,6 +536,79 @@ class TestUI:
         self.engineering.go_up()
         self.engineering.go_up()
 
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols_open'))
+    def test_symbols_open_case_4647(self, job_id, epcam_ui_start,
+                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        禅道用例ID：4647 正确打开附件资料的Symbol库
+        禅道bugID：2724
+        :param job_id:44119
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+        time.sleep(30)  # 资料比较大，等待30s
+
+        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
+        self.engineering.double_click_symbols()#双击料号库按钮将其打开
+        self.engineering.go_up()  # 双击go up按钮返回到上一级
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols_Click_on_the_slider'))
+    def test_symbols_Click_on_the_slider_case_4731(self, job_id, epcam_ui_start,
+                                      download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        打开任意资料的symbols库界面，先全选symbol再取消选中部分symbol后滑动页面软件不闪退
+        禅道bugID：3493
+        :param job_id:44119
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+
+        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
+        self.engineering.double_click_symbols() # 双击symbol图形
+
+        self.engineering.engineering_window.click_input(coords=page.engineering_inJob_symbol_Left_clickon1_coord)
+        self.engineering.engineering_window.click_input(coords=page.engineering_inJob_symbol_Left_clickon2_coord)
+
+        self.engineering.go_up()  # 双击go up按钮返回到上一级
+        self.engineering.go_up()  # 双击go up按钮到软件主界面
+        self.engineering.entity_filter('2344473c1')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除料,不影响后续用例的执行
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Close_Job'))
+    def test_engineering_Close_Job_case_4654(self, job_id, epcam_ui_start,
+                                             download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        禅道用例ID：4654  打开matrix视窗后可正确关闭料号，软件不闪退
+        禅道bugID：2307
+        :param job_id:44122
+        :param epcam_ui_start:
+        :return:
+        """
+        download_file_compressed_entity_filter_delete_all_jobs_import(
+            job_id)  # 调用 fixture 并传递参数值,下载料号
+
+        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
+        self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
+        self.matrix.close() #关闭matrix视窗
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
+
+        self.engineering.close_job_first()#关闭该料，预期不闪退
 
 class TestFile:
     @pytest.fixture(autouse=True)
@@ -539,6 +616,10 @@ class TestFile:
         self.engineering = PageEngineering()
         self.matrix = PageMatrix()
         self.engineering.engineering_window.set_focus()  # 激活窗口
+        self.input_parameters = PageInputParameters()
+        self.input_view_graphic = PageViewGraphic()
+        self.input_jobs_window = PageInputJobs()
+        self.input_steps_window = PageInputSteps()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Save'))
     def test_file_save_no_changed(self, job_id, epcam_ui_start,
@@ -866,24 +947,20 @@ class TestFile:
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
         self.input_job.engineering_input_window.click_input(button='right', coords=(
-            page.engineering_file_parameters_coord))
+            page.engineering_file_input_right_click_menu_coord))#打开右击菜单栏
         self.input_job.engineering_input_window.click_input(coords=(
-            page.engineering_file_parameters_menu_coord))
+            page.engineering_file_parameters_open_menu_coord))#打开parameters视窗
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
-        engineering_input_parameters_pic = self.engineering.engineering_window.capture_as_image()  # 截图
-        engineering_input_parameters_pic.save(r'C:\cc\share\temp\engineering_input_parameters_pic.png')  # 保存到硬盘
-        img = cv2.imread(r'C:\cc\share\temp\engineering_input_parameters_pic.png')
-        img_cut = img[370:800, 480:800]  # 前纵后横
-        cv2.imwrite(r"C:\cc\share\temp\engineering_input_parameters_pic_cut.png", img_cut)
-        cv2.waitKey(0)
-        # 加载两张图片
-        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
-                                         r'engineering\engineering_input_parameters_pic_cut_standard.png')  # 要改图片
-        img_current_path = r'C:\cc\share\temp\engineering_input_parameters_pic_cut.png'
-        rectangle_count = opencv_compare(img_standard_path, img_current_path)
-        assert rectangle_count == 0
+        img_name = 'engineering_input_parameters_window'
+        img_path = self.input_parameters.capture_image(img_name)
 
+        cut_coords = [5, 520, 8, 335] # 后面的是水平方向
+        save_path_cut = self.input_parameters.cut_img(img_path, img_name, cut_coords)
+        img_standard_str = "engineering\\" + img_name + "_cut_standard.png"
+        assert self.input_parameters.is_right(save_path_cut, img_standard_str)
+
+        self.input_parameters.close()
         self.input_job.close()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
@@ -914,23 +991,19 @@ class TestFile:
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
         self.input_job.engineering_input_window.click_input(button='right', coords=(
-            page.engineering_file_input_view_graphic_coord))  # 右击层别栏
+            page.engineering_file_input_right_click_menu_coord))  # 右击层别栏
         self.input_job.engineering_input_window.click_input(coords=(
-            page.engineering_file_input_view_graphic_menu_coord))
+            page.engineering_file_input_view_graphic_menu_coord)) #打开view_graphic视窗
 
-        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
-        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_view_graphic_pic.png')  # 保存到硬盘
-        img = cv2.imread(r'C:\cc\share\temp\engineering_input_view_graphic_pic.png')
-        img_cut = img[150:650, 208:825]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_input_view_graphic_pic_cut.png", img_cut)
-        cv2.waitKey(0)
-        # 加载两张图片
-        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
-                                         r'engineering\engineering_input_view_graphic_pic_cut_standard.png')  # 要改图片
-        img_current_path = r'C:\cc\share\temp\engineering_input_view_graphic_pic_cut.png'
-        rectangle_count = opencv_compare(img_standard_path, img_current_path)
-        assert rectangle_count == 0
+        img_name = 'engineering_input_view_graphic_window'
+        img_path = self.input_view_graphic.capture_image(img_name)
 
+        cut_coords = [5, 480, 8, 650]  # 后面的是水平方向
+        save_path_cut = self.input_view_graphic.cut_img(img_path, img_name, cut_coords)
+        img_standard_str = "engineering\\" + img_name + "_cut_standard.png"
+        assert self.input_view_graphic.is_right(save_path_cut, img_standard_str)
+
+        self.input_view_graphic.close()
         self.input_job.close()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
@@ -942,7 +1015,7 @@ class TestFile:
         :param epcam_ui_start:
         :return:
         """
-        # 下载料号
+        #下载料号
         job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
         # 解压rar
         rf = rarfile.RarFile(file_compressed_path)
@@ -959,14 +1032,14 @@ class TestFile:
         self.input_job.set_new_job_name('760')
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
-        self.input_job.translate(time_sleep=0.2)
+        self.input_job.translate(time_sleep=1)
         self.input_job.engineering_input_window.click_input(button='right', coords=(
             page.engineering_file_input_right_click_menu_coord))  # 右击层别栏
 
         engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
         engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_right_click_menu_pic.png')  # 保存到硬盘
         img = cv2.imread(r'C:\cc\share\temp\engineering_input_right_click_menu_pic.png')
-        img_cut = img[368:562, 425:510]  # 后面的是水平方向
+        img_cut = img[359:555, 369:475]  # 后面的是水平方向
         cv2.imwrite(r"C:\cc\share\temp\engineering_input_right_click_menu_pic_cut.png", img_cut)
         cv2.waitKey(0)
         # 加载两张图片
@@ -975,12 +1048,12 @@ class TestFile:
         img_current_path = r'C:\cc\share\temp\engineering_input_right_click_menu_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
-        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
 
+        self.engineering.job_list_click_empty()  # 鼠标点击空白处，不影响下一个用例
         self.input_job.close()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
-    def test_file_input_job_window_close(self, job_id, epcam_ui_start):
+    def test_file_input_jobs_window_open_close(self, job_id, epcam_ui_start):
 
         """
         禅道用例ID：3989 验证Job视窗展示正确、3990 已有Job会全部展示在Job视窗中、3991 Job视窗可正确关闭
@@ -1005,29 +1078,24 @@ class TestFile:
         self.input_job.set_new_job_name('760')
         self.input_job.set_new_step_name('orig')
         self.input_job.identify()
-        self.input_job.translate(time_sleep=0.2)
+        self.input_job.translate(time_sleep=1)
         self.input_job.engineering_input_window.click_input(coords=(
-            page.engineering_file_input_job_window_menu_coord))  # 左击Input视窗的Job按钮
+            page.engineering_file_input_jobs_menu_coord))  # 左击Input视窗的Job按钮
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
-        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
-        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_job_window_pic.png')  # 保存到硬盘
-        img = cv2.imread(r'C:\cc\share\temp\engineering_input_job_window_pic.png')
-        img_cut = img[375:678, 470:750]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_input_job_window_pic_cut.png", img_cut)
-        cv2.waitKey(0)
-        # 加载两张图片
-        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
-                                         r'engineering\engineering_input_job_window_pic_cut_standard.png')  # 要改图片
-        img_current_path = r'C:\cc\share\temp\engineering_input_job_window_pic_cut.png'
-        rectangle_count = opencv_compare(img_standard_path, img_current_path)
-        assert rectangle_count == 0
+        img_name = 'engineering_input_jobs_window'
+        img_path = self.input_jobs_window.capture_image(img_name)
 
-        self.input_job.close_job_window()
+        cut_coords = [5, 300, 9, 278]  # 后面的是水平方向
+        save_path_cut = self.input_jobs_window.cut_img(img_path, img_name, cut_coords)
+        img_standard_str = "engineering\\" + img_name + "_cut_standard.png"
+        assert self.input_jobs_window.is_right(save_path_cut, img_standard_str)
+
+        self.input_jobs_window.close()
         self.input_job.close()
 
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input'))
-    def test_file_input_step_window_close(self, job_id, epcam_ui_start):
+    def test_file_input_steps_window_open_close(self, job_id, epcam_ui_start):
 
         """
         禅道用例ID：4003 step视窗展示正确、34007 step视窗可正确关闭
@@ -1054,84 +1122,22 @@ class TestFile:
         self.input_job.set_new_step_name('net')
         self.input_job.set_new_step_name('pre')  # 多创建几个step，方便step视窗展示
         self.input_job.identify()
-        self.input_job.translate(time_sleep=0.2)
+        self.input_job.translate(time_sleep=1)#等一下
         self.input_job.engineering_input_window.click_input(coords=(
-            page.engineering_file_input_step_window_menu_coord))  # 左击Input视窗的step按钮
+            page.engineering_file_input_steps_window_menu_coord))  # 左击Input视窗的step按钮
+
         send_keys("{TAB}")  # 按下TAB键，挪动光标位置
 
-        engineering_input_view_graphic_pic = self.engineering.engineering_window.capture_as_image()  # 截图
-        engineering_input_view_graphic_pic.save(r'C:\cc\share\temp\engineering_input_step_window_pic.png')  # 保存到硬盘
-        img = cv2.imread(r'C:\cc\share\temp\engineering_input_step_window_pic.png')
-        img_cut = img[375:678, 470:750]  # 后面的是水平方向
-        cv2.imwrite(r"C:\cc\share\temp\engineering_input_step_window_pic_cut.png", img_cut)
-        cv2.waitKey(0)
-        # 加载两张图片
-        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
-                                         r'engineering\engineering_input_step_window_pic_cut_standard.png')  # 要改图片
-        img_current_path = r'C:\cc\share\temp\engineering_input_step_window_pic_cut.png'
-        rectangle_count = opencv_compare(img_standard_path, img_current_path)
-        assert rectangle_count == 0
+        img_name = 'engineering_input_steps_window'
+        img_path = self.input_steps_window.capture_image(img_name)
 
-        self.input_job.close_step_window()  # 关闭step视窗
+        cut_coords = [5, 300, 9, 278]  # 后面的是水平方向
+        save_path_cut = self.input_steps_window.cut_img(img_path, img_name, cut_coords)
+        img_standard_str = "engineering\\" + img_name + "_cut_standard.png"
+        assert self.input_steps_window.is_right(save_path_cut, img_standard_str)
+
+        self.input_steps_window.close()
         self.input_job.close()
-
-    @pytest.mark.from_bug
-    @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols'))
-    def test_symbols_open_case_4647(self, job_id, epcam_ui_start,
-                                      download_file_compressed_entity_filter_delete_all_jobs_import):
-
-        """
-        禅道用例ID：4647 正确打开附件资料的Symbol库
-        禅道bugID：2724
-        :param job_id:44119
-        :param epcam_ui_start:
-        :return:
-        """
-        download_file_compressed_entity_filter_delete_all_jobs_import(
-            job_id)  # 调用 fixture 并传递参数值,下载料号
-        time.sleep(30)  # 资料比较大，等待30s
-
-        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)
-        self.engineering.go_up()  # 双击go up按钮返回到上一级
-        self.engineering.go_up()  # 再双击go up按钮到软件主界面
-
-
-
-    @pytest.mark.from_bug
-    @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Symbols_unselect'))
-    def test_symbols_unselect_case_4731(self, job_id, epcam_ui_start,
-                                      download_file_compressed_entity_filter_delete_all_jobs_import):
-
-        """
-        禅道用例ID：4731 打开任意资料的symbols库界面，先全选symbol再取消选中部分symbol后滑动页面软件不闪退
-        禅道bugID：3493
-        :param job_id:44119
-        :param epcam_ui_start:
-        :return:
-        """
-        download_file_compressed_entity_filter_delete_all_jobs_import(
-            job_id)  # 调用 fixture 并传递参数值,下载料号
-        time.sleep(30)  # 资料比较大，等待30s
-
-        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbols_coord)
-        self.engineering.action_select_select_all()  # 选中所有symbol
-        self.engineering.engineering_window.click_input(button="middle", coords=page.engineering_inJob_symbol_unselect1_coord)
-        self.engineering.engineering_window.click_input(button="middle",
-                                                        coords=page.engineering_inJob_symbol_unselect2_coord)
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbol_Left_clickon1_coord)
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_symbol_Left_clickon2_coord)
-
-        self.engineering.go_up()  # 双击go up按钮返回到上一级
-        self.engineering.go_up()  # 再双击go up按钮到软件主界面
-        self.engineering.entity_filter('2344473c1')  # 筛选料号，在界面上显示指定某一个料号
-        if self.engineering.job_first_is_opened():
-            self.engineering.close_job_first()
-        self.engineering.delete_all_jobs()  # 删除料,不影响后续用例的执行
-
 
     @pytest.mark.from_bug
     @pytest.mark.crash
@@ -1166,29 +1172,3 @@ class TestFile:
         self.input_job.identify()
         self.input_job.translate(time_sleep=0.2)
         self.input_job.close()
-
-    @pytest.mark.from_bug
-    @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Close_Job'))
-    def test_engineering_Close_Job_case_4654(self, job_id, epcam_ui_start,
-                                             download_file_compressed_entity_filter_delete_all_jobs_import):
-
-        """
-        禅道用例ID：4654 在主界面可正确关闭料号，软件不闪退
-        禅道bugID：2307
-        :param job_id:44122
-        :param epcam_ui_start:
-        :return:
-        """
-        download_file_compressed_entity_filter_delete_all_jobs_import(
-            job_id)  # 调用 fixture 并传递参数值,下载料号
-        self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
-        self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
-        self.matrix.close()  # 关闭matrix窗口
-        self.engineering.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coord)  # 双击打开steps
-        self.engineering.action_select_select_all()  # 选中所有step
-        self.engineering.file_delete()  # 删除所有step
-        self.engineering.go_up()  # 双击go up按钮返回到上一级
-        self.engineering.go_up()  # 再双击go up按钮到软件主界面
-
-

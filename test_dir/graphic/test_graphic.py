@@ -54,33 +54,6 @@ class TestGraphicUI:
         self.engineering.go_up()
         self.engineering.go_up()
 
-    @pytest.mark.from_bug
-    @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Signal_layer_check'))
-    def test_graphic_analysis_signal_layer_check_case_4672(
-            self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
-        """
-        禅道用例ID：4672 打开附件资料的panel的画布，使用signal layer check 功能可以正确执行分析操作不发生闪退
-        禅道bugID：2963
-        :param job_id:44170
-        :param epcam_ui_start:
-        :return:
-        """
-        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
-        self.engineering.open_job_first_by_double_click()  # 双击打开料号
-        self.engineering.open_steps_by_double_click()  # 双击steps
-        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
-        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
-        job_info = {}
-        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
-        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'panel')  # 双击打开panel
-        self.graphic.open_analysis_signal_layer_check_windows()
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_run_coord)
-        self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_windows_close_coord)
-        self.graphic.close()
-        self.engineering.go_up()
-        self.engineering.go_up()
 
     @pytest.mark.from_bug
     @pytest.mark.crash
@@ -217,15 +190,22 @@ class TestGraphicUI:
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
         self.engineering.open_step_by_double_click(job_info, 'edit')  # 双击打开edit
         self.graphic = PageGraphic()
+        self.graphic.click_canvas(1306, 15)#点击最大化按钮，将graphic窗口最大化
         self.graphic.click_layer(job_info, 'gtl')
-        self.graphic.click_canvas(720, 395)
-        # 模拟长按Home键
+        time.sleep(2)
+        self.graphic.click_layer(job_info, 'l2')
+        time.sleep(2)
+        self.graphic.click_layer(job_info, 'l3')
+        time.sleep(2)
+        self.graphic.click_layer(job_info, 'l4')#打开四个层别，bug更容易复现
+        self.graphic.click_canvas(900, 500)#鼠标定位到画布的某一位置
+        #模拟长按Home键
         for i in range(10):
-            for direction in [0, -180, 0, 180]:
+            for direction in [200]:
                 pyautogui.hotkey('home')
-                time.sleep(0.01)  # 每次按下Home键后等待0.01秒
+                # time.sleep(0)  # 每次按下Home键后等待0秒
                 pyautogui.scroll(direction) # 交替执行短暂的上下滚动操作
-                time.sleep(0.1)  # 每次滚动后等待0.1秒
+                # time.sleep(0)  # 每次滚动后等待0秒
 
         self.graphic.close()
         self.engineering.go_up()

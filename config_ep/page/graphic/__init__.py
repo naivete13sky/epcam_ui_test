@@ -39,9 +39,15 @@ edit_change_feature2drl_pattern_coord = (460, 360)
 
 edit_add_slot_by_drillmap_coord = (88+66, 498)
 
-upper_menu_bar_analysis_coords = (405, 42)
-analysis_mrc_coords = (435, 375)
-analysis_drill_check_coords = (400, 65)
+
+upper_menu_bar_analysis_coord = (408, 42)#朱
+upper_menu_bar_analysis_signal_check_coord = (445, 115)#朱
+upper_menu_bar_analysis_coords = (405, 42)#朱
+analysis_mrc_coords = (435, 375)#朱
+
+
+upper_menu_bar_analysis_drill_check_coords = (400, 65)
+
 
 upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张

@@ -94,6 +94,11 @@ drill_check_viewer_result_window_para = {'title': "Results Viewer", 'control_typ
 drill_check_computing_board_network_coords = (25, 142)
 
 
+signal_check_window_para = {'title': "Signal Layer Check", 'control_type': "Window"}#朱
+signal_check_window_run_inside_profile_coord = (758, 940)#朱
+signal_check_window_close_coord = (910, 1000)#朱
+
+
 
 
 """ 以下是DFM模块信息 """

@@ -240,9 +240,7 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_coord)
         self.graphic_window.click_input(coords=graphic.edit_usersymbol_create_usersymbol_coord)
 
-    def open_analysis_signal_layer_check_windows(self):
-        self.graphic_window.click_input(coords=page.graphic_analysis_coord)
-        self.graphic_window.click_input(coords=page.graphic_analysis_signal_layer_check_coord)
+
 
     def open_robotcam(self):
         """打开step菜单栏下的robotcam窗口"""
@@ -429,4 +427,11 @@ class PageGraphic(object):
     def click_drill_check_window(self):
         """打开Analysis菜单栏下的drill check窗口"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
-        self.graphic_window.click_input(coords=graphic.analysis_drill_check_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_drill_check_coords)
+
+    def open_analysis_signal_check_window(self):
+        """
+        打开analysis菜单栏下的signal_layer_check窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coord)
