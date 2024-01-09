@@ -153,11 +153,18 @@ basic_etch_compensation_layer_popup_window_para = {'title': "Layers Popup", 'con
 basic_etch_compensation_layer_popup_first_row_coords = (50, 80)
 basic_etch_compensation_layer_popup_row_spacing = 20
 basic_etch_compensation_layer_popup_ok_button_coords = (60, 280)
+basic_etch_compensation_bga_pad_input_coord = (450, 128)
+basic_etch_compensation_smd_pad_width_input_coord = (450, 188)
+basic_etch_compensation_smd_pad_height_input_coord = (450, 218)
+basic_etch_compensation_etch_text_input_coord = (450, 252)
+
 basic_etch_compensation_line_arc_parameter_coords = (410, 320)
 basic_etch_compensation_pad_parameter_coords = (430, 355)
 basic_etch_compensation_surface_parameter_coords = (425, 390)
 basic_etch_compensation_min_spacing_coords = (230, 435)
 basic_etch_compensation_run_globally_coords = (30, 585)
+basic_etch_compensation_run_on_features_on_screen_only_button_coord = (70, 585)
+basic_etch_compensation_run_on_features_inside_profile_button_coord = (105, 585)
 
 
 """ 以下是ROUT模块信息 """

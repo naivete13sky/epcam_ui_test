@@ -134,7 +134,7 @@ class PageDynamicEtchCompensation(object):
         self.dynamic_etch_compensation_window.click_input(
             coords=upper_menu_bar.dynamic_etch_compensation_run_on_selected_features_yes_coord)
 
-    def run_operation(self, mode):
+    def run_operation(self, mode, time_sleep=8):
         if mode == 1:  # run on all feature
             self.dynamic_etch_compensation_window.click_input(
                 coords=upper_menu_bar.dynamic_etch_compensation_run_globally_button_coord)
@@ -144,3 +144,4 @@ class PageDynamicEtchCompensation(object):
         elif mode == 3:  # run on feature on inside profile
             self.dynamic_etch_compensation_window.click_input(
                 coords=upper_menu_bar.dynamic_etch_compensation_run_on_features_inside_profile_button_coord)
+        time.sleep(time_sleep)

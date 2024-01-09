@@ -20,6 +20,7 @@ class TestDynamicEtchCompensation:
         self.graphic = PageGraphic()
         self.feature_selection_filter = PageFeatureSelectionFilter()
         self.dynamic_etch_compensation = PageDynamicEtchCompensation()
+        self.basic_etch_compensation = PageBasicEtchCompensation()
         self.engineering.engineering_window.set_focus()
 
     @pytest.mark.from_bug
@@ -123,7 +124,42 @@ class TestDynamicEtchCompensation:
         self.engineering.go_up()
         self.engineering.go_up()
 
-
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Basic_Etch_Compensation_Error'))
+    def test_basic_etch_compensation_case_4742(self, job_id, epcam_ui_start,
+                                               download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道bug ID:3922
+        :param job_id:
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering = PageEngineering()
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        job_info = {}
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r"matrix\matrix")
+        job_info["step_info"] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info["layer_info"] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'edit')
+        self.graphic.click_layer(job_info, 'top')
+        self.graphic.open_basic_etch_compensation_window()
+        self.basic_etch_compensation.click_layer_button()
+        self.basic_etch_compensation.layer_popup_select(job_info, ['top'])
+        self.basic_etch_compensation.click_layer_ok_button()
+        self.basic_etch_compensation.enlarge_by_feature_attribute_input('1', '1', '1', '0')
+        self.basic_etch_compensation.line_arc_parameter('1')
+        self.basic_etch_compensation.pad_parameter('1')
+        self.basic_etch_compensation.surface_parameter('0')
+        self.basic_etch_compensation.min_spacing_parameter('3')
+        self.basic_etch_compensation.run_operation(3)
+        self.basic_etch_compensation.close()
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
 
     @pytest.mark.from_bug
     @pytest.mark.crash

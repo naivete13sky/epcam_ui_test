@@ -51,7 +51,6 @@ class PageBasicEtchCompensation(object):
         self.basic_etch_compensation_window.child_window(title="关闭", control_type="Button").click_input()
 
     def click_layer_button(self):
-
         self.basic_etch_compensation_window.click_input(coords=upper_menu_bar.basic_etch_compensation_layer_coord)
 
     def layer_popup_close(self):
@@ -87,40 +86,68 @@ class PageBasicEtchCompensation(object):
         self.basic_etch_compensation_layer_popup_window.click_input(coords=
             upper_menu_bar.basic_etch_compensation_layer_popup_ok_button_coords)
 
+    def enlarge_by_feature_attribute_input(self, bga='0', smd_width='0', smd_height='0', etch_text='0'):
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_bga_pad_input_coord)
+        send_keys('^a')
+        send_keys(bga)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_smd_pad_width_input_coord)
+        send_keys('^a')
+        send_keys(smd_width)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_smd_pad_height_input_coord)
+        send_keys('^a')
+        send_keys(smd_height)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_etch_text_input_coord)
+        send_keys('^a')
+        send_keys(etch_text)
 
     def line_arc_parameter(self, parameter):
         """填写line_arc的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_line_arc_parameter_coords)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_line_arc_parameter_coords)
         send_keys('^a')
         send_keys(parameter)
 
     def pad_parameter(self, parameter):
         """填写pad的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_pad_parameter_coords)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_pad_parameter_coords)
         send_keys('^a')
         send_keys(parameter)
 
     def surface_parameter(self, parameter):
         """填写surface的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_surface_parameter_coords)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_surface_parameter_coords)
         send_keys('^a')
         send_keys(parameter)
 
-
     def min_spacing_parameter(self, parameter):
         """填写min_spacing的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_min_spacing_coords)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_min_spacing_coords)
         send_keys('^a')
         send_keys(parameter)
 
     def click_run_globally(self, time_sleep):
         """点击run globally执行按钮"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_run_globally_coords)
+        self.basic_etch_compensation_window.click_input(
+            coords=upper_menu_bar.basic_etch_compensation_run_globally_coords)
+        time.sleep(time_sleep)
+
+    def run_operation(self, mode, time_sleep=8):
+        if mode == 1:  # run on all feature
+            self.basic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.basic_etch_compensation_run_globally_coords)
+        elif mode == 2:  # run on feature on screen
+            self.basic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.basic_etch_compensation_run_on_features_on_screen_only_button_coord)
+        elif mode == 3:  # run on feature on inside profile
+            self.basic_etch_compensation_window.click_input(
+                coords=upper_menu_bar.basic_etch_compensation_run_on_features_inside_profile_button_coord)
         time.sleep(time_sleep)
 
 
