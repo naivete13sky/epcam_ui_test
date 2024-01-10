@@ -31,7 +31,7 @@ class TestLayerNetlistCheck:
         self.engineering.open_step_by_double_click(job_info, 'edit46')  # 双击打开panel
 
         self.graphic = setup_method['graphic']
-        self.graphic.open_layer_netlist_check()
+        self.graphic.open_layer_netlist_check_window()
 
         self.layer_netlist_check = PageLayerNetlistCheck()
         self.layer_netlist_check.click_compare('l2','panel','panel')
@@ -66,7 +66,7 @@ class TestLayerNetlistCheck:
         self.engineering.open_step_by_double_click(job_info, 'edit46')  # 双击打开panel
 
         self.graphic = setup_method['graphic']
-        self.graphic.open_layer_netlist_check()
+        self.graphic.open_layer_netlist_check_window()
 
         self.layer_netlist_check = PageLayerNetlistCheck()
         self.layer_netlist_check.click_compare('l2','panel','edit46')
