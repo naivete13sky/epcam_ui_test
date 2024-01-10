@@ -120,11 +120,12 @@ dynamic_etch_compensation_run_on_features_inside_profile_button_coord = (105, 65
 
 dynamic_etch_compensation_dynamc_compensate_range_window_para = \
     {'title': "Dynamic Compensate Range", 'control_type': "Window"}
+dynamic_compensate_range_layer_text_coords = (110, 85) # dynamic_etch_compensate窗口layer文本框坐标 -张
 dynamic_compensate_range_add_button_coords = (370, 65) # dynamic_etch_compensate窗口add按钮坐标 -张
 dynamic_compensate_range_delete_button_coords = (525, 65) # dynamic_etch_compensate窗口delete按钮坐标 -张
 dynamic_compensate_range_save_as_button_coords = (675, 65) # dynamic_etch_compensate窗口save as按钮坐标 -张
 dynamic_compensate_range_ok_button_coords = (60, 410) # dynamic_etch_compensate窗口ok按钮坐标 -张
-dynamic_compensate_range_apply_button_coords = () # dynamic_etch_compensate窗口apply按钮坐标 -张
+dynamic_compensate_range_apply_button_coords = (403, 412) # dynamic_etch_compensate窗口apply按钮坐标 -张
 dynamic_compensate_range_first_json_coords = (50, 90) # dynamic_etch_compensate窗口左侧第一个json坐标 -张
 dynamic_compensate_range_json_spacing = 20 # dynamic_etch_compensate窗口左侧json间距 -张
 
@@ -137,6 +138,7 @@ dynamic_compensate_range_comp_value_first_row_input_coord = (660, 130)
 dynamic_compensate_range_to_infinity_check_box_coord = (310, 365)
 dynamic_compensate_range_to_infinity_value1_input_coord = (440, 365)
 dynamic_compensate_range_to_infinity_value2_input_coord = (720, 365)
+dynamic_compensate_range_row_spacing = 30
 
 dynamic_compensate_range_ok_waring_yes_button_coord = (260, 100)
 
@@ -144,8 +146,7 @@ add_window_para = {'title': "Add", 'control_type': "Window"}
 save_as_window = {'title': "Save As", 'control_type': "Window"}
 erf_name_text_coords = (100, 55) # efr_name文本框坐标 -张
 erf_name_ok_button_coords = (55, 90) # efr_nameok按钮坐标 -张
-warning_window_para = {'title': "Warning", 'control_type': "Window"}
-warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
+
 
 basic_etch_compensation_window_para = {'title': "Basic Etch Compensation", 'control_type': "Window"}
 basic_etch_compensation_layer_coord = (150, 80)
@@ -190,6 +191,12 @@ construct_pad_layer_popup_row_spacing = 20                      # 左侧层别�
 construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
 
+run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
+
 information_window_para = {'title': "Information", 'control_type': "Window"}
 information_ok_button_coords = (230, 100)
 information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
+
+warning_window_para = {'title': "Warning", 'control_type': "Window"}
+warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
+warning_yes_ringt_bot_button = (138, 33) # warning窗口的yes按钮离窗口右下角坐标 -张

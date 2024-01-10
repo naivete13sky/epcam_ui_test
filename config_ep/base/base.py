@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import shutil
@@ -108,7 +109,7 @@ class MyODB:
         return dict_layer_feature
 
     @staticmethod
-    def get_dynamic_compensate_ranges() -> dict:
+    def get_dynamic_compensate_ranges_all_json_file() -> dict:
         """
         dynamic_compensate_ranges文件夹中的所有json文件
         :return:
@@ -122,6 +123,20 @@ class MyODB:
                 dict_rangs[filename] = {'index':index}
                 index = index + 1
         return dict_rangs
+
+    @staticmethod
+    def get_json_ranges(json_name) -> dict:
+        """
+        json中的ranges
+        :return:
+        """
+        ep_cam_path = RunConfig.ep_cam_path
+        json_file = os.path.join(ep_cam_path,r"ERFconfig\DynamicCompensateRanges",json_name + '.json')
+        with open(json_file, 'r') as f:
+            content = f.read()
+        data = json.loads(content)
+        ranges = data["Ranges"]
+        return ranges
 
 class File:
     @staticmethod
@@ -175,7 +190,7 @@ class MyGw:
     @staticmethod
     def get_information_window_ok_button_coords(coords,window_title='Information',time_sleep=0.5):
         """
-        获取消息窗口ok按钮坐标
+        获取消息窗口确认按钮坐标
         :param window_title:
         :param coords:
         :param time_sleep:
@@ -186,4 +201,26 @@ class MyGw:
         window = gw.getWindowsWithTitle(window_title)[0]
         coords = (window.right - coords[0] - window.left, window.bottom - coords[1] - window.top)
         return coords
+
+    @staticmethod
+    def waiting_window(window_name='Please wait',max_wait_time=180):
+        """
+        判断进度条窗口是否关闭
+        :param window_name:
+        :param max_wait_time:
+        """
+        import pyautogui
+        # 尝试查找并等待窗口关闭
+        elapsed_time = 0
+        # 获取窗口的初始标题
+        while elapsed_time < max_wait_time:
+            windows = pyautogui.getAllTitles()
+            if window_name not in windows:
+                print("窗口已经关闭")
+                break
+            time.sleep(1)
+            elapsed_time += 1
+        else:
+            print("等待超时，窗口仍未关闭")
+
 
