@@ -1,5 +1,6 @@
 import pytest
 import os
+import pyautogui
 
 from pywinauto.keyboard import send_keys
 
@@ -203,7 +204,7 @@ class TestGraphicUI:
         engineering.go_up()
         engineering.go_up()
 
-   @pytest.mark.from_bug
+    @pytest.mark.from_bug
     @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Home_mouse_swipe'))
     def test_graphic_case_4733(self, job_id, epcam_ui_start,
