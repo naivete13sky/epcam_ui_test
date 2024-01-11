@@ -8,19 +8,19 @@ from config_ep.page.graphic import upper_menu_bar
 from config_ep.base.base import MyGw
 
 
-class PageSignalCheck(object):
+class PageDrillMapExport(object):
     def __init__(self):
         self.graphic_window = RunConfig.driver_epcam_ui.window(**page.graphic_window_para)
-        # 切换到signal_check子窗口
-        self.signal_check_window = self.graphic_window.child_window(
-            **upper_menu_bar.signal_check_window_para)
+        # 切换到drill_map_export子窗口
+        self.drill_map_export_window = self.graphic_window.child_window(
+            **upper_menu_bar.drill_map_export_window_para)
 
         self.temp_path = RunConfig.temp_path_base
 
     def capture_image(self, img_name):
-        self.signal_check_window.set_focus()  # 激活窗口
+        self.drill_map_export_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        drill_correlation_layer_pic = self.signal_check_window.capture_as_image()  # 截图
+        drill_correlation_layer_pic = self.drill_map_export_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
         return save_path
@@ -47,21 +47,15 @@ class PageSignalCheck(object):
         return rectangle_count == 0
 
     def close(self):
-        self.signal_check_window.child_window(title="关闭", control_type="Button").click_input()
+        self.drill_map_export_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def click_run_type(self, button_type, time_sleep=0.5):
-        if button_type == 1:  # run globally
-            coords=upper_menu_bar.signal_check_window_run_globally_button_coords
-        elif button_type == 2:  # run on feature on screen only
-            coords=upper_menu_bar.signal_check_window_run_on_features_on_screen_only_button_coords
-        elif button_type == 3:
-            coords = upper_menu_bar.signal_check_window_run_on_features_inside_profile_button_coords
-            # run_on_features_inside_profile
-            self.signal_check_window.click_input(coords=coords)
-        time.sleep(time_sleep)
+    def click_export_path_button(self):
+        self.drill_map_export_window.click_input(coords=upper_menu_bar.drill_map_export_window_export_path_coords)
+
+    def click_export_button(self):
+        self.drill_map_export_window.click_input(coords=upper_menu_bar.drill_map_export_window_click_export_button_coords)
         MyGw.waiting_window()
 
-
-
-
-
+    def click_export_window_file_nama_input(self):
+        self.drill_map_export_window.click_input(coords=upper_menu_bar.drill_map_export_new_window_file_name_input_coords)
+        MyGw.waiting_window()
