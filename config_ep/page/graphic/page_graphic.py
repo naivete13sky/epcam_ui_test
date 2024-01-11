@@ -219,7 +219,6 @@ class PageGraphic(object):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
-
     def break_line(self):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_break_line_coord)
         self.graphic_window.click_input(coords=coord)
@@ -502,3 +501,12 @@ class PageGraphic(object):
     def open_redundant_line_removal_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
         self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coords)
+
+    def open_file_drill_map_export_window(self):
+        """
+        打开file菜单栏下的drill_map_export窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_file_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_file_drill_map_coords)

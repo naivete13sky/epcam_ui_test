@@ -3,6 +3,8 @@
 """ 以下是上方菜单栏模块信息 """
 file_coord = (35, 40)
 file_close_coord = (35, 90)
+upper_menu_bar_file_coords = (35, 40)  # 朱
+upper_menu_bar_file_drill_map_coords = (80, 182)  # 朱
 
 upper_menu_bar_step_coord = (88, 40)
 step_panelization_coord = (88, 140)
@@ -38,20 +40,19 @@ edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 edit_usersymbol_create_usersymbol_coord = (460, 280)
 
 edit_change_coord = (160, 315)
-edit_change_feature2drl_pattern_coord = (460, 360)
+edit_change_feat,ure2drl_pattern_coord = (460, 360)
 
 edit_add_slot_by_drillmap_coord = (88+66, 498)
 
-upper_menu_bar_analysis_coords = (405, 42)
-analysis_mrc_coords = (435, 375)
+
+
 analysis_drill_check_coords = (400, 65)
 analysis_layer_netlist_check_coords = (400, 268) # Layer Netlist Check坐标 -张
 
-upper_menu_bar_analysis_coord = (408, 42)#朱
-upper_menu_bar_analysis_signal_check_coord = (445, 115)#朱
-upper_menu_bar_analysis_coords = (405, 42)#朱
-analysis_mrc_coords = (435, 375)#朱
+upper_menu_bar_analysis_coords = (408, 42)#朱
+upper_menu_bar_analysis_signal_check_coords = (445, 115)#朱
 
+analysis_mrc_coords = (435, 375)
 
 upper_menu_bar_analysis_drill_check_coords = (400, 65)
 

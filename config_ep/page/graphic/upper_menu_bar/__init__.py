@@ -1,4 +1,9 @@
 """"""
+""" 以下是File模块信息 """
+drill_map_export_window_para = {'title': "Drill Map Export", 'control_type': "Window"}
+drill_map_export_window_export_path_coords = (50, 85)
+drill_map_export_window_click_export_button_coords = (110, 626)
+drill_map_export_new_window_file_name_input_coords = (155, 466 )
 
 """ 以下是Step模块信息 """
 step_and_repeat_puzzle_by_table_window_para = {
@@ -130,6 +135,10 @@ netlist_analyzer_broken_close = (125, 390)
 netlist_analyzer_select_window_coords = (180, 20)
 
 
+signal_check_window_para = {'title': "Signal Layer Check", 'control_type': "Window"}  # 朱
+signal_check_window_run_globally_button_coords = (50, 575)  # 朱
+signal_check_window_run_on_features_on_screen_only_button_coords = (85, 575)  # 朱
+signal_check_window_run_on_features_inside_profile_button_coords = (130, 575)  # 朱
 
 
 """ 以下是DFM模块信息 """
@@ -251,6 +260,7 @@ construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type'
 construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
 construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
+
 
 run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
 

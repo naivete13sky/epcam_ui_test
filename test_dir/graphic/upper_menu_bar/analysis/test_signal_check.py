@@ -41,10 +41,9 @@ class TestGraphicUI:
         self.graphic = PageGraphic()
         self.graphic.open_analysis_signal_check_window()#打开signal_check窗口
 
-        self.graphic.graphic_window.click_input(coords=upper_menu_bar.signal_check_window_run_inside_profile_coord)
-        time.sleep(1)
-        # self.graphic.graphic_window.click_input(coords=page.graphic_analysis_signal__check_windows_close_coord)
+        self.signal_check.click_run_type(3)
         self.signal_check.close()
+
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
