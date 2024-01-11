@@ -213,11 +213,6 @@ construct_pad_layer_popup_row_spacing = 20                      # 左侧层别�
 construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
 
-information_window_para = {'title': "Information", 'control_type': "Window"}
-information_ok_button_coords = (230, 100)
-information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
-
-
 """ 以下是ROUT模块信息 """
 chain_window_para = {'title': "Chain", 'control_type': "Window"}
 chain_layer_button_coords = (50, 50) # chain窗口的chain layer按钮坐标 -张
@@ -251,8 +246,8 @@ construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别�
 run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
 
 information_window_para = {'title': "Information", 'control_type': "Window"}
-information_ok_button_coords = (230, 100)
-information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
+information_ok_button_coords = (230, 100) # 张
+information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标 -张
 
 warning_window_para = {'title': "Warning", 'control_type': "Window"}
 warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张

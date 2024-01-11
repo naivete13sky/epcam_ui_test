@@ -1,0 +1,39 @@
+import pytest
+import os
+from config_ep.page.graphic.page_graphic import PageGraphic
+from config_ep.page.page_engineering import PageEngineering
+from cc.cc_method import GetTestData
+from config_ep.base.base import MyODB
+from config_ep.page.graphic.upper_menu_bar.dfm.page_construct_pad import PageConstructPad
+from config_ep.page.graphic.upper_menu_bar.edit.page_undo import PageUndo
+import time
+
+
+class TestRedundantLineRemoval:
+    def setup_method(self):
+        self.engineering = PageEngineering()
+        self.engineering.engineering_window.set_focus()
+        self.graphic = PageGraphic()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Redundant_Line_Removal_F1'))
+    def test_redundant_line_removal_f1_not_case_4748(self, job_id, epcam_ui_start,
+                                          download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+
+        禅道BUG：4995
+        :param job_id:45724
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'net')
+        self.graphic = PageGraphic()
+        self.graphic.open_redundant_line_removal_window()

@@ -498,3 +498,7 @@ class PageGraphic(object):
         """打开netlist_analyzer网络分析"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.analysis_netlist_analyzer_coords)
+
+    def open_redundant_line_removal_window(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
