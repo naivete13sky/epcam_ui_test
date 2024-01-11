@@ -9,6 +9,7 @@ import os
 from cc.cc_method import opencv_compare
 from pywinauto.keyboard import send_keys
 import pyautogui
+from config_ep.base.base import MyGw
 
 
 class PageGraphic(object):
@@ -218,6 +219,7 @@ class PageGraphic(object):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
+
     def break_line(self):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_break_line_coord)
         self.graphic_window.click_input(coords=coord)
@@ -359,6 +361,13 @@ class PageGraphic(object):
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
             coords=left_layer_bar.right_click_menu_mark_note_coords)
 
+    def click_left_delete_layer(self):
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **left_layer_bar.right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=left_layer_bar.delete_layer_coords
+        )
+
     def add_double_click(self, double_x, double_y, time_sleep=0.8):
         """
         双击画布，添加mark note
@@ -375,10 +384,19 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
         self.graphic_window.click_input(coords=graphic.construct_pad_coords)
 
-    def click_undo_button(self):
+    def click_undo_button(self, select_type:bool=True):
         """点击edit菜单栏下的undo"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_undo_coords)
+        self.information_window = self.graphic_window.child_window(
+            **graphic.information_window_para)
+        if select_type:
+            coords = MyGw.get_information_window_ok_button_coords(
+                graphic.information_yes_button_right_bot_coords)
+        else:
+            coords = MyGw.get_information_window_ok_button_coords(
+                graphic.information_no_button_right_bot_coords)
+        self.information_window.click_input(coords=coords)
 
     def open_global_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
@@ -469,3 +487,14 @@ class PageGraphic(object):
         """
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coord)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coord)
+    def open_copper_peeling_window(self):
+        """
+        打开copper peeling窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_copper_peeling_coords)
+
+    def open_netlist_analyzer_window(self):
+        """打开netlist_analyzer网络分析"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.analysis_netlist_analyzer_coords)

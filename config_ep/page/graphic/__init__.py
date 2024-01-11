@@ -55,6 +55,7 @@ analysis_mrc_coords = (435, 375)#朱
 
 upper_menu_bar_analysis_drill_check_coords = (400, 65)
 
+analysis_netlist_analyzer_coords = (400, 240)
 
 upper_menu_bar_dfm_coords = (490, 40)  # 上方菜单栏的DFM坐标 -张
 dfm_optimization_coords = (500, 90)  # 上方菜单栏DFM-Optimization坐标 -张
@@ -63,6 +64,7 @@ dfm_solder_mask_optimization_coords = (800, 110)
 
 dfm_yield_improvement_coords = (500, 115)  # dfm下的yield_improvement坐标 -张
 dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190)  # dfm下yield_improvement下dynamic_etch_compensation坐标
+dfm_copper_peeling_coords = (490, 160)  #DFM菜单栏下的copper peeling坐标
 dfm_yield_improvement_basic_etch_compensation_coords = (800, 115)  # 打开dfm菜单栏下的basic_etch_compensation功能
 
 upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
@@ -112,3 +114,9 @@ right_tool_bar_delete_to_intersection_coords = (1290, 320)  # 右侧工具栏del
 
 right_tool_bar_move_feature_coords = (3, 6)
 right_tool_bar_copy_feature_coords = (4, 6)
+
+
+information_window_para = {'title': "Information", 'control_type': "Window"}
+information_yes_button_right_bot_coords = (138, 33) # information窗口yes按钮离窗口右下角坐标
+information_no_button_right_bot_coords = (55, 33) # information窗口no按钮离窗口右下角坐标
+information_ok_button_right_bot_coords = (200, 100) # information窗口ok按钮离窗口右下角坐标
