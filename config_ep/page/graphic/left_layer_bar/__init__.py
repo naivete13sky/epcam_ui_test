@@ -5,6 +5,9 @@ right_click_menu_copper_exposed_area_coords = (40, 200)  # layer右击copper/exp
 right_click_menu_multi_layer_copy_coords = (40, 160)  # layer右击multi layer copy坐标 -张
 right_click_menu_split_layer_coords = (40, 360) # layer右击split layer坐标 -张
 right_click_menu_mark_note_coords = (40, 255)
+delete_layer_coords = (40, 380)
+
+features_histogram_window_para = {'title': "Features Histogram", 'control_type': "Window"}
 
 """ 以下是Copper/Exposed Area功能模块信息 """
 copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
@@ -57,3 +60,7 @@ right_mark_note_no_note_information_ok_button_coords = (130, 98)
 
 right_mark_note_delete_note_information_window_para = {'title': "Information", 'control_type': "Window"}  #层别里有note标记的提示窗
 right_mark_note_delete_note_information_ok_button_coords = (203, 100)
+
+delete_layer_information_window_para = {'title': "Information", 'control_type': "Window"}
+delete_layer_information_ok_button_coords = (695, 445)
+delete_layer_information_cancel_button_coords = (230, 125)

@@ -88,27 +88,15 @@ class PageBasicEtchCompensation(object):
             upper_menu_bar.basic_etch_compensation_layer_popup_ok_button_coords)
 
 
-    def line_arc_parameter(self, parameter):
-        """填写line_arc的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_line_arc_parameter_coords)
-        send_keys('^a')
-        send_keys(parameter)
+    def set_enlarge_by_feature_type_text(self,line=0,pad=0,surface=0):
+        self.set_text(upper_menu_bar.basic_etch_compensation_line_arc_parameter_coords,line)
+        self.set_text(upper_menu_bar.basic_etch_compensation_pad_parameter_coords, pad)
+        self.set_text(upper_menu_bar.basic_etch_compensation_surface_parameter_coords, surface)
 
-    def pad_parameter(self, parameter):
-        """填写pad的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_pad_parameter_coords)
+    def set_text(self,coords,text):
+        self.basic_etch_compensation_window.click_input(coords=coords)
         send_keys('^a')
-        send_keys(parameter)
-
-    def surface_parameter(self, parameter):
-        """填写surface的参数"""
-        self.basic_etch_compensation_window.click_input(coords=
-            upper_menu_bar.basic_etch_compensation_surface_parameter_coords)
-        send_keys('^a')
-        send_keys(parameter)
-
+        send_keys(str(text))
 
     def min_spacing_parameter(self, parameter):
         """填写min_spacing的参数"""

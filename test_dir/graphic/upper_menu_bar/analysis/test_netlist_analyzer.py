@@ -4,27 +4,26 @@ from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
-from config_ep.page.graphic.upper_menu_bar.dfm.page_construct_pad import PageConstructPad
-from config_ep.page.graphic.upper_menu_bar.edit.page_undo import PageUndo
+from config_ep.page.graphic.upper_menu_bar.analysis.page_netlist_analyzer import PageNetListAnalyzer
 import time
 
 
-class TestConstructPad:
+class TestNetlistAnalyzer:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.engineering.engineering_window.set_focus()
+        self.netlist = PageNetListAnalyzer()
         self.graphic = PageGraphic()
 
     @pytest.mark.from_bug
     @pytest.mark.crash
-    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Construct_Pad_Crash'))
-    def test_graphic_dfm_cleanup_construct_pad_case_4701(self, job_id, epcam_ui_start,
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('Netlist_Analyzer_close_job_Crash'))
+    def test_netlist_analyzer_case_4745(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
-        验证【Construct Pads(Ref)】优化时，第一次不选择层别，点击撤销会闪退
-        禅道BUG：3478
-        禅道用例：4701
-        :param job_id:44561
+        验证【Netlist Analyzer】后，点击关闭料号，软件闪退
+        禅道BUG：2406
+        :param job_id:45567
         :param epcam_ui_start:
         :return:
         """
@@ -36,27 +35,26 @@ class TestConstructPad:
         job_info = {}
         job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        self.engineering.open_step_by_double_click(job_info, 'net')
-        self.graphic = PageGraphic()
+        self.engineering.open_step_by_double_click(job_info, 'pre')
         self.graphic.click_layer(job_info, 'l1')
-        self.graphic.open_dfm_cleanup_construct_pad_window()
 
-        self.construct = PageConstructPad()
-        self.construct.click_run_all_button(8)
-        self.construct.click_layer_button()
-        self.construct.layer_popup_select(job_info, layers=['l1'])    #选择具体的layer层别信息
-        self.construct.layer_popup_ok()
-        self.construct.click_run_all_button(2)
-        self.construct.close()
+        self.graphic.click_delete_feature(delete_type=0)
+        self.graphic.double_click_canvas(coord_x=695, coord_y=320)
+        self.graphic.open_netlist_analyzer_window()
 
-        for _ in range(2):                                # undo操作执行2次，"_"下划线在此处为占位符，不需要变量
-            self.graphic.click_undo_button()
+        self.netlist = PageNetListAnalyzer()
+        self.netlist.click_first_step_button()
 
+        self.netlist.select_step(job_info, step_name='orig')
+        # self.netlist.click_step_ok_button()   #此步用不到，上一步step直接双击
+        self.netlist.click_compare_button(time_sleep=5)
+        self.netlist.click_broken_button()
+        self.netlist.select_broken_project()
+        self.netlist.broken_close()
+        self.netlist.close()
 
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
         self.engineering.close_job_first()
-        time.sleep(0.5)
-
-
+        self.engineering.open_job_first_by_double_click()

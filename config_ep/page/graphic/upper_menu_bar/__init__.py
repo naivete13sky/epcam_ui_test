@@ -52,10 +52,17 @@ edit_reshape_substitute_ok_button_coord = (60, 205)
 edit_create_usersymbol_window_para = {'title': "Create UserSymbol", 'control_type': "Window"}
 edit_create_symbol_name_coord = (108, 51)    # symbol名称文本框的坐标
 edit_create_usersymbol_ok_coord = (63, 230)
-
-
 create_usersymbol_information_window_para = {'title': "Information", 'control_type': "Window"}
 create_usersymbol_information_ok_button_coord = (192, 98)    # usersymbol的子弹窗坐标
+
+edit_feature2drl_pattern_window_para = {'title': "Feature to Drill Pattern", 'control_type': "Window"}
+edit_feature2drl_pattern_target_layer_button_coord = (60, 80)
+edit_feature2drl_pattern_target_layer_input_coord = (165, 80)
+edit_feature2drl_pattern_drill_size_input_coord = (165, 120)
+edit_feature2drl_pattern_pitch_input_coord = (165, 170)
+edit_feature2drl_pattern_drill_type_button_coord = (165, 210)
+edit_feature2drl_pattern_outline_only_box_coord = (30, 240)
+edit_feature2drl_pattern_apply_button_coord = (80, 270)
 
 
 edit_add_slot_by_drillmap_window_para = {'title': "Add Slot By Drillmap", 'control_type': "Window"}
@@ -89,6 +96,19 @@ drill_check_result_button_coords = (445, 460)
 drill_check_viewer_result_window_para = {'title': "Results Viewer", 'control_type': "Window"}
 # drill_check_viewer_result_first_categories_coords = (340, 110)
 drill_check_computing_board_network_coords = (25, 142)
+
+netlist_analyzer_window_para = {'title': "NetList Analyzer", 'control_type': "Window"}
+netlist_analyzer_first_step_coords = (65, 120)
+netlist_analyzer_step_popup_window_para = {'title': "Steps Popup", 'control_type': "Window"}
+netlist_analyzer_step_popup_first_step_coords = (35, 80)
+netlist_analyzer_step_popup_row_coords = 20
+netlist_analyzer_step_popup_ok_button_coords = (70, 680)
+netlist_analyzer_compare_button_coords = (60, 680)
+netlist_analyzer_broken_button_coords = (270, 680)
+netlist_analyzer_broken_window_para = {'title': "Netlist Compare Popup", 'control_type': "Window"}
+netlist_analyzer_broken_first_project_coords = (60, 145)
+netlist_analyzer_broken_close = (125, 390)
+netlist_analyzer_select_window_coords = (180, 20)
 
 
 
@@ -150,6 +170,36 @@ basic_etch_compensation_min_spacing_coords = (230, 435)
 basic_etch_compensation_run_globally_coords = (30, 585)
 
 
+dfm_copper_peeling_window_para = {'title': "Copper Peeling", 'control_type': "Window"}
+dfm_copper_peeling_copper_width_max_parameter_coords = (200, 115)  #copper peeling界面的copper_width_max参数坐标
+dfm_copper_peeling_line_to_surface_coords = (200, 235)
+dfm_copper_peeling_pth_pad_to_surface_coords = (200, 260)
+dfm_copper_peeling_via_pad_to_surface_coords = (200, 285)
+dfm_copper_peeling_smd_pad_to_surface_coords = (200, 315)
+dfm_copper_peeling_bga_pad_to_surface_coords = (200, 345)
+dfm_copper_peeling_laser_via_pad_to_surface_coords = (200, 375)
+dfm_copper_peeling_fix_bridge_by_line_coords = (210, 490)
+dfm_copper_peeling_run_globally_coords = (30, 580)
+dfm_copper_peeling_layer_coords = (40, 85)
+dfm_copper_peeling_layer_window_para = {'title': "Layers Popup", 'control_type': "Window"}
+dfm_copper_peeling_layer_popup_first_layer_row_coords = (35, 78)
+dfm_copper_peeling_layer_popup_row_spacing = 20
+dfm_copper_peeling_layer_popup_ok_button_coords = (60, 280)
+
+dfm_construct_pad_window_para = {'title': "Construct Pads(Ref)", 'control_type': "Window"}
+dfm_construct_pad_run_all_coords = (32, 330)
+dfm_construct_pad_layer_coords = (40, 83)
+
+construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
+construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
+construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
+construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
+
+information_window_para = {'title': "Information", 'control_type': "Window"}
+information_ok_button_coords = (230, 100)
+information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
+
+
 """ 以下是ROUT模块信息 """
 chain_window_para = {'title': "Chain", 'control_type': "Window"}
 chain_layer_button_coords = (50, 50) # chain窗口的chain layer按钮坐标 -张
@@ -168,18 +218,3 @@ chain_set_plunge_type_open_coord = (220, 410)
 
 chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
 chain_dialog_box_yes_button_coords = (275, 100) # dialog_box提示窗yes按钮坐标 -张
-
-
-""" 以下是DFM模块信息 """
-dfm_construct_pad_window_para = {'title': "Construct Pads(Ref)", 'control_type': "Window"}
-dfm_construct_pad_run_all_coords = (32, 330)
-dfm_construct_pad_layer_coords = (40, 83)
-
-construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
-construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
-construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
-construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
-
-information_window_para = {'title': "Information", 'control_type': "Window"}
-information_ok_button_coords = (230, 100)
-information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标

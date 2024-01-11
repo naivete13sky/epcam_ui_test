@@ -60,10 +60,7 @@ class TestUndo:
         self.matrix.close()
 
         self.graphic = PageGraphic()
-        self.graphic.click_undo_button()
-        self.undo = PageUndo()
-        # self.undo.click_yes_button(2)      #1.1.8.8版本可以撤销，但闪退
-        self.undo.click_no_revocable_button()           #1.1.12.3版本无法撤销
+        self.graphic.click_undo_button(select_type=False)
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()

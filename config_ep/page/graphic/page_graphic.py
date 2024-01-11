@@ -9,6 +9,7 @@ import os
 from cc.cc_method import opencv_compare
 from pywinauto.keyboard import send_keys
 import pyautogui
+from config_ep.base.base import MyGw
 
 
 class PageGraphic(object):
@@ -218,6 +219,10 @@ class PageGraphic(object):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_feature_selection_filter_coord)
         self.graphic_window.click_input(coords=coord)
 
+    def break_line(self):
+        coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_break_line_coord)
+        self.graphic_window.click_input(coords=coord)
+
     def select_by_net(self):
         coord = self.get_right_tool_bar_button_coords(graphic.right_tool_bar_select_by_net_coord)
         self.graphic_window.click_input(coords=coord)
@@ -256,7 +261,7 @@ class PageGraphic(object):
 
     def open_add_solt_by_drillmap_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
-        self.graphic_window.click_input(coords=page.graphic.edit_add_solt_by_drillmap_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_add_slot_by_drillmap_coord)
 
     def open_chain(self):
         """
@@ -275,7 +280,7 @@ class PageGraphic(object):
                 self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_feature_coords)
             else:
                 self.graphic_window.click_input(button="right",coords=graphic.right_tool_bar_delete_feature_coords)
-                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_to_intresetion_coords)
+                self.graphic_window.click_input(coords=graphic.right_tool_bar_delete_to_intersection_coords)
         else:
             raise ValueError("Parameter must be 0 or 1")
 
@@ -305,7 +310,6 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=coords)
         time.sleep(time_sleep)
 
-
     def open_connection_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_connection_coord)
@@ -314,6 +318,11 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_reshape_coord)
         self.graphic_window.click_input(coords=page.graphic.edit_reshape_contour2pad_coord)
+
+    def open_feature2drl_pattern_window(self):
+        self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_change_coord)
+        self.graphic_window.click_input(coords=page.graphic.edit_change_feature2drl_pattern_coord)
 
     def open_substitute_window(self):
         self.graphic_window.click_input(coords=page.graphic.upper_menu_bar_edit_coord)
@@ -348,6 +357,13 @@ class PageGraphic(object):
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
             coords=left_layer_bar.right_click_menu_mark_note_coords)
 
+    def click_left_delete_layer(self):
+        self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
+            **left_layer_bar.right_click_menu_window_para)
+        self.graphic_left_layer_bar_right_click_menu_window.click_input(
+            coords=left_layer_bar.delete_layer_coords
+        )
+
     def add_double_click(self, double_x, double_y, time_sleep=0.8):
         """
         双击画布，添加mark note
@@ -364,10 +380,19 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
         self.graphic_window.click_input(coords=graphic.construct_pad_coords)
 
-    def click_undo_button(self):
+    def click_undo_button(self, select_type:bool=True):
         """点击edit菜单栏下的undo"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_undo_coords)
+        self.information_window = self.graphic_window.child_window(
+            **graphic.information_window_para)
+        if select_type:
+            coords = MyGw.get_information_window_ok_button_coords(
+                graphic.information_yes_button_right_bot_coords)
+        else:
+            coords = MyGw.get_information_window_ok_button_coords(
+                graphic.information_no_button_right_bot_coords)
+        self.information_window.click_input(coords=coords)
 
     def open_global_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
@@ -401,9 +426,9 @@ class PageGraphic(object):
         col = col_row[0]
         row = col_row[1]
         if 1 <= col <= 4 and 1 <= row <= 11:
-            coord_x = graphic.right_tool_bar_first_button_corrds[0] + (
+            coord_x = graphic.right_tool_bar_first_button_coords[0] + (
                         col - 1) * graphic.right_tool_bar_button_x_spacing
-            coord_y = graphic.right_tool_bar_first_button_corrds[1] + (
+            coord_y = graphic.right_tool_bar_first_button_coords[1] + (
                         row - 1) * graphic.right_tool_bar_button_y_spacing
             return coord_x,coord_y
         elif 4 <= col <= 1:
@@ -426,7 +451,6 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_delete_coords)
         time.sleep(time_sleep)
 
-
     def click_drill_check_window(self):
         """打开Analysis菜单栏下的drill check窗口"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
@@ -447,3 +471,15 @@ class PageGraphic(object):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
         self.graphic_window.click_input(coords=graphic.edit_reshape_coord)
         self.graphic_window.click_input(coords=graphic.edit_reshape_change_symbol_coord)
+
+    def open_copper_peeling_window(self):
+        """
+        打开copper peeling窗口
+        """
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_copper_peeling_coords)
+
+    def open_netlist_analyzer_window(self):
+        """打开netlist_analyzer网络分析"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.analysis_netlist_analyzer_coords)
