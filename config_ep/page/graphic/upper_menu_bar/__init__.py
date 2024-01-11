@@ -19,7 +19,16 @@ step_and_repeat_puzzle_by_automatic_panel_y_min_input_coord = (140, 250)
 step_and_repeat_puzzle_by_automatic_ok_button_coord = (70, 810)
 
 step_and_repeat_edit_window_para = {'title': "S&R Edit Popup", 'control_type': "Window"}
-step_and_repeat_edit_add_step_button_coord = (40, 155)
+step_and_repeat_edit_horize_gap_input_coord = (120, 50)
+step_and_repeat_edit_vert_gap_input_coord = (120, 75)
+step_and_repeat_edit_first_button_coord = (40, 155)
+step_and_repeat_edit_button_x_spacing = 42
+step_and_repeat_edit_button_y_spacing = 38
+step_and_repeat_edit_add_step_button_coord = (1, 1)
+step_and_repeat_edit_pack_left_and_right_button_coord = (7, 1)
+step_and_repeat_edit_pack_top_and_bottom_button_coord = (7, 2)
+step_and_repeat_edit_pack_to_center_horizontally_button_coord = (7, 3)
+
 step_and_repeat_edit_add_step_window_para = {'title': "EP-CAM", 'control_type': "Window"}
 step_and_repeat_edit_add_step_step_button_coord = (50, 50)
 step_and_repeat_edit_add_step_close_button_coord = (200, 230)

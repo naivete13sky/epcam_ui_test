@@ -5,8 +5,8 @@ from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 from config_ep.page.graphic import upper_menu_bar
 from config_ep.page.graphic.page_graphic import PageGraphic
-from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_edit import PageStepAndRepeatEdit, \
-    PageStepAndRepeatEditAddStep
+from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_edit import PageStepAndRepeatEdit
+from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_edit_add_step import PageStepAndRepeatEditAddStep
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_puzzle_by_table \
     import PageStepAndRepeatPuzzleByTable
@@ -125,7 +125,6 @@ class TestStepAndRepeatEdit:
         job_info = {}
         job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
-        print(job_info['layer_info'])
         self.engineering.open_step_by_double_click(job_info, 'edit')
         self.graphic.open_step_and_repeat_edit_window()
         self.step_and_repeat_edit.click_add_step_button()
@@ -134,6 +133,37 @@ class TestStepAndRepeatEdit:
             coords=upper_menu_bar.step_and_repeat_edit_add_step_steps_popup_panel_coord)
         self.step_and_repeat_edit_add_step.click_information_ok_button()
         self.step_and_repeat_edit_add_step.click_close_button()
+        self.step_and_repeat_edit.close()
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData.get_job_id('SR_Edit_Panel'))
+    def test_graphic_panelization_case_4744(self, job_id, epcam_ui_start,
+                                            download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        禅道BUG：4343
+        :param job_id:45566
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        time.sleep(8)
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        self.engineering.open_step_by_double_click(job_info, 'panel')
+        self.graphic.open_step_and_repeat_edit_window()
+        self.step_and_repeat_edit.gap_input('100', '100')
+        self.step_and_repeat_edit.click_pack_left_and_right_button()
+        self.step_and_repeat_edit.click_pack_top_and_bottom_button()
+        self.step_and_repeat_edit.click_pack_to_center_horizontally_button()
         self.step_and_repeat_edit.close()
         self.graphic.close()
         self.engineering.go_up()
