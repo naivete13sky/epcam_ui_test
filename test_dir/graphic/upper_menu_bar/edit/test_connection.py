@@ -23,6 +23,7 @@ class TestConnection:
     def test_graphic_connection_case_4694(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证connection对rout层线和弧导角闪退问题
         禅道BUG：2796
         :param job_id:44557
         :param epcam_ui_start:
@@ -63,6 +64,7 @@ class TestConnection:
     def test_graphic_connection_case_4750(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证connection连接线和弧导致其他地方断线的问题
         禅道BUG：1585
         :param job_id:45726
         :param epcam_ui_start:

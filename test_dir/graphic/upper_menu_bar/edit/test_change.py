@@ -21,6 +21,7 @@ class TestFeature2drlPattern:
     def test_graphic_change_case_4722(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Feature to drill pattern钻孔值过大时闪退问题
         禅道BUG：5498
         :param job_id:44560
         :param epcam_ui_start:

@@ -27,6 +27,7 @@ class TestContourToPad:
     def test_graphic_contour2pad_case_4713(self, job_id, epcam_ui_start,
                                            download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Contour to Pad后undo撤销软件闪退问题
         禅道BUG：4060
         :param job_id:44560
         :param epcam_ui_start:
@@ -60,6 +61,7 @@ class TestContourToPad:
     def test_graphic_contour2pad_case_4741(self, job_id, epcam_ui_start,
                                            download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Contour to Pad转换pad会变形，然后undo 软件会卡死问题
         禅道BUG：1552
         :param job_id:45562
         :param epcam_ui_start:
@@ -111,8 +113,8 @@ class TestSubstitute:
     def test_graphic_substitute_case_4700(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Substitute取代symbol软件闪退问题
         禅道BUG：3269
-        禅道用例：4700
         :param job_id:44560
         :param epcam_ui_start:
         :return:

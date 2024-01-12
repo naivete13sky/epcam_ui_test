@@ -19,6 +19,7 @@ class TestBreakLine:
     def test_graphic_break_line_case_4728(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Break Line功能不选层，点击画布，error弹窗闪退问题
         禅道BUG：1242
         :param job_id:44562
         :param epcam_ui_start:

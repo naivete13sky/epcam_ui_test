@@ -20,6 +20,7 @@ class TestSelectPolyline:
     def test_graphic_select_polyline_case_4736(self, job_id, epcam_ui_start,
                                                download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Select Polyline功能选取外框线，用鼠标中键拖动画布warning弹窗闪退问题
         禅道BUG：5465
         :param job_id:44122
         :param epcam_ui_start:

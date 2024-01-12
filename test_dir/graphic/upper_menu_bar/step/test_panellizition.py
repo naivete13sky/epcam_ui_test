@@ -27,6 +27,7 @@ class TestStepAndRepeatPuzzleByAutomatic:
     def test_graphic_step_and_repeat_puzzle_by_automatic_case_4714(
             self, job_id, epcam_ui_start, download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证step_and_repeat_by_automatic排版偏移值超出范围闪退问题
         禅道BUG：4840
         :param job_id:44117
         :param epcam_ui_start:
@@ -111,6 +112,7 @@ class TestStepAndRepeatEdit:
     def test_graphic_panelization_case_4718(self, job_id, epcam_ui_start,
                                             download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证step_and_repeat_edit添加排版导致软件闪退问题
         禅道BUG：5057
         :param job_id:44560
         :param epcam_ui_start:
@@ -144,6 +146,7 @@ class TestStepAndRepeatEdit:
     def test_graphic_panelization_case_4744(self, job_id, epcam_ui_start,
                                             download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证step_and_repeat_edit功能排版编辑卡死问题
         禅道BUG：4343
         :param job_id:45566
         :param epcam_ui_start:

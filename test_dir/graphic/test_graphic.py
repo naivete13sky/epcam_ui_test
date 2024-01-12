@@ -1,10 +1,7 @@
 import pytest
 import os
 import pyautogui
-
 from pywinauto.keyboard import send_keys
-
-
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
@@ -144,6 +141,7 @@ class TestGraphicUI:
                                download_file_compressed_entity_filter_delete_all_jobs_import):
 
         """
+        验证鼠标中键点击左侧层别栏空白处闪退的问题
         禅道BUG：2601
         :param job_id:44562
         :param epcam_ui_start:
@@ -162,6 +160,36 @@ class TestGraphicUI:
         self.graphic.graphic_window.click_input(button='middle', coords=page.graphic.left_layer_bar_blank_area_coord)
         time.sleep(0.3)
         self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Delete_Layer_Repeat'))
+    def test_graphic_case_4754(self, job_id, epcam_ui_start,
+                               download_file_compressed_entity_filter_delete_all_jobs_import):
+        """
+        验证删除层别其余step未同步重复删除导致软件卡死问题
+        禅道BUG：333
+        :param job_id:45327
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)
+        self.engineering.open_job_first_by_double_click()
+        self.engineering.open_steps_by_double_click()
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info = {}
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+        print(job_info['layer_info'])
+        step_info = job_info.get('step_info')
+        for step in step_info:
+            self.engineering.open_step_by_double_click(job_info, step)
+            self.graphic.delete_layer(job_info, 'gto')
+            time.sleep(0.5)
+            self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
 
@@ -230,21 +258,21 @@ class TestGraphicUI:
         job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
         self.engineering.open_step_by_double_click(job_info, 'edit')  # 双击打开edit
         self.graphic = PageGraphic()
-        self.graphic.click_canvas(1306, 15)#点击最大化按钮，将graphic窗口最大化
+        self.graphic.click_canvas(1306, 15)  # 点击最大化按钮，将graphic窗口最大化
         self.graphic.click_layer(job_info, 'gtl')
         time.sleep(2)
         self.graphic.click_layer(job_info, 'l2')
         time.sleep(2)
         self.graphic.click_layer(job_info, 'l3')
         time.sleep(2)
-        self.graphic.click_layer(job_info, 'l4')#打开四个层别，bug更容易复现
-        self.graphic.click_canvas(900, 500)#鼠标定位到画布的某一位置
-        #模拟长按Home键
+        self.graphic.click_layer(job_info, 'l4')  # 打开四个层别，bug更容易复现
+        self.graphic.click_canvas(900, 500)  # 鼠标定位到画布的某一位置
+        # 模拟长按Home键
         for i in range(10):
             for direction in [200]:
                 pyautogui.hotkey('home')
                 # time.sleep(0)  # 每次按下Home键后等待0秒
-                pyautogui.scroll(direction) # 交替执行短暂的上下滚动操作
+                pyautogui.scroll(direction)  # 交替执行短暂的上下滚动操作
                 # time.sleep(0)  # 每次滚动后等待0秒
 
         self.graphic.close()

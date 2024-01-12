@@ -78,6 +78,7 @@ class TestUndo:
     def test_graphic_undo_case_4740(self, job_id, epcam_ui_start,
                                     download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Undo功能撤销打断线闪退问题
         禅道bug:5943
         :param job_id:44817
         :param epcam_ui_start:

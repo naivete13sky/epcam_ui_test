@@ -7,12 +7,12 @@ from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 import time
 
+
 class TestMultiLayerCopy:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.graphic = PageGraphic()
         self.engineering.engineering_window.set_focus()
-
 
     @pytest.mark.from_bug
     @pytest.mark.crash
@@ -50,7 +50,6 @@ class TestMultiLayerCopy:
         self.graphic.close()
         self.engineering.go_up()
         self.engineering.go_up()
-
 
     @pytest.mark.from_bug
     @pytest.mark.crash

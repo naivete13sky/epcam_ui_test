@@ -364,8 +364,15 @@ class PageGraphic(object):
         self.graphic_left_layer_bar_right_click_menu_window = RunConfig.driver_epcam_ui.window(
             **left_layer_bar.right_click_menu_window_para)
         self.graphic_left_layer_bar_right_click_menu_window.click_input(
-            coords=left_layer_bar.delete_layer_coords
-        )
+            coords=left_layer_bar.delete_layer_coords)
+
+    def delete_layer(self, job_info, layer):
+        """
+        左侧层别栏菜单删除指定层
+        """
+        self.click_layer(job_info, layer, button_type='right')
+        self.click_left_delete_layer()
+        self.graphic_window.click_input(coords=left_layer_bar.delete_layer_information_ok_button_coords)
 
     def add_double_click(self, double_x, double_y, time_sleep=0.8):
         """

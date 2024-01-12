@@ -7,6 +7,7 @@ from config_ep.page.graphic.upper_menu_bar.analysis.page_mrc import PageMRC
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestGraphicUI:
     def setup_method(self):
         self.engineering = PageEngineering()

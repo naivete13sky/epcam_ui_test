@@ -24,8 +24,8 @@ class TestAddSlotByDrillmap:
                                                     download_file_compressed_entity_filter_delete_all_jobs_import):
 
         """
+        验证Step更名后执行转槽孔命令闪退问题
         禅道BUG：2573
-        禅道用例：4692
         :param job_id:44555
         :param epcam_ui_start:
         :return:
