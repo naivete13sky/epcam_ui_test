@@ -2,12 +2,10 @@ import pytest
 import os
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
+from config_ep.page.graphic.upper_menu_bar.dfm.page_redundant_line_removal import PageRedundantLineRemoval
 from cc.cc_method import GetTestData
+import pyautogui
 from config_ep.base.base import MyODB
-from config_ep.page.graphic.upper_menu_bar.dfm.page_construct_pad import PageConstructPad
-from config_ep.page.graphic.upper_menu_bar.edit.page_undo import PageUndo
-import time
-
 
 class TestRedundantLineRemoval:
     def setup_method(self):
@@ -37,3 +35,10 @@ class TestRedundantLineRemoval:
         self.engineering.open_step_by_double_click(job_info, 'net')
         self.graphic = PageGraphic()
         self.graphic.open_redundant_line_removal_window()
+        self.redundant_line_removal = PageRedundantLineRemoval()
+        self.redundant_line_removal.click_run_globally_button(time_sleep=2)
+        pyautogui.press('f1')
+        self.redundant_line_removal.close()
+        self.graphic.close()
+        self.engineering.go_up()
+        self.engineering.go_up()

@@ -202,6 +202,7 @@ class MyGw:
         coords = (window.right - coords[0] - window.left, window.bottom - coords[1] - window.top)
         return coords
 
+
     @staticmethod
     def waiting_window(window_name='Please wait',max_wait_time=180):
         """

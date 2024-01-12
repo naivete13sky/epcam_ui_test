@@ -501,6 +501,28 @@ class PageGraphic(object):
     def open_redundant_line_removal_window(self):
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
         self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_cleanup_redundant_line_removal_coords)
+
+    def get_run_type_button_coords(self,window_title, run_type=1):
+        """
+        获取优化/分析窗口的分析类型按钮坐标
+        :param window_title:
+        :param run_type:
+        :param time_sleep:
+        :return:
+        """
+        import pygetwindow as gw
+        from config_ep.page import graphic
+        if run_type == 1:
+            coords = graphic.run_globally_button_left_bot_coords
+        elif run_type == 2:
+            coords = graphic.run_on_features_on_screen_only_button_left_bot_coords
+        elif run_type == 3:
+            coords = graphic.run_on_features_inside_profile_button_left_bot_coords
+        window = gw.getWindowsWithTitle(window_title)[0]
+        coords = (coords[0], window.bottom - coords[1] - window.top)
+        return coords
+
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coords)
 
