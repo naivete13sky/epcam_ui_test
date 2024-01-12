@@ -1,4 +1,5 @@
 import os
+import pyautogui
 import pytest
 from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
@@ -38,7 +39,9 @@ class TestPowerGroundOptimization:
         self.graphic.open_powerground_optimization_window()
 
         self.powerground = PagePowerGroundOptimization()
-        self.powerground.click_run_globally_button('f1')
+        self.powerground.click_run_globally_button(2)
+        pyautogui.press('f1')
+        self.powerground.close_information_window()
         self.powerground.close()
 
         self.graphic.close()

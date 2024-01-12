@@ -67,11 +67,12 @@ dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190)  # dfm下yie
 dfm_copper_peeling_coords = (490, 160)  #DFM菜单栏下的copper peeling坐标
 dfm_yield_improvement_basic_etch_compensation_coords = (800, 115)  # 打开dfm菜单栏下的basic_etch_compensation功能
 
-upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
-rout_chain_coords = (570, 65)  # rout下拉列表的chain坐标 -张
-
 dfm_cleanup_coords = (500, 64)
 construct_pad_coords = (815, 257)
+dfm_cleanup_redundant_line_removal_coords = (815, 197) # -DFM-Cleanup-Redundant_Line_Removal坐标 -张
+
+upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
+rout_chain_coords = (570, 65)  # rout下拉列表的chain坐标 -张
 
 upper_menu_bar_edit_undo_coords = (160, 68)
 upper_menu_bar_edit_delete_coords = (160, 90)
@@ -114,6 +115,10 @@ right_tool_bar_delete_to_intersection_coords = (1290, 320)  # 右侧工具栏del
 
 right_tool_bar_move_feature_coords = (3, 6)
 right_tool_bar_copy_feature_coords = (4, 6)
+
+run_globally_button_left_bot_coords = (40, 90)
+run_on_features_on_screen_only_button_left_bot_coords = (75, 90)
+run_on_features_inside_profile_button_left_bot_coords = (110 ,90)
 
 
 information_window_para = {'title': "Information", 'control_type': "Window"}

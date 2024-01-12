@@ -7,26 +7,26 @@ from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
 from config_ep.page.graphic.page_graphic import PageGraphic
-from config_ep.base.base import MyGw
 
-class PagePowerGroundOptimization(PageGraphic):
+class PageRedundantLineRemoval(PageGraphic):
     def __init__(self):
         self.graphic_window = RunConfig.driver_epcam_ui.window(**page.graphic_window_para)
 
         # 切换到Split Layer子窗口
-        self.powerground_optimization_window = self.graphic_window.child_window(
-            **upper_menu_bar.powerground_optimization_window)
+        self.redundant_line_removal_window = self.graphic_window.child_window(
+            **upper_menu_bar.redundant_line_removal_window_para)
 
         self.temp_path = RunConfig.temp_path_base
+
         super().__init__()
 
     def close(self):
-        self.powerground_optimization_window.child_window(title="关闭", control_type="Button").click_input()
+        self.redundant_line_removal_window.child_window(title="关闭", control_type="Button").click_input()
 
     def capture_image(self, img_name):
-        self.powerground_optimization_window.set_focus()  # 激活窗口
+        self.redundant_line_removal_window.set_focus()  # 激活窗口
         time.sleep(0.1)
-        drill_correlation_layer_pic = self.powerground_optimization_window.capture_as_image()  # 截图
+        drill_correlation_layer_pic = self.redundant_line_removal_window.capture_as_image()  # 截图
         save_path = os.path.join(self.temp_path, img_name + '.png')
         drill_correlation_layer_pic.save(save_path)  # 保存到硬盘
         return save_path
@@ -47,16 +47,12 @@ class PagePowerGroundOptimization(PageGraphic):
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         return rectangle_count == 0
 
-    def click_run_globally_button(self,time_sleep = 0.5):
+    def click_run_globally_button(self,time_sleep=0.5):
         """
         点击Run blobally按钮
         """
-        coords = self.get_run_type_button_coords(upper_menu_bar.powerground_optimization_window["title"], run_type=1)
-        self.powerground_optimization_window.click_input(coords=coords)
+        coords = self.get_run_type_button_coords(upper_menu_bar.redundant_line_removal_window_para["title"],run_type=1)
+        self.redundant_line_removal_window.click_input(coords=coords)
         time.sleep(time_sleep)
 
-    def close_information_window(self):
-        self.information_window = self.graphic_window.child_window(
-            **upper_menu_bar.information_window_para)
-        coords = MyGw.get_information_window_ok_button_coords(upper_menu_bar.information_ok_button_right_bot_coords)
-        self.information_window.click_input(coords=coords)
+

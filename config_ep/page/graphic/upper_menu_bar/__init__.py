@@ -124,8 +124,10 @@ netlist_analyzer_select_window_coords = (180, 20)
 
 
 """ 以下是DFM模块信息 """
+redundant_line_removal_window_para = {'title': "Redundant Line Removal", 'control_type': "Window"}
+
 powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}
-powerground_optimization_run_globally_button_coords = (30, 495) # Run globally按钮坐标 -张
+# powerground_optimization_run_globally_button_coords = (30, 495) # Run globally按钮坐标 -张
 
 
 dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", 'control_type': "Window"}
