@@ -484,8 +484,8 @@ class PageGraphic(object):
         """
         打开analysis菜单栏下的signal_layer_check窗口
         """
-        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coord)
-        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coord)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coords)
     def open_copper_peeling_window(self):
         """
         打开copper peeling窗口

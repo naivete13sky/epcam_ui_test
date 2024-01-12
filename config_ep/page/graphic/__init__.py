@@ -47,7 +47,6 @@ edit_change_feature2drl_pattern_coord = (460, 360)
 edit_add_slot_by_drillmap_coord = (88+66, 498)
 
 
-
 analysis_drill_check_coords = (400, 65)
 analysis_layer_netlist_check_coords = (400, 268) # Layer Netlist Check坐标 -张
 

@@ -223,3 +223,6 @@ class PageEngineering(Base):
         coords = (coord_x,  coord_y)
         self.engineering_window.double_click_input(coords=coords)
         time.sleep(0.5)
+
+    def in_job_steps_right_click_first_step(self):
+        self.engineering_window.click_input(coords=page.engineering_injob_steps_right_click_first_step_coords)
