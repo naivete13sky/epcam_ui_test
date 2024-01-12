@@ -627,13 +627,10 @@ class TestUI:
 
         self.engineering.open_job_first_by_double_click()  # 双击打开测试料号
         self.engineering.open_steps_by_double_click()  # 双击打开steps
-        self.engineering.in_job_steps_right_click_first_step()  #右击steps界面的第一个step
-        self.engineering_window.click_input(coords=page.engineering_injob_steps_right_click_step_delete_coords)  #选择step/delete按钮
+        self.engineering.in_job_steps_delete_step_first()  # 删除第一个step
 
-        self.matrix.close()  # 关闭matrix视窗
-        self.engineering.go_up()  # 再双击go up按钮到软件主界面
-
-        self.engineering.close_job_first()  # 关闭该料，预期不闪退
+        self.engineering.go_up()
+        self.engineering.go_up()  #双击两次go up按钮到软件主界面
 
 
 class TestFile:
@@ -1241,5 +1238,52 @@ class TestFile:
         img_current_path = r'C:\cc\share\temp\engineering_input_excellent2_pic_cut.png'
         rectangle_count = opencv_compare(img_standard_path, img_current_path)
         assert rectangle_count == 0
+
+        self.input_job.close()
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Input_dwg'))
+    def test_file_input_case_4756(self, job_id, epcam_ui_start):
+        """
+        可正确Input附件DWG文件，软件不卡死
+        BUG_ID：5664
+        :param job_id:45729
+        :param epcam_ui_start:
+        :return:
+        """
+        # # 下载料号
+        job_name, file_compressed_path = Base.get_file_compressed_job_name_by_job_id_from_dms(job_id)
+        # 解压rar
+        rf = rarfile.RarFile(file_compressed_path)
+        rf.extractall(Path(file_compressed_path).parent)
+        # 删除压缩包
+        os.remove(file_compressed_path) if os.path.exists(file_compressed_path) else None
+        self.engineering.entity_filter('666layer')  # 筛选料号，在界面上显示指定某一个料号
+        if self.engineering.job_first_is_opened():
+            self.engineering.close_job_first()
+        self.engineering.delete_all_jobs()  # 删除筛选出的料号
+        self.input_job = PageInput()
+        file_path = str(Path(file_compressed_path).parent)
+        self.input_job.set_path(file_path)  # 选择料号路径
+        self.input_job.set_new_job_name('666layer')
+        self.input_job.set_new_step_name('orig')
+        self.input_job.identify()
+        self.input_job.translate(time_sleep=1)
+
+        engineering_input_dwg_pop_up_notification_pic = self.engineering.engineering_window.capture_as_image()  # 截图
+        engineering_input_dwg_pop_up_notification_pic.save(r'C:\cc\share\temp\engineering_input_dwg_pop_up_notification_pic.png')  # 保存到硬盘
+        img = cv2.imread(r'C:\cc\share\temp\engineering_input_dwg_pop_up_notification_pic.png')
+        img_cut = img[338:461, 430:615]  # 后面的是水平方向
+        cv2.imwrite(r"C:\cc\share\temp\engineering_input_dwg_pop_up_notification_pic_cut.png", img_cut)
+        cv2.waitKey(0)
+        # 加载两张图片
+        img_standard_path = os.path.join(RunConfig.epcam_ui_standard_pic_base_path,
+                                         r'engineering\engineering_input_dwg_pop_up_notification_pic_cut_standard.png')  # 要改图片
+        img_current_path = r'C:\cc\share\temp\engineering_input_dwg_pop_up_notification_pic_cut.png'
+        rectangle_count = opencv_compare(img_standard_path, img_current_path)
+        assert rectangle_count == 0
+
+        send_keys("{ENTER}") #按下enter键关闭弹窗
 
         self.input_job.close()
