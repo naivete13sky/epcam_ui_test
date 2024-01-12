@@ -486,6 +486,7 @@ class PageGraphic(object):
         """
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coords)
+
     def open_copper_peeling_window(self):
         """
         打开copper peeling窗口
@@ -522,9 +523,6 @@ class PageGraphic(object):
         window = gw.getWindowsWithTitle(window_title)[0]
         coords = (coords[0], window.bottom - coords[1] - window.top)
         return coords
-
-        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
-        self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_signal_check_coords)
 
     def open_file_drill_map_export_window(self):
         """
