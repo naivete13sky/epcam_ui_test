@@ -1,3 +1,5 @@
+from pywinauto.keyboard import send_keys
+
 from config import RunConfig
 from config_ep import page
 from config_ep.page.graphic import upper_menu_bar
@@ -16,5 +18,12 @@ class PageConnection(object):
     def close(self):
         self.connection_window.child_window(title="关闭", control_type="Button").click_input()
 
-    def click_apply_button(self):
+    def connection_mode(self, mode, radius=None):
+        if mode == 'corner':
+            self.connection_window.click_input(coords=upper_menu_bar.edit_connection_corner_coord)
+        elif mode == 'round':
+            self.connection_window.click_input(coords=upper_menu_bar.edit_connection_round_coord)
+            self.connection_window.click_input(coords=upper_menu_bar.edit_connection_round_radius_coord)
+            send_keys('^a')
+            send_keys(radius)
         self.connection_window.click_input(coords=upper_menu_bar.edit_connection_apply_coord)

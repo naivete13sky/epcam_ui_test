@@ -18,10 +18,12 @@ edit_resize_coord = (160, 170)
 edit_resize_global_coord = (470, 170)
 
 edit_connection_coord = (160, 220)
-edit_connection_area_zoom_1_coord = (390, 390)
-edit_connection_area_zoom_2_coord = (400, 410)
-edit_connection_canvas_select_line_coord = (740, 300)
-edit_connection_canvas_select_arc_coord = (900, 470)
+edit_connection_rout_area_zoom_1_coord = (390, 390)
+edit_connection_rout_area_zoom_2_coord = (400, 410)
+edit_connection_rout_select_line_coord = (740, 300)
+edit_connection_rout_select_arc_coord = (900, 470)
+edit_connection_line_arc_select_line_coord = (760, 612)
+edit_connection_line_arc_select_arc_coord = (1020, 612)
 
 edit_reshape_coord = (160, 245)
 edit_reshape_contour2pad_coord = (470, 365)
@@ -40,7 +42,7 @@ edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 edit_usersymbol_create_usersymbol_coord = (460, 280)
 
 edit_change_coord = (160, 315)
-edit_change_feat,ure2drl_pattern_coord = (460, 360)
+edit_change_feature2drl_pattern_coord = (460, 360)
 
 edit_add_slot_by_drillmap_coord = (88+66, 498)
 

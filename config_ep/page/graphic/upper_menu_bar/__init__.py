@@ -54,6 +54,9 @@ edit_global_information_window_para = {'title': "Information", 'control_type': "
 edit_global_information_yes_button_coord = (230, 90)
 
 edit_connection_window_para = {'title': "Connection", 'control_type': "Window"}
+edit_connection_corner_coord = (100, 100)
+edit_connection_round_coord = (220, 100)
+edit_connection_round_radius_coord = (130, 160)
 edit_connection_apply_coord = (90, 235)
 edit_connection_information_ok_coord = (90, 235)
 
