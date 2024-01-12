@@ -498,3 +498,13 @@ class PageGraphic(object):
         """打开netlist_analyzer网络分析"""
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_analysis_coords)
         self.graphic_window.click_input(coords=graphic.analysis_netlist_analyzer_coords)
+
+    def open_impedance_line_recognition_window(self):
+        """打开dfm菜单栏的cleanu子菜单impedance_line_recognition窗口"""
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_dfm_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_cleanup_coords)
+        self.graphic_window.click_input(coords=graphic.dfm_cleanup_impedance_line_recognition_coords)
+
+    def click_save_button(self):
+        self.graphic_window.click_input(coords=graphic.file_coord)
+        self.graphic_window.click_input(coords=graphic.file_save_coord)

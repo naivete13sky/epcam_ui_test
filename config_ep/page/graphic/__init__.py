@@ -3,6 +3,8 @@
 """ 以下是上方菜单栏模块信息 """
 file_coord = (35, 40)
 file_close_coord = (35, 90)
+file_save_coord = (35, 70)
+save_information_ok_button_coord = (725, 435)
 
 upper_menu_bar_step_coord = (88, 40)
 step_panelization_coord = (88, 140)
@@ -67,11 +69,13 @@ dfm_yield_improvement_dynamic_etch_compensation_coords = (800, 190)  # dfm下yie
 dfm_copper_peeling_coords = (490, 160)  #DFM菜单栏下的copper peeling坐标
 dfm_yield_improvement_basic_etch_compensation_coords = (800, 115)  # 打开dfm菜单栏下的basic_etch_compensation功能
 
+dfm_cleanup_coords = (500, 64)
+construct_pad_coords = (815, 257)
+dfm_cleanup_impedance_line_recognition_coords = (815, 80)
+
 upper_menu_bar_rout_coords = (560, 40)  # 上方菜单栏的rout坐标 -张
 rout_chain_coords = (570, 65)  # rout下拉列表的chain坐标 -张
 
-dfm_cleanup_coords = (500, 64)
-construct_pad_coords = (815, 257)
 
 upper_menu_bar_edit_undo_coords = (160, 68)
 upper_menu_bar_edit_delete_coords = (160, 90)

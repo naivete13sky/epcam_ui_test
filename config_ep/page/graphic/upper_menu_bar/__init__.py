@@ -127,6 +127,22 @@ netlist_analyzer_select_window_coords = (180, 20)
 powerground_optimization_window = {'title': "PowerGround Optimization", 'control_type': "Window"}
 powerground_optimization_run_globally_button_coords = (30, 495) # Run globally按钮坐标 -张
 
+solder_mask_optimization_window = {'title': "Solder Mask Optimization", 'control_type': "Window"}
+solder_mask_optimization_move_window_coords = (270, 20)
+solder_mask_optimization_layer_button_coords = (50, 80)
+solder_mask_optimization_layer_popup_window = {'title': "Layers Popup", 'control_type': "Window"}
+solder_mask_optimization_layer_popup_first_row_coords = (35, 80)
+solder_mask_optimization_layer_popup_row_spacing_coords = 20
+solder_mask_optimization_layer_popup_ok_button_coords = (60, 285)
+solder_mask_optimization_clearance_min_coords = (150, 150)
+solder_mask_optimization_clearance_opt_coords = (385, 150)
+solder_mask_optimization_coverage_min_coords = (150, 180)
+solder_mask_optimization_coverage_opt_coords = (385, 180)
+solder_mask_optimization_bridge_min_coords = (150, 210)
+solder_mask_optimization_bridge_opt_coords = (385, 210)
+solder_mask_optimization_run_globally_button_coords = (35, 860)
+solder_mask_optimization_run_on_features_on_screen_only_button_coords = (70, 860)
+
 
 dynamic_etch_compensation_window_para = {'title': "Dynamic Etch Compensation", 'control_type': "Window"}
 dynamic_etch_compensation_compensation_functions_first_button_coords = (105, 165) # Compensation Functions第一个按钮坐标 -张
@@ -213,9 +229,34 @@ construct_pad_layer_popup_row_spacing = 20                      # 左侧层别�
 construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
 
+run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
+
+warning_window_para = {'title': "Warning", 'control_type': "Window"}
+warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
+warning_yes_ringt_bot_button = (138, 33) # warning窗口的yes按钮离窗口右下角坐标 -张
+
+dfm_cleanup_impedance_line_recognition_window_para = {'title': "Impedance Line Recognition", 'control_type': "Window"}
+impedance_line_recognition_click_layer_coords = (50, 85)
+impedance_line_recognition_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
+impedance_line_recognition_layer_popup_row_spacing = 20
+impedance_line_recognition_layer_popup_first_row_coords = (30, 80)
+impedance_line_recognition_layer_popup_ok_button_coords = (50, 280)
+impedance_line_recognition_click_differential_coords = (120, 280)
+impedance_line_recognition_click_plus_coords = (490, 320)
+impedance_line_recognition_line_width_parameter_coords = (85, 355)
+impedance_line_recognition_line_spacing_parameter_coords = (190, 355)
+impedance_line_recognition_reference_layer_dropdown_coords = (295, 350)
+impedance_line_recognition_reference_select_layer_coords = (260, 410)
+impedance_line_recognition_ok_button_coords = (50, 685)
+
+
+
+
 information_window_para = {'title': "Information", 'control_type': "Window"}
 information_ok_button_coords = (230, 100)
 information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
+
+
 
 
 """ 以下是ROUT模块信息 """
@@ -237,23 +278,3 @@ chain_set_plunge_type_open_coord = (220, 410)
 chain_dialog_box_window_para = {'title': "Dialog box", 'control_type': "Window"}
 chain_dialog_box_yes_button_coords = (275, 100) # dialog_box提示窗yes按钮坐标 -张
 
-
-""" 以下是DFM模块信息 """
-dfm_construct_pad_window_para = {'title': "Construct Pads(Ref)", 'control_type': "Window"}
-dfm_construct_pad_run_all_coords = (32, 330)
-dfm_construct_pad_layer_coords = (40, 83)
-
-construct_pad_layer_popup_window_para = {'title': "Layers Popup", 'control_type': "Window"}
-construct_pad_layer_popup_row_spacing = 20                      # 左侧层别右击construct_pad功能Layers窗口行间距
-construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别右击construct_pad功能Layers窗口第一行间坐标
-construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
-
-run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
-
-information_window_para = {'title': "Information", 'control_type': "Window"}
-information_ok_button_coords = (230, 100)
-information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
-
-warning_window_para = {'title': "Warning", 'control_type': "Window"}
-warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
-warning_yes_ringt_bot_button = (138, 33) # warning窗口的yes按钮离窗口右下角坐标 -张
