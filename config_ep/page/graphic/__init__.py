@@ -40,10 +40,9 @@ edit_usersymbol_angle_for_usersymbol_ok_coord = (745, 440)
 edit_usersymbol_create_usersymbol_coord = (460, 280)
 
 edit_change_coord = (160, 315)
-edit_change_feat,ure2drl_pattern_coord = (460, 360)
+edit_change_feature2drl_pattern_coord = (460, 360)
 
 edit_add_slot_by_drillmap_coord = (88+66, 498)
-
 
 
 analysis_drill_check_coords = (400, 65)
