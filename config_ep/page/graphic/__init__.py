@@ -19,6 +19,8 @@ upper_menu_bar_edit_coord = (160, 40)
 edit_resize_coord = (160, 170)
 edit_resize_global_coord = (470, 170)
 
+edit_transform_coords = (160, 200)
+
 edit_connection_coord = (160, 220)
 edit_connection_rout_area_zoom_1_coord = (390, 390)
 edit_connection_rout_area_zoom_2_coord = (400, 410)

@@ -540,3 +540,7 @@ class PageGraphic(object):
     def click_save_button(self):
         self.graphic_window.click_input(coords=graphic.file_coord)
         self.graphic_window.click_input(coords=graphic.file_save_coord)
+
+    def open_transform_window(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.edit_transform_coords)
