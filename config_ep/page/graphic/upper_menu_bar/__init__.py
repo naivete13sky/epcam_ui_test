@@ -284,6 +284,8 @@ impedance_line_recognition_ok_button_coords = (50, 685)
 information_window_para = {'title': "Information", 'control_type': "Window"}
 information_ok_button_coords = (230, 100)
 information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标
+information_yes_button_right_bot_coords = (138, 33) # information窗口yes按钮离窗口右下角坐标 -张
+information_no_button_right_bot_coords = (55, 33) # information窗口no按钮离窗口右下角坐标 -张
 
 
 
@@ -319,14 +321,3 @@ construct_pad_layer_popup_first_row_coords = (55, 80)           # 左侧层别�
 construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别右击construct_pad功能Ok按钮坐标
 
 
-run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
-
-information_window_para = {'title': "Information", 'control_type': "Window"}
-information_yes_button_right_bot_coords = (138, 33) # information窗口yes按钮离窗口右下角坐标
-information_no_button_right_bot_coords = (55, 33) # information窗口no按钮离窗口右下角坐标
-information_ok_button_coords = (230, 100) # 张
-information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标 -张
-
-warning_window_para = {'title': "Warning", 'control_type': "Window"}
-warning_yes_button = (180, 100) # warning窗口的yes按钮坐标 -张
-warning_yes_ringt_bot_button = (138, 33) # warning窗口的yes按钮离窗口右下角坐标 -张
