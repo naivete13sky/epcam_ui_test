@@ -191,7 +191,7 @@ class PageEngineering(Base):
         self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_coord)  # 双击打开steps
 
     def open_first_step_by_double_click(self, time_sleep=0.5):
-        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coord)
+        self.engineering_window.double_click_input(coords=page.engineering_inJob_steps_step_first_coords)
         time.sleep(time_sleep)  # 打开graphic要等一会儿
 
     def open_create_window(self):
@@ -224,5 +224,10 @@ class PageEngineering(Base):
         self.engineering_window.double_click_input(coords=coords)
         time.sleep(0.5)
 
-    def in_job_steps_right_click_first_step(self):
-        self.engineering_window.click_input(coords=page.engineering_injob_steps_right_click_first_step_coords)
+    def in_job_steps_delete_step_first(self):
+        self.engineering_window.click_input(
+            button="right", coords=page.engineering_inJob_steps_step_first_coords)  # 右击第一个step
+        self.engineering_window.click_input(coords=page.engineering_injob_steps_right_click_step_delete_coords)  # 单击选择step/delete按钮
+        time.sleep(0.5)
+        send_keys("{ENTER}")
+        send_keys("{ENTER}")   # 连续按下两次enter确认删除所选的step
