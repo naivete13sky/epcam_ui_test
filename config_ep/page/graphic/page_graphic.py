@@ -530,3 +530,7 @@ class PageGraphic(object):
         """
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_file_coords)
         self.graphic_window.click_input(coords=graphic.upper_menu_bar_file_drill_map_coords)
+
+    def open_transform_window(self):
+        self.graphic_window.click_input(coords=graphic.upper_menu_bar_edit_coord)
+        self.graphic_window.click_input(coords=graphic.edit_transform_coords)

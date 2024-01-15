@@ -53,6 +53,12 @@ edit_global_ok_button_coord = (55, 135)
 edit_global_information_window_para = {'title': "Information", 'control_type': "Window"}
 edit_global_information_yes_button_coord = (230, 90)
 
+transform_window_para = {'title': "Transform", 'control_type': "Window"}
+transform_operation_scale_checkbox_button_coords = (175, 105) # transform窗口scale复选框按钮坐标 -张
+transform_x_scale_text_coords = (127, 197) # transform窗口x_scale文本框坐标 -张
+transform_y_scale_text_coords = (310, 197) # transform窗口y_scale文本框坐标 -张
+transform_apply_button_coords = (205, 255)# transform窗口apply按钮坐标 -张
+
 edit_connection_window_para = {'title': "Connection", 'control_type': "Window"}
 edit_connection_corner_coord = (100, 100)
 edit_connection_round_coord = (220, 100)
@@ -270,6 +276,8 @@ construct_pad_layer_popup_ok_button_coords = (60, 280)          # 左侧层别�
 run_on_features_inside_profile_button_coords = (105,650) # run_on_features_inside_profile按钮坐标 -张
 
 information_window_para = {'title': "Information", 'control_type': "Window"}
+information_yes_button_right_bot_coords = (138, 33) # information窗口yes按钮离窗口右下角坐标
+information_no_button_right_bot_coords = (55, 33) # information窗口no按钮离窗口右下角坐标
 information_ok_button_coords = (230, 100) # 张
 information_ok_button_right_bot_coords = (55, 30) # information窗口ok按钮离窗口右下角坐标 -张
 
