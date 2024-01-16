@@ -636,7 +636,7 @@ class TestUI:
         self.matrix.click_step(job_info, 'orig')  # 单击step
         send_keys('^c')
         self.matrix.click_step(job_info, 'orig')  # 再次单击将step复制到指定位置
-        self.matrix.step_list_in_step_click_empty()  # 鼠标指示放到空白处
+        self.matrix.step_list_in_step_click_empty()  # 鼠标指示放到空白处，方便后面截图
 
         matrix_window_step_first_pic = self.matrix.matrix_window.capture_as_image()  # 截图
         img = np.array(matrix_window_step_first_pic)
@@ -647,7 +647,7 @@ class TestUI:
 
         self.matrix.close()  # 关闭matrix视窗
         self.engineering.go_up()  # 再双击go up按钮到软件主界面
-        self.engineering.close_job_first()  # 关闭该料
+        self.engineering.close_job_first()  # 不保存，关闭该料
 
         self.engineering.open_job_first_by_double_click()  # 再次双击打开料号
         self.engineering.open_matrix_by_double_click()  # 再次双击Matrix,打开Matrix窗口
@@ -685,7 +685,7 @@ class TestUI:
         self.engineering.in_job_steps_delete_step_first()  # 删除第一个step
 
         self.engineering.go_up()
-        self.engineering.go_up()  #双击两次go up按钮到软件主界面
+        self.engineering.go_up()  # 双击两次go up按钮到软件主界面
 
 
 class TestFile:
