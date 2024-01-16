@@ -32,6 +32,7 @@ class TestUI:
         self.engineering = PageEngineering()
         self.create = PageCreate()
         self.engineering.engineering_window.set_focus()  # 激活窗口
+        self.matrix = PageMatrix()
 
 
     def test_ui_all(self, epcam_ui_start):
@@ -611,6 +612,60 @@ class TestUI:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
+    @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Copy_step_Close_job'))
+    def test_engineering_copy_step_close_job_case_4759(self, job_id, epcam_ui_start,
+                                             download_file_compressed_entity_filter_delete_all_jobs_import):
+
+        """
+        matrix界面copy step后不保存直接close该料，软件不自动保存复制的step
+        禅道bugID：2528
+        :param job_id:44122
+        :param epcam_ui_start:
+        :return:
+        """
+        job_name, file_compressed_path = download_file_compressed_entity_filter_delete_all_jobs_import(job_id)  # 调用 fixture 并传递参数值,下载料号
+        self.engineering.open_job_first_by_double_click()  # 双击打开料号
+        self.engineering.open_matrix_by_double_click()  # 双击Matrix,打开Matrix窗口
+
+        job_info = {}
+        odb_folder_path = MyODB.get_odb_folder_path(file_compressed_path)  # 得到odb的matrix文件路径
+        odb_matrix_file = os.path.join(odb_folder_path, r'matrix\matrix')
+        job_info['step_info'] = MyODB.get_step_info_from_odb_file(odb_matrix_file)
+        job_info['layer_info'] = MyODB.get_layer_info_from_odb_file(odb_matrix_file)
+
+        self.matrix.click_step(job_info, 'orig')  # 单击step
+        send_keys('^c')
+        self.matrix.click_step(job_info, 'orig')  # 再次单击将step复制到指定位置
+        self.matrix.step_list_in_step_click_empty()  # 鼠标指示放到空白处
+
+        matrix_window_step_first_pic = self.matrix.matrix_window.capture_as_image()  # 截图
+        img = np.array(matrix_window_step_first_pic)
+        img_cut = img[140:185, 190:286]  # 后面的是水平方向
+        text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
+        print('text:', text)  # 打印识别出的文本
+        assert text in 'orig+1\n'
+
+        self.matrix.close()  # 关闭matrix视窗
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
+        self.engineering.close_job_first()  # 关闭该料
+
+        self.engineering.open_job_first_by_double_click()  # 再次双击打开料号
+        self.engineering.open_matrix_by_double_click()  # 再次双击Matrix,打开Matrix窗口
+
+        matrix_window_step_first_pic = self.matrix.matrix_window.capture_as_image()  # 截图
+        img = np.array(matrix_window_step_first_pic)
+        img_cut = img[140:185, 190:286]  # 后面的是水平方向
+        text = pytesseract.image_to_string(img_cut)  # 使用Tesseract进行文字识别
+        print('text:', text)  # 打印识别出的文本
+        assert text in 'orig\n'
+        # 预期在相同位置截图时，step名称为原始名称：orig，则证明copy step后不保存直接close该料，软件不自动保存复制的step
+
+        self.matrix.close()  # 关闭matrix视窗
+        self.engineering.go_up()  # 再双击go up按钮到软件主界面
+        self.engineering.close_job_first()  # 关闭该料
+
+    @pytest.mark.from_bug
+    @pytest.mark.crash
     @pytest.mark.parametrize("job_id", GetTestData().get_job_id('Steps_right_click_delete'))
     def test_engineering_steps_right_click_delete_case_4752(self, job_id, epcam_ui_start,
                                              download_file_compressed_entity_filter_delete_all_jobs_import):
@@ -618,7 +673,7 @@ class TestUI:
         """
         steps界面下，使用右击/delete功能删除从左往右的最后一个step软件不闪退
         禅道bugID：2307
-        :param job_id:44122
+        :param job_id:29620
         :param epcam_ui_start:
         :return:
         """

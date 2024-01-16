@@ -185,6 +185,22 @@ class PageMatrix(Base,MyMouse):
         coords = (coord_x, coord_y)
         self.matrix_double_click(coords) # 双击
 
+    def click_step(self, job_info, step):
+        """
+        单击step
+        :param job_info:
+        :param step:
+        """
+        step_info = job_info.get('step_info')
+        layer_info = job_info.get('layer_info')
+        drill_rout_count = self.get_drill_rout_count(layer_info)
+
+        step_col =  int(step_info.get(step.upper())['col'])
+        coord_x  =220 + (step_col - 1) * 100 + drill_rout_count * 15
+        coord_y = 160
+        coords = (coord_x, coord_y)
+        self.matrix_click(coords)  # 单击
+
     def click_layer(self, job_info, layer):
         """
         单击层别
@@ -314,3 +330,6 @@ class PageMatrix(Base,MyMouse):
         send_keys('^a')
         send_keys(step_name)
         self.matrix_double_click(coord)
+
+    def step_list_in_step_click_empty(self):
+        self.matrix_window.click_input(coords=page.matrix.step_list_in_step_empty_coord)  # 鼠标点击空白处，不选择step
