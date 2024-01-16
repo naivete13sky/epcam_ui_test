@@ -10,6 +10,7 @@ from config_ep.page.graphic.upper_menu_bar.dfm.page_solder_mask_optimization imp
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestPowerGroundOptimization:
     def setup_method(self):
         self.engineering = PageEngineering()

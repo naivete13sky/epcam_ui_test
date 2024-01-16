@@ -68,6 +68,18 @@ edit_connection_information_ok_coord = (90, 235)
 
 edit_reshape_contour2pad_window_para = {'title': "Contour To Pad", 'control_type': "Window"}
 edit_reshape_contour2pad_ok_button_coord = (60, 110)
+
+edit_reshape_contourize_window_para = {'title': "Contourize", 'control_type': "Window"}
+edit_reshape_contourize_accuracy_input_coord = (155, 50)
+edit_reshape_contourize_separate2islands_box_coord = (155, 80)
+edit_reshape_contourize_separate2islands_no_coord = (155, 115)
+edit_reshape_contourize_max_size_input_coord = (155, 135)
+edit_reshape_contourize_mode1_coord = (155, 160)
+edit_reshape_contourize_mode2_coord = (215, 160)
+edit_reshape_contourize_mode3_coord = (290, 160)
+edit_reshape_contourize_ok_button_coord = (60, 190)
+edit_reshape_contourize_information_yes_button_coord = (230, 90)
+
 edit_reshape_substitute_window_para = {'title': "Substitute", 'control_type': "Window"}
 edit_reshape_substitute_symbol_input_coord = (200, 85)
 edit_reshape_substitute_ok_button_coord = (60, 205)

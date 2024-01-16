@@ -8,11 +8,13 @@ from config_ep.page.graphic.right_tool_bar.page_add_feature import PageSymbol
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
-class TestAddLine():
+
+class TestAddLine:
     def test_add_line(self):
         print("123")
 
-class TestAddPad():
+
+class TestAddPad:
 
     @pytest.mark.from_bug
     @pytest.mark.crash
@@ -80,16 +82,21 @@ class TestAddPad():
         engineering.go_up()
         engineering.go_up()
 
-class TestAddSurface():
+
+class TestAddSurface:
     def test_add_surface(self):
         print("123")
 
-class TestAddArc():
+
+class TestAddArc:
     def test_add_arc(self):
         print("123")
-class TestAddText():
+
+
+class TestAddText:
     def test_add_text(self):
         print("123")
+
 
 class TestAddFeature:
     def setup_method(self):

@@ -6,6 +6,7 @@ from config_ep.page.graphic.left_layer_bar.page_multi_layer_copy import PageMult
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestMultiLayerCopy:
     def setup_method(self):
         self.engineering = PageEngineering()

@@ -9,8 +9,6 @@ delete_layer_coords = (40, 380)
 
 features_histogram_window_para = {'title': "Features Histogram", 'control_type': "Window"}
 
-features_histogram_window_para = {'title': "Features Histogram", 'control_type': "Window"}
-
 """ 以下是Copper/Exposed Area功能模块信息 """
 copper_exposed_area_window_para = {'title': "Copper/Exposed Area", 'control_type': "Window"} # -张
 copper_exposed_area_measurement_copper_area_coords = (113, 51)  # copper_area单选按钮坐标 -张

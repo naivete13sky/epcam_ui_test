@@ -24,6 +24,7 @@ class TestGlobal:
     def test_graphic_global_case_4702(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证资料加大后关闭料号软件闪退问题
         禅道BUG：3288
         :param job_id:44562
         :param epcam_ui_start:
@@ -56,6 +57,7 @@ class TestGlobal:
     def test_graphic_global_case_4734(self, job_id, epcam_ui_start,
                                       download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证涨大Symbol物件消失，查看物件数量闪退问题
         禅道BUG：4464
         :param job_id:45309
         :param epcam_ui_start:

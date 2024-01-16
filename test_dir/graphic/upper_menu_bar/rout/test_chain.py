@@ -50,6 +50,7 @@ class TestChain:
     def test_graphic_chain_case_4721(self, job_id, epcam_ui_start,
                                      download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Chain走刀设置起刀位置warning弹窗崩溃问题
         禅道bug:5303
         :param job_id:44817
         :param epcam_ui_start:
@@ -84,7 +85,7 @@ class TestChain:
         self.graphic.click_canvas(850, 115)
         send_keys("{VK_SHIFT up}")
         self.graphic.open_connection_window()
-        self.connection.click_apply_button()
+        self.connection.connection_mode('corner')
         self.connection.close()
         self.graphic.click_canvas(720, 125)
         send_keys('^b')

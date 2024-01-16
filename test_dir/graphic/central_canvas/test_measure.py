@@ -6,11 +6,13 @@ from config_ep.page.graphic.central_canvas.page_measurement_mark import PageMeas
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestMeasurementtMask:
     def setup_method(self):
         self.engineering = PageEngineering()
         self.engineering.engineering_window.set_focus()
         self.graphic = PageGraphic()
+
 
 class TestBetweenMidpoints:
     def setup_method(self):

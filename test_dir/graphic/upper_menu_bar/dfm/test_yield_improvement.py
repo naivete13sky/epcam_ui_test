@@ -12,7 +12,7 @@ from config_ep.page.graphic.upper_menu_bar.dfm.page_basic_etch_compensation impo
 from config_ep.page.graphic.upper_menu_bar.edit.page_change_symbol import PageChangeSymbol
 from config_ep.page.graphic.upper_menu_bar.edit.page_undo import PageUndo
 from cc.cc_method import GetTestData
-from config_ep.base.base import MyODB,MyGw
+from config_ep.base.base import MyODB, MyGw
 
 
 class TestDynamicEtchCompensation:
@@ -64,6 +64,7 @@ class TestDynamicEtchCompensation:
     def test_graphic_dynamic_etch_compensation_case_4715(self, job_id, epcam_ui_start,
                                                          download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Dynamic Etch Comp动补优化闪退问题
         禅道bug ID:5025
         :param job_id:44560
         :param epcam_ui_start:
@@ -167,6 +168,7 @@ class TestDynamicEtchCompensation:
         self.engineering.go_up()
         self.engineering.go_up()
 
+
 class TestBasicEtchCompensation:
     def setup_method(self):
         self.engineering = PageEngineering()
@@ -174,7 +176,6 @@ class TestBasicEtchCompensation:
         self.basicetch = PageBasicEtchCompensation()
         self.changesymbol = PageChangeSymbol()
         self.basic_etch_compensation = PageBasicEtchCompensation()
-        # self.undo = PageUndo()
         self.engineering.engineering_window.set_focus()
 
     @pytest.mark.from_bug
@@ -183,6 +184,7 @@ class TestBasicEtchCompensation:
     def test_basic_etch_compensation_case_4742(self, job_id, epcam_ui_start,
                                                download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Basic Etch Comp功能卡死问题
         禅道bug ID:3922
         :param job_id:
         :param epcam_ui_start:

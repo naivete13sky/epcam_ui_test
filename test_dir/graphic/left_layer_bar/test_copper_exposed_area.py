@@ -4,8 +4,10 @@ from config_ep.page.graphic.page_graphic import PageGraphic
 from config_ep.page.page_engineering import PageEngineering
 from config_ep.page.graphic.left_layer_bar.page_copper_exposed_area import PageCopperExposedArea
 from cc.cc_method import GetTestData
-from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_puzzle_by_table import PageStepAndRepeatPuzzleByTable
+from config_ep.page.graphic.upper_menu_bar.step.page_step_and_repeat_puzzle_by_table \
+    import PageStepAndRepeatPuzzleByTable
 from config_ep.base.base import MyODB
+
 
 class TestCopperExposedArea:
     def setup_method(self):

@@ -96,8 +96,8 @@ class TestAngleForUserSymbol:
     def test_graphic_usersymbol_case_4653(self, job_id, epcam_ui_start,
                                           download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Angel_For_UserSymbol 功能闪退
         禅道BUG：1811
-        禅道用例：4653
         :param job_id:44123
         :param epcam_ui_start:
         :return:

@@ -19,6 +19,7 @@ class TestSelectByNet:
     def test_graphic_select_by_net_case_4726(self, job_id, epcam_ui_start,
                                              download_file_compressed_entity_filter_delete_all_jobs_import):
         """
+        验证Select Layer Net选择文字框闪退问题
         禅道BUG：5929
         :param job_id:44814
         :param epcam_ui_start:

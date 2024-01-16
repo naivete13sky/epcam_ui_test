@@ -4,6 +4,7 @@ from config_ep.page.graphic.upper_menu_bar.analysis.page_layer_netlist_check imp
 from cc.cc_method import GetTestData
 from config_ep.base.base import MyODB
 
+
 class TestLayerNetlistCheck:
 
     @pytest.mark.from_bug
