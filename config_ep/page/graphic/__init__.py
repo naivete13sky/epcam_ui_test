@@ -29,6 +29,7 @@ edit_connection_line_arc_select_arc_coord = (1020, 612)
 
 edit_reshape_coord = (160, 245)
 edit_reshape_contour2pad_coord = (470, 365)
+edit_reshape_contourize_coord = (470, 437)
 edit_reshape_substitute_coord = (470, 485)
 edit_reshape_substitute_area_zoom_1_coord = (650, 400)
 edit_reshape_substitute_area_zoom_2_coord = (700, 430)

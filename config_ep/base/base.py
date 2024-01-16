@@ -26,7 +26,6 @@ class Base:
         return job_name, file_compressed_path
 
 
-
 class MyODB:
     pass
 
@@ -116,7 +115,7 @@ class MyODB:
         """
         dict_rangs = {}
         ep_cam_path = RunConfig.ep_cam_path
-        dynamic_compensate_ranges_path = os.path.join(ep_cam_path,r"ERFconfig\DynamicCompensateRanges")
+        dynamic_compensate_ranges_path = os.path.join(ep_cam_path, r"ERFconfig\DynamicCompensateRanges")
         for root, directories, filenames in os.walk(dynamic_compensate_ranges_path):
             index = 0
             for filename in filenames:
@@ -137,6 +136,7 @@ class MyODB:
         data = json.loads(content)
         ranges = data["Ranges"]
         return ranges
+
 
 class File:
     @staticmethod
@@ -186,6 +186,7 @@ class MyMouse:
         """
         pyautogui.scroll(clicks=clicks)
 
+
 class MyGw:
     @staticmethod
     def get_information_window_ok_button_coords(coords,window_title='Information',time_sleep=0.5):
@@ -201,7 +202,6 @@ class MyGw:
         window = gw.getWindowsWithTitle(window_title)[0]
         coords = (window.right - coords[0] - window.left, window.bottom - coords[1] - window.top)
         return coords
-
 
     @staticmethod
     def waiting_window(window_name='Please wait',max_wait_time=180):

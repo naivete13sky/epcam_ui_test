@@ -25,6 +25,7 @@ from config_ep.page.page_view_graphic import PageViewGraphic
 from config_ep.page.page_input_jobs import PageInputJobs
 from config_ep.page.page_input_steps import PageInputSteps
 
+
 @pytest.mark.input
 class TestUI:
     @pytest.fixture(autouse=True)
@@ -32,7 +33,6 @@ class TestUI:
         self.engineering = PageEngineering()
         self.create = PageCreate()
         self.engineering.engineering_window.set_focus()  # 激活窗口
-
 
     def test_ui_all(self, epcam_ui_start):
         engineering_window_pic = self.engineering.engineering_window.capture_as_image()  # 截图
