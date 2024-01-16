@@ -226,6 +226,8 @@ class PageEngineering(Base):
 
     def in_job_steps_delete_step_first(self):
         self.engineering_window.click_input(
+            button="left", coords=page.engineering_inJob_steps_step_first_coords)  # 点击第一个step
+        self.engineering_window.click_input(
             button="right", coords=page.engineering_inJob_steps_step_first_coords)  # 右击第一个step
         self.engineering_window.click_input(coords=page.engineering_injob_steps_right_click_step_delete_coords)  # 单击选择step/delete按钮
         time.sleep(0.5)
