@@ -672,7 +672,7 @@ class TestUI:
 
         """
         steps界面下，使用右击/delete功能删除从左往右的最后一个step软件不闪退
-        禅道bugID：2307
+        禅道bugID：5271
         :param job_id:29620
         :param epcam_ui_start:
         :return:
